@@ -191,7 +191,6 @@
     }
 }
 
-/* Responsive styles for smaller screens */
 @media (min-width: 767px) {
     .responsive-input {
         width: 100%;
