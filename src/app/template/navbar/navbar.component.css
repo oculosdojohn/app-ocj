@@ -9,7 +9,6 @@
   }
 .ml-2{
     font-size: 15px;
-    font-weight: bold;
     color: #FFFFFF;
 }
 .button-menu{
@@ -19,7 +18,7 @@
 
 .mat-drawer-content{
     /* height: 100vh; */
-    background-color: #f9f4ed;
+    background-color: #e3e3e3;
 }
 
 .link-icon{
