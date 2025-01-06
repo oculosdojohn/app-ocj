@@ -6,11 +6,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { SistemaModule } from './sistema/sistema.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutComponent } from './layout/layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TemplateModule } from './template/template.module';
+import { SistemaModule } from './sistema/sistema.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { TemplateModule } from './template/template.module';
     BrowserAnimationsModule,
     TemplateModule,
     HttpClientModule,
-    SistemaModule,
     SistemaModule,
     FormsModule,
     NgbModule,

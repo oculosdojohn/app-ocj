@@ -1,0 +1,94 @@
+.container {
+    max-width: 1300px;
+    padding: 10px;
+    font-family: "Nunito Sans", sans-serif;
+  }
+  
+  .section {
+    background-color: #f9f4ed;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .weather-icon {
+    width: 100px;
+    height: auto;
+  }
+  
+  .section-cards {
+    margin-top: 20px;
+  }
+  
+  .custom-card {
+    background-color: #fdf4ed;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    
+  }
+
+  
+  .custom-card-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #a43821; /* Cor similar ao exemplo */
+    margin-bottom: 10px;
+  }
+  
+  .custom-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espaço entre ícone e texto */
+  }
+  
+  .custom-card-icon {
+    width: 32px;
+    height: 32px;
+    background-color: #245C39; /* Fundo circular para ícones */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .custom-card-icon img {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .custom-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin: 0;
+  }
+  
+  
+  
+  .btn {
+    margin-top: 10px;
+    background-color: #ff7a59;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .motivation-box {
+    text-align: center;
+  }
+  
+  #motivational-message {
+    font-size: 18px;
+    font-style: italic;
+  }
+  
+  .rounded-section {
+    background: #fdf4ed;
+    margin-top: 40px;
+  }
+  
+.section-cards{
+    margin-top: 20px;
+}
