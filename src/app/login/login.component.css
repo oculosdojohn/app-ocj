@@ -1,5 +1,5 @@
 #layoutAuthentication #layoutAuthentication_content {
-    background-image: url('src/assets/imgs/ocj-login.svg'); 
+    background-image: url('src/assets/imgs/capa-ocj.jpg'); 
     background-size: cover;
     background-position: center; 
     background-color: #5C019C;
@@ -7,8 +7,8 @@
 
 .btn-primary {
     color: #fff;
-    background-color:#CB4417;
-    border-color:#CB4417;
+    background-color:#34681d;
+    border-color:#34681d;
     font-family: 'Nunito Sans', sans-serif;
     margin-top: 5px;
     border-radius: 15px;
