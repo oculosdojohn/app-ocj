@@ -8,16 +8,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { SistemaModule } from './sistema/sistema.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LayoutComponent } from './layout/layout.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TemplateModule } from './template/template.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    TemplateModule,
+    HttpClientModule,
+    SistemaModule,
     SistemaModule,
     FormsModule,
     NgbModule,

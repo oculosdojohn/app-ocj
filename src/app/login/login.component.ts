@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
 
 onSubmit() {
-  this.router.navigate(['visu']);
+  this.router.navigate(['usuario/dashboard-admin']);
 }
 
 login() {
