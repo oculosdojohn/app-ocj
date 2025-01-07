@@ -15,19 +15,14 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-   // private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    //this.authService.obterNomeUsuario().subscribe(
-    //  nome => this.nomeUsuario = nome,
-    //  err => console.error('Erro ao buscar nome do usuário', err)
-    //);
+
   }
 
   logout() {
-  //  this.authService.encerrarSessao();
     this.router.navigate(['/login']);
   }
 
@@ -46,5 +41,6 @@ export class NavbarComponent implements OnInit {
   isActive(route: string): boolean {
     return this.router.isActive(route, true);
   }
+
 
 }

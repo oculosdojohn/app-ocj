@@ -1,5 +1,5 @@
 #layoutAuthentication #layoutAuthentication_content {
-    background-image: url('src/assets/imgs/capa-ocj.jpg'); 
+    background-image: url('src/assets/imgs/login-capa.svg'); 
     background-size: cover;
     background-position: center; 
     background-color: #5C019C;
@@ -234,8 +234,8 @@
 }
 
 .btn-success {
-    background-color: #28a745; /* Cor de fundo para o botão Enviar */
-    border-color: #28a745; /* Cor da borda para o botão Enviar */
+    background-color: #34681D; /* Cor de fundo para o botão Enviar */
+    border-color: #34681D; /* Cor da borda para o botão Enviar */
     color: #fff; /* Cor do texto para o botão Enviar */
 }
 
@@ -260,6 +260,10 @@ input::placeholder {
     color: #245C39;
     font-weight: bold;
     font-size: 14px;
+}
+.white-text{
+    font-size: 14px;
+    
 }
 
 .small{
@@ -330,3 +334,7 @@ input::placeholder {
 .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
     border-radius: 8px;
   }
+
+.card-header{
+    background-color: #163F23;
+}

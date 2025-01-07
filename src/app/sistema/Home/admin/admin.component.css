@@ -9,83 +9,132 @@
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+
+  .col-md-8 h1 {
+    font-size: 30px; /* Reduz o tamanho da tipografia */
+    font-weight: bold; /* Mantém o destaque */
+    margin-left: 20px; /* Move o título para a direita */
+  }
   
+
   .weather-icon {
-    width: 100px;
-    height: auto;
+    max-width: 120px; /* Impõe um tamanho máximo */
+    max-height: 120px; /* Impõe um limite de altura */
+    object-fit: contain; /* Garante que o ícone fique ajustado no limite */
+  }  
+  
+  .weather-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  #weather-info {
+    font-size: 14px;
+    color: #555;
   }
   
   .section-cards {
     margin-top: 20px;
   }
-  
+
   .custom-card {
-    background-color: #fdf4ed;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 200px; /* Altura fixa para alinhamento */
+    background-color:#afd0c2; /* Cor de fundo branca */
+    border-radius: 12px; /* Cantos arredondados */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     text-align: center;
     padding: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    
+    transition: transform 0.2s, box-shadow 0.2s; /* Efeito de hover */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espaço entre número e conteúdo inferior */
   }
-
   
   .custom-card-number {
-    font-size: 28px;
+    font-size: 38px; /* Tamanho do número */
     font-weight: bold;
-    color: #a43821; /* Cor similar ao exemplo */
-    margin-bottom: 10px;
+    color: #a43821; /* Cor do número */
+    margin: 0;
   }
   
   .custom-card-content {
     display: flex;
-    align-items: center;
+    align-items: center; /* Centraliza verticalmente o ícone e o texto */
     justify-content: center;
-    gap: 8px; /* Espaço entre ícone e texto */
+    gap: 10px; /* Espaço entre o ícone e o texto */
   }
   
   .custom-card-icon {
-    width: 32px;
-    height: 32px;
-    background-color: #245C39; /* Fundo circular para ícones */
-    border-radius: 50%;
+    width: 40px; /* Tamanho do fundo do ícone */
+    height: 40px;
+    background-color: #245C39; /* Fundo circular claro */
+    border-radius: 50%; /* Forma circular */
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
   .custom-card-icon img {
-    width: 16px;
-    height: 16px;
+    width: 20px; /* Tamanho do ícone */
+    height: 20px;
   }
   
   .custom-card-title {
-    font-size: 16px;
+    font-size: 14px; /* Tamanho do texto */
     font-weight: 600;
-    color: #2c2c2c;
+    color: #2c2c2c; /* Cor do texto */
     margin: 0;
-  }
-  
-  
+  } 
   
   .btn {
     margin-top: 10px;
-    background-color: #ff7a59;
+    background-color: #577BC1;
     color: white;
     border-radius: 5px;
+    font-size: 12px;
+    border-color: #577BC1;
   }
   
   .motivation-box {
-    text-align: center;
+    text-align: left; /* Alinha todo o conteúdo à esquerda */
   }
   
   #motivational-message {
     font-size: 18px;
     font-style: italic;
+    margin-bottom: 5px; /* Reduz o espaço entre o texto e o botão */
   }
   
+  .button-container {
+    margin-top: 8px; /* Menor espaço superior para o botão */
+    text-align: right;
+  }
+  
+  .btn {
+    margin-top: 0; /* Remove margem adicional do botão */
+    background-color: #577BC1;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    border-color: #577BC1;
+  }
+  
+  
   .rounded-section {
-    background: #fdf4ed;
+    background-image: url('src/assets/imgs/cap-co.png'); 
+    background-size: cover; /* Faz a imagem preencher a seção */
+    background-repeat: no-repeat; /* Impede a repetição da imagem */
+    background-position: center; /* Centraliza a imagem */
+    margin-top: 40px;
+  }
+
+  
+  .rounded-section-2 {
+    background-color: #afd0c2;
     margin-top: 40px;
   }
   

@@ -1,83 +1,91 @@
 <div class="container pt-5">
-    <!-- Section 1: Bem-vindo com API de Clima -->
-    <div class="section rounded-section p-4">
-      <div class="row align-items-center">
+   <!-- Section 1: Bem-vindo com API de Clima -->
+<div class="section rounded-section p-4">
+    <div class="row align-items-center text-center">
         <div class="col-md-8">
-          <h1>👋 Bem-vindo(a), John</h1>
-          <h3>Veja o clima da sua cidade:</h3>
-          <p id="weather-info">Carregando clima...</p>
+            <h1>👋 Bem-vindo(a), John</h1>
+          </div>
+      <div class="col-md-4">
+        <h4 class="weather-title">Clima de Russas/CE</h4>
+        <img
+          [src]="iconUrl"
+          alt="Ícone do Clima"
+          class="weather-icon"
+          *ngIf="iconUrl"
+        />
+        <p id="weather-info">
+          <strong>Clima:</strong> {{ weatherDescription }}<br />
+          <strong>Temperatura:</strong> {{ temperature }}°C
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="section rounded-section-2 p-4 mt-4"> 
+    <div class="motivation-box">
+      <p id="motivational-message">{{ motivationalMessage }}</p>
+      <div class="button-container">
+        <button class="btn btn-primary" (click)="updateMotivationalMessage()">Atualizar Mensagem</button>
+      </div>
+    </div>
+  </div>
+    
+  <div class="section-cards">
+    <div class="row">
+      <!-- Card 1 -->
+      <div class="col-md-3 mb-4">
+        <div class="custom-card">
+          <h2 class="custom-card-number">12</h2>
+          <div class="custom-card-content">
+            <div class="custom-card-icon">
+              <img src="assets/icones/store.svg" alt="Lojas">
+            </div>
+            <h5 class="custom-card-title">Lojas</h5>
+          </div>
         </div>
-        <div class="col-md-4 text-center">
-          <img src="assets/weather-icon.png" alt="Clima" class="weather-icon">
+      </div>
+  
+      <!-- Card 2 -->
+      <div class="col-md-3 mb-4">
+        <div class="custom-card">
+          <h2 class="custom-card-number">12</h2>
+          <div class="custom-card-content">
+            <div class="custom-card-icon">
+              <img src="assets/icones/user-ge.svg" alt="Gerentes">
+            </div>
+            <h5 class="custom-card-title">Gerentes</h5>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 3 -->
+      <div class="col-md-3 mb-4">
+        <div class="custom-card">
+          <h2 class="custom-card-number">12</h2>
+          <div class="custom-card-content">
+            <div class="custom-card-icon">
+              <img src="assets/icones/users.svg" alt="Funcionários">
+            </div>
+            <h5 class="custom-card-title">Funcionários</h5>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card 4 -->
+      <div class="col-md-3 mb-4">
+        <div class="custom-card">
+          <h2 class="custom-card-number">12</h2>
+          <div class="custom-card-content">
+            <div class="custom-card-icon">
+              <img src="assets/icones/couse.svg" alt="Cursos">
+            </div>
+            <h5 class="custom-card-title">Cursos</h5>
+          </div>
         </div>
       </div>
     </div>
+  </div>
   
-    <!-- Section 2: Mensagem Motivacional -->
-    <div class="section rounded-section p-4 mt-4">
-      <h2>Mensagem Motivacional do Dia</h2>
-      <div class="motivation-box">
-        <p id="motivational-message">"Acredite em você mesmo e vá além!"</p>
-        <button class="btn btn-primary" onclick="updateMotivationalMessage()">Atualizar Mensagem</button>
-      </div>
-    </div>
-  
-    <div class="section-cards">
-        <div class="row">
-          <!-- Card 1 -->
-          <div class="col-md-3 mb-4">
-            <div class="custom-card">
-              <h2 class="custom-card-number">12</h2>
-              <div class="custom-card-content">
-                <div class="custom-card-icon">
-                  <img src="assets/icones/store.svg" alt="Lojas">
-                </div>
-                <h5 class="custom-card-title">Lojas</h5>
-              </div>
-            </div>
-          </div>
-      
-          <!-- Card 2 -->
-          <div class="col-md-3 mb-4">
-            <div class="custom-card">
-              <h2 class="custom-card-number">12</h2>
-              <div class="custom-card-content">
-                <div class="custom-card-icon">
-                  <img src="assets/icones/user-ge.svg" alt="Gerentes">
-                </div>
-                <h5 class="custom-card-title">Gerentes</h5>
-              </div>
-            </div>
-          </div>
-      
-          <!-- Card 3 -->
-          <div class="col-md-3 mb-4">
-            <div class="custom-card">
-              <h2 class="custom-card-number">12</h2>
-              <div class="custom-card-content">
-                <div class="custom-card-icon">
-                  <img src="assets/icones/users.svg" alt="Funcionários">
-                </div>
-                <h5 class="custom-card-title">Funcionários</h5>
-              </div>
-            </div>
-          </div>
-      
-          <!-- Card 4 -->
-          <div class="col-md-3 mb-4">
-            <div class="custom-card">
-              <h2 class="custom-card-number">12</h2>
-              <div class="custom-card-content">
-                <div class="custom-card-icon">
-                  <img src="assets/icones/couse.svg" alt="Cursos">
-                </div>
-                <h5 class="custom-card-title">Cursos</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      
   </div>
   

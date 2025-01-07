@@ -77,16 +77,16 @@
 }
 
 .mat-list-item:hover {
-    background-color: #f9f4ed;/* Cor de destaque ao passar o mouse */
+    background-color: #e2e2e265;/* Cor de destaque ao passar o mouse */
     font-weight: bold;
 }
 
 .mat-list-item:hover .icon {
-    color:#d87a0e;
+    color:#ffffff;
 }
 
 .mat-list-item:hover span {
-    color: #d87a0e;
+    color: #ffffff;
 }
 
 /* Adaptações para dispositivos móveis */
@@ -104,7 +104,7 @@
         bottom: 0;
         left: 0;
         width: 3px; /* Largura da linha vertical */
-        background-color:#CDDAEF;
+        background-color:#d87a0e;
         display: none; /* Inicialmente, a linha está oculta */
     }
 
@@ -114,15 +114,16 @@
     }
 
     .mat-list-item:hover {
-        background-color: #F4FCF1; /* Cor de destaque ao passar o mouse */  
+        background-color: #e2e2e265;/* Cor de destaque ao passar o mouse */
+        font-weight: bold;
     }
 
     .mat-list-item:hover .icon {
-        color:#CDDAEF;
+        color:#fefefe;
     }
 
     .mat-list-item:hover span {
-        color: #0D356A;
+        color: #ffffff;
     }
 }
 
@@ -136,11 +137,34 @@
 }
 
 .active-link {
-    background-color: #cfe2ff; 
-    font-weight: bold; 
-    color: #040404; 
+    background-color: #e2e2e265;
+    border-radius: 30px; /* Bordas arredondadas */
+    color: #FFFFFF; /* Cor do texto branco */
+    font-weight: bold; /* Texto em negrito */
+    padding: 10px; /* Espaçamento interno */
+    display: flex; /* Flexbox para alinhamento */
+    align-items: center; /* Alinhamento vertical centralizado */
 }
 
+.active-link .icon {
+    color: #FFFFFF; /* Cor do ícone branco */
+}
+.mat-list-item.active-link:before {
+    content: ""; /* Adiciona a linha vertical */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px; /* Largura da linha */
+    background-color: #d87a0e; /* Cor da linha laranja */
+    display: block; /* Sempre visível para o active-link */
+}
+/* Estilo para o texto do link ativo */
+a.active-link span {
+    color: #010101; /* Cor laranja para o texto */
+    font-weight: bold; /* Negrito para destaque */
+    font-size: 16px;
+}
 
 .mat-drawer-sidenav{
     width: 200px;
@@ -169,10 +193,6 @@
 .sb-nav-link-icon {
     margin: 10px;
     /* Adicione margem conforme desejado */
-}
-
-.icon-color {
-    color: #0D356A;
 }
 
 .cor {

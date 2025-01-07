@@ -11,6 +11,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TemplateModule } from './template/template.module';
 import { SistemaModule } from './sistema/sistema.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { SistemaModule } from './sistema/sistema.module';
     SistemaModule,
     FormsModule,
     NgbModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

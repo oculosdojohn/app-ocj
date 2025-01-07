@@ -1,30 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServicesApisService {
-  private adviceApiUrl = 'https://api.adviceslip.com/advice'; // API original
-  private translateApiUrl = 'https://api.mymemory.translated.net/get'; // API de tradução gratuita
+  
+  private openweathermapWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  private openweathermapKey = 'dd3ce94aa0b74ec4b1cc3086d70a3c0d';
 
   constructor(private http: HttpClient) {}
 
-  fetchMotivationalMessage(): Observable<string> {
-    return this.http.get<any>(this.adviceApiUrl).pipe(
-      map((response) => response.slip.advice), // Extrai a mensagem em inglês
-      switchMap((message) => this.translateToPortuguese(message)) // Traduz para português
-    );
-  }
-
-  private translateToPortuguese(text: string): Observable<string> {
-    const url = `${this.translateApiUrl}?q=${encodeURIComponent(
-      text
-    )}&langpair=en|pt`;
-    return this.http.get<any>(url).pipe(
-      map((response) => response.responseData.translatedText) // Obtém o texto traduzido
-    );
+  /**
+   * Busca o clima diretamente para Russas, Ceará, Brasil.
+   */
+  fetchWeatherForRussas(): Observable<any> {
+    const lat = -4.9404; // Latitude de Russas
+    const lon = -37.9756; // Longitude de Russas
+    const url = `${this.openweathermapWeatherUrl}?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${this.openweathermapKey}`;
+    return this.http.get<any>(url);
   }
 }
