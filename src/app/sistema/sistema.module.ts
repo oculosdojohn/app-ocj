@@ -12,6 +12,11 @@ import { CursosComponent } from './Servicos/cursos/cursos.component';
 import { ForumNoticiasComponent } from './Servicos/forum-noticias/forum-noticias.component';
 import { FaleComODonoComponent } from './Servicos/fale-com-o-dono/fale-com-o-dono.component';
 import { LojinhaComponent } from './Servicos/lojinha/lojinha.component';
+import { RhFuncionariosComponent } from './rh/rh-funcionarios/rh-funcionarios.component';
+import { CadastroCursosComponent } from './Servicos/cadastro-cursos/cadastro-cursos.component';
+import { CadastroNoticiasComponent } from './Servicos/cadastro-noticias/cadastro-noticias.component';
+import { CadastroLojinhaProdutosComponent } from './Servicos/cadastro-lojinha-produtos/cadastro-lojinha-produtos.component';
+import { RhComponent } from './Home/rh/rh.component';
 
 
 @NgModule({
@@ -25,7 +30,12 @@ import { LojinhaComponent } from './Servicos/lojinha/lojinha.component';
     CursosComponent,
     ForumNoticiasComponent,
     FaleComODonoComponent,
-    LojinhaComponent
+    LojinhaComponent,
+    RhFuncionariosComponent,
+    CadastroCursosComponent,
+    CadastroNoticiasComponent,
+    CadastroLojinhaProdutosComponent,
+    RhComponent
   ],
   imports: [
     CommonModule,
