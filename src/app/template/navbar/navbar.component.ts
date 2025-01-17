@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
-  nomeUsuario: string = ''; // Variável para armazenar o nome do usuário
+ 
+  permissaoUsuario: string = 'Administrador'; // Pegue dinamicamente do serviço de autenticação
+  nomeUsuario: string = 'Johnatta'; 
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -24,6 +26,10 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.router.navigate(['/login']);
+  }
+
+  toggleDropdown(): void {
+    // Função opcional, caso queira adicionar mais lógica ao dropdown
   }
 
   toggleSidenav() {
@@ -41,6 +47,12 @@ export class NavbarComponent implements OnInit {
   isActive(route: string): boolean {
     return this.router.isActive(route, true);
   }
+
+  verPerfil(): void {
+    // Redirecione para a página de perfil
+    console.log('Abrindo página de perfil...');
+  }
+
 
 
 }

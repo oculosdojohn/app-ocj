@@ -7,14 +7,28 @@
         <img src="assets/icones/john-logo.svg" alt="" style="padding: 10px; height: 65px;" class="d-inline-block align-text-top">
     </a>
 
-    <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false"
-        aria-controls="collapseLayouts">
-        <div class="sb-nav-link-icon">
-            <a class="cor btn btn-logout" (click)="logout();"> Sair 
-                <img src="assets/icones/sair-john.svg" alt="Ícone de Sair" class="icon">
-            </a>
+    <div class="profile-container">
+        <div class="profile-info" (click)="toggleDropdown()" [matMenuTriggerFor]="profileMenu">
+          <img class="profile-picture" src="assets/imgs/foto-ever.jpeg" alt="Foto do usuário">
+          <div class="profile-details">
+            <span class="profile-name">{{ nomeUsuario }}</span>
+            <span class="profile-role">{{ permissaoUsuario }}</span>
+          </div>
+          <mat-icon>arrow_drop_down</mat-icon>
         </div>
-    </a>
+      
+        <!-- Dropdown Menu -->
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item (click)="verPerfil()">
+            <mat-icon>person</mat-icon> Meu Perfil
+          </button>
+          <button mat-menu-item class="btn-logout" (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon> Sair
+          </button>
+        </mat-menu>
+      </div>
+      
+      
 </mat-toolbar>
 
 <mat-drawer-container>

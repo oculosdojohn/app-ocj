@@ -38,17 +38,10 @@
 }
 
 .btn-logout{
-    color: #FFFFFF;
-    border-radius: 8px;
+    color: #000000;
 }
 
-.btn-logout:hover {
-    color: #FFFFFF;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px); 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+
 
 /* SIDEBAR CSS */
 
@@ -235,4 +228,57 @@ a.active-link span {
     }
 }
 
-
+.profile-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+  }
+  
+  .profile-info:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px; /* Reduzi para 8px */
+  }
+  
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px; /* Controla o espaçamento entre nome e permissão */
+  }
+  
+  .profile-name {
+    font-weight: bold;
+    font-size: 14px; /* Tamanho menor para o nome */
+    color: #ffffff;
+    margin-top: 20px;
+    margin-left: 5px;
+  }
+  
+  .profile-role {
+    font-size: 12px; /* Tamanho menor para a permissão */
+    color: #cfcfcf;
+    margin-bottom: 10px;
+  }
+  
+  mat-icon {
+    font-size: 24px;
+    color: #ffffff;
+    margin-left: 4px; /* Adiciona espaçamento pequeno ao lado */
+  }
+  

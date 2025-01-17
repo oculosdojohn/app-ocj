@@ -14,6 +14,9 @@ import { SistemaModule } from './sistema/sistema.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule, // Opcional, caso tenha botões com Angular Material
   ],
   providers: [],
   bootstrap: [AppComponent]
