@@ -4,16 +4,45 @@
     box-sizing: border-box;
 }
 
-
 .main-banner {
-    background-color: white; /* Fundo branco */
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 90px 10px 20px; /* 90px no topo, 10px nas laterais, 30px embaixo */
+    max-width: 1200px; /* Largura máxima do banner */
+    background-color: white; /* Cor de fundo do banner */
     border-radius: 20px; /* Bordas arredondadas */
     padding: 30px; /* Espaçamento interno */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
-    margin: 90px auto 30px;
-    max-width: 1200px; /* Largura máxima */
-    overflow: hidden; /* Garante que o conteúdo fique dentro do contêiner */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar */
+    overflow: hidden; /* Evita que o conteúdo ultrapasse os limites do banner */
 }
+
+/* Para telas grandes */
+@media (min-width: 1200px) {
+    .main-banner {
+        margin: 90px 20px 20px; /* 90px no topo, 10px nas laterais, 30px embaixo */
+        padding: 50px; /* Aumenta o padding para telas maiores */
+        max-width: 1400px; /* Permite maior largura em telas grandes */
+    }
+}
+
+/* Para telas médias */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .main-banner {
+        margin: 90px 20px 20px; /* 90px no topo, 10px nas laterais, 30px embaixo */
+        padding: 40px; /* Padding intermediário */
+        max-width: 1100px; /* Largura menor que para telas grandes */
+    }
+}
+
+/* Para telas pequenas */
+@media (max-width: 767px) {
+    .main-banner {
+        margin: 90px 20px 20px; /* 90px no topo, 10px nas laterais, 30px embaixo */
+        padding: 20px; /* Padding reduzido */
+        max-width: calc(100% - 20px); /* Garante que o banner ocupe quase toda a largura */
+    }
+}
+
+
 
 .banner {
     background-image: url('src/assets/imgs/capa.svg'); 
@@ -43,23 +72,25 @@
     font-size: 1rem;
     color: #666;
     margin-bottom: 0px; /* Reduza a margem inferior */
+    margin-top: 17px;
 }
 
   
 .breadcrumb a {
     color: #666;
-    font-size: 19px;
+    font-size: 16px;
     text-decoration: none;
 }
   
 .breadcrumb a:hover {
-    font-size: 19px;
+    font-size: 16px;
     text-decoration: underline;
 }
   
 .breadcrumb-highlight {
+    margin-left: 5px;
     color: green; /* Nome "Cursos" em verde */
-    font-size: 19px;
+    font-size: 16px;
     font-weight: bold; /* Negrito */
 }
   
@@ -71,13 +102,14 @@
 }
   
 .course-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: left;
-    margin-bottom: 20px; /* Margem ao card */
+    background: white; /* Fundo branco */
+    border-radius: 10px; /* Bordas arredondadas */
+    border: 1px solid #D9D9D9;
+    overflow: hidden; /* Evita que o conteúdo ultrapasse os limites */
+    text-align: left; /* Alinhamento do texto à esquerda */
+    margin-bottom: 20px; /* Margem inferior entre os cards */
 }
+
   
 .course-image {
     width: calc(100% - 20px); /* Ajusta a largura para considerar a margem */
