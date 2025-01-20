@@ -1,5 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.main-banner {
+    background-color: white; /* Fundo branco */
+    border-radius: 20px; /* Bordas arredondadas */
+    padding: 30px; /* Espaçamento interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+    margin: 90px auto 30px;
+    max-width: 1200px; /* Largura máxima */
+    overflow: hidden; /* Garante que o conteúdo fique dentro do contêiner */
+}
+
 .banner {
-    margin-top: 80px;
     background-image: url('src/assets/imgs/capa.svg'); 
     background-size: cover;
     background-position: center;
@@ -9,7 +25,6 @@
     margin-right: 30px;
     margin-left: 30px;
 }
-
   
 .banner h1 {
     margin: 0;
