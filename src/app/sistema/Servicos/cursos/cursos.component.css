@@ -1,82 +1,109 @@
-.banner {margin-top: 80px;
-    background-image: url('src/assets/imgs/cap-co.png'); 
-background-size: cover;
-background-position: center;
-padding: 20px 30px;
-color: white;
-border-radius: 20px;
-margin-left: 10px;
-margin-right: 10px;
+.banner {
+    margin-top: 80px;
+    background-image: url('src/assets/imgs/capa.svg'); 
+    background-size: cover;
+    background-position: center;
+    padding: 30px; /* Altere para 30px */
+    color: white;
+    border-radius: 20px;
+    margin-right: 30px;
+    margin-left: 30px;
 }
+
   
-  .banner h1 {
+.banner h1 {
     margin: 0;
     font-size: 2.5rem;
     font-weight: bold;
-  }
+    color: rgb(255, 255, 255); /* Título principal permanece */
+}
   
-  .banner p {
+.banner p {
     margin: 10px 0 0;
     font-size: 1.2rem;
-  }
+}
   
-  .breadcrumb {
+.breadcrumb {
     padding: 10px 30px;
     font-size: 1rem;
     color: #666;
-  }
+    margin-bottom: 0px; /* Reduza a margem inferior */
+}
+
   
-  .breadcrumb a {
-    color: #007BFF;
+.breadcrumb a {
+    color: #666;
+    font-size: 19px;
     text-decoration: none;
-  }
+}
   
-  .breadcrumb a:hover {
+.breadcrumb a:hover {
+    font-size: 19px;
     text-decoration: underline;
-  }
+}
   
-  .courses {
+.breadcrumb-highlight {
+    color: green; /* Nome "Cursos" em verde */
+    font-size: 19px;
+    font-weight: bold; /* Negrito */
+}
+  
+.courses {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 30px;
-  }
+}
   
-  .course-card {
+.course-card {
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     text-align: left;
-  }
+    margin-bottom: 20px; /* Margem ao card */
+}
   
-  .course-image {
-    width: 100%;
+.course-image {
+    width: calc(100% - 20px); /* Ajusta a largura para considerar a margem */
     height: 150px;
     background-color: #e0e0e0;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 10px; /* Adiciona margem ao redor da imagem */
+    border-radius: 5px; /* Opcional: bordas arredondadas */
+}
+
   
-  .course-card h3 {
+.course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha o espaço */
+}
+  
+.course-card h3 {
     font-size: 1.4rem;
     color: #333;
     padding: 15px;
     margin: 0;
-  }
+}
   
-  .details {
+.details {
     padding: 0 15px;
     font-size: 1rem;
     color: #666;
-  }
+}
   
-  .details p {
+.details p {
     display: flex;
     align-items: center;
     gap: 10px;
     margin: 5px 0;
-  }
+}
   
-  .access-btn {
+.access-btn {
     display: block;
     width: calc(100% - 30px);
     margin: 15px auto;
@@ -88,21 +115,21 @@ margin-right: 10px;
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
-  }
+}
   
-  .access-btn:hover {
+.access-btn:hover {
     background-color: #0056b3;
-  }
+}
   
-  .pagination {
+.pagination {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end; /* Alinhamento à direita */
     align-items: center;
     padding: 20px;
     gap: 15px;
-  }
+}
   
-  .pagination button {
+.pagination button {
     background: none;
     border: 1px solid #ccc;
     border-radius: 50%;
@@ -111,15 +138,14 @@ margin-right: 10px;
     font-size: 1rem;
     color: #333;
     cursor: pointer;
-  }
+}
   
-  .pagination button.active {
+.pagination button.active {
     background-color: #007BFF;
     color: white;
     border-color: #007BFF;
-  }
+}
   
-  .pagination button:hover {
+.pagination button:hover {
     border-color: #007BFF;
-  }
-  
+}
