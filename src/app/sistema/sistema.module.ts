@@ -16,6 +16,9 @@ import { CadastroCursosComponent } from './Servicos/cadastro-cursos/cadastro-cur
 import { CadastroNoticiasComponent } from './Servicos/cadastro-noticias/cadastro-noticias.component';
 import { CadastroLojinhaProdutosComponent } from './Servicos/cadastro-lojinha-produtos/cadastro-lojinha-produtos.component';
 import { RhComponent } from './Home/rh/rh.component';
+import { MedicinaComponent } from './RH/medicina/medicina.component';
+import { FeedbaksComponent } from './RH/feedbaks/feedbaks.component';
+import { RegistrosComponent } from './RH/registros/registros.component';
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import { RhComponent } from './Home/rh/rh.component';
     CadastroCursosComponent,
     CadastroNoticiasComponent,
     CadastroLojinhaProdutosComponent,
-    RhComponent
+    RhComponent,
+    MedicinaComponent,
+    FeedbaksComponent,
+    RegistrosComponent
   ],
   imports: [
     CommonModule,

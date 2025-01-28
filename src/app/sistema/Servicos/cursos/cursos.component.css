@@ -42,10 +42,8 @@
     }
 }
 
-
-
 .banner {
-    background-image: url('src/assets/imgs/capa.svg'); 
+    background-image: url('src/assets/imgs/capa-cursos.png'); 
     background-size: cover;
     background-position: center;
     padding: 30px; /* Altere para 30px */
