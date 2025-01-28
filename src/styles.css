@@ -92,12 +92,12 @@ body {
 
 ::-webkit-scrollbar-thumb {
   /* background-color: #C20C45; */
-  background-color: #002035;
+  background-color: #d87a0e;
   border-radius: 100vw;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #1f242d;
+  background-color: #d87a0e;
   border-radius: 100vw;
 }
 
