@@ -64,9 +64,32 @@
     margin: 10px 0 0;
     font-size: 1.2rem;
 }
-  
-.breadcrumb {
+
+.breadcrumb-container {
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    justify-content: space-between; /* Distribui espaço entre a breadcrumb e o botão */
     padding: 10px 30px;
+}
+
+.btn-cadastrar {
+    margin-top: 12px;
+    background-color: #007bff; /* Cor azul */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cadastrar:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
+}
+
+.breadcrumb {
     font-size: 1rem;
     color: #666;
     margin-bottom: 0px; /* Reduza a margem inferior */

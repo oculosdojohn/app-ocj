@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forum-noticias',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForumNoticiasComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(private router: Router) { } 
+  
+    ngOnInit(): void {
+    }
+  
+    cadastrarNoticia(): void {
+      this.router.navigate(['/usuario/cadastro-noticia']); 
+    }
 
 }

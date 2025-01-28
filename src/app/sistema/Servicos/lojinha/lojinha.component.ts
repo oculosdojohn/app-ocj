@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lojinha',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LojinhaComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private router: Router) { } 
+    
   ngOnInit(): void {
+  }
+    
+  cadastrarProduto(): void {
+    this.router.navigate(['/usuario/cadastro-lojinha-produtos']); 
   }
 
 }

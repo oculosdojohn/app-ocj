@@ -47,27 +47,33 @@
                 <img src="assets/icones/store.svg" alt="Ícone de Aula" class="icon">
                 <span class="ml-2">Lojas</span>
             </a>
+
+            <a mat-list-item routerLink="/usuario/departamentos-da-empresa" [ngClass]="{'active-link': isActive('/usuario/departamentos-da-empresa')}">
+                <img src="assets/icones/departamentos.svg" alt="Ícone de Aula" class="icon">
+                <span class="ml-2">Departamentos</span>
+            </a>
+
             <a mat-list-item routerLink="/usuario/gerentes-lojas" [ngClass]="{'active-link': isActive('/usuario/gerentes-lojas')}">
                 <img src="assets/icones/user-ge.svg" alt="Ícone de Gerentes" class="icon">
                 <span class="ml-2">Gerentes</span>
             </a>
-            <a mat-list-item routerLink="/usuario/funcionarios-lojas" [ngClass]="{'active-link': isActive('/usuario/funcionarios-lojas')}" >
+            <a mat-list-item routerLink="/usuario/colaboradores-das-lojas" [ngClass]="{'active-link': isActive('/usuario/colaboradores-das-lojas')}" >
                 <img src="assets/icones/users.svg" alt="Ícone de Meus Funcionários" class="icon">
-                <span class="ml-2">Funcionários</span>
+                <span class="ml-2">Colaboradores</span>
             </a>
 
-            <div class="heading-home">Área</div>
+            <div class="heading-home">Recursos</div>
             <a mat-list-item routerLink="/usuario/cursos-disponiveis" [ngClass]="{'active-link': isActive('/usuario/cursos-disponiveis')}">
                 <img src="assets/icones/couse.svg" alt="Ícone de Aula" class="icon">
                 <span class="ml-2">Cursos</span>
             </a>
             <a mat-list-item routerLink="/usuario/forum-de-noticias" [ngClass]="{'active-link': isActive('/usuario/forum-de-noticias')}">
                 <img src="assets/icones/forum.svg" alt="Ícone de Questões" class="icon">
-                <span class="ml-2">Fórum de Nóticias</span>
+                <span class="ml-2">Fórum de Notícias</span>
             </a>
             <a mat-list-item routerLink="/usuario/fale-com-o-dono" [ngClass]="{'active-link': isActive('/usuario/fale-com-o-dono')}" >
                 <img src="assets/icones/chat.svg" alt="Ícone de Meus Filtros" class="icon">
-                <span class="ml-2">Chat</span>
+                <span class="ml-2">Fale com o Dono</span>
             </a>
             <a mat-list-item routerLink="/usuario/lojinha-do-john" [ngClass]="{'active-link': isActive('/usuario/lojinha-do-john')}" >
                 <img src="assets/icones/sstore.svg" alt="Ícone de Meus Filtros" class="icon">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gerentes',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GerentesComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+   constructor(private router: Router) { } 
+      
+    ngOnInit(): void {
+    }
+      
+    cadastrarGerente(): void {
+      this.router.navigate(['/usuario/cadastro-de-gerente']); 
+    }
 
 }

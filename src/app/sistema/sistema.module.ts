@@ -19,6 +19,11 @@ import { RhComponent } from './Home/rh/rh.component';
 import { MedicinaComponent } from './RH/medicina/medicina.component';
 import { FeedbaksComponent } from './RH/feedbaks/feedbaks.component';
 import { RegistrosComponent } from './RH/registros/registros.component';
+import { DepartamentosComponent } from './Administrativo/departamentos/departamentos.component';
+import { CadastroDeDepartamentoComponent } from './Administrativo/cadastro-de-departamento/cadastro-de-departamento.component';
+import { CadastroDeColaboradorComponent } from './Administrativo/cadastro-de-colaborador/cadastro-de-colaborador.component';
+import { CadastroDeGerenteComponent } from './Administrativo/cadastro-de-gerente/cadastro-de-gerente.component';
+import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadastro-de-loja.component';
 
 
 @NgModule({
@@ -39,7 +44,12 @@ import { RegistrosComponent } from './RH/registros/registros.component';
     RhComponent,
     MedicinaComponent,
     FeedbaksComponent,
-    RegistrosComponent
+    RegistrosComponent,
+    DepartamentosComponent,
+    CadastroDeDepartamentoComponent,
+    CadastroDeColaboradorComponent,
+    CadastroDeGerenteComponent,
+    CadastroDeLojaComponent
   ],
   imports: [
     CommonModule,
