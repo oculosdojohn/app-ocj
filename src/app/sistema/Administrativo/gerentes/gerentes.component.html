@@ -3,11 +3,78 @@
         <h1>Gerentes</h1>
         <p>Um espaço onde você pode administrar todos os gerentes.</p>
     </div>
-  
+
     <div class="breadcrumb-container">
         <div class="breadcrumb">
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Gerentes</span>
         </div>
-        <button class="btn-cadastrar" (click)="cadastrarGerente()">Cadastrar Gerente</button>
+        
+        <div class="actions">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar gerente" [(ngModel)]="termoBusca">
+                <button (click)="buscarGerente()">
+                    <img src="assets/icones/search.png" alt="Buscar">
+                </button>
+            </div>
+
+            <button class="btn-cadastrar" (click)="cadastrarGerente()">Cadastrar Gerente</button>
+        </div>
     </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Loja</th>
+                    <th>Cargo</th>
+                    <th>Departamento</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let gerente of gerentesPaginados">
+                    <td>
+                        <div class="perfil">
+                            <div class="avatar"></div>
+                            <span>{{ gerente.nome }}</span>
+                        </div>
+                    </td>
+                    <td>{{ gerente.loja }}</td>
+                    <td>{{ gerente.cargo }}</td>
+                    <td>{{ gerente.departamento }}</td>
+                    <td>
+                        <span [class.ativo]="gerente.status === 'Ativo'"
+                              [class.inativo]="gerente.status === 'Inativo'">
+                            {{ gerente.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn-acao">
+                            <img src="assets/icones/See.png" alt="Visualizar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Edit.png" alt="Editar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Delete.png" alt="Excluir">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <div class="paginacao">
+            <button (click)="paginaAnterior()" [disabled]="paginaAtual === 1">&lt;</button>
+                <span *ngFor="let pagina of [].constructor(totalPaginas); let i = index">
+
+                <button (click)="mudarPagina(i + 1)" [class.ativo]="paginaAtual === i + 1">
+                    {{ i + 1 }}
+                </button>
+            </span>
+            <button (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">&gt;</button>
+        </div>
+    </div>
+    
 </div>

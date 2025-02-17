@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class LojasComponent implements OnInit {
 
+  termoBusca: string = '';
+
    constructor(private router: Router) { } 
       
     ngOnInit(): void {
@@ -16,5 +18,9 @@ export class LojasComponent implements OnInit {
     cadastrarLoja(): void {
       this.router.navigate(['/usuario/cadastro-de-lojas']); 
     }
+
+    buscarLoja(): void {
+      console.log("Buscando loja:", this.termoBusca);
+  }
 
 }

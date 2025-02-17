@@ -154,7 +154,7 @@
 }
 /* Estilo para o texto do link ativo */
 a.active-link span {
-    color: #010101; /* Cor laranja para o texto */
+    color: #ffffff; /* Cor laranja para o texto */
     font-weight: bold; /* Negrito para destaque */
     font-size: 16px;
 }

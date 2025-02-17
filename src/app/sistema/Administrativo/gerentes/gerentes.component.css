@@ -43,7 +43,7 @@
 }
 
 .banner {
-    background-image: url('src/assets/imgs/capa-gerentes.png'); 
+    background-image: url('src/assets/imgs/capa-funcionarios.png'); 
     background-size: cover;
     background-position: center;
     padding: 30px; /* Altere para 30px */
@@ -79,7 +79,6 @@
     border: none;
     padding: 10px 20px;
     font-size: 14px;
-    font-weight: bold;
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -113,4 +112,142 @@
     color: green; /* Nome "Cursos" em verde */
     font-size: 16px;
     font-weight: bold; /* Negrito */
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 3px 10px;
+    font-size: 14px;
+    border-radius: 20px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 150px;
+    font-size: 14px;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.search-box button {
+    background-color: #007bff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.search-box button img {
+    width: 16px;
+    height: 16px;
+}
+
+
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    font-family: 'Nunito Sans', sans-serif;
+    padding: 10px 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 15px;
+}
+
+th {
+    background: #f4f4f4;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    background: #ddd;
+    border-radius: 50%;
+}
+
+.ativo {
+    color: green;
+    font-weight: bold;
+}
+
+.inativo {
+    color: red;
+    font-weight: bold;
+}
+
+.btn-acao {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.btn-acao img {
+    width: 18px;
+    height: 18px;
+}
+
+.paginacao {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    gap: 5px;
+}
+.paginacao button {
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.paginacao button.ativo {
+    background: #DEEBE5;
+    color: #060606;
+    font-weight: bold;
+}
+
+.paginacao button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.paginacao button:not(:disabled):hover {
+    background: rgba(0, 123, 255, 0.2);
 }

@@ -43,7 +43,7 @@
 }
 
 .banner {
-    background-image: url('src/assets/imgs/capa-funcionarios.png'); 
+    background-image: url('src/assets/imgs/capa-gerentes.png'); 
     background-size: cover;
     background-position: center;
     padding: 30px; /* Altere para 30px */
@@ -113,4 +113,43 @@
     color: green; /* Nome "Cursos" em verde */
     font-size: 16px;
     font-weight: bold; /* Negrito */
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 3px 10px;
+    font-size: 14px;
+    border-radius: 20px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 150px;
+    font-size: 14px;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.search-box button {
+    background-color: #007bff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.search-box button img {
+    width: 16px;
+    height: 16px;
 }

@@ -24,6 +24,8 @@ import { CadastroDeDepartamentoComponent } from './Administrativo/cadastro-de-de
 import { CadastroDeColaboradorComponent } from './Administrativo/cadastro-de-colaborador/cadastro-de-colaborador.component';
 import { CadastroDeGerenteComponent } from './Administrativo/cadastro-de-gerente/cadastro-de-gerente.component';
 import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadastro-de-loja.component';
+import { AniversariantesComponent } from './RH/aniversariantes/aniversariantes.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -49,11 +51,13 @@ import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadas
     CadastroDeDepartamentoComponent,
     CadastroDeColaboradorComponent,
     CadastroDeGerenteComponent,
-    CadastroDeLojaComponent
+    CadastroDeLojaComponent,
+    AniversariantesComponent
   ],
   imports: [
     CommonModule,
-    SistemaRoutingModule
+    SistemaRoutingModule,
+    FormsModule
   ]
 })
 export class SistemaModule { }

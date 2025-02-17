@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class DepartamentosComponent implements OnInit {
 
+  termoBusca: string = '';
+
   constructor(private router: Router) { } 
      
    ngOnInit(): void {
@@ -17,4 +19,7 @@ export class DepartamentosComponent implements OnInit {
      this.router.navigate(['/usuario/cadastro-de-departamento']); 
    }
 
+   buscarDepartamento(): void {
+    console.log("Buscando departamento:", this.termoBusca);
+}
 }
