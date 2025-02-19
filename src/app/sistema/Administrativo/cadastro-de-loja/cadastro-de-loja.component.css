@@ -112,6 +112,17 @@ form {
   background-color: #0056b3;
 }
 
+/* Divisão */
+.divisao {
+  width: 100%;
+}
+
+.divisao p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
