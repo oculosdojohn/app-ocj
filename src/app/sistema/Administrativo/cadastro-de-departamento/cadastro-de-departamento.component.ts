@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./cadastro-de-departamento.component.css']
 })
 export class CadastroDeDepartamentoComponent implements OnInit {
+  valor: string[] = ['Responsável 1', 'Responsável 2', 'Responsável 3'];
+  selectedResponsavel: string = '';
 
   constructor(
     private location: Location

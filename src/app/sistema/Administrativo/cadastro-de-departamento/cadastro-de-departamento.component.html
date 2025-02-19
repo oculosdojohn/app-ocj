@@ -17,6 +17,21 @@
             </div>
 
             <div class="form-group">
+                <div class="plus-add">
+                    <label for="nome">Responsáveis</label>
+                    <button type="button" class="btn-plus">
+                        Adicionar outro responsável +
+                    </button>
+                </div>
+                <app-select-padrao
+                  label="Selecionar responsável"
+                  [options]="valor"
+                  [(selectedValue)]="selectedResponsavel"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="form-group">
                 <label for="nome">Orçamento mensal</label>
                 <input type="text" id="orcamento" name="orcamento" class="form-control" placeholder="Digite o orçamento" required>
             </div>

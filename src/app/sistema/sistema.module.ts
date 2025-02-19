@@ -24,6 +24,7 @@ import { CadastroDeDepartamentoComponent } from './Administrativo/cadastro-de-de
 import { CadastroDeColaboradorComponent } from './Administrativo/cadastro-de-colaborador/cadastro-de-colaborador.component';
 import { CadastroDeGerenteComponent } from './Administrativo/cadastro-de-gerente/cadastro-de-gerente.component';
 import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadastro-de-loja.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadas
   ],
   imports: [
     CommonModule,
-    SistemaRoutingModule
+    SistemaRoutingModule,
+    SharedModule
   ]
 })
 export class SistemaModule { }

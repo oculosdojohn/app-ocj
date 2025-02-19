@@ -123,6 +123,24 @@ form {
   margin: 0;
 }
 
+.plus-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn-plus {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #CB4417;
+}
+
+.btn-plus:hover {
+  color: #ff4000;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
