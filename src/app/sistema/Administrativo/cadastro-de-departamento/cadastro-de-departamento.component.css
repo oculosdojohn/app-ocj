@@ -75,12 +75,13 @@ form {
 }
 
 .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    font-size: 14px;
-  }
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 14px;
+  min-height: 50px;
+}
 
 .input-duo {
   display: flex;
@@ -88,15 +89,21 @@ form {
   gap: 40px;
 }
 
+.container-btn {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
 .btn-cadastrar {
   margin-top: 12px;
   background-color: #007bff;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 14px;
   font-weight: bold;
-  border-radius: 20px;
+  border-radius: 24px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
