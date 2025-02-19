@@ -308,6 +308,90 @@
                 <hr class="line">
             </div>
 
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="loja">Loja</label>
+                    <app-select-padrao
+                      label="Selecione loja"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="dataAdmissao">Data de admissão</label>
+                    <input type="text" id="dataAdmissao" name="dataAdmissao" class="form-control" placeholder="Digite a data de admissão" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="departamento">Departamento</label>
+                <app-select-padrao
+                  label="Selecione o departamento"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="cargo">Cargo</label>
+                    <app-select-padrao
+                      label="Selecione um cargo"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="grauHierarquico">Grau hierárquico</label>
+                    <app-select-padrao
+                      label="Selecionar grau hierárquico "
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="tipoContrato">Tipo de contratação</label>
+                    <app-select-padrao
+                      label="Selecionar tipo de contratação"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="salario">Salário</label>
+                    <input type="text" id="salario" name="salario" class="form-control" placeholder="Digite o valor" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="departamento">Período de experiência</label>
+                <app-select-padrao
+                  label="Selecionar período de experiência"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="dataContrato">Data do contrato</label>
+                    <input type="text" id="dataContrato" name="dataContrato" class="form-control" placeholder="Digite o data do contrato" required>
+                </div>
+                <div class="form-group">
+                    <label for="duracaoContrato">Duração do contrato</label>
+                    <input type="text" id="duracaoContrato" name="duracaoContrato" class="form-control" placeholder="Digite a duração do contrato" required>
+                </div>
+                <div class="form-group">
+                    <label for="terminoContrato">Data do término do contrato</label>
+                    <input type="text" id="terminoContrato" name="terminoContrato" class="form-control" placeholder="Digite a data de término do contrato" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="responsavel">Superior responsável</label>
+                <app-select-padrao
+                  label="Selecionar responsável"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
             <div class="divisao">
                 <p>Credenciais de acesso</p>
                 <hr class="line">
