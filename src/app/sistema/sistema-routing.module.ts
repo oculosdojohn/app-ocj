@@ -23,6 +23,7 @@ import { CadastroDeDepartamentoComponent } from './Administrativo/cadastro-de-de
 import { FeedbaksComponent } from './RH/feedbaks/feedbaks.component';
 import { MedicinaComponent } from './RH/medicina/medicina.component';
 import { RegistrosComponent } from './RH/registros/registros.component';
+import { AniversariantesComponent } from './RH/aniversariantes/aniversariantes.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: 'feedbacks', component: FeedbaksComponent},
       { path: 'medicina', component: MedicinaComponent},
       { path: 'registros', component: RegistrosComponent},
+      { path: 'aniversariantes-do-mes', component: AniversariantesComponent},
 
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
