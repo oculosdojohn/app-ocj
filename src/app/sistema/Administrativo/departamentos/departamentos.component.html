@@ -8,6 +8,14 @@
         <div class="breadcrumb">
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Departamentos</span>
         </div>
-        <button class="btn-cadastrar" (click)="cadastrarDepartamento()">Cadastrar Departamento</button>
+        <div class="actions">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar departamento" [(ngModel)]="termoBusca">
+                <button (click)="buscarDepartamento()">
+                    <img src="assets/icones/search.png" alt="Buscar">
+                </button>
+            </div>
+            <button class="btn-cadastrar" (click)="cadastrarDepartamento()">Cadastrar Departamento</button>
+        </div>
     </div>
 </div>
