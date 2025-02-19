@@ -132,4 +132,20 @@ form {
     margin: 90px 24px 24px;
     padding: 20px;
   }
+
+  .back-title span {
+    font-size: 24px;
+  }
+  
+  .back-title img {
+    width: 22px;
+    height: auto;
+  }
+
+  .input-duo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
 }
