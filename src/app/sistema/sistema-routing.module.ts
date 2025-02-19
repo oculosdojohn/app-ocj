@@ -20,6 +20,9 @@ import { CadastroDeGerenteComponent } from './Administrativo/cadastro-de-gerente
 import { CadastroDeColaboradorComponent } from './Administrativo/cadastro-de-colaborador/cadastro-de-colaborador.component';
 import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadastro-de-loja.component';
 import { CadastroDeDepartamentoComponent } from './Administrativo/cadastro-de-departamento/cadastro-de-departamento.component';
+import { FeedbaksComponent } from './RH/feedbaks/feedbaks.component';
+import { MedicinaComponent } from './RH/medicina/medicina.component';
+import { RegistrosComponent } from './RH/registros/registros.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -38,6 +41,10 @@ const routes: Routes = [
       { path: 'cadastro-de-colaborador', component: CadastroDeColaboradorComponent},
       { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent},
       { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent},
+
+      { path: 'feedbacks', component: FeedbaksComponent},
+      { path: 'medicina', component: MedicinaComponent},
+      { path: 'registros', component: RegistrosComponent},
 
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
