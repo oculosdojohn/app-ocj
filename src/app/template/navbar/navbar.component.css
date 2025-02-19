@@ -1,284 +1,301 @@
 .mat-toolbar-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    background-color: #245C39;
-    font-family: 'Nunito Sans', sans-serif;
-  }
-.ml-2{
-    font-size: 15px;
-    color: #FFFFFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #245c39;
+  font-family: "Nunito Sans", sans-serif;
 }
-.button-menu{
+
+.ml-2 {
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.button-menu {
   vertical-align: middle;
-  color: #E7ECF6;
+  color: #e7ecf6;
 }
 
-.mat-drawer-content{
-    /* height: 100vh; */
-    background-color: #e3e3e3;
+.mat-drawer-content {
+  background-color: #e3e3e3;
 }
 
-.link-icon{
-    color:#d87a0e; 
+.link-icon {
+  color: #d87a0e;
 }
+
 .icon {
-    width: 20px; /* Ajuste conforme necessário */
-    height: 20px; /* Ajuste conforme necessário */
-    margin-right: 5px; /* Espaçamento entre o ícone e o texto */
-    margin-bottom: 10px;
-    margin-top: 6px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  margin-top: 6px;
 }
 
 .logo {
-    width: 100px; /* Ajuste o valor conforme necessário para diminuir o tamanho */
-  
+  width: 100px;
 }
 
-.btn-logout{
-    color: #000000;
+.btn-logout {
+  color: #000000;
 }
 
+/* sub menu */
+.sub-menu {
+  position: relative;
+  padding: 8px;
+  margin: 16px;
+  margin-left: 8px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+}
 
+.icon-sub {
+  transition: transform 0.3s ease;
+}
 
-/* SIDEBAR CSS */
+.icon-rotate {
+  transform: rotate(180deg);
+}
 
+/* menu links */
 .mat-list-item {
-    position: relative; /* Permite posicionar elementos filhos relativamente a este elemento */
-    padding: 5px;
-    margin-top: 15px;
-    font-family: 'Nunito Sans', sans-serif;
+  position: relative;
+  padding: 5px;
+  margin-top: 15px;
+  font-family: "Nunito Sans", sans-serif;
+  color: #ffffff;
 }
 
 .mat-list-item:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background-color: #d87a0e;
+  display: none;
+  font-weight: bold;
+}
+
+.mat-list-item:hover:before {
+  display: block;
+  font-weight: bold;
+}
+
+.mat-list-item:hover {
+  background-color: #e2e2e265;
+  font-weight: bold;
+}
+
+.mat-list-item:hover .icon {
+  color: #ffffff;
+}
+
+.mat-list-item:hover span {
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 768px) {
+  .mat-list-item {
+    margin-top: 10px;
+    padding: 10px;
+    font-family: "Nunito Sans", sans-serif;
+  }
+
+  .mat-list-item:before {
     content: ""; /* Adiciona um elemento antes do conteúdo do .mat-list-item */
     position: absolute; /* Posiciona o elemento absolutamente em relação ao .mat-list-item */
     top: 0;
     bottom: 0;
     left: 0;
     width: 3px; /* Largura da linha vertical */
-    background-color: #d87a0e; /* Cor da linha vertical */
+    background-color: #d87a0e;
     display: none; /* Inicialmente, a linha está oculta */
-    font-weight: bold;
-}
+  }
 
-.mat-list-item:hover:before {
+  .mat-list-item:hover:before {
     display: block; /* Torna a linha vertical visível ao passar o mouse */
     font-weight: bold;
-}
+  }
 
-.mat-list-item:hover {
-    background-color: #e2e2e265;/* Cor de destaque ao passar o mouse */
+  .mat-list-item:hover {
+    background-color: #e2e2e265; /* Cor de destaque ao passar o mouse */
     font-weight: bold;
-}
+  }
 
-.mat-list-item:hover .icon {
-    color:#ffffff;
-}
+  .mat-list-item:hover .icon {
+    color: #fefefe;
+  }
 
-.mat-list-item:hover span {
+  .mat-list-item:hover span {
     color: #ffffff;
+  }
 }
 
-/* Adaptações para dispositivos móveis */
-@media only screen and (max-width: 768px) {
-    .mat-list-item {
-        margin-top: 10px;
-        padding: 10px; /* Aumenta o espaço interno para melhor experiência em telas menores */
-        font-family: 'Nunito Sans', sans-serif;
-    }
-    
-    .mat-list-item:before {
-        content: ""; /* Adiciona um elemento antes do conteúdo do .mat-list-item */
-        position: absolute; /* Posiciona o elemento absolutamente em relação ao .mat-list-item */
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 3px; /* Largura da linha vertical */
-        background-color:#d87a0e;
-        display: none; /* Inicialmente, a linha está oculta */
-    }
-
-    .mat-list-item:hover:before {
-        display: block; /* Torna a linha vertical visível ao passar o mouse */
-        font-weight: bold;
-    }
-
-    .mat-list-item:hover {
-        background-color: #e2e2e265;/* Cor de destaque ao passar o mouse */
-        font-weight: bold;
-    }
-
-    .mat-list-item:hover .icon {
-        color:#fefefe;
-    }
-
-    .mat-list-item:hover span {
-        color: #ffffff;
-    }
-}
-
-.heading-home{
-    font-size: 0.87rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-left: 14px;
-    margin-top: 18px;
-    color: #ffffff;
+.heading-home {
+  font-size: 0.87rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 14px;
+  margin-top: 18px;
+  color: #ffffff;
 }
 
 .active-link {
-    background-color: #e2e2e265;
-    border-radius: 30px; /* Bordas arredondadas */
-    color: #FFFFFF; /* Cor do texto branco */
-    font-weight: bold; /* Texto em negrito */
-    padding: 10px; /* Espaçamento interno */
-    display: flex; /* Flexbox para alinhamento */
-    align-items: center; /* Alinhamento vertical centralizado */
+  background-color: #e2e2e265;
+  border-radius: 30px; /* Bordas arredondadas */
+  color: #ffffff; /* Cor do texto branco */
+  font-weight: bold; /* Texto em negrito */
+  padding: 10px; /* Espaçamento interno */
+  display: flex; /* Flexbox para alinhamento */
+  align-items: center; /* Alinhamento vertical centralizado */
 }
 
 .active-link .icon {
-    color: #FFFFFF; /* Cor do ícone branco */
+  color: #ffffff; /* Cor do ícone branco */
 }
 .mat-list-item.active-link:before {
-    content: ""; /* Adiciona a linha vertical */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 3px; /* Largura da linha */
-    background-color: #d87a0e; /* Cor da linha laranja */
-    display: block; /* Sempre visível para o active-link */
+  content: ""; /* Adiciona a linha vertical */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px; /* Largura da linha */
+  background-color: #d87a0e; /* Cor da linha laranja */
+  display: block; /* Sempre visível para o active-link */
 }
 /* Estilo para o texto do link ativo */
 a.active-link span {
-    color: #010101; /* Cor laranja para o texto */
-    font-weight: bold; /* Negrito para destaque */
-    font-size: 16px;
+  color: #010101; /* Cor laranja para o texto */
+  font-weight: bold; /* Negrito para destaque */
+  font-size: 16px;
 }
 
-.mat-drawer-sidenav{
-    width: 200px;
-    background-color: #245C39;
-    overflow-x: hidden;
-    margin-top: 15px;
-    font-family: 'Nunito Sans', sans-serif;
+.mat-drawer-sidenav {
+  width: 200px;
+  background-color: #245c39;
+  overflow-x: hidden;
+  margin-top: 15px;
+  font-family: "Nunito Sans", sans-serif;
 }
 
-
-
-.mat-drawer-content{
-    height: 100vh;
+.mat-drawer-content {
+  height: 100vh;
 }
-  
+
 /* CSS */
 .navbar {
-    min-height: 70px;
-    /* Altere a altura conforme desejado */
+  min-height: 70px;
+  /* Altere a altura conforme desejado */
 }
 
 .custom-bg {
-    background-color: #b6bcbc;
+  background-color: #b6bcbc;
 }
 
 .sb-nav-link-icon {
-    margin: 10px;
-    /* Adicione margem conforme desejado */
+  margin: 10px;
+  /* Adicione margem conforme desejado */
 }
 
 .cor {
-    color: rgb(255, 255, 255);
-    /* Defina a cor do texto como branca */
-    font-weight: 400;
+  color: rgb(255, 255, 255);
+  /* Defina a cor do texto como branca */
+  font-weight: 400;
 }
 
 ::ng-deep .mat-drawer.mat-drawer-side {
-    z-index: 0 !important; /* ou 0, dependendo do comportamento desejado */
+  z-index: 0 !important; /* ou 0, dependendo do comportamento desejado */
 }
 
 /* Estilo para dispositivos móveis e tablets */
 @media (max-width: 991px) {
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .navbar-brand{
-        display: flex;
-        align-items: center; /* Centraliza verticalmente */
-        margin-right: 200px;
-    }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    margin-right: 200px;
+  }
 
-    .btn-link {
-        order: 1;
-    }
+  .btn-link {
+    order: 1;
+  }
 
-    .nav-link {
-        order: 3;
-    }
+  .nav-link {
+    order: 3;
+  }
 }
 
 @media (max-width: 371px) {
-    .navbar-brand img {
-        width: 190px;
-        height: auto;
-        align-items: center; 
-    }
+  .navbar-brand img {
+    width: 190px;
+    height: auto;
+    align-items: center;
+  }
 }
 
 .profile-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile-info {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 4px;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-    margin-right: 20px;
-  }
-  
-  .profile-info:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-picture {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 8px; /* Reduzi para 8px */
-  }
-  
-  .profile-details {
-    display: flex;
-    flex-direction: column;
-    gap: 2px; /* Controla o espaçamento entre nome e permissão */
-  }
-  
-  .profile-name {
-    font-weight: bold;
-    font-size: 14px; /* Tamanho menor para o nome */
-    color: #ffffff;
-    margin-top: 20px;
-    margin-left: 5px;
-  }
-  
-  .profile-role {
-    font-size: 12px; /* Tamanho menor para a permissão */
-    color: #cfcfcf;
-    margin-bottom: 10px;
-  }
-  
-  mat-icon {
-    font-size: 24px;
-    color: #ffffff;
-    margin-left: 4px; /* Adiciona espaçamento pequeno ao lado */
-  }
-  
+  display: flex;
+  align-items: center;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin-right: 20px;
+}
+
+.profile-info:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px; /* Reduzi para 8px */
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Controla o espaçamento entre nome e permissão */
+}
+
+.profile-name {
+  font-weight: bold;
+  font-size: 14px; /* Tamanho menor para o nome */
+  color: #ffffff;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+.profile-role {
+  font-size: 12px; /* Tamanho menor para a permissão */
+  color: #cfcfcf;
+  margin-bottom: 10px;
+}
+
+mat-icon {
+  font-size: 24px;
+  color: #ffffff;
+  margin-left: 4px; /* Adiciona espaçamento pequeno ao lado */
+}
