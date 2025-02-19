@@ -27,6 +27,8 @@ import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadas
 import { AniversariantesComponent } from './RH/aniversariantes/aniversariantes.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { CadastroDeFeedbackComponent } from './RH/cadastro-de-feedback/cadastro-de-feedback.component';
+import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-de-registro.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { SharedModule } from '../shared/shared.module';
     CadastroDeColaboradorComponent,
     CadastroDeGerenteComponent,
     CadastroDeLojaComponent,
-    AniversariantesComponent
+    AniversariantesComponent,
+    CadastroDeFeedbackComponent,
+    CadastroDeRegistroComponent
   ],
   imports: [
     CommonModule,

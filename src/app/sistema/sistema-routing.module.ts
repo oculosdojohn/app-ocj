@@ -24,6 +24,8 @@ import { FeedbaksComponent } from './RH/feedbaks/feedbaks.component';
 import { MedicinaComponent } from './RH/medicina/medicina.component';
 import { RegistrosComponent } from './RH/registros/registros.component';
 import { AniversariantesComponent } from './RH/aniversariantes/aniversariantes.component';
+import { CadastroDeFeedbackComponent } from './RH/cadastro-de-feedback/cadastro-de-feedback.component';
+import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-de-registro.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -47,6 +49,8 @@ const routes: Routes = [
       { path: 'medicina', component: MedicinaComponent},
       { path: 'registros', component: RegistrosComponent},
       { path: 'aniversariantes-do-mes', component: AniversariantesComponent},
+      { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent},
+      { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent},
 
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
