@@ -15,8 +15,8 @@
 }
 
 .foto-preview {
-  max-width: 100%;
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   height: auto;
   margin: 0 auto;
   display: flex;
@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #1A1918;
+  color: #1a1918;
   opacity: 0.6;
 }
 
