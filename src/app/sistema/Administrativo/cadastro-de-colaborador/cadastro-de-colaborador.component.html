@@ -1,1 +1,332 @@
-<p>cadastro-de-colaborador works!</p>
+<div class="main-container">
+    <div class="back-title">
+        <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
+        <span>Cadastrar colaborador</span>
+    </div>
+  
+    <div class="forms-container">
+        <form>
+            <div class="divisao">
+                <p>Dados gerais</p>
+                <hr class="line">
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o Nome completo" required>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">Data de nascimento</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data de nascimento" required>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Estado civil</label>
+                    <app-select-padrao
+                      label="Selecionar estado civil"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Gênero</label>
+                    <app-select-padrao
+                      label="Selecionar gênero"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Raça/Etnia</label>
+                    <app-select-padrao
+                      label="Selecionar raça/etnia"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Escolaridade</label>
+                    <app-select-padrao
+                      label="Selecionar escolaridade"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Curso</label>
+                    <app-select-padrao
+                      label="Selecionar"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Nacionalidade</label>
+                    <app-select-padrao
+                      label="Selecionar estado civil"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Naturalidade</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data de nascimento" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Portador de deficiência?</label>
+                    <app-select-padrao
+                      label="Selecionar estado civil"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Qual deficiência?</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data de nascimento" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Possui filhos?</label>
+                    <app-select-padrao
+                      label="Sim"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Quantidade de filhos</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o número de filhos" required>
+                </div>
+            </div>
+
+            <div class="divisao">
+                <p>Documentos</p>
+                <hr class="line">
+            </div>
+
+            <div class="form-group">
+                <label for="data">CPF</label>
+                <input type="text" id="data" name="data" class="form-control" placeholder="Digite o CPF" required>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">RG</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o número do RG" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Órgão Expedidor</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o órgão expedidor" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Data de Expedição</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data de expedição" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">Nome da mãe</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o nome da mãe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Nome do pai</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o nome do pai" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">CNH</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o número da CNH" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Reservista</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data de nascimento" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">Titulo de Eleitor</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o titulo de eleitor" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Zona Eleitoral</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a zona eleitoral" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Seção Eleitoral</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o número da seção" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">PIS</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o PIS" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">CTPS NUM</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o CTPS NUM" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">CTPS Série</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o CTPS Série" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">Banco</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o nome do banco" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Agência</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o número da agência" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Conta corrente</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o número da conta" required>
+                </div>
+            </div>
+
+            <div class="divisao">
+                <p>Contato</p>
+                <hr class="line">
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">Telefone 1</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o telefone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Telefone 2</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite o telefone">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email-empresarial">E-mail empresarial</label>
+                <input type="email" id="email-empresarial" name="email-empresarial" class="form-control" placeholder="Digite o e-mail" required>
+            </div>
+
+            <div class="form-group">
+                <label for="data">Instagram</label>
+                <input type="text" id="data" name="data" class="form-control" placeholder="Digite o instagram" required>
+            </div>
+
+            <div class="divisao">
+                <p>Endereço</p>
+                <hr class="line">
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">CEP</label>
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Digite o CEP" required>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Bairro</label>
+                    <input type="text" id="telefone" name="telefone" class="form-control" placeholder="Digite o bairro" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Rua</label>
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Digite a rua" required>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Número</label>
+                    <input type="text" id="telefone" name="telefone" class="form-control" placeholder="Digite o número" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Complemento</label>
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Digite um complemento" required>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Logradouro</label>
+                    <input type="text" id="telefone" name="telefone" class="form-control" placeholder="Digite o logradouro" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="nome">Estado</label>
+                    <app-select-padrao
+                      label="Selecione o estado"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Cidade</label>
+                    <app-select-padrao
+                      label="Selecione a cidade"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">País</label>
+                <app-select-padrao
+                  label="Selecione o país"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="divisao">
+                <p>Dados contratuais</p>
+                <hr class="line">
+            </div>
+
+            <div class="divisao">
+                <p>Credenciais de acesso</p>
+                <hr class="line">
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="email-pessoal">E-mail pessoal</label>
+                    <input type="email" id="email-pessoal" name="email-pessoal" class="form-control" placeholder="Digite o e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" class="form-control" placeholder="Digite a senha" required>
+                </div>
+            </div>
+
+            <div class="container-btn">
+                <button type="submit" class="btn-cadastrar">
+                    Cadastrar colaborador
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
