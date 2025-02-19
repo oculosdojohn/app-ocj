@@ -176,4 +176,8 @@ form {
     flex-direction: column;
     gap: 16px;
   }
+
+  .btn-plus {
+    font-size: 14px;
+  }
 }
