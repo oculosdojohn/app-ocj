@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 })
 export class CadastroDeColaboradorComponent implements OnInit {
   selectedImages: { [key: string]: File | null } = {};
+  status: string = 'ativo';
 
   constructor(private location: Location) {}
 
