@@ -25,7 +25,8 @@ import { PlaylistVideoComponent } from './playlist-video/playlist-video.componen
     SelectPadraoComponent,
     InputImgComponent,
     ModalGeralComponent,
-    InputArquivosComponent
+    InputArquivosComponent,
+    MultiploSelectComponent
   ]
 })
 export class SharedModule { }
