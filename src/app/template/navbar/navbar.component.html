@@ -26,9 +26,7 @@
             <mat-icon>exit_to_app</mat-icon> Sair
           </button>
         </mat-menu>
-      </div>
-      
-      
+    </div>
 </mat-toolbar>
 
 <mat-drawer-container>
@@ -41,26 +39,74 @@
                 <span class="ml-2">Início</span>
             </a>
 
-
             <div class="heading-home">Administrativo</div>
-            <a mat-list-item routerLink="/usuario/lojas-john" [ngClass]="{'active-link': isActive('/usuario/lojas-john')}">
-                <img src="assets/icones/store.svg" alt="Ícone de Aula" class="icon">
-                <span class="ml-2">Lojas</span>
-            </a>
+            <div>
+                <div>
+                    <div class="sub-menu" aria-expanded="false" (click)="toggleGeralMenu()">
+                      <span>Geral</span>
+                      <img src="assets/icones/seta-down.svg" alt="Ícone de Seta" class="icon-sub" [ngClass]="{'icon-rotate': isGeralMenuOpen}">
+                    </div>
+                    <div class="sub-menu-item" *ngIf="isGeralMenuOpen">
+                      <div>
+                        <a mat-list-item routerLink="/usuario/lojas-john" [ngClass]="{'active-link': isActive('/usuario/lojas-john')}">
+                            <img src="assets/icones/store.svg" alt="Ícone de Aula" class="icon">
+                          <span>Lojas</span>
+                        </a>
+                      </div>
+                      <div>
+                        <a mat-list-item routerLink="/usuario/departamentos-da-empresa" [ngClass]="{'active-link': isActive('/usuario/departamentos-da-empresa')}">
+                            <img src="assets/icones/departamentos.svg" alt="Ícone de Aula" class="icon">
+                          <span>Departamentos</span>
+                        </a>
+                      </div>
+                      <div>
+                        <a mat-list-item routerLink="/usuario/gerentes-lojas" [ngClass]="{'active-link': isActive('/usuario/gerentes-lojas')}">
+                            <img src="assets/icones/user-ge.svg" alt="Ícone de Gerentes" class="icon">
+                          <span>Gerentes</span>
+                        </a>
+                      </div>
+                      <div>
+                        <a mat-list-item routerLink="/usuario/colaboradores-das-lojas" [ngClass]="{'active-link': isActive('/usuario/colaboradores-das-lojas')}" >
+                            <img src="assets/icones/users.svg" alt="Ícone de Meus Funcionários" class="icon">
+                          <span>Colaboradores</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
 
-            <a mat-list-item routerLink="/usuario/departamentos-da-empresa" [ngClass]="{'active-link': isActive('/usuario/departamentos-da-empresa')}">
-                <img src="assets/icones/departamentos.svg" alt="Ícone de Aula" class="icon">
-                <span class="ml-2">Departamentos</span>
-            </a>
-
-            <a mat-list-item routerLink="/usuario/gerentes-lojas" [ngClass]="{'active-link': isActive('/usuario/gerentes-lojas')}">
-                <img src="assets/icones/user-ge.svg" alt="Ícone de Gerentes" class="icon">
-                <span class="ml-2">Gerentes</span>
-            </a>
-            <a mat-list-item routerLink="/usuario/colaboradores-das-lojas" [ngClass]="{'active-link': isActive('/usuario/colaboradores-das-lojas')}" >
-                <img src="assets/icones/users.svg" alt="Ícone de Meus Funcionários" class="icon">
-                <span class="ml-2">Colaboradores</span>
-            </a>
+                  <div>
+                    <div class="sub-menu" aria-expanded="false" (click)="toggleRHMenu()">
+                      <span>RH</span>
+                      <img src="assets/icones/seta-down.svg" alt="Ícone de Seta" class="icon-sub" [ngClass]="{'icon-rotate': isRHMenuOpen}">
+                    </div>
+                    <div class="sub-menu-item" *ngIf="isRHMenuOpen">
+                      <div>
+                        <a mat-list-item routerLink="/usuario/medicina" [ngClass]="{'active-link': isActive('/usuario/medicina')}">
+                            <img src="assets/icones/heart.svg" alt="Ícone de Aula" class="icon">
+                          <span>Medicina</span>
+                        </a>
+                      </div>
+                      <div>
+                        <a mat-list-item routerLink="/usuario/registros" [ngClass]="{'active-link': isActive('/usuario/registros')}">
+                            <img src="assets/icones/agenda.svg" alt="Ícone de Aula" class="icon">
+                          <span>Registros</span>
+                        </a>
+                      </div>
+                      <div>
+                        <a mat-list-item routerLink="/usuario/feedbacks" [ngClass]="{'active-link': isActive('/usuario/feedbacks')}">
+                            <img src="assets/icones/balao.svg" alt="Ícone de Gerentes" class="icon">
+                          <span>Feedbacks</span>
+                        </a>
+                      </div>
+                      <div>
+                        <a mat-list-item routerLink="/usuario/aniversariantes-do-mes" [ngClass]="{'active-link': isActive('/usuario/aniversariantes-do-mes')}" >
+                            <img src="assets/icones/gift.svg" alt="Ícone de Meus Funcionários" class="icon">
+                          <span>Aniversariantes</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
             <div class="heading-home">Recursos</div>
             <a mat-list-item routerLink="/usuario/cursos-disponiveis" [ngClass]="{'active-link': isActive('/usuario/cursos-disponiveis')}">

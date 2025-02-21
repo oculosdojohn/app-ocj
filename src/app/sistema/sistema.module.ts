@@ -26,6 +26,9 @@ import { CadastroDeGerenteComponent } from './Administrativo/cadastro-de-gerente
 import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadastro-de-loja.component';
 import { AniversariantesComponent } from './RH/aniversariantes/aniversariantes.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
+import { CadastroDeFeedbackComponent } from './RH/cadastro-de-feedback/cadastro-de-feedback.component';
+import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-de-registro.component';
 
 
 @NgModule({
@@ -52,12 +55,15 @@ import { FormsModule } from '@angular/forms';
     CadastroDeColaboradorComponent,
     CadastroDeGerenteComponent,
     CadastroDeLojaComponent,
-    AniversariantesComponent
+    AniversariantesComponent,
+    CadastroDeFeedbackComponent,
+    CadastroDeRegistroComponent
   ],
   imports: [
     CommonModule,
     SistemaRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class SistemaModule { }
