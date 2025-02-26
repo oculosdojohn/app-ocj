@@ -1,1 +1,25 @@
-<p>input-arquivos works!</p>
+<!-- Input para upload de PDF -->
+<div class="cont-arquivos">
+    <div class="arquivo-upload" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+      <input type="file" id="arquivo" name="arquivo" accept="application/pdf" (change)="onPdfSelected($event)">
+      <label for="arquivo">
+        <div class="arquivo-preview" id="arquivoPreview">
+          <span class="upload-placeholder">
+            <img src="assets/icones/FilePlus.svg" style="width: 40px; opacity: 0.5;" class="upload-icon">
+            Clique ou arraste o arquivo para fazer upload
+          </span>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Exibir PDFs enviados -->
+  <div class="form-group" *ngIf="arquivos.length > 0">
+    <label>Arquivos para envio:</label>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let arquivo of arquivos; let i = index">
+        {{ arquivo.name }}
+        <button type="button" class="btn btn-danger btn-sm float-right" (click)="removePdf(i)">Remover</button>
+      </li>
+    </ul>
+  </div>

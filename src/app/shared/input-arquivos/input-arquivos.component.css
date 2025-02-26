@@ -1,0 +1,65 @@
+/* Arquivos e Upload */
+.cont-arquivos {
+  display: flex;
+  width: 100%;
+}
+
+.arquivo-upload {
+  border: 1px dashed #163f235d;
+  border-radius: 16px;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 24px;
+  background: #deebe5;
+}
+
+.arquivo-preview {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.arquivo-upload input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #1a1918;
+  opacity: 0.6;
+}
+
+.upload-icon {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.btn {
+  margin-left: 10px;
+}

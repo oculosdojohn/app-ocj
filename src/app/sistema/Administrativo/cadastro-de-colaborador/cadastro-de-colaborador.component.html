@@ -213,6 +213,13 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="arquivos">Arquivos</label>
+                <app-input-arquivos 
+                    (arquivosSelecionados)="onArquivosSelecionados($event)">
+                </app-input-arquivos>
+            </div>
+
             <div class="divisao">
                 <p>Contato</p>
                 <hr class="line">
