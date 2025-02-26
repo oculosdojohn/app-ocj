@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 export class CadastroDeColaboradorComponent implements OnInit {
   selectedImages: { [key: string]: File | null } = {};
   status: string = 'ativo';
+  selectedArquivos: File[] = [];
 
   constructor(private location: Location) {}
 
@@ -21,5 +22,10 @@ export class CadastroDeColaboradorComponent implements OnInit {
   onImageSelected(image: File | null, tipo: string) {
     this.selectedImages[tipo] = image;
     console.log(`Imagem de ${tipo} selecionada:`, image);
+  }
+
+  onArquivosSelecionados(arquivos: File[]) {
+    this.selectedArquivos = arquivos;
+    console.log('Arquivos selecionados:', arquivos);
   }
 }
