@@ -1,1 +1,21 @@
-<p>registros works!</p>
+<div class="main-banner">
+    <div class="banner">
+        <h1>Registros</h1>
+        <p>Centralize registros de advertências, atividades e outras ocorrências dos colaboradores.</p>
+    </div>
+  
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Registros</span>
+        </div>
+        <div class="actions">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar registro" [(ngModel)]="termoBusca">
+                <button (click)="buscarDepartamento()">
+                    <img src="assets/icones/search.png" alt="Buscar">
+                </button>
+            </div>
+            <button class="btn-cadastrar" (click)="cadastrarDepartamento()">Cadastrar Registro</button>
+        </div>
+    </div>
+</div>

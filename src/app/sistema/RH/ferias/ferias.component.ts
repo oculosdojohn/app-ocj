@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FeriasMesesDoAno } from '../ferias/FeriasMesesDoAno';
-import { FeriasMesesDoAnoDescricoes } from '../ferias/FeriasMesesDoAnoDescricoes';
+import { FeriasMesesDoAno } from './FeriasMesesDoAno';
+import { FeriasMesesDoAnoDescricoes } from './FeriasMesesDoAnoDescricoes';
 
 @Component({
-  selector: 'app-aniversariantes',
-  templateUrl: './aniversariantes.component.html',
-  styleUrls: ['./aniversariantes.component.css']
+  selector: 'app-ferias',
+  templateUrl: './ferias.component.html',
+  styleUrls: ['./ferias.component.css']
 })
-export class AniversariantesComponent implements OnInit {
+export class FeriasComponent implements OnInit {
 
- meses = Object.values(FeriasMesesDoAno);
+  meses = Object.values(FeriasMesesDoAno);
   mesSelecionado: FeriasMesesDoAno | '' = '';
   termoBusca: string = '';
 

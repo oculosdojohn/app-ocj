@@ -26,6 +26,8 @@ import { RegistrosComponent } from './RH/registros/registros.component';
 import { AniversariantesComponent } from './RH/aniversariantes/aniversariantes.component';
 import { CadastroDeFeedbackComponent } from './RH/cadastro-de-feedback/cadastro-de-feedback.component';
 import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-de-registro.component';
+import { FeriasComponent } from './RH/ferias/ferias.component';
+import { CadastroFeriasComponent } from './RH/cadastro-ferias/cadastro-ferias.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -48,6 +50,8 @@ const routes: Routes = [
       { path: 'feedbacks', component: FeedbaksComponent},
       { path: 'medicina', component: MedicinaComponent},
       { path: 'registros', component: RegistrosComponent},
+      { path: 'ferias', component: FeriasComponent},
+      { path: 'cadastrar-ferias', component: CadastroFeriasComponent},
       { path: 'aniversariantes-do-mes', component: AniversariantesComponent},
       { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent},
       { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent},

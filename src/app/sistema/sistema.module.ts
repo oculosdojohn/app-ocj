@@ -29,6 +29,8 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CadastroDeFeedbackComponent } from './RH/cadastro-de-feedback/cadastro-de-feedback.component';
 import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-de-registro.component';
+import { FeriasComponent } from './RH/ferias/ferias.component';
+import { CadastroFeriasComponent } from './RH/cadastro-ferias/cadastro-ferias.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-
     CadastroDeLojaComponent,
     AniversariantesComponent,
     CadastroDeFeedbackComponent,
-    CadastroDeRegistroComponent
+    CadastroDeRegistroComponent,
+    FeriasComponent,
+    CadastroFeriasComponent
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,21 @@
-<p>feedbaks works!</p>
+<div class="main-banner">
+    <div class="banner">
+        <h1>Feedbacks</h1>
+        <p>Centralize os feedbacks dados aos colaboradores da empresa.</p>
+    </div>
+  
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Feedbacks</span>
+        </div>
+        <div class="actions">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar Feedback" [(ngModel)]="termoBusca">
+                <button (click)="buscarDepartamento()">
+                    <img src="assets/icones/search.png" alt="Buscar">
+                </button>
+            </div>
+            <button class="btn-cadastrar" (click)="cadastrarDepartamento()">Cadastrar Feedback</button>
+        </div>
+    </div>
+</div>
