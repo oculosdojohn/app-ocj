@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FuncionarioComponent } from './funcionario.component';
+import { PainelGerenteComponent } from './painel-gerente.component';
 
-describe('FuncionarioComponent', () => {
-  let component: FuncionarioComponent;
-  let fixture: ComponentFixture<FuncionarioComponent>;
+describe('PainelGerenteComponent', () => {
+  let component: PainelGerenteComponent;
+  let fixture: ComponentFixture<PainelGerenteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FuncionarioComponent ]
+      declarations: [ PainelGerenteComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FuncionarioComponent);
+    fixture = TestBed.createComponent(PainelGerenteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

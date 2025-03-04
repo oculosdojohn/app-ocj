@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
-import { AdminComponent } from './Home/admin/admin.component';
 import { FuncionariosComponent } from './Administrativo/funcionarios/funcionarios.component';
 import { GerentesComponent } from './Administrativo/gerentes/gerentes.component';
 import { LojasComponent } from './Administrativo/lojas/lojas.component';
-import { FuncionarioComponent } from './Home/funcionario/funcionario.component';
-import { GerenteComponent } from './Home/gerente/gerente.component';
-import { RhComponent } from './Home/rh/rh.component';
 import { CadastroCursosComponent } from './Servicos/cadastro-cursos/cadastro-cursos.component';
 import { CadastroNoticiasComponent } from './Servicos/cadastro-noticias/cadastro-noticias.component';
 import { CadastroLojinhaProdutosComponent } from './Servicos/cadastro-lojinha-produtos/cadastro-lojinha-produtos.component';
@@ -16,7 +12,6 @@ import { FaleComODonoComponent } from './Servicos/fale-com-o-dono/fale-com-o-don
 import { CursosComponent } from './Servicos/cursos/cursos.component';
 import { LojinhaComponent } from './Servicos/lojinha/lojinha.component';
 import { DepartamentosComponent } from './Administrativo/departamentos/departamentos.component';
-import { CadastroDeGerenteComponent } from './Administrativo/cadastro-de-gerente/cadastro-de-gerente.component';
 import { CadastroDeColaboradorComponent } from './Administrativo/cadastro-de-colaborador/cadastro-de-colaborador.component';
 import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadastro-de-loja.component';
 import { CadastroDeDepartamentoComponent } from './Administrativo/cadastro-de-departamento/cadastro-de-departamento.component';
@@ -28,25 +23,31 @@ import { CadastroDeFeedbackComponent } from './RH/cadastro-de-feedback/cadastro-
 import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-de-registro.component';
 import { FeriasComponent } from './RH/ferias/ferias.component';
 import { CadastroFeriasComponent } from './RH/cadastro-ferias/cadastro-ferias.component';
+import { PainelRhComponent } from './Dashboard-Usuarios/painel-rh/painel-rh.component';
+import { PainelGerenteComponent } from './Dashboard-Usuarios/painel-gerente/painel-gerente.component';
+import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colaborador/painel-colaborador.component';
+import { PainelAdminComponent } from './Dashboard-Usuarios/painel-admin/painel-admin.component';
 
 const routes: Routes = [
   { path: 'usuario', 
     component: LayoutComponent,  
     children: [
-      { path: 'dashboard-admin', component: AdminComponent },
-      { path: 'dashboard-funcionario', component:FuncionarioComponent },
-      { path: 'dashboard-gerente', component: GerenteComponent},
-      { path: 'dashboard-rh', component: RhComponent},
+      // tela de inicio de acordo com a role de cada usuario
+      { path: 'dashboard-admin', component: PainelAdminComponent },
+      { path: 'dashboard-colaborador', component: PainelColaboradorComponent },
+      { path: 'dashboard-gerente', component: PainelGerenteComponent},
+      { path: 'dashboard-rh', component: PainelRhComponent},
 
+      // somente rh e admin pode ver
       { path: 'colaboradores-das-lojas', component: FuncionariosComponent},
       { path: 'gerentes-lojas', component: GerentesComponent},
       { path: 'lojas-john', component: LojasComponent},
       { path: 'departamentos-da-empresa', component: DepartamentosComponent},
-      { path: 'cadastro-de-gerente', component: CadastroDeGerenteComponent},
       { path: 'cadastro-de-colaborador', component: CadastroDeColaboradorComponent},
       { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent},
       { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent},
 
+      // somente rh e admin pode ver
       { path: 'feedbacks', component: FeedbaksComponent},
       { path: 'medicina', component: MedicinaComponent},
       { path: 'registros', component: RegistrosComponent},
@@ -59,6 +60,8 @@ const routes: Routes = [
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
       { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent},
+      
+      // todos pode ver aqui
       { path: 'forum-de-noticias', component: ForumNoticiasComponent},
       { path: 'fale-com-o-dono', component: FaleComODonoComponent},
       { path: 'cursos-disponiveis', component:CursosComponent},

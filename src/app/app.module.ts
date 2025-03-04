@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutComponent } from './layout/layout.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TemplateModule } from './template/template.module';
 import { SistemaModule } from './sistema/sistema.module';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
+import { AuthService } from './services/configs/auth.service';
+import { TokenInterceptor } from './services/configs/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,14 @@ import { SharedModule } from './shared/shared.module';
     MatButtonModule,
     SharedModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

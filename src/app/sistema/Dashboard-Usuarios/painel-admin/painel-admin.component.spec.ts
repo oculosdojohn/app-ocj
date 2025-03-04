@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RhComponent } from './rh.component';
+import { PainelAdminComponent } from './painel-admin.component';
 
-describe('RhComponent', () => {
-  let component: RhComponent;
-  let fixture: ComponentFixture<RhComponent>;
+describe('PainelAdminComponent', () => {
+  let component: PainelAdminComponent;
+  let fixture: ComponentFixture<PainelAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RhComponent ]
+      declarations: [ PainelAdminComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RhComponent);
+    fixture = TestBed.createComponent(PainelAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
