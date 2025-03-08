@@ -6,26 +6,20 @@ import { FeriasMesesDoAnoDescricoes } from '../ferias/FeriasMesesDoAnoDescricoes
 @Component({
   selector: 'app-aniversariantes',
   templateUrl: './aniversariantes.component.html',
-  styleUrls: ['./aniversariantes.component.css']
+  styleUrls: ['./aniversariantes.component.css'],
 })
 export class AniversariantesComponent implements OnInit {
-
- meses = Object.values(FeriasMesesDoAno);
+  meses = Object.values(FeriasMesesDoAno);
   mesSelecionado: FeriasMesesDoAno | '' = '';
   termoBusca: string = '';
 
   // Adicionando a referência correta
   feriasMesesDoAnoDescricoes = FeriasMesesDoAnoDescricoes;
 
-  constructor(private router: Router) { } 
-         
-  ngOnInit(): void {
-  }
-         
-  cadastrarDepartamento(): void {
-    this.router.navigate(['/usuario/cadastro-de-departamento']); 
-  }
-    
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
   filtrarPorMes(): void {
     // Aqui vai a lógica para filtrar os dados com base no mês selecionado
   }
