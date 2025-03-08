@@ -1,1 +1,53 @@
-<p>cadastro-cursos works!</p>
+<div class="main-container">
+    <div class="back-title">
+        <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
+        <span>Cadastrar aula</span>
+    </div>
+  
+    <div class="forms-container">
+        <form>
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="modulo">Módulo da aula</label>
+                    <app-select-padrao
+                      label="Selecione um módulo"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+
+                <div class="form-group">
+                    <label for="moedas">Qtd. de moedas</label>
+                    <input type="text" id="moedas" name="moedas" class="form-control" placeholder="Digite o quantidade de moedas" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="videoAula">Video da aula</label>
+                <app-input-video label="Clique ou arraste o video para fazer upload" inputId="videoAula" (videoSelected)="onVideoSelected($event, 'video')"></app-input-video>
+            </div>
+
+            <div class="form-group">
+                <label for="nome-Aula">Nome da aula</label>
+                <input type="text" id="nome-Aula" name="nome-Aula" class="form-control" placeholder="Digite o nome da aula" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricaoAula">Descricao da aula</label>
+                <textarea type="text" id="descricaoAula" name="descricaoAula" class="form-control" placeholder="Digite a descricao da aula" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="arquivosAula">Material da aula</label>
+                <app-input-arquivos 
+                    (arquivosSelecionados)="onArquivosSelecionados($event)">
+                </app-input-arquivos>
+            </div>
+
+            <div class="container-btn">
+                <button type="submit" class="btn-cadastrar">
+                    Cadastrar aula
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="cont-videos">
+    <div class="video-upload" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+      <input type="file" [id]="inputId" name="video"
+        (change)="onFileSelected($event)" accept="video/*" />
+      <label [for]="inputId">
+        <div class="video-preview" id="videoPreview">
+          <ng-container *ngIf="videoPreview">
+            <video *ngIf="isPreviewVideo(videoPreview)" [src]="videoPreview" alt="video Preview" controls></video>
+          </ng-container>
+          <span *ngIf="!videoPreview" class="upload-placeholder">
+            <img src="assets/icones/video-play.svg" style="width: 40px; opacity: 0.5;" class="upload-icon">
+            {{ label }}
+          </span>
+        </div>
+      </label>
+    </div>
+  </div>

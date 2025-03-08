@@ -6,6 +6,7 @@ import { ModalGeralComponent } from './modal-geral/modal-geral.component';
 import { InputArquivosComponent } from './input-arquivos/input-arquivos.component';
 import { MultiploSelectComponent } from './multiplo-select/multiplo-select.component';
 import { PlaylistVideoComponent } from './playlist-video/playlist-video.component';
+import { InputVideoComponent } from './input-video/input-video.component';
 
 
 
@@ -16,7 +17,8 @@ import { PlaylistVideoComponent } from './playlist-video/playlist-video.componen
     ModalGeralComponent,
     InputArquivosComponent,
     MultiploSelectComponent,
-    PlaylistVideoComponent
+    PlaylistVideoComponent,
+    InputVideoComponent
   ],
   imports: [
     CommonModule
@@ -26,7 +28,9 @@ import { PlaylistVideoComponent } from './playlist-video/playlist-video.componen
     InputImgComponent,
     ModalGeralComponent,
     InputArquivosComponent,
-    MultiploSelectComponent
+    MultiploSelectComponent,
+    PlaylistVideoComponent,
+    InputVideoComponent
   ]
 })
 export class SharedModule { }
