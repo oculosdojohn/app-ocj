@@ -15,8 +15,8 @@ export class FeedbaksComponent implements OnInit {
        ngOnInit(): void {
        }
          
-       cadastrarDepartamento(): void {
-         this.router.navigate(['/usuario/cadastro-de-departamento']); 
+       cadastrarFeedback(): void {
+         this.router.navigate(['/usuario/cadastro-de-feedback']); 
        }
     
        buscarDepartamento(): void {
