@@ -15,8 +15,8 @@ export class MedicinaComponent implements OnInit {
     ngOnInit(): void {
     }
       
-    cadastrarDepartamento(): void {
-      this.router.navigate(['/usuario/cadastro-de-departamento']); 
+    cadastrarExame(): void {
+      this.router.navigate(['/usuario/cadastro-de-procedimentos-medicos']); 
     }
  
     buscarDepartamento(): void {

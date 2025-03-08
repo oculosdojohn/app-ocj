@@ -1,0 +1,115 @@
+<div class="main-container">
+    <div class="back-title">
+        <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
+        <span>Cadastrar procedimento médico</span>
+    </div>
+  
+    <div class="forms-container">
+        <form>
+            <div class="form-group">
+                <label for="loja">Loja</label>
+                <app-select-padrao
+                  label="Selecione uma loja"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="form-group">
+                <label for="colaborador">Colaborador</label>
+                <app-select-padrao
+                  label="Selecione um colaborador"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="data">Data</label>
+                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <app-select-padrao
+                      label="Selecione o tipo"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descricao</label>
+                <textarea type="text" id="descricao" name="descricao" class="form-control" placeholder="Digite a descricao do procedimento" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="nomeMedico">Nome do médico</label>
+                <input type="text" id="nomeMedico" name="nomeMedico" class="form-control" placeholder="Digite o nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="CRM">CRM do médico</label>
+                <input type="text" id="CRM" name="CRM" class="form-control" placeholder="Digite a CRM" required>
+            </div>
+
+            <div class="form-group">
+                <label for="CID">CID-10</label>
+                <app-select-padrao
+                  label="Selecione CID-10"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="form-group">
+                <label for="avaliacaoMedica">Avaliação médica</label>
+                <textarea type="text" id="avaliacaoMedica" name="avaliacaoMedica" class="form-control" placeholder="Digite a avaliação médica" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Finalizado?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="statusSim" name="finalizado" value="sim" [(ngModel)]="finalizado" checked>
+                        <label for="statusSim">Sim</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="statusNao" name="finalizado" value="nao" [(ngModel)]="finalizado">
+                        <label for="statusNao">Não</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Apto?</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="statusSim" name="apto" value="sim" [(ngModel)]="apto" checked>
+                        <label for="statusSim">Sim</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="statusNao" name="apto" value="nao" [(ngModel)]="apto">
+                        <label for="statusNao">Não</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="proxExame">Data do próximo exame</label>
+                    <input type="text" id="proxExame" name="proxExame" class="form-control" placeholder="Digite a data" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="diasAfastado">Número de dias de afastamento</label>
+                    <input type="text" id="diasAfastado" name="diasAfastado" class="form-control" placeholder="Digite o número de dias" required>
+                </div>
+            </div>
+
+            <div class="container-btn">
+                <button type="submit" class="btn-cadastrar">
+                    Cadastrar procedimento médico
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

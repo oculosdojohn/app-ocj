@@ -27,6 +27,7 @@ import { PainelRhComponent } from './Dashboard-Usuarios/painel-rh/painel-rh.comp
 import { PainelGerenteComponent } from './Dashboard-Usuarios/painel-gerente/painel-gerente.component';
 import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colaborador/painel-colaborador.component';
 import { PainelAdminComponent } from './Dashboard-Usuarios/painel-admin/painel-admin.component';
+import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedimentos-medico/cadastro-de-procedimentos-medico.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -56,6 +57,8 @@ const routes: Routes = [
       { path: 'aniversariantes-do-mes', component: AniversariantesComponent},
       { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent},
       { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent},
+      { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent},
+
 
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
