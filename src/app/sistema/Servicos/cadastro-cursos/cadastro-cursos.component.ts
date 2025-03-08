@@ -15,6 +15,9 @@ export class CadastroCursosComponent implements OnInit {
   formData = new FormData();
   aula: Aula = new Aula();
   selectedModulo: string = '';
+  titulo: string = '';
+  descricao: string = '';
+  qtdMoedas: string = '';
 
   modulos = Object.keys(Modulos).map(key => ({
     value: Modulos[key as keyof typeof Modulos],
@@ -39,5 +42,14 @@ export class CadastroCursosComponent implements OnInit {
   onArquivosSelecionados(arquivos: File[]) {
     this.selectedArquivos = arquivos;
     console.log('Arquivos selecionados:', arquivos);
+  }
+
+  onSubmit() {
+    console.log('Form Data:', {
+      titulo: this.titulo,
+      descricao: this.descricao,
+      qtdMoedas: this.qtdMoedas,
+      selectedModulo: this.selectedModulo
+    });
   }
 }

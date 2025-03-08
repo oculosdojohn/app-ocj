@@ -5,7 +5,7 @@
     </div>
   
     <div class="forms-container">
-        <form>
+        <form (ngSubmit)="onSubmit()">
             <div class="input-duo">
                 <div class="form-group">
                     <label for="modulo">Módulo da aula</label>
@@ -18,8 +18,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="moedas">Qtd. de moedas</label>
-                    <input type="text" id="moedas" name="moedas" class="form-control" placeholder="Digite o quantidade de moedas" required>
+                    <label for="qtdMoedas">Qtd. de moedas</label>
+                    <input type="text" id="qtdMoedas" name="qtdMoedas" [(ngModel)]="qtdMoedas" class="form-control" placeholder="Digite o quantidade de moedas" required>
                 </div>
             </div>
 
@@ -29,13 +29,13 @@
             </div>
 
             <div class="form-group">
-                <label for="nome-Aula">Nome da aula</label>
-                <input type="text" id="nome-Aula" name="nome-Aula" class="form-control" placeholder="Digite o nome da aula" required>
+                <label for="nomeAula">Nome da aula</label>
+                <input type="text" id="nomeAula" name="nomeAula" [(ngModel)]="titulo" class="form-control" placeholder="Digite o nome da aula" required>
             </div>
 
             <div class="form-group">
                 <label for="descricaoAula">Descricao da aula</label>
-                <textarea type="text" id="descricaoAula" name="descricaoAula" class="form-control" placeholder="Digite a descricao da aula" rows="3" required></textarea>
+                <textarea type="text" id="descricaoAula" name="descricaoAula" [(ngModel)]="descricao" class="form-control" placeholder="Digite a descricao da aula" rows="3" required></textarea>
             </div>
 
             <div class="form-group">
