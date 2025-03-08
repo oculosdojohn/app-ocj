@@ -11,7 +11,9 @@
                     <label for="modulo">Módulo da aula</label>
                     <app-select-padrao
                       label="Selecione um módulo"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [customStyles]="{'background': '#FFFFFF'}"
+                      [options]="modulos"
+                      [(selectedValue)]="selectedModulo">
                     </app-select-padrao>
                 </div>
 

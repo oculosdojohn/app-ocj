@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Aula } from '../cursos/aulas';
+import { Modulos } from '../cursos/enums/modulos';
+import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 
 @Component({
   selector: 'app-cadastro-cursos',
@@ -9,6 +12,14 @@ import { Location } from '@angular/common';
 export class CadastroCursosComponent implements OnInit {
   selectedVideos: { [key: string]: File | null } = {};
   selectedArquivos: File[] = [];
+  formData = new FormData();
+  aula: Aula = new Aula();
+  selectedModulo: string = '';
+
+  modulos = Object.keys(Modulos).map(key => ({
+    value: Modulos[key as keyof typeof Modulos],
+    description: ModulosDescricao[Modulos[key as keyof typeof Modulos]]
+  }));
 
   constructor(
     private location: Location,
