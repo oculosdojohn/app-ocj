@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Modulos } from '../cursos/enums/modulos';
+import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 
 @Component({
   selector: 'app-cursos',
@@ -8,25 +10,11 @@ import { Router } from '@angular/router';
 })
 export class CursosComponent implements OnInit {
 
-  cursos = [
-    "História de sucesso- Grupo OCJ",
-    "Onboarding",
-    "Princípios básicos de Ótica",
-    "Script de vendas",
-    "Como conseguir clientes",
-    "Consultor Ótico de alta performance",
-    "Limpeza e manutenção dos produtos",
-    "Manutenção de óculos",
-    "Garantia de produtos",
-    "Embalagem padrão dos produtos",
-    "Entrega de óculos de grau",
-    "Padrões de atendimento",
-    "SSotica sistema de vendas",
-    "SSotica (caixa)",
-    "EU SOU VENDEDOR",
-    "Inteligência emocional"
-  ];
-  
+  modulos = Object.keys(Modulos).map(key => ({
+    value: Modulos[key as keyof typeof Modulos],
+    description: ModulosDescricao[Modulos[key as keyof typeof Modulos]],
+    slug: this.generateSlug(ModulosDescricao[Modulos[key as keyof typeof Modulos]])
+  }));
 
   cursosPorPagina = 6;
   paginaAtual = 1;
@@ -40,13 +28,26 @@ export class CursosComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-de-aulas']); 
   }
 
-  get cursosPaginados() {
+  get modulosPaginados() {
     const inicio = (this.paginaAtual - 1) * this.cursosPorPagina;
-    return this.cursos.slice(inicio, inicio + this.cursosPorPagina);
+    return this.modulos.slice(inicio, inicio + this.cursosPorPagina);
   }
   
   mudarPagina(numeroPagina: number) {
     this.paginaAtual = numeroPagina;
   }
 
+  navegarParaModulo(modulo: string): void {
+    const moduloSlug = this.modulos.find(m => m.value === modulo)?.slug;
+    if (moduloSlug) {
+      this.router.navigate(['/usuario/curso', moduloSlug]);
+    }
+  }
+
+  generateSlug(text: string): string {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Remove acentos
+      .toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
+  }
 }

@@ -27,6 +27,7 @@ import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-
 import { FeriasComponent } from './RH/ferias/ferias.component';
 import { CadastroFeriasComponent } from './RH/cadastro-ferias/cadastro-ferias.component';
 import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedimentos-medico/cadastro-de-procedimentos-medico.component';
+import { ModuloCursoComponent } from './Servicos/modulo-curso/modulo-curso.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedi
     FeriasComponent,
     CadastroFeriasComponent,
     CadastroDeProcedimentosMedicoComponent,
+    ModuloCursoComponent,
   ],
   imports: [
     CommonModule,

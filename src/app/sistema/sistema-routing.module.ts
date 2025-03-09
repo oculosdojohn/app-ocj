@@ -28,6 +28,7 @@ import { PainelGerenteComponent } from './Dashboard-Usuarios/painel-gerente/pain
 import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colaborador/painel-colaborador.component';
 import { PainelAdminComponent } from './Dashboard-Usuarios/painel-admin/painel-admin.component';
 import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedimentos-medico/cadastro-de-procedimentos-medico.component';
+import { ModuloCursoComponent } from './Servicos/modulo-curso/modulo-curso.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -68,7 +69,8 @@ const routes: Routes = [
       { path: 'forum-de-noticias', component: ForumNoticiasComponent},
       { path: 'fale-com-o-dono', component: FaleComODonoComponent},
       { path: 'cursos-disponiveis', component:CursosComponent},
-      { path: 'lojinha-do-john', component:LojinhaComponent}
+      { path: 'lojinha-do-john', component:LojinhaComponent},
+      { path: 'curso/:modulo', component: ModuloCursoComponent},
     ]
   }
 ];
