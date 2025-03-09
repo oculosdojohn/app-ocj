@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
+import { Aula } from '../cursos/aulas';
 
 @Component({
   selector: 'app-modulo-curso',
@@ -11,6 +12,11 @@ import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 export class ModuloCursoComponent implements OnInit {
   modulo: Modulos | undefined;
   descricao: string = '';
+
+  aulas: Aula[] = [];
+  videoAtual: Aula | null = null;
+  videoAtualIndex: number = 0;
+  videosAssistidos: boolean[] = [];
 
   constructor(
     private route: ActivatedRoute
@@ -32,5 +38,30 @@ export class ModuloCursoComponent implements OnInit {
       .toLowerCase()
       .replace(/ /g, '-')
       .replace(/[^\w-]+/g, '');
+  }
+
+  reproduzirVideo(aula: Aula, index: number): void {
+    this.videoAtual = aula;
+    this.videoAtualIndex = index;
+  }
+
+  marcarComoAssistido(index: number): void {
+    this.videosAssistidos[index] = true;
+  }
+
+  onVideoEnded(): void {
+    this.marcarComoAssistido(this.videoAtualIndex);
+    const nextIndex = this.videoAtualIndex + 1;
+    if (nextIndex < this.aulas.length) {
+      this.reproduzirVideo(this.aulas[nextIndex], nextIndex);
+    }
+  }
+
+  formatFileName(fileName: string): string {
+    return fileName.replace(/^\d+_/, '').replace(/_/g, ' ');
+  }
+
+  viewPdf(url: string): void {
+    window.open(url, '_blank');
   }
 }
