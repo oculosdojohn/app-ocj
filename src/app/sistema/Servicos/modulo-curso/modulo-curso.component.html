@@ -31,33 +31,33 @@
             <h3>{{ videoAtual?.titulo }}</h3>
             <p>{{ videoAtual?.descricao }}</p>
         </div>
-                <!-- <div class="arquivos-aula">
-                  <h4>Material da Aula</h4>
-                  <hr>
-                  <div *ngIf="videoAtual && videoAtual.documentos && videoAtual.documentos.length > 0; else noMaterialTemplate">
-                    <div class="list-group">
-                      <div class="list-group-item" *ngFor="let documento of videoAtual?.documentos">
-                        <span>{{ formatFileName(documento.key) }}</span>
-                        <div>
-                          <button class="btn-vizualizar" (click)="viewPdf(documento.url)"><i class="fas fa-eye"></i>Visualizar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #noMaterialTemplate>
-                    <span>Nenhum material adicionado</span>
-                  </ng-template>
-                </div> -->
+        <div class="arquivos-aula">
+          <h4>Material da Aula</h4>
+          <hr>
+          <div *ngIf="videoAtual && videoAtual.documentos && videoAtual.documentos.length > 0; else noMaterialTemplate">
+            <div class="list-group">
+              <div class="list-group-item" *ngFor="let documento of videoAtual?.documentos">
+                <span>{{ formatFileName(documento.key) }}</span>
+                <div>
+                  <button class="btn-vizualizar" (click)="viewPdf(documento.url)"><i class="fas fa-eye"></i>Visualizar</button>
+                </div>
               </div>
             </div>
-        <div class="playlist-container">
-          <app-playlist-video
-            [aulas]="aulas"
-            [titulo]="descricao"
-            [videoAtualIndex]="videoAtualIndex"
-            [videosAssistidos]="videosAssistidos"
-            (aulaSelecionada)="reproduzirVideo($event.aula, $event.index)">
-          </app-playlist-video>
+          </div>
+          <ng-template #noMaterialTemplate>
+            <span>Nenhum material adicionado</span>
+          </ng-template>
         </div>
+      </div>
     </div>
- </div>
+    <div class="playlist-container">
+      <app-playlist-video
+        [aulas]="aulas"
+        [titulo]="descricao"
+        [videoAtualIndex]="videoAtualIndex"
+        [videosAssistidos]="videosAssistidos"
+        (aulaSelecionada)="reproduzirVideo($event.aula, $event.index)">
+      </app-playlist-video>
+    </div>
+  </div>
+</div>
