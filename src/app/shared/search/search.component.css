@@ -8,24 +8,23 @@
 
 .search-input {
   width: 100%;
-  max-width: 400px;
   padding: 10px;
   padding-left: 20px;
-  border: 1px solid var(--lm-border);
+  border: 1px solid #c4c4c4;
   border-radius: 40px;
   font-size: 16px;
   padding-right: 40px;
-  height: 50px;
+  height: 48px;
 }
 
 .search-button {
   position: absolute;
   right: 0;
-  background: var(--lm-border);
+  background: #c4c4c4;
   border: none;
   cursor: pointer;
-  width: 20px;
-  height: auto;
+  width: 64px;
+  height: 48px;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
   border-top-left-radius: 0;
@@ -33,7 +32,12 @@
 }
 
 .search-button:hover {
-  background: #c4c4c4;
+  background: #b8b8b8;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 2px rgba(60, 61, 62, 0.5);
+  outline: none;
 }
 
 .search-icon {

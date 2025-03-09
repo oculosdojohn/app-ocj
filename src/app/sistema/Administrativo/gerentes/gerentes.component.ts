@@ -22,7 +22,7 @@ export class GerentesComponent implements OnInit {
     { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente', departamento: 'Diretoria', status: 'Inativo' }
   ];
 
-  itensPorPagina = 5;
+  itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.gerentes.length / this.itensPorPagina);
   gerentesPaginados: Gerente[] = [];
@@ -37,8 +37,8 @@ export class GerentesComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-de-gerente']); 
   }
 
-  buscarGerente(): void {
-    console.log("Buscando gerente:", this.termoBusca);
+  onSearch(searchTerm: string) {
+    console.log('Search term:', searchTerm);
   }
 
   atualizarPaginacao(): void {
@@ -47,22 +47,12 @@ export class GerentesComponent implements OnInit {
     this.gerentesPaginados = this.gerentes.slice(inicio, fim);
   }
 
-  mudarPagina(pagina: number): void {
-    this.paginaAtual = pagina;
+  get totalItens() {
+    return this.gerentes.length;
+  }
+
+  onPaginaMudou(novaPagina: number) {
+    this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
-  }
-
-  paginaAnterior(): void {
-    if (this.paginaAtual > 1) {
-      this.paginaAtual--;
-      this.atualizarPaginacao();
-    }
-  }
-
-  proximaPagina(): void {
-    if (this.paginaAtual < this.totalPaginas) {
-      this.paginaAtual++;
-      this.atualizarPaginacao();
-    }
   }
 }
