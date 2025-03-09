@@ -111,7 +111,7 @@
 }
 
 .no-data img {
-  width: 180px;
+  width: 200px;
   height: auto;
   margin-bottom: 20px;
 }
@@ -167,4 +167,61 @@
 
 .btn-vizualizar i {
   margin-right: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    margin: 0;
+  }
+
+  .playlist-container {
+    border-left: none;
+    border-top: 1px solid #dee2e6;
+    height: auto;
+  }
+
+  .video-container {
+    width: 100%;
+  }
+
+  .playlist-container {
+    width: 100%;
+  }
+
+  .principal-info {
+    min-height: 450px;
+    margin-bottom: 0;
+  }
+
+  .list-group-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .list-group-item div {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  .list-group-item span {
+    width: 100%;
+    text-align: justify;
+  }
+
+  .btn-vizualizar {
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+/* Novo media query para telas com largura máxima de 920px */
+@media screen and (max-width: 920px) {
+  .principal-info {
+    min-height: 550px;
+    margin-bottom: 0;
+  }
 }
