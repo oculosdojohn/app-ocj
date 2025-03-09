@@ -194,25 +194,30 @@
 
 /* Breakpoints */
 @media (min-width: 1200px) {
-  .main-banner {
+  .main-containerr {
     margin: 90px 20px 20px;
     padding: 50px;
-    max-width: 1400px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  .main-banner {
+  .main-container {
     margin: 90px 20px 20px;
     padding: 40px;
-    max-width: 1100px;
+  }
+
+  .cursos {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 767px) {
-  .main-banner {
+  .main-container {
     margin: 90px 20px 20px;
     padding: 20px;
-    max-width: calc(100% - 20px);
+  }
+
+  .cursos {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
