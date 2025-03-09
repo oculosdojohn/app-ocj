@@ -32,6 +32,11 @@
     </div>
 
     <div class="pagination">
-        <button *ngFor="let num of [1,2,3]" (click)="mudarPagina(num)" [class.active]="paginaAtual === num">{{ num }}</button>
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
     </div>
 </div>

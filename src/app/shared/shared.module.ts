@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SelectPadraoComponent } from './select-padrao/select-padrao.component';
 import { InputImgComponent } from './input-img/input-img.component';
 import { ModalGeralComponent } from './modal-geral/modal-geral.component';
@@ -25,7 +26,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     PaginationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     SelectPadraoComponent,

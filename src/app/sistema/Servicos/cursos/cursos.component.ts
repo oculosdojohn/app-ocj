@@ -35,12 +35,16 @@ export class CursosComponent implements OnInit {
     image: this.moduloImagens[Modulos[key as keyof typeof Modulos]]
   }));
 
-  cursosPorPagina = 6;
-  paginaAtual = 1;
+  paginaAtual: number = 1;
+  itensPorPagina: number = 6;
 
   constructor(private router: Router) { } 
 
   ngOnInit(): void {
+  }
+
+  onPaginaMudou(novaPagina: number) {
+    this.paginaAtual = novaPagina;
   }
 
   cadastrarAula(): void {
@@ -48,10 +52,14 @@ export class CursosComponent implements OnInit {
   }
 
   get modulosPaginados() {
-    const inicio = (this.paginaAtual - 1) * this.cursosPorPagina;
-    return this.modulos.slice(inicio, inicio + this.cursosPorPagina);
+    const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+    return this.modulos.slice(inicio, inicio + this.itensPorPagina);
   }
   
+  get totalItens() {
+    return this.modulos.length;
+  }
+
   mudarPagina(numeroPagina: number) {
     this.paginaAtual = numeroPagina;
   }
