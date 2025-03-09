@@ -9,15 +9,12 @@
           <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Cursos</span>
         </div>
         <button class="btn-cadastrar" (click)="cadastrarAula()">Cadastrar Aula</button>
-      </div>
+    </div>
       
-      
-      
-  
     <div class="cursos">
         <div class="curso-card" *ngFor="let modulo of modulosPaginados" >
             <div class="curso-image">
-                <img src="assets/imgs/capa-gerentes.png" alt="Imagem do curso">
+                <img [src]="modulo.image" alt="Imagem do curso">
             </div>
             <h3>{{ modulo.description }}</h3>
             <div class="details">
@@ -37,6 +34,4 @@
     <div class="pagination">
         <button *ngFor="let num of [1,2,3]" (click)="mudarPagina(num)" [class.active]="paginaAtual === num">{{ num }}</button>
     </div>
-
 </div>
-
