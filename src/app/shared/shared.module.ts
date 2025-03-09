@@ -7,6 +7,8 @@ import { InputArquivosComponent } from './input-arquivos/input-arquivos.componen
 import { MultiploSelectComponent } from './multiplo-select/multiplo-select.component';
 import { PlaylistVideoComponent } from './playlist-video/playlist-video.component';
 import { InputVideoComponent } from './input-video/input-video.component';
+import { SearchComponent } from './search/search.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
@@ -18,7 +20,9 @@ import { InputVideoComponent } from './input-video/input-video.component';
     InputArquivosComponent,
     MultiploSelectComponent,
     PlaylistVideoComponent,
-    InputVideoComponent
+    InputVideoComponent,
+    SearchComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule
@@ -30,7 +34,9 @@ import { InputVideoComponent } from './input-video/input-video.component';
     InputArquivosComponent,
     MultiploSelectComponent,
     PlaylistVideoComponent,
-    InputVideoComponent
+    InputVideoComponent,
+    SearchComponent,
+    PaginationComponent
   ]
 })
 export class SharedModule { }
