@@ -72,29 +72,42 @@
   width: 100%;
   overflow-x: auto;
   border: #b5b5b5 solid 1px;
+  border-radius: 16px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  border-radius: 10px;
+  background: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
 }
 
 th,
 td {
   text-align: left;
-  padding: 12px 15px;
+  padding: 12px 16px;
 }
 
 th {
-  background: #f4f4f4;
-  font-weight: bold;
+  background: #f15623f1;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+td {
+  font-size: 16px;
+  color: #666;
+  padding: 16px;
 }
 
 tr:nth-child(even) {
   background: #fafafa;
+}
+
+tr:hover {
+  background-color: #eaf1e5;
 }
 
 .perfil {
