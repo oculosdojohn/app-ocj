@@ -3,7 +3,7 @@
   max-width: 100%;
   background: #ffffff;
   border-radius: 24px;
-  padding: 48px;
+  padding: 40px 64px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -154,31 +154,24 @@ tr:hover {
   gap: 15px;
 }
 
-/* Para telas grandes */
+/* Breakpoints */
 @media (min-width: 1200px) {
-  .main-banner {
-    margin: 90px 20px 20px; /* 90px no topo, 10px nas laterais, 30px embaixo */
-    padding: 50px; /* Aumenta o padding para telas maiores */
-    max-width: 1400px; /* Permite maior largura em telas grandes */
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 40px 56px;
   }
 }
 
-/* Para telas médias */
 @media (min-width: 768px) and (max-width: 1199px) {
-  .main-banner {
-    margin: 90px 20px 20px; /* 90px no topo, 10px nas laterais, 30px embaixo */
-    padding: 40px; /* Padding intermediário */
-    max-width: 1100px; /* Largura menor que para telas grandes */
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 40px 48px;
   }
 }
 
-/* Para telas pequenas */
 @media (max-width: 767px) {
-  .main-banner {
-    margin: 90px 20px 20px; /* 90px no topo, 10px nas laterais, 30px embaixo */
-    padding: 20px; /* Padding reduzido */
-    max-width: calc(
-      100% - 20px
-    ); /* Garante que o banner ocupe quase toda a largura */
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 20px;
   }
 }

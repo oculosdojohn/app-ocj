@@ -3,7 +3,7 @@
   max-width: 100%;
   background: #ffffff;
   border-radius: 24px;
-  padding: 48px;
+  padding: 40px 64px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -39,22 +39,6 @@
   align-items: center;
 }
 
-.btn-cadastrar {
-  background: #007bff;
-  color: #ffffff;
-  border: none;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 24px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-cadastrar:hover {
-  background-color: #0056b3;
-}
-
 .breadcrumb {
   font-size: 1rem;
   color: #666261;
@@ -77,6 +61,22 @@
   color: #008000;
   font-size: 16px;
   font-weight: 600;
+}
+
+.btn-cadastrar {
+  background: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cadastrar:hover {
+  background: #0056b3;
 }
 
 /* Cards de curos/modulos */
@@ -172,16 +172,16 @@
 
 /* Breakpoints */
 @media (min-width: 1200px) {
-  .main-containerr {
+  .main-container {
     margin: 90px 20px 20px;
-    padding: 50px;
+    padding: 40px 56px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .main-container {
     margin: 90px 20px 20px;
-    padding: 40px;
+    padding: 40px 48px;
   }
 
   .cursos {

@@ -4,23 +4,20 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-lojas',
   templateUrl: './lojas.component.html',
-  styleUrls: ['./lojas.component.css']
+  styleUrls: ['./lojas.component.css'],
 })
 export class LojasComponent implements OnInit {
-
   termoBusca: string = '';
 
-   constructor(private router: Router) { } 
-      
-    ngOnInit(): void {
-    }
-      
-    cadastrarLoja(): void {
-      this.router.navigate(['/usuario/cadastro-de-lojas']); 
-    }
+  constructor(private router: Router) {}
 
-    buscarLoja(): void {
-      console.log("Buscando loja:", this.termoBusca);
+  ngOnInit(): void {}
+
+  cadastrarLoja(): void {
+    this.router.navigate(['/usuario/cadastro-de-lojas']);
   }
 
+  onSearch(searchTerm: string) {
+    console.log('Search term:', searchTerm);
+  }
 }
