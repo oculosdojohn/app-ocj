@@ -1,34 +1,36 @@
 <div class="main-container">
-  <div class="container mt-4">
-    <div class="header">
-      <h1><span></span>Modulo de {{ descricao }} </h1>
+    <div class="breadcrumb-container">
+      <div class="breadcrumb">
+        <a (click)="goBack()">Cursos &gt; </a> <span class="breadcrumb-highlight">Módulo {{ descricao }}</span>
+      </div>
     </div>
 
-        <div class="grid-container">
-            <div class="principal-info">
-              <div class="video-container" *ngIf="aulas.length > 0; else noDataTemplate">
-                <video
-                  #videoPlayer
-                  controls
-                  controlsList="nodownload"
-                  class="video-player"
-                  *ngIf="videoAtual"
-                  (ended)="marcarComoAssistido(videoAtualIndex)"
-                  (ended)="onVideoEnded()">
-                  Seu navegador não suporta o elemento de vídeo.
-                </video>
-              </div>
-              <ng-template #noDataTemplate>
-                <div class="no-data">
-                  <img src="assets/imagens/not-data-aulas.png" alt="No Data">
-                  <p>Não há nenhuma aula cadastrada</p>
-                </div>
-              </ng-template>
-              <div class="info-aula">
-                <div *ngIf="aulas.length > 0">
-                  <h3>{{ videoAtual?.titulo }}</h3>
-                  <p>{{ videoAtual?.descricao }}</p>
-                </div>
+    <div class="grid-container">
+      <div class="principal-info">
+        <div class="video-container" *ngIf="aulas.length > 0; else noDataTemplate">
+          <video
+            #videoPlayer
+            controls
+            controlsList="nodownload"
+            class="video-player"
+            *ngIf="videoAtual"
+            (ended)="marcarComoAssistido(videoAtualIndex)"
+            (ended)="onVideoEnded()">
+            Seu navegador não suporta o elemento de vídeo.
+          </video>
+        </div>
+        <ng-template #noDataTemplate>
+          <div class="no-data">
+            <img src="assets/imagens/not-data-aulas.png" alt="No Data">
+            <p>Não há nenhuma aula cadastrada</p>
+          </div>
+        </ng-template>
+
+        <div class="info-aula">
+          <div *ngIf="aulas.length > 0">
+            <h3>{{ videoAtual?.titulo }}</h3>
+            <p>{{ videoAtual?.descricao }}</p>
+        </div>
                 <!-- <div class="arquivos-aula">
                   <h4>Material da Aula</h4>
                   <hr>
@@ -48,16 +50,14 @@
                 </div> -->
               </div>
             </div>
-            <!-- <div class="playlist-container">
-              <app-playlist-mode
-                [aulas]="aulas"
-                [titulo]="categoria"
-                [categoria]="categoria"
-                [videoAtualIndex]="videoAtualIndex"
-                [videosAssistidos]="videosAssistidos"
-                (aulaSelecionada)="reproduzirVideo($event.aula, $event.index)">
-              </app-playlist-mode>
-            </div> -->
+        <div class="playlist-container">
+          <app-playlist-video
+            [aulas]="aulas"
+            [titulo]="descricao"
+            [videoAtualIndex]="videoAtualIndex"
+            [videosAssistidos]="videosAssistidos"
+            (aulaSelecionada)="reproduzirVideo($event.aula, $event.index)">
+          </app-playlist-video>
         </div>
     </div>
-  </div>
+ </div>

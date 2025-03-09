@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Aula } from '../cursos/aulas';
@@ -19,7 +20,8 @@ export class ModuloCursoComponent implements OnInit {
   videosAssistidos: boolean[] = [];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,10 @@ export class ModuloCursoComponent implements OnInit {
       .toLowerCase()
       .replace(/ /g, '-')
       .replace(/[^\w-]+/g, '');
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   reproduzirVideo(aula: Aula, index: number): void {
