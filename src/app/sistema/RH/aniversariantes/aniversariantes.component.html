@@ -1,4 +1,4 @@
-<div class="main-banner">
+<div class="main-container">
     <div class="banner">
         <h1>Aniversariantes</h1>
         <p>Acompanhe e celebre os aniversários dos colaboradores de forma especial.</p>
@@ -9,15 +9,13 @@
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Aniversariantes</span>
         </div>
         <div class="actions">
-            <div class="select-box">
-                <select [(ngModel)]="mesSelecionado" (change)="filtrarPorMes()">
-                    <option value="" disabled selected>Selecione um mês</option>
-                    <option *ngFor="let mes of meses" [value]="mes">
-                        {{ feriasMesesDoAnoDescricoes[mes] }}
-                    </option>
-                    
-                </select>
-            </div>
+            <app-select-padrao
+                label="Selecione um mês"
+                [customStyles]="{'background': '#FFFFFF'}"
+                [options]="meses"
+                [(selectedValue)]="selectedMes"
+                (selectedValueChange)="filtrarPorMes()">
+            </app-select-padrao>
         </div>
     </div>
 </div>

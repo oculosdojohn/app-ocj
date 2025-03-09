@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FeriasMesesDoAno } from './FeriasMesesDoAno';
-import { FeriasMesesDoAnoDescricoes } from './FeriasMesesDoAnoDescricoes';
+import { Meses } from './FeriasMesesDoAno';
+import { MesesDescricoes } from './FeriasMesesDoAnoDescricoes';
 
 @Component({
   selector: 'app-ferias',
@@ -10,12 +10,12 @@ import { FeriasMesesDoAnoDescricoes } from './FeriasMesesDoAnoDescricoes';
 })
 export class FeriasComponent implements OnInit {
 
-  meses = Object.values(FeriasMesesDoAno);
-  mesSelecionado: FeriasMesesDoAno | '' = '';
+  meses = Object.values(Meses);
+  mesSelecionado: Meses | '' = '';
   termoBusca: string = '';
 
   // Adicionando a referência correta
-  feriasMesesDoAnoDescricoes = FeriasMesesDoAnoDescricoes;
+  mesesDescricoes = MesesDescricoes;
 
   constructor(private router: Router) { } 
          

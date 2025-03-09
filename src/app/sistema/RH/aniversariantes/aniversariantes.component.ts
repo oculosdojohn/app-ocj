@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FeriasMesesDoAno } from '../ferias/FeriasMesesDoAno';
-import { FeriasMesesDoAnoDescricoes } from '../ferias/FeriasMesesDoAnoDescricoes';
+import { Meses } from '../ferias/FeriasMesesDoAno';
+import { MesesDescricoes } from '../ferias/FeriasMesesDoAnoDescricoes';
 
 @Component({
   selector: 'app-aniversariantes',
@@ -9,12 +9,12 @@ import { FeriasMesesDoAnoDescricoes } from '../ferias/FeriasMesesDoAnoDescricoes
   styleUrls: ['./aniversariantes.component.css'],
 })
 export class AniversariantesComponent implements OnInit {
-  meses = Object.values(FeriasMesesDoAno);
-  mesSelecionado: FeriasMesesDoAno | '' = '';
-  termoBusca: string = '';
+  selectedMes: string = '';
 
-  // Adicionando a referência correta
-  feriasMesesDoAnoDescricoes = FeriasMesesDoAnoDescricoes;
+  meses = Object.keys(Meses).map((key) => ({
+    value: Meses[key as keyof typeof Meses],
+    description: MesesDescricoes[Meses[key as keyof typeof Meses]],
+  }));
 
   constructor(private router: Router) {}
 

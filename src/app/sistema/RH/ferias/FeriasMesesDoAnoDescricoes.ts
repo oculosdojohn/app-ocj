@@ -1,16 +1,16 @@
-import { FeriasMesesDoAno } from "./FeriasMesesDoAno";
+import { Meses } from "./FeriasMesesDoAno";
 
-export const FeriasMesesDoAnoDescricoes: Record<FeriasMesesDoAno, string> = {
-    [FeriasMesesDoAno.JANEIRO]: "Janeiro",
-    [FeriasMesesDoAno.FEVEREIRO]: "Fevereiro",
-    [FeriasMesesDoAno.MARCO]: "Março",
-    [FeriasMesesDoAno.ABRIL]: "Abril",
-    [FeriasMesesDoAno.MAIO]: "Maio",
-    [FeriasMesesDoAno.JUNHO]: "Junho",
-    [FeriasMesesDoAno.JULHO]: "Julho",
-    [FeriasMesesDoAno.AGOSTO]: "Agosto",
-    [FeriasMesesDoAno.SETEMBRO]: "Setembro",
-    [FeriasMesesDoAno.OUTUBRO]: "Outubro",
-    [FeriasMesesDoAno.NOVEMBRO]: "Novembro",
-    [FeriasMesesDoAno.DEZEMBRO]: "Dezembro"
+export const MesesDescricoes: Record<Meses, string> = {
+    [Meses.JANEIRO]: "Janeiro",
+    [Meses.FEVEREIRO]: "Fevereiro",
+    [Meses.MARCO]: "Março",
+    [Meses.ABRIL]: "Abril",
+    [Meses.MAIO]: "Maio",
+    [Meses.JUNHO]: "Junho",
+    [Meses.JULHO]: "Julho",
+    [Meses.AGOSTO]: "Agosto",
+    [Meses.SETEMBRO]: "Setembro",
+    [Meses.OUTUBRO]: "Outubro",
+    [Meses.NOVEMBRO]: "Novembro",
+    [Meses.DEZEMBRO]: "Dezembro"
 };

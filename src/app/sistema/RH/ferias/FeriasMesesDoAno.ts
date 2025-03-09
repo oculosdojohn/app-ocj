@@ -1,4 +1,4 @@
-export enum FeriasMesesDoAno {
+export enum Meses {
     JANEIRO = 'JANEIRO',
     FEVEREIRO = 'FEVEREIRO',
     MARCO = 'MARCO',
