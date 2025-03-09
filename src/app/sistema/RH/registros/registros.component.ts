@@ -17,7 +17,7 @@ export class RegistrosComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-de-registro']);
   }
 
-  buscarDepartamento(): void {
-    console.log('Buscando departamento:', this.termoBusca);
+  onSearch(searchTerm: string) {
+    console.log('Search term:', searchTerm);
   }
 }
