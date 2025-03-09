@@ -216,6 +216,10 @@
     padding: 6px 12px;
     font-size: 14px;
   }
+
+  .breadcrumb-container {
+    padding: 0;
+  }
 }
 
 /* Novo media query para telas com largura máxima de 920px */
