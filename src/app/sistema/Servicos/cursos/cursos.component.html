@@ -1,4 +1,4 @@
-<div class="main-banner">
+<div class="main-container">
     <div class="banner">
         <h1>Cursos</h1>
         <p>Explore uma variedade de cursos para expandir seu conhecimento e desenvolver novas habilidades.</p>
@@ -14,21 +14,20 @@
       
       
   
-    <div class="courses">
-    
-        <div class="course-card" *ngFor="let modulo of modulosPaginados" >
-            <div class="course-image">
+    <div class="cursos">
+        <div class="curso-card" *ngFor="let modulo of modulosPaginados" >
+            <div class="curso-image">
                 <img src="assets/imgs/capa-gerentes.png" alt="Imagem do curso">
             </div>
             <h3>{{ modulo.description }}</h3>
             <div class="details">
                 <p>
-                    <img src="assets/imgs/video.svg" alt="Ícone de vídeo" class="icon" />
+                    <img src="assets/icones/videoaula.svg" alt="Ícone de vídeo" class="icon" />
                     120 aulas
                 </p>
                 <p>
-                    <img src="assets/imgs/file.svg" alt="Ícone de material extra" class="icon" />
-                    10 materiais extras
+                    <img src="assets/icones/time.svg" alt="Ícone de tempo" class="icon" />
+                    50 horas
                 </p>
             </div>        
             <button (click)="navegarParaModulo(modulo.value)" class="access-btn">Acessar curso →</button>

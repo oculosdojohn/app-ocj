@@ -45,7 +45,7 @@ export class CursosComponent implements OnInit {
   }
 
   generateSlug(text: string): string {
-    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Remove acentos
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
       .replace(/ /g, '-')
       .replace(/[^\w-]+/g, '');
