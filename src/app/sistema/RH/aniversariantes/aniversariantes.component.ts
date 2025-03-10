@@ -27,6 +27,7 @@ export class AniversariantesComponent implements OnInit {
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.aniversarios.length / this.itensPorPagina);
   aniversariosPaginados: Aniversario[] = [];
+  aniversariosFiltrados: Aniversario[] = [];
 
   meses = Object.keys(Meses).map((key) => ({
     value: Meses[key as keyof typeof Meses],
@@ -36,19 +37,32 @@ export class AniversariantesComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.atualizarPaginacao();
+    this.filtrarPorMes();
   }
 
-  filtrarPorMes(): void {}
+  filtrarPorMes(): void {
+    console.log('Mês selecionado:', this.selectedMes);
+    if (this.selectedMes) {
+      this.aniversariosFiltrados = this.aniversarios.filter(aniversario => {
+        const mes = aniversario.data.split('/')[1];
+        return mes === this.selectedMes;
+      });
+    } else {
+      this.aniversariosFiltrados = [...this.aniversarios];
+    }
+    console.log('Aniversários filtrados:', this.aniversariosFiltrados);
+    this.atualizarPaginacao();
+  }
 
   atualizarPaginacao(): void {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
     const fim = inicio + this.itensPorPagina;
-    this.aniversariosPaginados = this.aniversarios.slice(inicio, fim);
+    this.aniversariosPaginados = this.aniversariosFiltrados.slice(inicio, fim);
+    console.log('Aniversários paginados:', this.aniversariosPaginados);
   }
 
   get totalItens() {
-    return this.aniversarios.length;
+    return this.aniversariosFiltrados.length;
   }
 
   onPaginaMudou(novaPagina: number) {

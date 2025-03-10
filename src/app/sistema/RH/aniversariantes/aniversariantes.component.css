@@ -63,8 +63,33 @@
   font-weight: 600;
 }
 
+/* select e button */
 .actions {
-  width: 400px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.select-container {
+  width: 300px;
+}
+
+.btn-export {
+  background: transparent;
+  color: #007bff;
+  border: #007bff solid 2px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-export:hover {
+  background: #0056b3;
+  color: #ffffff;
+  border: #0056b3 solid 2px;
 }
 
 /* tabela */
