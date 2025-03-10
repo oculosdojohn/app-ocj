@@ -15,4 +15,54 @@
             <button class="btn-cadastrar" (click)="cadastrarFeedback()">Cadastrar Feedback</button>
         </div>
     </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Colaborador</th>
+                    <th>Classificação</th>
+                    <th>Autor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let feedback of feedbacksPaginados">
+                    <td>
+                        <div class="perfil">
+                            <span>{{ feedback.data }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="perfil">
+                            <div class="avatar"></div>
+                            <span>{{ feedback.colaborador }}</span>
+                        </div>
+                    </td>
+                    <td>{{ feedback.classificacao }}</td>
+                    <td>{{ feedback.autor }}</td>
+                    <td>
+                        <button class="btn-acao">
+                            <img src="assets/icones/See.png" alt="Visualizar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Edit.png" alt="Editar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Delete.png" alt="Excluir">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
 </div>
