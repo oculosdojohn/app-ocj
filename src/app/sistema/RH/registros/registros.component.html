@@ -15,4 +15,58 @@
             <button class="btn-cadastrar" (click)="cadastrarRegistro()">Cadastrar Registro</button>
         </div>
     </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Loja</th>
+                    <th>Colaborador</th>
+                    <th>Tipo</th>
+                    <th>Classificação</th>
+                    <th>Autor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let registro of registrosPaginados">
+                    <td>
+                        <div class="perfil">
+                            <span>{{ registro.data }}</span>
+                        </div>
+                    </td>
+                    <td>{{ registro.loja }}</td>
+                    <td>
+                        <div class="perfil">
+                            <div class="avatar"></div>
+                            <span>{{ registro.colaborador }}</span>
+                        </div>
+                    </td>
+                    <td>{{ registro.tipo }}</td>
+                    <td>{{ registro.classificacao }}</td>
+                    <td>{{ registro.autor }}</td>
+                    <td>
+                        <button class="btn-acao">
+                            <img src="assets/icones/See.png" alt="Visualizar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Edit.png" alt="Editar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Delete.png" alt="Excluir">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
 </div>
