@@ -51,7 +51,7 @@ const routes: Routes = [
 
       // somente rh e admin pode ver
       { path: 'feedbacks', component: FeedbaksComponent},
-      { path: 'medicina', component: MedicinaComponent},
+      { path: 'saude-ocupacional', component: MedicinaComponent},
       { path: 'registros', component: RegistrosComponent},
       { path: 'ferias', component: FeriasComponent},
       { path: 'cadastrar-ferias', component: CadastroFeriasComponent},
