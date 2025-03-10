@@ -20,8 +20,8 @@ export class FeriasComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  cadastrarDepartamento(): void {
-    this.router.navigate(['/usuario/cadastro-de-departamento']);
+  cadastrarFerias(): void {
+    this.router.navigate(['/usuario/cadastro-de-ferias']);
   }
 
   filtrarPorMes(): void {
