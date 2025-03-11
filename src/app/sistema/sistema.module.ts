@@ -28,7 +28,10 @@ import { FeriasComponent } from './RH/ferias/ferias.component';
 import { CadastroFeriasComponent } from './RH/cadastro-ferias/cadastro-ferias.component';
 import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedimentos-medico/cadastro-de-procedimentos-medico.component';
 import { ModuloCursoComponent } from './Servicos/modulo-curso/modulo-curso.component';
-
+import { PainelAdminComponent } from './Dashboard-Usuarios/painel-admin/painel-admin.component';
+import { PainelRhComponent } from './Dashboard-Usuarios/painel-rh/painel-rh.component';
+import { PainelGerenteComponent } from './Dashboard-Usuarios/painel-gerente/painel-gerente.component';
+import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colaborador/painel-colaborador.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,10 @@ import { ModuloCursoComponent } from './Servicos/modulo-curso/modulo-curso.compo
     CadastroFeriasComponent,
     CadastroDeProcedimentosMedicoComponent,
     ModuloCursoComponent,
+    PainelAdminComponent,
+    PainelRhComponent,
+    PainelGerenteComponent,
+    PainelColaboradorComponent
   ],
   imports: [
     CommonModule,
