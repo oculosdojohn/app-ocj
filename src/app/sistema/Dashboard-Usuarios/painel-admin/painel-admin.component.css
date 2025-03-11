@@ -153,6 +153,29 @@
   height: 24px;
 }
 
+/* graficos */
+.graficos-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+}
+
+.duo-graficos {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.grafico {
+  width: 100%;
+  min-height: 160px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
@@ -199,5 +222,9 @@
   .welcome p {
     font-size: 16px;
     text-align: center;
+  }
+
+  .duo-graficos {
+    flex-direction: column;
   }
 }
