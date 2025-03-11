@@ -31,11 +31,7 @@ export class NavbarComponent implements OnInit {
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
-  toggleSidenav() {
-    this.sidenav.toggle();
-    const dropdownToggle = document.getElementById('dropdown-toggle');
+    const dropdownToggle = document.getElementById('dropdown-button');
     if (dropdownToggle) {
       if (this.isDropdownOpen) {
         dropdownToggle.classList.add('active');
@@ -43,6 +39,10 @@ export class NavbarComponent implements OnInit {
         dropdownToggle.classList.remove('active');
       }
     }
+  }
+
+  toggleSidenav() {
+    this.sidenav.toggle();
   }
 
   isSidenavOpen() {

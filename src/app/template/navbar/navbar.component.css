@@ -265,15 +265,15 @@ a.active-link span {
   border-radius: 4px;
 }
 
-.dropdown-toggle.active + .dropdown-menu {
+.dropdown-button.active + .dropdown-menu {
   display: block;
 }
 
-.dropdown-toggle .dropdown-icon {
+.dropdown-button .dropdown-icon {
   transition: transform 0.3s;
 }
 
-.dropdown-toggle.active .dropdown-icon {
+.dropdown-button.active .dropdown-icon {
   transform: rotate(180deg);
 }
 

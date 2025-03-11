@@ -15,7 +15,7 @@
             <span>{{ permissaoUsuario }}</span>
           </div>
         </div>
-        <button class="dropdown-button" (click)="toggleDropdown()">
+        <button #dropdownToggle class="dropdown-button" (click)="toggleDropdown()" id="dropdown-button">
           <img src="assets/icones/carret-white.svg" alt="Dropdown Icon" class="dropdown-icon" />
         </button>
       
