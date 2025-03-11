@@ -150,3 +150,52 @@
   width: 24px;
   height: 24px;
 }
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 32px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 24px;
+  }
+
+  .motivational-message {
+    width: 80%;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 16px;
+  }
+
+  .banner {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .welcome h1 {
+    font-size: 26px;
+  }
+
+  .motivational-message {
+    width: 100%;
+  }
+
+  .welcome p {
+    font-size: 16px;
+    text-align: center;
+  }
+}
