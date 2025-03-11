@@ -3,11 +3,14 @@
   max-width: 100%;
   padding: 32px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .banner {
   padding: 32px;
-  background: #AFCEBD;
+  background: #afcebd;
   border-radius: 24px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -33,7 +36,7 @@
 /* clima */
 .climate {
   background: rgba(255, 255, 255, 0.6);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -71,4 +74,53 @@
   font-size: 12px;
   font-weight: 400;
   text-align: center;
+}
+
+/* cards */
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 120px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
+}
+
+.info-card span {
+  font-size: 32px;
+  font-weight: 700;
+  color: #cb4417;
+}
+
+.categoria-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.categoria-card p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4d4a49;
+  margin: 0;
+}
+
+.icone-card {
+  width: 32px;
+  height: 32px;
+  background: #DEEBE5;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
 }
