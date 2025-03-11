@@ -1,4 +1,4 @@
-<div class="main-banner">
+<div class="main-container">
     <div class="banner">
         <h1>Aniversariantes</h1>
         <p>Acompanhe e celebre os aniversários dos colaboradores de forma especial.</p>
@@ -9,16 +9,59 @@
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Aniversariantes</span>
         </div>
         <div class="actions">
-            <div class="select-box">
-                <select [(ngModel)]="mesSelecionado" (change)="filtrarPorMes()">
-                    <option value="" disabled selected>Selecione um mês</option>
-                    <option *ngFor="let mes of meses" [value]="mes">
-                        {{ feriasMesesDoAnoDescricoes[mes] }}
-                    </option>
-                    
-                </select>
+            <div class="select-container">
+                <app-select-padrao
+                    label="Selecione um mês"
+                    [customStyles]="{'background': '#FFFFFF'}"
+                    [options]="meses"
+                    [(selectedValue)]="selectedMes"
+                    (selectedValueChange)="filtrarPorMes()">
+                </app-select-padrao>
             </div>
-            <button class="btn-cadastrar" (click)="cadastrarDepartamento()">Cadastrar Aniversariante</button>
+
+            <button class="btn-export">Exportar</button>
         </div>
     </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data de nascimento</th>
+                    <th>Funcionário</th>
+                    <th>Loja</th>
+                    <th>Departamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aniversario of aniversariosPaginados">
+                    <td>
+                        <div class="perfil">
+                            <span>{{ aniversario.data }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="perfil">
+                            <div class="avatar"></div>
+                            <span>{{ aniversario.colaborador }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="perfil">
+                            <span>{{ aniversario.loja }}</span>
+                        </div>
+                    </td>
+                    <td>{{ aniversario.departamento }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <app-pagination
+            [paginaAtual]="paginaAtual"
+            [totalItens]="totalItens"
+            [itensPorPagina]="itensPorPagina"
+            (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div>  
 </div>

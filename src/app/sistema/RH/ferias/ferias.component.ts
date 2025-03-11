@@ -1,31 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FeriasMesesDoAno } from './FeriasMesesDoAno';
-import { FeriasMesesDoAnoDescricoes } from './FeriasMesesDoAnoDescricoes';
+import { Meses } from './Meses';
+import { MesesDescricoes } from './MesesDescricoes';
 
 @Component({
   selector: 'app-ferias',
   templateUrl: './ferias.component.html',
-  styleUrls: ['./ferias.component.css']
+  styleUrls: ['./ferias.component.css'],
 })
 export class FeriasComponent implements OnInit {
-
-  meses = Object.values(FeriasMesesDoAno);
-  mesSelecionado: FeriasMesesDoAno | '' = '';
+  meses = Object.values(Meses);
+  mesSelecionado: Meses | '' = '';
   termoBusca: string = '';
 
   // Adicionando a referência correta
-  feriasMesesDoAnoDescricoes = FeriasMesesDoAnoDescricoes;
+  mesesDescricoes = MesesDescricoes;
 
-  constructor(private router: Router) { } 
-         
-  ngOnInit(): void {
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  cadastrarFerias(): void {
+    this.router.navigate(['/usuario/cadastro-de-ferias']);
   }
-         
-  cadastrarDepartamento(): void {
-    this.router.navigate(['/usuario/cadastro-de-departamento']); 
-  }
-    
+
   filtrarPorMes(): void {
     // Aqui vai a lógica para filtrar os dados com base no mês selecionado
   }

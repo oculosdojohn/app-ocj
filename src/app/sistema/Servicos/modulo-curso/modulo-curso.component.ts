@@ -1,0 +1,73 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Modulos } from '../cursos/enums/modulos';
+import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
+import { Aula } from '../cursos/aulas';
+
+@Component({
+  selector: 'app-modulo-curso',
+  templateUrl: './modulo-curso.component.html',
+  styleUrls: ['./modulo-curso.component.css']
+})
+export class ModuloCursoComponent implements OnInit {
+  modulo: Modulos | undefined;
+  descricao: string = '';
+
+  aulas: Aula[] = [];
+  videoAtual: Aula | null = null;
+  videoAtualIndex: number = 0;
+  videosAssistidos: boolean[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location
+  ) { }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const slug = params.get('modulo') || '';
+      const moduloObj = Object.keys(Modulos).find(key => this.generateSlug(ModulosDescricao[Modulos[key as keyof typeof Modulos]]) === slug);
+      if (moduloObj) {
+        this.modulo = Modulos[moduloObj as keyof typeof Modulos];
+        this.descricao = ModulosDescricao[this.modulo];
+      }
+    });
+  }
+
+  generateSlug(text: string): string {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  reproduzirVideo(aula: Aula, index: number): void {
+    this.videoAtual = aula;
+    this.videoAtualIndex = index;
+  }
+
+  marcarComoAssistido(index: number): void {
+    this.videosAssistidos[index] = true;
+  }
+
+  onVideoEnded(): void {
+    this.marcarComoAssistido(this.videoAtualIndex);
+    const nextIndex = this.videoAtualIndex + 1;
+    if (nextIndex < this.aulas.length) {
+      this.reproduzirVideo(this.aulas[nextIndex], nextIndex);
+    }
+  }
+
+  formatFileName(fileName: string): string {
+    return fileName.replace(/^\d+_/, '').replace(/_/g, ' ');
+  }
+
+  viewPdf(url: string): void {
+    window.open(url, '_blank');
+  }
+}

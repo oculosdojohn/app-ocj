@@ -1,4 +1,4 @@
-<div class="main-banner">
+<div class="main-container">
     <div class="banner">
         <h1>Lojas</h1>
         <p>Um espaço onde você pode administrar todas as lojas.</p>
@@ -9,14 +9,60 @@
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Lojas</span>
         </div>
         <div class="actions">
-            <div class="search-box">
-                <input type="text" placeholder="Buscar loja" [(ngModel)]="termoBusca">
-                <button (click)="buscarLoja()">
-                    <img src="assets/icones/search.png" alt="Buscar">
-                </button>
+            <div class="search-container">
+                <app-search (searchChange)="onSearch($event)"></app-search>
             </div>
-
             <button class="btn-cadastrar" (click)="cadastrarLoja()">Cadastrar Loja</button>
         </div>
     </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Superior responsável</th>
+                    <th>N° de funcionários</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let loja of lojasPaginados">
+                    <td>
+                        <div class="perfil">
+                            <span>{{ loja.nome }}</span>
+                        </div>
+                    </td>
+                    <td>{{ loja.endereco.rua }}, {{ loja.endereco.numero }} - {{ loja.endereco.bairro }}, {{ loja.endereco.cidade }} - {{ loja.endereco.estado }}, {{ loja.endereco.CEP }}</td>
+                    <td>
+                        <div class="perfil">
+                            <div class="avatar"></div>
+                            <span>{{ loja.responsavel }}</span>
+                        </div>
+                    </td>
+                    <td>{{ loja.qtdFuncionarios }}</td>
+                    <td>
+                        <button class="btn-acao">
+                            <img src="assets/icones/See.png" alt="Visualizar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Edit.png" alt="Editar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Delete.png" alt="Excluir">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div>  
 </div>

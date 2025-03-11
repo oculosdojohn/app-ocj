@@ -1,1 +1,63 @@
-<p>painel-admin works!</p>
+<div class="main-container">
+  <div class="banner">
+    <div class="welcome">
+      <h1>👋 Bem-vindo, John</h1>
+      <p>
+        “Se expressarmos gratidão pelo que temos, teremos mais pelo que
+        expressar gratidão.”
+      </p>
+    </div>
+
+    <div class="climate">
+      <div class="title-clima">
+        <h3>Clima de {{ weatherData.name }} </h3>
+      </div>
+      <div class="temperatura">
+        <img [src]="iconUrl" alt="Ícone do clima">
+        <span>{{ temperature | number:'1.0-0' }} °C</span>
+      </div>
+      <div class="descricao">
+        <h6>Vento: {{ windSpeed }} m/s, {{ weatherDescription }}</h6>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards-container">
+    <div class="card info-card">
+        <span>12</span>
+        <div class="categoria-card">
+            <div class="icone-card">
+                <img src="assets/icones/dashboard/lojas.svg" alt="Loja icone">
+            </div>
+            <p>Lojas</p>
+        </div>
+    </div>
+    <div class="card info-card">
+        <span>12</span>
+        <div class="categoria-card">
+            <div class="icone-card">
+                <img src="assets/icones/dashboard/gerentes.svg" alt="Gerente icone">
+            </div>
+            <p>Gerentes</p>
+        </div>
+    </div>
+    <div class="card info-card">
+        <span>12</span>
+        <div class="categoria-card">
+            <div class="icone-card">
+                <img src="assets/icones/dashboard/colaboradores.svg" alt="Colaborador icone">
+            </div>
+            <p>Colaboradores</p>
+        </div>
+    </div>
+    <div class="card info-card">
+        <span>12</span>
+        <div class="categoria-card">
+            <div class="icone-card">
+                <img src="assets/icones/dashboard/cursos.svg" alt="Curso icone">
+            </div>
+            <p>Cursos</p>
+        </div>
+    </div>
+  </div>
+</div>

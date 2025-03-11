@@ -14,12 +14,12 @@
                 <select [(ngModel)]="mesSelecionado" (change)="filtrarPorMes()">
                     <option value="" disabled selected>Selecione um mês</option>
                     <option *ngFor="let mes of meses" [value]="mes">
-                        {{ feriasMesesDoAnoDescricoes[mes] }}
+                        {{ mesesDescricoes[mes] }}
                     </option>
                     
                 </select>
             </div>
-            <button class="btn-cadastrar" (click)="cadastrarDepartamento()">Cadastrar Férias</button>
+            <button class="btn-cadastrar" (click)="cadastrarFerias()">Cadastrar Férias</button>
         </div>
     </div>
 </div>

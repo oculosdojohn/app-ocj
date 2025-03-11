@@ -1,0 +1,39 @@
+/* paginação */
+.paginacao {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 5px;
+}
+
+.paginacao button {
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #5a6058;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginacao button.ativo {
+  background: #d4eecc;
+  color: #25470e;
+  font-weight: 600;
+}
+
+.paginacao button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.paginacao button:not(:disabled):hover {
+  background: rgba(64, 255, 0, 0.2);
+}

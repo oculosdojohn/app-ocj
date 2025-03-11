@@ -1,4 +1,4 @@
-<div class="main-banner">
+<div class="main-container">
     <div class="banner">
         <h1>Gerentes</h1>
         <p>Um espaço onde você pode administrar todos os gerentes.</p>
@@ -8,14 +8,8 @@
         <div class="breadcrumb">
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Gerentes</span>
         </div>
-        
-        <div class="actions">
-            <div class="search-box">
-                <input type="text" placeholder="Buscar gerente" [(ngModel)]="termoBusca">
-                <button (click)="buscarGerente()">
-                    <img src="assets/icones/search.png" alt="Buscar">
-                </button>
-            </div>
+        <div class="search-container">
+            <app-search (searchChange)="onSearch($event)"></app-search>
         </div>
     </div>
 
@@ -62,17 +56,13 @@
                 </tr>
             </tbody>
         </table>
-    
-        <div class="paginacao">
-            <button (click)="paginaAnterior()" [disabled]="paginaAtual === 1">&lt;</button>
-                <span *ngFor="let pagina of [].constructor(totalPaginas); let i = index">
-
-                <button (click)="mudarPagina(i + 1)" [class.ativo]="paginaAtual === i + 1">
-                    {{ i + 1 }}
-                </button>
-            </span>
-            <button (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">&gt;</button>
-        </div>
-    </div>
-    
+    </div> 
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
 </div>

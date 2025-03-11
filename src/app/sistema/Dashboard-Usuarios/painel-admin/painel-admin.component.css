@@ -1,0 +1,133 @@
+.main-container {
+  margin: 90px 32px 24px;
+  max-width: 100%;
+  padding: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.banner {
+  padding: 32px;
+  background: #cfe5da;
+  border-radius: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #cb4417;
+}
+
+.welcome p {
+  font-size: 16px;
+  color: #4d4a49;
+}
+
+/* clima */
+.climate {
+  background: rgba(255, 255, 255, 0.328);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  gap: 2px;
+}
+
+.title-clima h3 {
+  color: #0B260F;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.temperatura {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.temperatura img {
+  width: 60px;
+  height: 60px;
+}
+
+.temperatura span {
+  color: #4b504b;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.descricao h6 {
+  color: #807B79;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* cards */
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 160px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
+}
+
+.info-card span {
+  font-size: 32px;
+  font-weight: 700;
+  color: #cb4417;
+}
+
+.categoria-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.categoria-card p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4d4a49;
+  margin: 0;
+}
+
+.icone-card {
+  width: 48px;
+  height: 48px;
+  background: #DEEBE5;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+}
+
+.icone-card img {
+  width: 24px;
+  height: 24px;
+}

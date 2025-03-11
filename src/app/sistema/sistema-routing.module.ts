@@ -27,6 +27,8 @@ import { PainelRhComponent } from './Dashboard-Usuarios/painel-rh/painel-rh.comp
 import { PainelGerenteComponent } from './Dashboard-Usuarios/painel-gerente/painel-gerente.component';
 import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colaborador/painel-colaborador.component';
 import { PainelAdminComponent } from './Dashboard-Usuarios/painel-admin/painel-admin.component';
+import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedimentos-medico/cadastro-de-procedimentos-medico.component';
+import { ModuloCursoComponent } from './Servicos/modulo-curso/modulo-curso.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -38,7 +40,7 @@ const routes: Routes = [
       { path: 'dashboard-gerente', component: PainelGerenteComponent},
       { path: 'dashboard-rh', component: PainelRhComponent},
 
-      // somente rh e admin pode ver
+      // somente rh e admin podem ver
       { path: 'colaboradores-das-lojas', component: FuncionariosComponent},
       { path: 'gerentes-lojas', component: GerentesComponent},
       { path: 'lojas-john', component: LojasComponent},
@@ -47,25 +49,27 @@ const routes: Routes = [
       { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent},
       { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent},
 
-      // somente rh e admin pode ver
+      // somente rh e admin podem ver
       { path: 'feedbacks', component: FeedbaksComponent},
-      { path: 'medicina', component: MedicinaComponent},
+      { path: 'saude-ocupacional', component: MedicinaComponent},
       { path: 'registros', component: RegistrosComponent},
       { path: 'ferias', component: FeriasComponent},
-      { path: 'cadastrar-ferias', component: CadastroFeriasComponent},
+      { path: 'cadastro-de-ferias', component: CadastroFeriasComponent},
       { path: 'aniversariantes-do-mes', component: AniversariantesComponent},
       { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent},
       { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent},
+      { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent},
 
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
       { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent},
       
-      // todos pode ver aqui
+      // todos podem ver essas rotas
       { path: 'forum-de-noticias', component: ForumNoticiasComponent},
       { path: 'fale-com-o-dono', component: FaleComODonoComponent},
       { path: 'cursos-disponiveis', component:CursosComponent},
-      { path: 'lojinha-do-john', component:LojinhaComponent}
+      { path: 'lojinha-do-john', component:LojinhaComponent},
+      { path: 'curso/:modulo', component: ModuloCursoComponent},
     ]
   }
 ];

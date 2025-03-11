@@ -1,4 +1,4 @@
-<div class="main-banner">
+<div class="main-container">
     <div class="banner">
         <h1>Cursos</h1>
         <p>Explore uma variedade de cursos para expandir seu conhecimento e desenvolver novas habilidades.</p>
@@ -9,125 +9,34 @@
           <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Cursos</span>
         </div>
         <button class="btn-cadastrar" (click)="cadastrarAula()">Cadastrar Aula</button>
-      </div>
+    </div>
       
-      
-      
-  
-    <div class="courses">
-    
-        <div class="course-card">
-            <div class="course-image">
-                <img src="assets/imgs/capa-gerentes.png" alt="Imagem do curso">
+    <div class="cursos">
+        <div class="curso-card" *ngFor="let modulo of modulosPaginados" >
+            <div class="curso-image">
+                <img [src]="modulo.image" alt="Imagem do curso">
             </div>
-            <h3>Curso de Onboarding</h3>
+            <h3>{{ modulo.description }}</h3>
             <div class="details">
                 <p>
-                    <img src="assets/imgs/video.svg" alt="Ícone de vídeo" class="icon" />
+                    <img src="assets/icones/videoaula.svg" alt="Ícone de vídeo" class="icon" />
                     120 aulas
                 </p>
                 <p>
-                    <img src="assets/imgs/file.svg" alt="Ícone de material extra" class="icon" />
-                    10 materiais extras
+                    <img src="assets/icones/time.svg" alt="Ícone de tempo" class="icon" />
+                    50 horas
                 </p>
             </div>        
-            <button class="access-btn">Acessar curso →</button>
-        </div>
-
-        <div class="course-card">
-            <div class="course-image">
-                <img src="assets/icones/john-logo.svg" alt="Imagem do curso">
-            </div>
-            <h3>Nome do curso</h3>
-            <div class="details">
-                <p>
-                    <img src="assets/imgs/video.svg" alt="Ícone de vídeo" class="icon" />
-                    120 aulas
-                </p>
-                <p>
-                    <img src="assets/imgs/file.svg" alt="Ícone de material extra" class="icon" />
-                    10 materiais extras
-                </p>
-            </div>        
-            <button class="access-btn">Acessar curso →</button>
-        </div>
-
-        <div class="course-card">
-            <div class="course-image">
-                <img src="assets/icones/john-logo.svg" alt="Imagem do curso">
-            </div>
-            <h3>Nome do curso</h3>
-            <div class="details">
-                <p>
-                    <img src="assets/imgs/video.svg" alt="Ícone de vídeo" class="icon" />
-                    120 aulas
-                </p>
-                <p>
-                    <img src="assets/imgs/file.svg" alt="Ícone de material extra" class="icon" />
-                    10 materiais extras
-                </p>
-            </div>        
-            <button class="access-btn">Acessar curso →</button>
-        </div>
-
-        <div class="course-card">
-            <div class="course-image">
-                <img src="assets/icones/john-logo.svg" alt="Imagem do curso">
-            </div>
-            <h3>Nome do curso</h3>
-            <div class="details">
-                <p>
-                    <img src="assets/imgs/video.svg" alt="Ícone de vídeo" class="icon" />
-                    120 aulas
-                </p>
-                <p>
-                    <img src="assets/imgs/file.svg" alt="Ícone de material extra" class="icon" />
-                    10 materiais extras
-                </p>
-            </div>        
-            <button class="access-btn">Acessar curso →</button>
-        </div>
-
-        <div class="course-card">
-            <div class="course-image">
-                <img src="assets/icones/john-logo.svg" alt="Imagem do curso">
-            </div>
-            <h3>Nome do curso</h3>
-            <div class="details">
-                <p>
-                    <img src="assets/imgs/video.svg" alt="Ícone de vídeo" class="icon" />
-                    120 aulas
-                </p>
-                <p>
-                    <img src="assets/imgs/file.svg" alt="Ícone de material extra" class="icon" />
-                    10 materiais extras
-                </p>
-            </div>        
-            <button class="access-btn">Acessar curso →</button>
-        </div>
-
-        <div class="course-card">
-            <div class="course-image">
-                <img src="assets/icones/john-logo.svg" alt="Imagem do curso">
-            </div>
-            <h3>Nome do curso</h3>
-            <div class="details">
-                <p>
-                    <img src="assets/imgs/video.svg" alt="Ícone de vídeo" class="icon" />
-                    120 aulas
-                </p>
-                <p>
-                    <img src="assets/imgs/file.svg" alt="Ícone de material extra" class="icon" />
-                    10 materiais extras
-                </p>
-            </div>        
-            <button class="access-btn">Acessar curso →</button>
+            <button (click)="navegarParaModulo(modulo.value)" class="access-btn">Acessar curso →</button>
         </div>
     </div>
 
     <div class="pagination">
-        <button *ngFor="let num of [1,2,3]" (click)="mudarPagina(num)" [class.active]="paginaAtual === num">{{ num }}</button>
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
     </div>
-
 </div>
-
