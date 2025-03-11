@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  permissaoUsuario: string = 'Administrador'; // Pegue dinamicamente do serviço de autenticação
+  permissaoUsuario: string = 'Administrador';
   nomeUsuario: string = 'Johnatta';
 
   isGeralMenuOpen = false;
   isRHMenuOpen = false;
+  isDropdownOpen = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -29,11 +30,19 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleDropdown(): void {
-    // Função opcional, caso queira adicionar mais lógica ao dropdown
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   toggleSidenav() {
     this.sidenav.toggle();
+    const dropdownToggle = document.getElementById('dropdown-toggle');
+    if (dropdownToggle) {
+      if (this.isDropdownOpen) {
+        dropdownToggle.classList.add('active');
+      } else {
+        dropdownToggle.classList.remove('active');
+      }
+    }
   }
 
   isSidenavOpen() {
@@ -51,7 +60,6 @@ export class NavbarComponent implements OnInit {
   }
 
   verPerfil(): void {
-    // Redirecione para a página de perfil
     console.log('Abrindo página de perfil...');
   }
 
