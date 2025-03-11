@@ -20,6 +20,7 @@
 .welcome {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .welcome h1 {
@@ -29,8 +30,26 @@
 }
 
 .welcome p {
+  font-size: 18px;
+  font-weight: 500;
+  color: #454844;
+  margin: 0;
+  text-align: justify;
+}
+
+.welcome .author {
   font-size: 16px;
-  color: #4d4a49;
+  font-weight: 400;
+  color: #5d605b;
+  font-style: italic;
+  text-align: end;
+}
+
+.motivational-message {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 60%;
 }
 
 /* clima */
@@ -46,7 +65,7 @@
 }
 
 .title-clima h3 {
-  color: #0B260F;
+  color: #0b260f;
   font-size: 16px;
   font-weight: 500;
 }
@@ -70,7 +89,7 @@
 }
 
 .descricao h6 {
-  color: #807B79;
+  color: #807b79;
   font-size: 12px;
   font-weight: 400;
   text-align: center;
@@ -119,7 +138,7 @@
 .icone-card {
   width: 48px;
   height: 48px;
-  background: #DEEBE5;
+  background: #deebe5;
   border-radius: 50%;
   display: flex;
   justify-content: center;
