@@ -83,12 +83,12 @@
 
 .mat-list-item:hover:before {
   display: block;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .mat-list-item:hover {
   background-color: #e2e2e265;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .mat-list-item:hover .icon {
@@ -109,43 +109,35 @@
 }
 
 .active-link {
-  background-color: #e2e2e265;
-  border-radius: 30px; /* Bordas arredondadas */
-  color: #ffffff; /* Cor do texto branco */
-  font-weight: bold; /* Texto em negrito */
-  padding: 10px; /* Espaçamento interno */
-  display: flex; /* Flexbox para alinhamento */
-  align-items: center; /* Alinhamento vertical centralizado */
-}
-
-.active-link .icon {
-  color: #ffffff; /* Cor do ícone branco */
+  background: #e2e2e273;
+  color: #ffffff; 
+  font-weight: 700; 
+  padding: 10px;
+  display: flex;
+  align-items: center; 
 }
 
 .mat-list-item.active-link:before {
-  content: ""; /* Adiciona a linha vertical */
+  content: ""; 
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  width: 3px; /* Largura da linha */
-  background-color: #d87a0e; /* Cor da linha laranja */
-  display: block; /* Sempre visível para o active-link */
+  width: 3px; 
+  background: #d87a0e; 
+  display: block;
 }
 
 /* Estilo para o texto do link ativo */
 a.active-link span {
-  color: #010101; /* Cor laranja para o texto */
-  font-weight: bold; /* Negrito para destaque */
+  font-weight: 700;
   font-size: 16px;
-  color: #ffffff; /* Cor laranja para o texto */
-  font-weight: bold; /* Negrito para destaque */
-  font-size: 16px;
+  color: #ffffff;
 }
 
 .mat-drawer-sidenav {
   width: 250px;
-  background-color: #245c39;
+  background: #245c39;
   overflow-x: hidden;
   margin-top: 15px;
   font-family: "Nunito Sans", sans-serif;
