@@ -1,6 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesApisService } from 'src/app/services/services-apis.service';
 import { MotivationalMessagesService } from 'src/app/services/motivational-messages.service';
+import * as ApexCharts from 'apexcharts';
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexXAxis,
+  ApexPlotOptions
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  xaxis: ApexXAxis;
+};
 
 @Component({
   selector: 'app-painel-admin',
@@ -23,6 +40,9 @@ export class PainelAdminComponent implements OnInit {
   ngOnInit(): void {
     this.getWeatherForCurrentLocation();
     this.motivationalMessage = this.motivationalMessagesService.getRandomMessage();
+    this.renderChartAdmissao();
+    this.renderChartDemissao();
+    this.renderChartEscolaridade();
   }
 
   getWeatherForRussas(): void {
@@ -59,4 +79,82 @@ export class PainelAdminComponent implements OnInit {
       this.windSpeed = this.weatherData.wind.speed;
     }
   }
+
+  // graficos
+  renderChartAdmissao() {
+      var options = {
+        chart: {
+          type: 'line',
+          height: 350,
+          width: '100%'
+        },
+        series: [{
+          name: 'Admissões',
+          data: [45, 5, 2, 50, 10, 60, 30, 91, 125, 160, 200, 150]
+        }],
+        xaxis: {
+          categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        },
+        theme: {
+          palette: 'palette3'
+        }
+      };
+  
+      var chart = new ApexCharts(document.querySelector('#chartAdmissao'), options);
+      chart.render();
+    }
+  
+    renderChartDemissao() {
+      var options = {
+        chart: {
+          type: 'line',
+          height: 350,
+          width: '100%'
+        },
+        series: [{
+          name: 'Demissões',
+          data: [1, 5, 2, 50, 10, 60, 30, 91, 125, 160, 100, 50]
+        }],
+        xaxis: {
+          categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        },
+        theme: {
+          palette: 'palette10'
+        }
+      };
+  
+      var chart = new ApexCharts(document.querySelector('#chartDemissao'), options);
+      chart.render();
+    }
+
+    renderChartEscolaridade() {
+      var options = {
+        chart: {
+          type: 'donut',
+          height: 350,
+          width: '100%'
+        },
+        series: [44, 55, 13],
+        labels: ['Fundamental completo', 'Médio completo', 'Superior completo'],
+        theme: {
+          palette: 'palette8'
+        },
+        responsive: [
+          {
+            breakpoint: 980,
+            options: {
+              chart: {
+                width: 250
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ]
+      };
+  
+      var chart = new ApexCharts(document.querySelector('#chartEscolaridade'), options);
+      chart.render();
+    }
 }

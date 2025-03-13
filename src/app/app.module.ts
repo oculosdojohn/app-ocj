@@ -42,7 +42,7 @@ import { TokenInterceptor } from './services/configs/token.interceptor';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     AuthService,

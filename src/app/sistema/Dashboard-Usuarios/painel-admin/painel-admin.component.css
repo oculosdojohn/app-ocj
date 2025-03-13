@@ -167,7 +167,15 @@
   gap: 24px;
 }
 
+.one-grafico {
+  display: flex;
+  flex-direction: column;
+}
+
 .grafico {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   min-height: 160px;
   padding: 24px;
