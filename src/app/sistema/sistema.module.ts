@@ -32,6 +32,7 @@ import { PainelAdminComponent } from './Dashboard-Usuarios/painel-admin/painel-a
 import { PainelRhComponent } from './Dashboard-Usuarios/painel-rh/painel-rh.component';
 import { PainelGerenteComponent } from './Dashboard-Usuarios/painel-gerente/painel-gerente.component';
 import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colaborador/painel-colaborador.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colabora
     CommonModule,
     SistemaRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgApexchartsModule
   ]
 })
 export class SistemaModule { }
