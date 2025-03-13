@@ -9,8 +9,10 @@
 }
 
 .banner {
+  background-image: url("src/assets/icones/dashboard/arte-banner.png");
+  background-size: cover;
+  background-position: center;
   padding: 32px;
-  background: #cfe5da;
   border-radius: 24px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -20,6 +22,7 @@
 .welcome {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .welcome h1 {
@@ -29,13 +32,31 @@
 }
 
 .welcome p {
+  font-size: 18px;
+  font-weight: 500;
+  color: #454844;
+  margin: 0;
+  text-align: justify;
+}
+
+.welcome .author {
   font-size: 16px;
-  color: #4d4a49;
+  font-weight: 400;
+  color: #5d605b;
+  font-style: italic;
+  text-align: end;
+}
+
+.motivational-message {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 60%;
 }
 
 /* clima */
 .climate {
-  background: rgba(255, 255, 255, 0.328);
+  background: rgba(234, 234, 234, 0.796);
   border-radius: 12px;
   padding: 16px;
   display: flex;
@@ -46,7 +67,7 @@
 }
 
 .title-clima h3 {
-  color: #0B260F;
+  color: #0b260f;
   font-size: 16px;
   font-weight: 500;
 }
@@ -70,7 +91,7 @@
 }
 
 .descricao h6 {
-  color: #807B79;
+  color: #4b504b;
   font-size: 12px;
   font-weight: 400;
   text-align: center;
@@ -119,7 +140,7 @@
 .icone-card {
   width: 48px;
   height: 48px;
-  background: #DEEBE5;
+  background: #deebe5;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -130,4 +151,80 @@
 .icone-card img {
   width: 24px;
   height: 24px;
+}
+
+/* graficos */
+.graficos-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+}
+
+.duo-graficos {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.grafico {
+  width: 100%;
+  min-height: 160px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
+}
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 32px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 24px;
+  }
+
+  .motivational-message {
+    width: 80%;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 16px;
+  }
+
+  .banner {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .welcome h1 {
+    font-size: 26px;
+  }
+
+  .motivational-message {
+    width: 100%;
+  }
+
+  .welcome p {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .duo-graficos {
+    flex-direction: column;
+  }
 }

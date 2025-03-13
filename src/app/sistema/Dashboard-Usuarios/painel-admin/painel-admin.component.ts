@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesApisService } from 'src/app/services/services-apis.service';
+import { MotivationalMessagesService } from 'src/app/services/motivational-messages.service';
 
 @Component({
   selector: 'app-painel-admin',
@@ -12,11 +13,16 @@ export class PainelAdminComponent implements OnInit {
   iconUrl: string = '';
   windSpeed: number = 0;
   weatherData: any;
+  motivationalMessage: { quote: string, author: string } = { quote: '', author: '' };
 
-  constructor(private apiService: ServicesApisService) {}
+  constructor(
+    private apiService: ServicesApisService,
+    private motivationalMessagesService: MotivationalMessagesService,
+  ) {}
 
   ngOnInit(): void {
     this.getWeatherForCurrentLocation();
+    this.motivationalMessage = this.motivationalMessagesService.getRandomMessage();
   }
 
   getWeatherForRussas(): void {

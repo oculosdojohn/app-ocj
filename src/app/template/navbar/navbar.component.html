@@ -7,25 +7,27 @@
         <img src="assets/icones/john-logo.svg" alt="" style="padding: 10px; height: 65px;" class="d-inline-block align-text-top">
     </a>
 
-    <div class="profile-container">
-        <div class="profile-info" (click)="toggleDropdown()" [matMenuTriggerFor]="profileMenu">
-          <img class="profile-picture" src="assets/imgs/foto-ever.jpeg" alt="Foto do usuário">
-          <div class="profile-details">
-            <span class="profile-name">{{ nomeUsuario }}</span>
-            <span class="profile-role">{{ permissaoUsuario }}</span>
+    <div class="header-user">
+        <div class="profile-info">
+          <img class="user-photo" src="assets/imgs/foto-ever.jpeg" alt="Foto do usuário">
+          <div class="user-info">
+            <h3>{{ nomeUsuario }}</h3>
+            <span>{{ permissaoUsuario }}</span>
           </div>
-          <mat-icon>arrow_drop_down</mat-icon>
         </div>
+        <button #dropdownToggle class="dropdown-button" (click)="toggleDropdown()" id="dropdown-button">
+          <img src="assets/icones/carret-white.svg" alt="Dropdown Icon" class="dropdown-icon" />
+        </button>
       
         <!-- Dropdown Menu -->
-        <mat-menu #profileMenu="matMenu">
-          <button mat-menu-item (click)="verPerfil()">
-            <mat-icon>person</mat-icon> Meu Perfil
+        <div class="dropdown-menu" id="dropdown-menu" [ngClass]="{ 'show': isDropdownOpen }">
+          <button class="dropdown-item" (click)="verPerfil()">
+             Meu Perfil
           </button>
-          <button mat-menu-item class="btn-logout" (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon> Sair
+          <button class="dropdown-item" (click)="logout()">
+             Sair
           </button>
-        </mat-menu>
+        </div>
     </div>
 </mat-toolbar>
 
