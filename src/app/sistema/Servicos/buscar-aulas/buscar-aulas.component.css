@@ -1,0 +1,67 @@
+.main-container {
+  margin: 90px 32px 24px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.back-title {
+  display: flex;
+  align-items: center;
+}
+
+.back-title span {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1a1918;
+  margin-left: 12px;
+}
+
+.back-title img {
+  width: 28px;
+  height: auto;
+  color: #1a1918;
+  margin: 0;
+  cursor: pointer;
+}
+
+.back-title img:hover {
+  transform: scale(1.1);
+  background: #dfdfdf;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+  .main-container {
+    margin: 90px 32px 24px;
+    padding: 50px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .main-container {
+    margin: 90px 24px 24px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-container {
+    margin: 90px 24px 24px;
+    padding: 20px;
+  }
+
+  .back-title span {
+    font-size: 24px;
+  }
+
+  .back-title img {
+    width: 22px;
+    height: auto;
+  }
+}

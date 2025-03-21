@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-buscar-aulas',
   templateUrl: './buscar-aulas.component.html',
-  styleUrls: ['./buscar-aulas.component.css']
+  styleUrls: ['./buscar-aulas.component.css'],
 })
 export class BuscarAulasComponent implements OnInit {
+  constructor(private location: Location) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  goBack() {
+    this.location.back();
   }
-
 }
