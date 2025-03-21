@@ -19,8 +19,8 @@
         </div>
     </div>
 
-    <div class="tabela-container">
-        <table>
+    <div class="tabela-container" [ngClass]="{'tabela-container': true, 'no-data': aulasPaginadas.length === 0}">
+        <table *ngIf="aulasPaginadas.length > 0; else noDataTemplate">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -51,6 +51,12 @@
                 </tr>
             </tbody>
         </table>
+        <ng-template #noDataTemplate>
+            <div class="no-data-message">
+                <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+                <p>Selecione um modulo para buscar as aulas.</p>
+            </div>
+        </ng-template>
     </div> 
     <div class="pagination">
         <app-pagination

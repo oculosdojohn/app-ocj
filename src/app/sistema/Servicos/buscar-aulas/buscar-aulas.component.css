@@ -97,6 +97,10 @@
   border-radius: 16px;
 }
 
+.tabela-container.no-data {
+  border: none;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -174,6 +178,29 @@ tr:hover {
   align-items: center;
   padding: 20px;
   gap: 15px;
+}
+
+/* no data mensagem */
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  height: 100%;
+  padding: 24px;
+  margin-top: 32px;
+}
+
+.no-data-message img {
+  width: 140px;
+  height: auto;
+}
+
+.no-data-message p {
+  color: var(--lm-text);
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 /* Breakpoints */
