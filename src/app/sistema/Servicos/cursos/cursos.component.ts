@@ -51,6 +51,10 @@ export class CursosComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-de-aulas']); 
   }
 
+  buscarAulas(): void {
+    this.router.navigate(['/usuario/buscar-aulas']); 
+  }
+
   get modulosPaginados() {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
     return this.modulos.slice(inicio, inicio + this.itensPorPagina);

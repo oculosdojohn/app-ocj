@@ -63,6 +63,17 @@
   font-weight: 600;
 }
 
+/* select e button */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.select-container {
+  width: 300px;
+}
+
 .btn-cadastrar {
   background: #007bff;
   color: #ffffff;
@@ -77,6 +88,24 @@
 
 .btn-cadastrar:hover {
   background: #0056b3;
+}
+
+.btn-line {
+  background: transparent;
+  color: #007bff;
+  border: #007bff solid 2px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-line:hover {
+  background: #0056b3;
+  color: #ffffff;
+  border: #0056b3 solid 2px;
 }
 
 /* Cards de curos/modulos */
@@ -101,7 +130,7 @@
 .curso-card h3 {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #CB4417;
+  color: #cb4417;
   padding: 16px;
   margin: 0;
 }
