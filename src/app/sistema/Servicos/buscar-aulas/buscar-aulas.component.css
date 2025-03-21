@@ -71,6 +71,12 @@
   background: #0056b3;
 }
 
+.btn-buscar img {
+  width: 18px;
+  height: auto;
+  margin-right: 4px;
+}
+
 .btn-line {
   background: transparent;
   color: #007bff;
