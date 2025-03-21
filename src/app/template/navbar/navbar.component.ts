@@ -60,7 +60,7 @@ export class NavbarComponent implements OnInit {
   }
 
   verPerfil(): void {
-    console.log('Abrindo página de perfil...');
+    this.router.navigate(['/usuario/meu-perfil']);
   }
 
   toggleGeralMenu() {
