@@ -1,10 +1,13 @@
 <div class="main-container">
-    <div class="back-title">
-        <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Buscar aulas</span>
+    <div class="banner">
+        <h1>Buscar aulas</h1>
+        <p>Explore uma variedade de cursos para expandir seu conhecimento e desenvolver novas habilidades.</p>
     </div>
 
     <div class="buscar-container">
+        <div class="breadcrumb">
+            <a (click)="goBack()">Cursos &gt; </a> <span class="breadcrumb-highlight"> Buscar aulas</span>
+          </div>
         <div class="actions">
             <div class="select-container">
                 <app-select-padrao

@@ -8,41 +8,60 @@
   overflow: hidden;
 }
 
-.back-title {
-  display: flex;
-  align-items: center;
+.banner {
+  background-image: url("src/assets/imgs/capa-cursos.png");
+  background-size: cover;
+  background-position: center;
+  padding: 32px;
+  color: white;
+  border-radius: 20px;
 }
 
-.back-title span {
-  font-size: 32px;
-  font-weight: 600;
-  color: #1a1918;
-  margin-left: 12px;
-}
-
-.back-title img {
-  width: 28px;
-  height: auto;
-  color: #1a1918;
+.banner h1 {
   margin: 0;
-  cursor: pointer;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
 }
 
-.back-title img:hover {
-  transform: scale(1.1);
-  background: #dfdfdf;
-  border-radius: 50%;
-  padding: 4px;
+.banner p {
+  margin: 10px 0 0;
+  font-size: 1.2rem;
 }
 
 /* buscar e button */
 .buscar-container {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 32px 0;
   padding-top: 40px;
   align-items: center;
+}
+
+.breadcrumb {
+  font-size: 1rem;
+  color: #666261;
+  margin: 0;
+}
+
+.breadcrumb a {
+  color: #666;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.breadcrumb a:hover {
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.breadcrumb-highlight {
+  margin-left: 5px;
+  color: #008000;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .select-container {
