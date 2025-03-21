@@ -1,25 +1,80 @@
-<div class="main-banner">
+<div class="main-container">
     <div class="banner">
         <h1>Férias</h1>
         <p>Planeje e gerencie as solicitações e períodos de férias da equipe.</p>
     </div>
-
+  
     <div class="breadcrumb-container">
         <div class="breadcrumb">
-            <a href="#">Home &gt; </a> 
-            <span class="breadcrumb-highlight">Férias</span>
+            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight">Férias</span>
         </div>
         <div class="actions">
-            <div class="select-box">
-                <select [(ngModel)]="mesSelecionado" (change)="filtrarPorMes()">
-                    <option value="" disabled selected>Selecione um mês</option>
-                    <option *ngFor="let mes of meses" [value]="mes">
-                        {{ mesesDescricoes[mes] }}
-                    </option>
-                    
-                </select>
+            <div class="select-container">
+                <app-select-padrao
+                    label="Selecione uma loja"
+                    [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
             </div>
             <button class="btn-cadastrar" (click)="cadastrarFerias()">Cadastrar Férias</button>
+            <button class="btn-export">Exportar</button>
         </div>
     </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Mês</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Dias</th>
+                    <th>Abono</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ferias of feriasPaginadas">
+                    <td>
+                        <div class="perfil">
+                            <div class="avatar"></div>
+                            <span>{{ ferias.colaborador }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="perfil">
+                            <span>{{ ferias.mes }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="perfil">
+                            <span>{{ ferias.inicioFerias }}</span>
+                        </div>
+                    </td>
+                    <td>{{ ferias.fimFerias }}</td>
+                    <td>{{ ferias.dias }}</td>
+                    <td>{{ ferias.abono }}</td>
+                    <td>
+                        <button class="btn-acao">
+                            <img src="assets/icones/See.png" alt="Visualizar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Edit.png" alt="Editar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Delete.png" alt="Excluir">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <app-pagination
+            [paginaAtual]="paginaAtual"
+            [totalItens]="totalItens"
+            [itensPorPagina]="itensPorPagina"
+            (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div>  
 </div>
