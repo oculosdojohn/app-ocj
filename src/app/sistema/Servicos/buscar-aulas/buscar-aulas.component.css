@@ -35,6 +35,147 @@
   padding: 4px;
 }
 
+/* buscar e button */
+.buscar-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 32px 0;
+  padding-top: 40px;
+  align-items: center;
+}
+
+.select-container {
+  width: 400px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-buscar {
+  background: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-buscar:hover {
+  background: #0056b3;
+}
+
+.btn-line {
+  background: transparent;
+  color: #007bff;
+  border: #007bff solid 2px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-line:hover {
+  background: #0056b3;
+  color: #ffffff;
+  border: #0056b3 solid 2px;
+}
+
+/* tabela */
+.tabela-container {
+  width: 100%;
+  overflow-x: auto;
+  border: #b5b5b5 solid 1px;
+  border-radius: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px 16px;
+}
+
+th {
+  background: #f15623f1;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+td {
+  font-size: 16px;
+  color: #666;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background: #fafafa;
+}
+
+tr:hover {
+  background-color: #eaf1e5;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  background: #ddd;
+  border-radius: 50%;
+}
+
+.ativo {
+  color: green;
+  font-weight: bold;
+}
+
+.inativo {
+  color: red;
+  font-weight: bold;
+}
+
+.btn-acao {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.btn-acao img {
+  width: 18px;
+  height: 18px;
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {

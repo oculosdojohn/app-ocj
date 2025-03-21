@@ -2,7 +2,7 @@ import { Modulos } from './enums/modulos';
 
 export class Aula {
   id!: number;
-  diaDoCadastro!: string;
+  dataCadastro!: string;
   idUser!: number;
   title!: string;
   video!: File;
@@ -19,7 +19,7 @@ export class Aula {
   toJson(): string {
     return JSON.stringify({
       id: this.id,
-      diaDoCadastro: this.diaDoCadastro,
+      dataCadastro: this.dataCadastro,
       idUser: this.idUser,
       title: this.title,
       video: this.video,
