@@ -33,6 +33,7 @@ import { PainelRhComponent } from './Dashboard-Usuarios/painel-rh/painel-rh.comp
 import { PainelGerenteComponent } from './Dashboard-Usuarios/painel-gerente/painel-gerente.component';
 import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colaborador/painel-colaborador.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     PainelAdminComponent,
     PainelRhComponent,
     PainelGerenteComponent,
-    PainelColaboradorComponent
+    PainelColaboradorComponent,
+    MeuPerfilComponent
   ],
   imports: [
     CommonModule,

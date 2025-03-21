@@ -1,0 +1,313 @@
+.main-container {
+  margin: 90px 32px 24px;
+  max-width: 100%;
+  background: #ffffff;
+  color: #1a1918;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* titulo */
+.back-title {
+  display: flex;
+  align-items: center;
+}
+
+.back-title span {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1a1918;
+  margin-left: 12px;
+}
+
+.back-title img {
+  width: 28px;
+  height: auto;
+  color: #1a1918;
+  margin: 0;
+  cursor: pointer;
+}
+
+.back-title img:hover {
+  transform: scale(1.1);
+  background: #dfdfdf;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+/* switch */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #f15e2e;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* profile */
+.container-perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 48px;
+  padding: 24px;
+}
+
+.profile-attributes {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.container-photo {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 24px;
+  object-fit: cover;
+}
+
+.edit-profile-photo {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-profile-photo button {
+  width: 100%;
+  background: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.edit-profile-photo button:hover {
+  background: #0056b3;
+}
+
+.profile-name {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.profile-name h4 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #1a1918;
+  margin: 0;
+}
+
+.profile-name span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a1918;
+  margin: 0;
+}
+
+/* dados perfil */
+.data-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.container-duo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 80px;
+  align-items: start;
+}
+
+.data-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.data-item label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1a1918;
+  margin: 0;
+  padding: 0;
+}
+
+.data-item span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a1918;
+  margin: 0;
+  padding: 0;
+}
+
+/* button */
+.container-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 0 24px;
+}
+
+.btn-edit {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #0056b3;
+}
+
+.btn-line {
+  background: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-line:hover {
+  background: #e3e3e3;
+}
+
+/* modo edicao */
+.data-profile-edit {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a1918;
+  margin: 0;
+  padding: 0;
+}
+
+.form-group input {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+  .main-container {
+    margin: 120px 32px 24px;
+    padding: 50px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .main-container {
+    margin: 100px 24px 24px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-container {
+    margin: 100px 24px 24px;
+    padding: 20px;
+  }
+
+  .back-title span {
+    font-size: 24px;
+  }
+
+  .back-title img {
+    width: 22px;
+    height: auto;
+  }
+
+  .container-btn {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+}
