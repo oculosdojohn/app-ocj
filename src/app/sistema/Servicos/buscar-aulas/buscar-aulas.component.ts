@@ -15,6 +15,7 @@ export class BuscarAulasComponent implements OnInit {
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.aulas.length / this.itensPorPagina);
   aulasPaginadas: Aula[] = [];
+  buscaRealizada = false;
 
   selectedModulo: string = '';
   modulos = Object.keys(Modulos).map(key => ({
@@ -43,5 +44,24 @@ export class BuscarAulasComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  buscarAulas(): void {
+    this.buscaRealizada = true;
+    if (this.selectedModulo) {
+      this.aulasPaginadas = this.aulas.filter(aula => aula.modulos === this.selectedModulo);
+      this.totalPaginas = Math.ceil(this.aulasPaginadas.length / this.itensPorPagina);
+      this.atualizarPaginacao();
+    } else {
+      this.aulasPaginadas = [];
+      this.totalPaginas = 0;
+    }
+  }
+
+  limparFiltro(): void {
+    this.selectedModulo = '';
+    this.aulasPaginadas = [];
+    this.totalPaginas = 0;
+    this.buscaRealizada = false;
   }
 }

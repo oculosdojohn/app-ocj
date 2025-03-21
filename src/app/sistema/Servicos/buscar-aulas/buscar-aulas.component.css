@@ -189,7 +189,7 @@ tr:hover {
   gap: 24px;
   height: 100%;
   padding: 24px;
-  margin-top: 32px;
+  margin: 64px 0;
 }
 
 .no-data-message img {

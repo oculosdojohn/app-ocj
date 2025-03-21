@@ -14,8 +14,8 @@
                   [(selectedValue)]="selectedModulo">
                 </app-select-padrao>
             </div>
-            <button class="btn-buscar">Buscar</button>
-            <button class="btn-line">Limpar</button>
+            <button class="btn-buscar" (click)="buscarAulas()">Buscar</button>
+            <button class="btn-line" (click)="limparFiltro()">Limpar</button>
         </div>
     </div>
 
@@ -52,13 +52,21 @@
             </tbody>
         </table>
         <ng-template #noDataTemplate>
-            <div class="no-data-message">
-                <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
-                <p>Selecione um modulo para buscar as aulas.</p>
+            <div *ngIf="buscaRealizada; else noModuloSelected">
+                <div class="no-data-message">
+                    <img src="assets/imgs/empty-images/no-search.svg" alt="Sem dados">
+                    <p>Nenhuma aula encontrada para o módulo selecionado.</p>
+                </div>
             </div>
+            <ng-template #noModuloSelected>
+                <div class="no-data-message">
+                    <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+                    <p>Selecione um modulo para buscar as aulas.</p>
+                </div>
+            </ng-template>
         </ng-template>
     </div> 
-    <div class="pagination">
+    <div class="pagination" *ngIf="aulasPaginadas.length > 0;">
         <app-pagination
         [paginaAtual]="paginaAtual"
         [totalItens]="totalItens"
