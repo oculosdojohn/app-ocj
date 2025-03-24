@@ -239,14 +239,17 @@ tr:hover {
 @media (min-width: 768px) and (max-width: 1199px) {
   .main-container {
     margin: 90px 24px 24px;
-    padding: 40px;
+  }
+
+  .select-container {
+    width: 250px;
   }
 }
 
 @media (max-width: 767px) {
   .main-container {
     margin: 90px 24px 24px;
-    padding: 20px;
+    padding: 16px;
   }
 
   .back-title span {

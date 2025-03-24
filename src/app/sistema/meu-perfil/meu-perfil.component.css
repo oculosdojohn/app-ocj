@@ -310,4 +310,9 @@ input:checked + .slider:before {
     flex-direction: column;
     padding: 0 16px;
   }
+
+  .container-duo {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
