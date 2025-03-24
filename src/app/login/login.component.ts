@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
         if (usuario.permissao === Permissao.ADMIN || usuario.permissao === Permissao.RH || 
             usuario.permissao === Permissao.COLABORADOR) {
-          this.router.navigate(['/usuario/painel-principal']);
+          this.router.navigate(['/usuario/dashboard-admin']);
         } else {
           this.router.navigate(['/forbidden']);
         }
