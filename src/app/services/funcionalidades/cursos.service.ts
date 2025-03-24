@@ -29,4 +29,22 @@ export class CursosService {
       })
     );
   }
+
+  obterAulasPorModulo(moduloAula: string): Observable<Aula[]> {
+    const url = `${this.apiURL}/modulo/${moduloAula}`;
+    return this.http.get<Aula[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao obter as aulas.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
