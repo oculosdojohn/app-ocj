@@ -77,6 +77,18 @@ export class AuthService {
     return false;
   }
 
+  obterPerfilUsuario(): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiURL}/token`).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erro ao obter perfil do usuário:', error);
+        return throwError(
+          'Erro ao obter perfil do usuário. Por favor, tente novamente.'
+        );
+      })
+    );
+  }
+
   public visualizarUsuarioPorId(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiURL}/visualizarUsuario/${id}`);
   }

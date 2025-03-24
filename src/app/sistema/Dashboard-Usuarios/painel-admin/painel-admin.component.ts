@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ServicesApisService } from 'src/app/services/services-apis.service';
 import { MotivationalMessagesService } from 'src/app/services/motivational-messages.service';
 import * as ApexCharts from 'apexcharts';
@@ -29,12 +29,13 @@ export class PainelAdminComponent implements OnInit {
   temperature: number = 0;
   iconUrl: string = '';
   windSpeed: number = 0;
-  weatherData: any;
+  weatherData: any = {};
   motivationalMessage: { quote: string, author: string } = { quote: '', author: '' };
 
   constructor(
     private apiService: ServicesApisService,
     private motivationalMessagesService: MotivationalMessagesService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +79,7 @@ export class PainelAdminComponent implements OnInit {
       this.temperature = Math.round(this.weatherData.main.temp);
       this.iconUrl = `http://openweathermap.org/img/wn/${this.weatherData.weather[0].icon}.png`;
       this.windSpeed = this.weatherData.wind.speed;
+      this.cdr.detectChanges();
     }
   }
 

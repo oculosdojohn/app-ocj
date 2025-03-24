@@ -50,11 +50,25 @@ export class LoginComponent implements OnInit {
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
 
-        if (usuario.permissao === Permissao.ADMIN || usuario.permissao === Permissao.RH || 
-            usuario.permissao === Permissao.COLABORADOR) {
-          this.router.navigate(['/usuario/dashboard-admin']);
-        } else {
-          this.router.navigate(['/forbidden']);
+        switch (usuario.permissao) {
+          case Permissao.ADMIN:
+            this.router.navigate(['/usuario/dashboard-admin']);
+            break;
+          case Permissao.RH:
+            this.router.navigate(['/usuario/dashboard-rh']);
+            break;
+          case Permissao.GERENTE_GERAL:
+          case Permissao.GERENTE:
+            this.router.navigate(['/usuario/dashboard-gerente']);
+            break;
+          case Permissao.SUPERVISOR:
+          case Permissao.VENDEDOR:
+          case Permissao.COLABORADOR:
+            this.router.navigate(['/usuario/dashboard-colaborador']);
+            break;
+          default:
+            this.router.navigate(['/forbidden']);
+            break;
         }
       },
       errorResponse => {
