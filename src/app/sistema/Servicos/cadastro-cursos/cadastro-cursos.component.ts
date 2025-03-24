@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { Aula } from '../cursos/aulas';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
 
 @Component({
   selector: 'app-cadastro-cursos',
@@ -19,14 +21,27 @@ export class CadastroCursosComponent implements OnInit {
   descricao: string = '';
   qtdMoedas: string = '';
 
-  modulos = Object.keys(Modulos).map(key => ({
+  modulos = Object.keys(Modulos).map((key) => ({
     value: Modulos[key as keyof typeof Modulos],
-    description: ModulosDescricao[Modulos[key as keyof typeof Modulos]]
+    description: ModulosDescricao[Modulos[key as keyof typeof Modulos]],
   }));
 
-  constructor(
-    private location: Location,
-  ) {}
+  cadastroAula: FormGroup;
+  isLoading = false;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  isEditMode = false;
+  aulaId: string | null = null;
+
+  constructor(private location: Location, private formBuilder: FormBuilder, private cursosService: CursosService) {
+    this.cadastroAula = this.formBuilder.group({
+      id: [''],
+      titulo: ['', Validators.required],
+      descricao: ['', Validators.required],
+      modulo: ['', Validators.required],
+      qtdMoedas: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {}
 
@@ -45,11 +60,32 @@ export class CadastroCursosComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Form Data:', {
-      titulo: this.titulo,
-      descricao: this.descricao,
-      qtdMoedas: this.qtdMoedas,
-      selectedModulo: this.selectedModulo
-    });
+    console.log('Formulário enviado');
+    this.isLoading = true;
+    this.successMessage = null;
+    this.errorMessage = null;
+    this.cadastroAula.get('modulo')?.setValue(this.selectedModulo);
+
+    const aula: Aula = {
+      ...this.cadastroAula.value,
+      setor: this.cadastroAula.get('modulo')?.value || null,
+    };
+    console.log('Dados do usuário a serem enviados:', aula);
+
+    this.cursosService.cadastrarAula(aula).subscribe(
+      response => {
+        this.isLoading = false;
+        this.successMessage = 'Usuário cadastrado com sucesso!';
+        this.errorMessage = null;
+        this.cadastroAula.reset();
+        console.debug('Usuário cadastrado com sucesso:', response);
+      },
+      error => {
+        this.isLoading = false;
+        this.errorMessage = 'Erro ao cadastrar usuário.';
+        this.successMessage = null;
+        console.error('Erro ao cadastrar usuário:', error);
+      }
+    );
   }
 }

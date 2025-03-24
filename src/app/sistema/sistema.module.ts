@@ -20,7 +20,7 @@ import { CadastroDeDepartamentoComponent } from './Administrativo/cadastro-de-de
 import { CadastroDeColaboradorComponent } from './Administrativo/cadastro-de-colaborador/cadastro-de-colaborador.component';
 import { CadastroDeLojaComponent } from './Administrativo/cadastro-de-loja/cadastro-de-loja.component';
 import { AniversariantesComponent } from './RH/aniversariantes/aniversariantes.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CadastroDeFeedbackComponent } from './RH/cadastro-de-feedback/cadastro-de-feedback.component';
 import { CadastroDeRegistroComponent } from './RH/cadastro-de-registro/cadastro-de-registro.component';
@@ -73,6 +73,7 @@ import { BuscarAulasComponent } from './Servicos/buscar-aulas/buscar-aulas.compo
     CommonModule,
     SistemaRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     NgApexchartsModule
   ]
