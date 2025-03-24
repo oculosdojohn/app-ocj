@@ -308,6 +308,10 @@ a.active-link span {
   .nav-link {
     order: 3;
   }
+
+  .dropdown-menu {
+    left: 40%;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -343,6 +347,26 @@ a.active-link span {
 
   .mat-list-item:hover span {
     color: #ffffff;
+  }
+
+  .header-user {
+    gap: 0.5rem;
+  }
+
+  .user-photo {
+    margin: 0;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .navbar-brand  {
+    display: none;
+  }
+
+  .dropdown-menu {
+    left: 0;
   }
 }
 
