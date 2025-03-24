@@ -28,11 +28,13 @@ export class InputArquivosComponent {
           break;
         }
       }
+      this.arquivosSelecionados.emit(this.arquivos);
     }
   }
 
   removePdf(index: number): void {
     this.arquivos.splice(index, 1);
+    this.arquivosSelecionados.emit(this.arquivos);
   }
 
   onDrop(event: DragEvent): void {
@@ -41,6 +43,7 @@ export class InputArquivosComponent {
       for (let i = 0; i < event.dataTransfer.files.length; i++) {
         this.arquivos.push(event.dataTransfer.files[i]);
       }
+      this.arquivosSelecionados.emit(this.arquivos);
     }
   }
 
