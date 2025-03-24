@@ -13,6 +13,7 @@ export class Aula {
   toJson(): string {
     return JSON.stringify({
       id: this.id,
+      dataCadastro: this.dataCadastro,
       modulo: this.modulos,
       qtdMoedas: this.qtdMoedas,
       titulo: this.titulo,

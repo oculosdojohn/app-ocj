@@ -29,7 +29,11 @@ export class CadastroCursosComponent implements OnInit {
   isEditMode = false;
   aulaId: string | null = null;
 
-  constructor(private location: Location, private formBuilder: FormBuilder, private cursosService: CursosService) {
+  constructor(
+    private location: Location,
+    private formBuilder: FormBuilder,
+    private cursosService: CursosService
+  ) {
     this.cadastroAula = this.formBuilder.group({
       id: [''],
       titulo: ['', Validators.required],
@@ -66,29 +70,31 @@ export class CadastroCursosComponent implements OnInit {
       ...this.cadastroAula.value,
       setor: this.cadastroAula.get('modulo')?.value || null,
     };
-    console.log('Dados da aula a serem enviados:', aula);
 
     const formData = new FormData();
     formData.append('aula', JSON.stringify(aula));
     if (this.selectedVideos['video']) {
       formData.append('video', this.selectedVideos['video']);
-      console.log('Vídeo a ser enviado:', this.selectedVideos['video']);
     }
 
-    this.selectedArquivos.forEach((arquivo, index) => {
-      formData.append(`arquivo${index}`, arquivo);
-      console.log(`Arquivo ${index} a ser enviado:`, arquivo);
-    });
+    if (this.selectedArquivos.length > 0) {
+      this.selectedArquivos.forEach((arquivo) => {
+        formData.append('arquivos', arquivo);
+      });
+    }
+
+    // Debug: Verificar o que está sendo enviado no formData
+    formData.forEach((value, key) => console.log(`FormData: ${key} ->`, value));
 
     this.cursosService.cadastrarAula(formData).subscribe(
-      response => {
+      (response) => {
         this.isLoading = false;
         this.successMessage = 'Aula cadastrada com sucesso!';
         this.errorMessage = null;
         this.cadastroAula.reset();
         console.debug('Aula cadastrada com sucesso:', response);
       },
-      error => {
+      (error) => {
         this.isLoading = false;
         this.errorMessage = 'Erro ao cadastrar aula.';
         this.successMessage = null;
