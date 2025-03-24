@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ServicesApisService } from 'src/app/services/services-apis.service';
 import { MotivationalMessagesService } from 'src/app/services/motivational-messages.service';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { Usuario } from 'src/app/login/usuario';
 import * as ApexCharts from 'apexcharts';
 import {
   ApexAxisChartSeries,
@@ -25,6 +27,7 @@ export type ChartOptions = {
   styleUrls: ['./painel-admin.component.css'],
 })
 export class PainelAdminComponent implements OnInit {
+  usuario: Usuario | null = null;
   weatherDescription: string = 'Carregando...';
   temperature: number = 0;
   iconUrl: string = '';
@@ -35,7 +38,8 @@ export class PainelAdminComponent implements OnInit {
   constructor(
     private apiService: ServicesApisService,
     private motivationalMessagesService: MotivationalMessagesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private usuarioService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +48,15 @@ export class PainelAdminComponent implements OnInit {
     this.renderChartAdmissao();
     this.renderChartDemissao();
     this.renderChartEscolaridade();
+    this.usuarioService.obterPerfilUsuario().subscribe(
+      (usuario) => {
+        this.usuario = usuario;
+        console.log('Perfil do usuário:', usuario);
+      },
+      (error) => {
+        console.error('Erro ao obter perfil do usuário:', error);
+      }
+    );
   }
 
   getWeatherForRussas(): void {
