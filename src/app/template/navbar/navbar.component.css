@@ -6,6 +6,7 @@
   z-index: 2;
   background: #245c39;
   padding: 0 26px;
+  height: 72px;
 }
 
 .ml-2 {
@@ -16,6 +17,24 @@
 .button-menu {
   vertical-align: middle;
   color: #e7ecf6;
+}
+
+.qtd-moedas {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+  margin-right: 14px;
+}
+
+.qtd-moedas img {
+  width: 28px;
+  height: 28px;
+}
+
+.qtd-moedas h5 {
+  font-size: 16px;
+  color: #ffffff;
 }
 
 .mat-drawer-content {
@@ -110,21 +129,21 @@
 
 .active-link {
   background: #e2e2e273;
-  color: #ffffff; 
-  font-weight: 700; 
+  color: #ffffff;
+  font-weight: 700;
   padding: 10px;
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .mat-list-item.active-link:before {
-  content: ""; 
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  width: 3px; 
-  background: #d87a0e; 
+  width: 3px;
+  background: #d87a0e;
   display: block;
 }
 
