@@ -20,10 +20,13 @@ export class LoginComponent implements OnInit {
   errors!: String[];
   usuario: any;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService
-  ) {}
+  showForgotPassword: boolean = false;
+  passwordVisible: { [key: string]: boolean } = {
+    password: false,
+    confirmPassword: false,
+  };
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -37,16 +40,17 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user_id', userId || '');
 
         const usuario: Usuario = {
-          id: userId,  
-          username: response.username, 
-          password: '', 
+          id: userId,
+          username: response.username,
+          password: '',
           email: response.email || '',
           nome: response.nome || '',
-          confirmPassword: '', 
-          permissao: response.authorities.length > 0 ? response.authorities[0] : null,
+          confirmPassword: '',
+          permissao:
+            response.authorities.length > 0 ? response.authorities[0] : null,
           fotoUrl: response.fotoUrl || '',
           nomeDaEmpresa: response.nomeDaEmpresa || '',
-          setorDaEmpresa: response.setorDaEmpresa || '' 
+          setorDaEmpresa: response.setorDaEmpresa || '',
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
 
@@ -71,8 +75,8 @@ export class LoginComponent implements OnInit {
             break;
         }
       },
-      errorResponse => {
-        this.errors = ['Usuário e/ou senha incorreto(s).'];
+      (errorResponse) => {
+        this.errors = ['E-mail e/ou senha incorreto(s).'];
       }
     );
   }
@@ -98,5 +102,16 @@ export class LoginComponent implements OnInit {
         console.error('Erro ao obter dados do usuário:', error);
       }
     );
+  }
+
+  togglePasswordVisibility(field: string) {
+    this.passwordVisible[field] = !this.passwordVisible[field];
+    const passwordInput = document.querySelector(`input[name="${field}"]`);
+    if (passwordInput) {
+      passwordInput.setAttribute(
+        'type',
+        this.passwordVisible[field] ? 'text' : 'password'
+      );
+    }
   }
 }

@@ -12,6 +12,16 @@
                             </div>
                             <div class="card-body">
                                 <form #loginForm="ngForm" (submit)="onSubmit()">
+                                    <div class="alerts">
+                                        <div class="alert alert-success" *ngIf="mensagemSucesso">
+                                          {{ mensagemSucesso }}
+                                        </div>
+                            
+                                        <div class="alert alert-danger" *ngFor="let erro of errors">
+                                            {{ erro }}
+                                        </div>
+                                      </div>
+
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label class="small mb-1" style="font-size: 1.2em;">E-mail</label>
                                         <input type="email" name="email" [(ngModel)]="email" autocomplete="off" class="form-control py-2 responsive-input" placeholder="Informe o seu e-mail" required />
@@ -20,15 +30,13 @@
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label class="small mb-1" style="font-size: 1.2em;">Senha</label>
                                         <div class="input-group">
-                                            <input type="password" name="password" [(ngModel)]="password"  class="form-control py-2 responsive-input" placeholder="Informe a sua senha" required />
-                                            <div class="input-group-append">
-                                                <div class="btn btn-outline-secondary" type="button">
-                                                    <img src="assets/icones/Eye.svg" alt="Mostrar senha" width="16" height="16">
-                                                </div>
+                                            <input [type]="passwordVisible['password'] ? 'text' : 'password'" type="password" name="password" [(ngModel)]="password"  class="form-control py-2 responsive-input" placeholder="Informe a sua senha" required />
+                                            <div class="input-icon" type="button" (click)="togglePasswordVisibility('password')">
+                                                <img *ngIf="!passwordVisible['password']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                                                <img *ngIf="passwordVisible['password']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
                                             </div>
-                                        </div>
-                                    </div>                               
-
+                                        </div>                               
+                                    </div>
                                     <div class="form-group align-items-center justify-content-between mt-4 mb-0">
                                         <div class="col-sm-12 col-md-6">
                                             <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
