@@ -15,11 +15,7 @@ export class CadastroCursosComponent implements OnInit {
   selectedVideos: { [key: string]: File | null } = {};
   selectedArquivos: File[] = [];
   formData = new FormData();
-  aula: Aula = new Aula();
   selectedModulo: string = '';
-  titulo: string = '';
-  descricao: string = '';
-  qtdMoedas: string = '';
 
   modulos = Object.keys(Modulos).map((key) => ({
     value: Modulos[key as keyof typeof Modulos],
@@ -72,7 +68,14 @@ export class CadastroCursosComponent implements OnInit {
     };
     console.log('Dados do usuário a serem enviados:', aula);
 
-    this.cursosService.cadastrarAula(aula).subscribe(
+    const formData = new FormData();
+    formData.append('aula', JSON.stringify(aula));
+    if (this.selectedVideos['video']) {
+      formData.append('video', this.selectedVideos['video']);
+      console.log('Vídeo a ser enviado:', this.selectedVideos['video']);
+    }
+
+    this.cursosService.cadastrarAula(formData).subscribe(
       response => {
         this.isLoading = false;
         this.successMessage = 'Usuário cadastrado com sucesso!';

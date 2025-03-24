@@ -13,8 +13,8 @@ export class CursosService {
 
   constructor(private http: HttpClient) {}
 
-  cadastrarAula(aula: Aula): Observable<Aula> {
-    return this.http.post<Aula>(this.apiURL, aula).pipe(
+  cadastrarAula(formData: FormData): Observable<Aula> {
+    return this.http.post<Aula>(this.apiURL, formData).pipe(
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao salvar a aula.';
