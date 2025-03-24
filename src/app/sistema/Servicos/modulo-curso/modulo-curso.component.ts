@@ -4,11 +4,12 @@ import { Location } from '@angular/common';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Aula } from '../cursos/aulas';
+import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
 
 @Component({
   selector: 'app-modulo-curso',
   templateUrl: './modulo-curso.component.html',
-  styleUrls: ['./modulo-curso.component.css']
+  styleUrls: ['./modulo-curso.component.css'],
 })
 export class ModuloCursoComponent implements OnInit {
   modulo: Modulos | undefined;
@@ -20,23 +21,32 @@ export class ModuloCursoComponent implements OnInit {
   videosAssistidos: boolean[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private location: Location
-  ) { }
+    private route: ActivatedRoute, 
+    private location: Location,
+    private cursosService: CursosService
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const slug = params.get('modulo') || '';
-      const moduloObj = Object.keys(Modulos).find(key => this.generateSlug(ModulosDescricao[Modulos[key as keyof typeof Modulos]]) === slug);
+      const moduloObj = Object.keys(Modulos).find(
+        (key) =>
+          this.generateSlug(
+            ModulosDescricao[Modulos[key as keyof typeof Modulos]]
+          ) === slug
+      );
       if (moduloObj) {
         this.modulo = Modulos[moduloObj as keyof typeof Modulos];
         this.descricao = ModulosDescricao[this.modulo];
+        this.buscarAulas(this.modulo);
       }
     });
   }
 
   generateSlug(text: string): string {
-    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    return text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
       .replace(/ /g, '-')
       .replace(/[^\w-]+/g, '');
@@ -49,6 +59,7 @@ export class ModuloCursoComponent implements OnInit {
   reproduzirVideo(aula: Aula, index: number): void {
     this.videoAtual = aula;
     this.videoAtualIndex = index;
+    console.log('Reproduzindo vídeo:', this.videoAtual.video.documentoUrl);
   }
 
   marcarComoAssistido(index: number): void {
@@ -69,5 +80,23 @@ export class ModuloCursoComponent implements OnInit {
 
   viewPdf(url: string): void {
     window.open(url, '_blank');
+  }
+
+  buscarAulas(moduloAula: string): void {
+    this.cursosService.obterAulasPorModulo(moduloAula).subscribe(
+      (aulas: Aula[]) => {
+        console.log('Aulas recebidas:', aulas);
+        this.aulas = aulas;
+        if (this.aulas.length > 0) {
+          this.videoAtual = this.aulas[0];
+          this.videoAtualIndex = 0;
+          console.log('Video atual:', this.videoAtual);
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar aulas:', error);
+        this.aulas = [];
+      }
+    );
   }
 }

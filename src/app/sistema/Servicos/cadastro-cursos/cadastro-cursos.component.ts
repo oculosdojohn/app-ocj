@@ -75,6 +75,11 @@ export class CadastroCursosComponent implements OnInit {
       console.log('Vídeo a ser enviado:', this.selectedVideos['video']);
     }
 
+    this.selectedArquivos.forEach((arquivo, index) => {
+      formData.append(`arquivo${index}`, arquivo);
+      console.log(`Arquivo ${index} a ser enviado:`, arquivo);
+    });
+
     this.cursosService.cadastrarAula(formData).subscribe(
       response => {
         this.isLoading = false;

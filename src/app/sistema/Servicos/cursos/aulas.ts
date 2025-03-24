@@ -3,16 +3,12 @@ import { Modulos } from './enums/modulos';
 export class Aula {
   id!: number;
   dataCadastro!: string;
-  video!: File;
-  urlVideo!: string;
   modulos!: Modulos;
   titulo!: string;
   descricao!: string;
   qtdMoedas!: string;
-  arquivo!: File;
-  urlArquivo!: string;
-  keyArquivo!: string;
-  documentos?: { id: number; url: string; key: string }[];
+  video!: { documentoUrl: string; id: number };
+  arquivos!: { documentoUrl: string; id: number }[];
 
   toJson(): string {
     return JSON.stringify({
@@ -22,11 +18,7 @@ export class Aula {
       titulo: this.titulo,
       descricao: this.descricao,
       video: this.video,
-      urlVideo: this.urlVideo,
-      arquivo: this.arquivo,
-      urlArquivo: this.urlArquivo,
-      keyArquivo: this.keyArquivo,
-      documentos: this.documentos,
+      arquivos: this.arquivos,
     });
   }
 }
