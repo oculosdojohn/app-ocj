@@ -66,7 +66,7 @@ export class CadastroCursosComponent implements OnInit {
       ...this.cadastroAula.value,
       setor: this.cadastroAula.get('modulo')?.value || null,
     };
-    console.log('Dados do usuário a serem enviados:', aula);
+    console.log('Dados da aula a serem enviados:', aula);
 
     const formData = new FormData();
     formData.append('aula', JSON.stringify(aula));
@@ -78,16 +78,16 @@ export class CadastroCursosComponent implements OnInit {
     this.cursosService.cadastrarAula(formData).subscribe(
       response => {
         this.isLoading = false;
-        this.successMessage = 'Usuário cadastrado com sucesso!';
+        this.successMessage = 'Aula cadastrada com sucesso!';
         this.errorMessage = null;
         this.cadastroAula.reset();
-        console.debug('Usuário cadastrado com sucesso:', response);
+        console.debug('Aula cadastrada com sucesso:', response);
       },
       error => {
         this.isLoading = false;
-        this.errorMessage = 'Erro ao cadastrar usuário.';
+        this.errorMessage = 'Erro ao cadastrar aula.';
         this.successMessage = null;
-        console.error('Erro ao cadastrar usuário:', error);
+        console.error('Erro ao cadastrar aula:', error);
       }
     );
   }

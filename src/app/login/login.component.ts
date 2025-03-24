@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
           setorDaEmpresa: response.setorDaEmpresa || '',
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
+         // Adicione o console log aqui
+         console.log('Permissão do usuário:', usuario.permissao);
 
         switch (usuario.permissao) {
           case Permissao.ADMIN:

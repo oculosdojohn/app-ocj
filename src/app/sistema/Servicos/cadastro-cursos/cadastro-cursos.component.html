@@ -3,6 +3,15 @@
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
         <span>Cadastrar aula</span>
     </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
   
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="cadastroAula">
