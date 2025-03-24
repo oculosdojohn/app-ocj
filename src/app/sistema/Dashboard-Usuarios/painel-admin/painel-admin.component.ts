@@ -60,6 +60,7 @@ export class PainelAdminComponent implements OnInit {
       this.updateWeatherInfo();
     }, error => {
       console.error('Error getting location', error);
+      this.getWeatherForRussas();
     });
   }
 
