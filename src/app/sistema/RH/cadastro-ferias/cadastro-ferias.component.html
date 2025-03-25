@@ -1,1 +1,79 @@
-<p>cadastro-ferias works!</p>
+<div class="main-container">
+    <div class="back-title">
+        <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
+        <span>Cadastrar férias</span>
+    </div>
+  
+    <div class="forms-container">
+        <form>
+            <div class="form-group">
+                <label for="loja">Loja</label>
+                <app-select-padrao
+                  label="Selecione uma loja"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="form-group">
+                <label for="colaborador">Colaborador</label>
+                <app-select-padrao
+                  label="Selecione um colaborador"
+                  [customStyles]="{'background': '#FFFFFF'}">
+                </app-select-padrao>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="inicio">Início aquisitivo</label>
+                    <input type="text" id="inicio" name="inicio" class="form-control" placeholder="Digite" required>
+                </div>
+                <div class="form-group">
+                    <label for="fim">Fim aquisitivo</label>
+                    <input type="text" id="fim" name="fim" class="form-control" placeholder="Digite" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="mes">Mês</label>
+                    <app-select-padrao
+                      label="Selecione o mês"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="ano">Ano</label>
+                    <input type="text" id="ano" name="ano" class="form-control" placeholder="Digite" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="dias">Dias</label>
+                    <input type="text" id="dias" name="dias" class="form-control" placeholder="Digite" required>
+                </div>
+                <div class="form-group">
+                    <label for="abono">Abono</label>
+                    <input type="text" id="abono" name="abono" class="form-control" placeholder="Digite" required>
+                </div>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="inicioFerias">Início das férias</label>
+                    <input type="text" id="inicioFerias" name="inicioFerias" class="form-control" placeholder="Digite" required>
+                </div>
+                <div class="form-group">
+                    <label for="fimFerias">Fim das férias</label>
+                    <input type="text" id="fimFerias" name="fimFerias" class="form-control" placeholder="Digite" required>
+                </div>
+            </div>
+
+            <div class="container-btn">
+                <button type="submit" class="btn-cadastrar">
+                    Cadastrar férias
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

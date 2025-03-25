@@ -70,7 +70,7 @@
 .info-aula h3 {
   font-size: 24px;
   font-weight: 500;
-  color: #008000;
+  color: #CB4417;
   margin: 0 0 8px;
 }
 
@@ -86,9 +86,9 @@
 }
 
 .arquivos-aula h4 {
-  font-size: 16px;
-  font-weight: 500;
-  color: #008000;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4D4A49;
   margin: 0;
 }
 
@@ -101,6 +101,25 @@
 
 .playlist-container {
   height: 100%;
+}
+
+/* moedas */
+.value-coin {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.value-coin img {
+  width: 24px;
+  height: auto;
+}
+
+.value-coin span {
+  font-size: 18px;
+  color: #CB4417;
+  font-weight: 500;
+  margin: 0;
 }
 
 /* Data mensagem */
@@ -131,12 +150,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
-  border: 1px solid #b0b0b0;
+  padding: 0;
+  border: none;
   border-radius: 4px;
   margin-bottom: 10px;
-  background: #ebebeb;
-  gap: 120px;
+  gap: 80px;
 }
 
 .list-group-item span {
@@ -152,7 +170,7 @@
 .btn-vizualizar {
   padding: 8px 16px;
   border: none;
-  background-color: #3b5fa0;
+  background-color: #163F23;
   color: #ffffff;
   border-radius: 4px;
   display: flex;
@@ -162,7 +180,7 @@
 }
 
 .btn-vizualizar:hover {
-  background-color: #2a3f6e;
+  background-color: #215b33;
 }
 
 .btn-vizualizar i {

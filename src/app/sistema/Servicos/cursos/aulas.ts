@@ -2,36 +2,24 @@ import { Modulos } from './enums/modulos';
 
 export class Aula {
   id!: number;
-  diaDoCadastro!: string;
-  idUser!: number;
-  title!: string;
-  video!: File;
-  urlVideo!: string;
+  dataCadastro!: string;
   modulos!: Modulos;
   titulo!: string;
   descricao!: string;
   qtdMoedas!: string;
-  arquivo!: File;
-  urlArquivo!: string;
-  keyArquivo!: string;
-  documentos?: { id: number; url: string; key: string }[];
+  video!: { documentoUrl: string; id: number };
+  arquivos!: { documentoUrl: string; id: number }[];
 
   toJson(): string {
     return JSON.stringify({
       id: this.id,
-      diaDoCadastro: this.diaDoCadastro,
-      idUser: this.idUser,
-      title: this.title,
-      video: this.video,
-      urlVideo: this.urlVideo,
-      modulos: this.modulos,
+      dataCadastro: this.dataCadastro,
+      modulo: this.modulos,
+      qtdMoedas: this.qtdMoedas,
       titulo: this.titulo,
       descricao: this.descricao,
-      qtdMoedas: this.qtdMoedas,
-      arquivo: this.arquivo,
-      urlArquivo: this.urlArquivo,
-      keyArquivo: this.keyArquivo,
-      documentos: this.documentos,
+      video: this.video,
+      arquivos: this.arquivos,
     });
   }
 }

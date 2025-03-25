@@ -4,23 +4,22 @@ import { Aula } from 'src/app/sistema/Servicos/cursos/aulas';
 @Component({
   selector: 'app-playlist-video',
   templateUrl: './playlist-video.component.html',
-  styleUrls: ['./playlist-video.component.css']
+  styleUrls: ['./playlist-video.component.css'],
 })
 export class PlaylistVideoComponent implements OnInit {
   @Input() aulas: Aula[] = [];
   @Input() titulo: string = '';
   @Input() modulo: string = '';
   @Input() videoAtualIndex: number = 0;
-  @Output() aulaSelecionada = new EventEmitter<{ aula: Aula, index: number }>();
+  @Output() aulaSelecionada = new EventEmitter<{ aula: Aula; index: number }>();
   @Input() videosAssistidos: boolean[] = [];
 
   playlistAberta: boolean = true;
   isModalOpen = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openModal() {
     this.isModalOpen = true;
@@ -46,5 +45,9 @@ export class PlaylistVideoComponent implements OnInit {
     } else {
       return title;
     }
+  }
+
+  onVideoLoaded(url: string): void {
+    console.log('Vídeo carregado:', url);
   }
 }

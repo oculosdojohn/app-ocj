@@ -15,7 +15,8 @@
             class="video-player"
             *ngIf="videoAtual"
             (ended)="marcarComoAssistido(videoAtualIndex)"
-            (ended)="onVideoEnded()">
+            (ended)="onVideoEnded()"
+            [src]="videoAtual.video.documentoUrl">
             Seu navegador não suporta o elemento de vídeo.
           </video>
         </div>
@@ -30,16 +31,20 @@
           <div *ngIf="aulas.length > 0">
             <h3>{{ videoAtual?.titulo }}</h3>
             <p>{{ videoAtual?.descricao }}</p>
+            <div class="value-coin">
+              <img src="assets/icones/coin.svg" alt="Moeda">
+              <span>{{ videoAtual?.qtdMoedas }} moedas</span>
+            </div>
         </div>
         <div class="arquivos-aula">
           <h4>Material da Aula</h4>
           <hr>
-          <div *ngIf="videoAtual && videoAtual.documentos && videoAtual.documentos.length > 0; else noMaterialTemplate">
+          <div *ngIf="videoAtual && videoAtual.arquivos && videoAtual.arquivos.length > 0; else noMaterialTemplate">
             <div class="list-group">
-              <div class="list-group-item" *ngFor="let documento of videoAtual?.documentos">
-                <span>{{ formatFileName(documento.key) }}</span>
+              <div class="list-group-item" *ngFor="let arquivo of videoAtual?.arquivos">
+                <span>{{ formatFileName(arquivo.documentoUrl) }}</span>
                 <div>
-                  <button class="btn-vizualizar" (click)="viewPdf(documento.url)"><i class="fas fa-eye"></i>Visualizar</button>
+                  <button class="btn-vizualizar" (click)="viewPdf(arquivo.documentoUrl)">Visualizar</button>
                 </div>
               </div>
             </div>

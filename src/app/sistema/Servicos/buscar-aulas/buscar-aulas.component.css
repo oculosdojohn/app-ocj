@@ -3,18 +3,18 @@
   max-width: 100%;
   background: #ffffff;
   border-radius: 24px;
-  padding: 40px 64px;
+  padding: 32px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .banner {
-  background-image: url("src/assets/imgs/capa-registros.png");
+  background-image: url("src/assets/imgs/capa-buscar-aula.png");
   background-size: cover;
   background-position: center;
   padding: 32px;
-  color: #ffffff;
-  border-radius: 24px;
+  color: white;
+  border-radius: 20px;
 }
 
 .banner h1 {
@@ -29,8 +29,8 @@
   font-size: 1.2rem;
 }
 
-/* Breadcrumb e buscar */
-.breadcrumb-container {
+/* buscar e button */
+.buscar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,6 +49,7 @@
   color: #666;
   font-size: 16px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .breadcrumb a:hover {
@@ -63,18 +64,17 @@
   font-weight: 600;
 }
 
-/* select e button */
+.select-container {
+  width: 400px;
+}
+
 .actions {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.select-container {
-  width: 300px;
-}
-
-.btn-cadastrar {
+.btn-buscar {
   background: #007bff;
   color: #ffffff;
   border: none;
@@ -86,11 +86,17 @@
   transition: background-color 0.3s ease;
 }
 
-.btn-cadastrar:hover {
+.btn-buscar:hover {
   background: #0056b3;
 }
 
-.btn-export {
+.btn-buscar img {
+  width: 18px;
+  height: auto;
+  margin-right: 4px;
+}
+
+.btn-line {
   background: transparent;
   color: #007bff;
   border: #007bff solid 2px;
@@ -102,7 +108,7 @@
   transition: background-color 0.3s ease;
 }
 
-.btn-export:hover {
+.btn-line:hover {
   background: #0056b3;
   color: #ffffff;
   border: #0056b3 solid 2px;
@@ -114,6 +120,10 @@
   overflow-x: auto;
   border: #b5b5b5 solid 1px;
   border-radius: 16px;
+}
+
+.tabela-container.no-data {
+  border: none;
 }
 
 table {
@@ -195,24 +205,59 @@ tr:hover {
   gap: 15px;
 }
 
+/* no data mensagem */
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  height: 100%;
+  padding: 24px;
+  margin: 64px 0;
+}
+
+.no-data-message img {
+  width: 140px;
+  height: auto;
+}
+
+.no-data-message p {
+  color: var(--lm-text);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
-    margin: 90px 20px 20px;
-    padding: 40px 56px;
+    margin: 90px 32px 24px;
+    padding: 50px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .main-container {
-    margin: 90px 20px 20px;
-    padding: 40px 48px;
+    margin: 90px 24px 24px;
+  }
+
+  .select-container {
+    width: 250px;
   }
 }
 
 @media (max-width: 767px) {
   .main-container {
-    margin: 90px 20px 20px;
-    padding: 20px;
+    margin: 90px 24px 24px;
+    padding: 16px;
+  }
+
+  .back-title span {
+    font-size: 24px;
+  }
+
+  .back-title img {
+    width: 22px;
+    height: auto;
   }
 }

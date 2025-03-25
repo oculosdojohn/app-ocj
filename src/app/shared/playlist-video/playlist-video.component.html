@@ -12,10 +12,10 @@
     <div class="modal-content">
         <div class="modal-body">
             <div class="lesson" *ngFor="let aula of aulas; let i = index" (click)="selecionarAula(aula, i)" [ngClass]="{'current-video': i === videoAtualIndex}">
-                <video class="video-preview" [src]="aula.urlVideo" muted></video>
+                <video class="video-preview" [src]="aula.video.documentoUrl" muted (loadedmetadata)="onVideoLoaded(aula.video.documentoUrl)"></video>
                 <span class="lesson-title">{{ aula.titulo }}</span>
-                <img src="assets/Icons/confirmar-vazio.svg" class="check-icon" *ngIf="!videosAssistidos[i]">
-                <img src="assets/Icons/confirmar-verde.svg" class="check-icon" *ngIf="videosAssistidos[i]">
+                <img src="assets/icones/cursos/correto-line.svg" class="check-icon" *ngIf="!videosAssistidos[i]">
+                <img src="assets/icones/cursos/correto-fill.svg" class="check-icon" *ngIf="videosAssistidos[i]">
             </div>
         </div>
     </div>

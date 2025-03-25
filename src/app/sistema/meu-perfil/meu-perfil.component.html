@@ -1,0 +1,90 @@
+<div class="main-container">
+    <div class="header-container">
+      <div class="back-title">
+        <img
+          src="assets/icones/arrow-left.svg"
+          alt="Back"
+          class="back-icon"
+          (click)="goBack()"
+        />
+        <span>Meu Perfil</span>
+      </div>
+      <div class="toggle-container">
+        <span>{{ themeService.isDarkMode() ? "Modo Escuro" : "Modo Claro" }}</span>
+        <label class="switch">
+          <input type="checkbox" [checked]="themeService.isDarkMode()" (change)="toggleDarkMode()"/>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+  
+    <div class="container-perfil">
+      <div class="profile-attributes">
+        <div class="container-photo">
+          <div class="image-container" (click)="isEditing && fileInput.click()">
+            <img [src]="selectedImageUrl || defaultImageUrl" class="profile-photo" alt="Foto de perfil"/>
+            <input #fileInput type="file" accept="image/*" (change)="onImageSelected($event)" style="display: none;"/>
+          </div>
+          <div *ngIf="isEditing" class="edit-profile-photo">
+            <button (click)="fileInput.click()">Alterar foto</button>
+          </div>
+        </div>
+        <div *ngIf="!isEditing" class="profile-name">
+            <h4>{{ user.name }}</h4>
+            <span>{{ user.loja }}</span>
+          </div>
+      </div>
+      <div class="data-profile" *ngIf="!isEditing">
+        <div class="container-duo">
+            <div class="data-item">
+                <label class="label-item">E-mail pessoal:</label>
+                <span>{{ user.emailPessoal }}</span>
+            </div>
+            <div class="data-item">
+                <label class="label-item">E-mail empresarial:</label>
+                <span>{{ user.emailEmpressarial }}</span>
+            </div>
+        </div>
+        <div class="container-duo">
+            <div class="data-item">
+                <label class="label-item">Telefone 1:</label>
+                <span>{{ user.telefone1 }}</span>
+            </div>
+            <div class="data-item">
+                <label class="label-item">Telefone 2:</label>
+                <span>{{ user.telefone2 }}</span>
+            </div>
+        </div>
+      </div>
+      <div class="data-profile-edit">
+        <div *ngIf="isEditing" class="form-group">
+            <div class="data-edit form-group">
+                <label for="name">Nome:</label>
+                <input [(ngModel)]="user.name" id="name" name="name" type="email" class="input-perfil">
+              </div>
+          <div class="data-edit form-group">
+            <label for="email1">E-mail pessoal:</label>
+            <input [(ngModel)]="user.emailPessoal" type="email" id="email1" name="email1" class="input-perfil">
+          </div>
+          <div class="data-edit form-group">
+            <label for="email2">E-mail empresarial:</label>
+            <input [(ngModel)]="user.emailEmpressarial" id="email2" name="email2" type="email" class="input-perfil">
+          </div>
+            <div class="data-edit form-group">
+                <label for="telefone1">Telefone 1:</label>
+                <input [(ngModel)]="user.telefone1" id="telefone1" name="telefone1" type="text" class="input-perfil">
+            </div>
+            <div class="data-edit form-group">
+                <label for="telefone2">Telefone 2:</label>
+                <input [(ngModel)]="user.telefone2" id="telefone2" name="telefone2" type="text" class="input-perfil">
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-btn">
+      <button *ngIf="!isEditing" class="btn btn-edit" (click)="toggleEdit()">Editar Perfil</button>
+      <button *ngIf="!isEditing" class="btn btn-line">Alterar senha</button>
+      <button *ngIf="isEditing" class="btn btn-line" (click)="cancelEdit()">Cancelar</button>
+      <button *ngIf="isEditing" class="btn btn-edit" (click)="saveChanges()">Salvar</button>
+    </div>
+  </div>

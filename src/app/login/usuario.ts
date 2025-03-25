@@ -1,8 +1,14 @@
+import { Permissao } from "./permissao"; 
+
 export class Usuario {
-    id!:string;
-    username!: string;
-    password!: string;
-    email!: string;
-    nomeDaEmpresa!: string;
-    setorDaEmpresa!: string;
+  id!: string;
+  fotoUrl!: any;
+  username!: string;
+  password!: string;
+  confirmPassword!: string;
+  email!: string;
+  nome!: string;
+  nomeDaEmpresa!: string;
+  setorDaEmpresa!: string;
+  permissao!: Permissao; 
 }

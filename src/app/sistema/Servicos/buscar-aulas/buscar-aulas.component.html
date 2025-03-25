@@ -1,0 +1,83 @@
+<div class="main-container">
+    <div class="banner">
+        <h1>Buscar aulas</h1>
+        <p>Encontre e gerencie aulas por módulos, podendo editar ou excluir conforme necessário.</p>
+    </div>
+
+    <div class="buscar-container">
+        <div class="breadcrumb">
+            <a (click)="goBack()">Cursos &gt; </a> <span class="breadcrumb-highlight"> Buscar aulas</span>
+          </div>
+        <div class="actions">
+            <div class="select-container">
+                <app-select-padrao
+                  label="Selecione um módulo"
+                  [customStyles]="{'background': '#FFFFFF'}"
+                  [options]="modulos"
+                  [(selectedValue)]="selectedModulo">
+                </app-select-padrao>
+            </div>
+            <button class="btn-buscar" (click)="buscarAulas()">
+                <img src="assets/icones/lupa-white.svg" alt="Sem dados">
+                Buscar
+            </button>
+            <button class="btn-line" (click)="limparFiltro()">Limpar</button>
+        </div>
+    </div>
+
+    <div class="tabela-container" [ngClass]="{'tabela-container': true, 'no-data': aulasPaginadas.length === 0}">
+        <table *ngIf="aulasPaginadas.length > 0; else noDataTemplate">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Data do Cadastro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aula of aulasPaginadas">
+                    <td>
+                        <div class="perfil">
+                            <span>{{ aula.id }}</span>
+                        </div>
+                    </td>
+                    <td>{{ aula.titulo }}</td>
+                    <td>
+                        <span>{{ aula.dataCadastro }}</span>
+                    </td>
+                    <td>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Edit.png" alt="Editar">
+                        </button>
+                        <button class="btn-acao">
+                            <img src="assets/icones/Delete.png" alt="Excluir">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #noDataTemplate>
+            <div *ngIf="buscaRealizada; else noModuloSelected">
+                <div class="no-data-message">
+                    <img src="assets/imgs/empty-images/no-search.svg" alt="Sem dados">
+                    <p>Nenhuma aula encontrada para o módulo selecionado.</p>
+                </div>
+            </div>
+            <ng-template #noModuloSelected>
+                <div class="no-data-message">
+                    <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+                    <p>Selecione um modulo para buscar as aulas.</p>
+                </div>
+            </ng-template>
+        </ng-template>
+    </div> 
+    <div class="pagination" *ngIf="aulasPaginadas.length > 0;">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
+</div>

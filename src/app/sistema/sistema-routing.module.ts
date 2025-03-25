@@ -29,6 +29,8 @@ import { PainelColaboradorComponent } from './Dashboard-Usuarios/painel-colabora
 import { PainelAdminComponent } from './Dashboard-Usuarios/painel-admin/painel-admin.component';
 import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedimentos-medico/cadastro-de-procedimentos-medico.component';
 import { ModuloCursoComponent } from './Servicos/modulo-curso/modulo-curso.component';
+import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
+import { BuscarAulasComponent } from './Servicos/buscar-aulas/buscar-aulas.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -39,6 +41,7 @@ const routes: Routes = [
       { path: 'dashboard-colaborador', component: PainelColaboradorComponent },
       { path: 'dashboard-gerente', component: PainelGerenteComponent},
       { path: 'dashboard-rh', component: PainelRhComponent},
+      { path: 'meu-perfil', component: MeuPerfilComponent},
 
       // somente rh e admin podem ver
       { path: 'colaboradores-das-lojas', component: FuncionariosComponent},
@@ -70,6 +73,7 @@ const routes: Routes = [
       { path: 'cursos-disponiveis', component:CursosComponent},
       { path: 'lojinha-do-john', component:LojinhaComponent},
       { path: 'curso/:modulo', component: ModuloCursoComponent},
+      { path: 'buscar-aulas', component: BuscarAulasComponent},
     ]
   }
 ];
