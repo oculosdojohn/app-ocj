@@ -18,7 +18,7 @@ export class CadastroCursosComponent implements OnInit {
   formData = new FormData();
   selectedModulo: string = '';
 
-  modulos = Object.keys(Modulos).map((key) => ({
+  modulo = Object.keys(Modulos).map((key) => ({
     value: Modulos[key as keyof typeof Modulos],
     description: ModulosDescricao[Modulos[key as keyof typeof Modulos]],
   }));
@@ -53,12 +53,13 @@ export class CadastroCursosComponent implements OnInit {
       this.isEditMode = true;
       this.cursosService.obterAulaPorId(this.aulaId).subscribe(
         (aula: Aula) => {
-          console.log('Dados do colaborador recebidos:', aula);
+          console.log('Dados da aula recebidos:', aula);
           this.cadastroAula.patchValue(aula);
-          this.selectedModulo = aula.modulos || '';
+          this.selectedModulo = aula.modulo || '';
+
         },
         (error) => {
-          console.error('Erro ao carregar os dados do colaborador:', error);
+          console.error('Erro ao carregar os dados da aula:', error);
         }
       );
     }
@@ -87,7 +88,7 @@ export class CadastroCursosComponent implements OnInit {
 
     const aula: Aula = {
       ...this.cadastroAula.value,
-      modulos: this.cadastroAula.get('modulo')?.value || null,
+      modulo: this.cadastroAula.get('modulo')?.value || null,
     };
 
     const formData = new FormData();
@@ -111,13 +112,14 @@ export class CadastroCursosComponent implements OnInit {
           this.isLoading = false;
           this.successMessage = 'Aula atualizada com sucesso!';
           this.errorMessage = null;
-          this.cadastroAula.reset();
+          this.router.navigate(['/usuario/buscar-aulas']);
           console.debug('Aula atualizada com sucesso:', response);
         },
         (error) => {
           this.isLoading = false;
           this.errorMessage = 'Erro ao atualizar aula.';
           this.successMessage = null;
+          this.cadastroAula.reset();
           console.error('Erro ao atualizar aula:', error);
         }
       );

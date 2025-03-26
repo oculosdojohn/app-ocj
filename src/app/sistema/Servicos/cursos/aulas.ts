@@ -3,7 +3,7 @@ import { Modulos } from './enums/modulos';
 export class Aula {
   id!: string;
   dataCadastro!: string;
-  modulos!: Modulos;
+  modulo!: Modulos;
   titulo!: string;
   descricao!: string;
   qtdMoedas!: string;
@@ -14,7 +14,7 @@ export class Aula {
     return JSON.stringify({
       id: this.id,
       dataCadastro: this.dataCadastro,
-      modulo: this.modulos,
+      modulo: this.modulo,
       qtdMoedas: this.qtdMoedas,
       titulo: this.titulo,
       descricao: this.descricao,
