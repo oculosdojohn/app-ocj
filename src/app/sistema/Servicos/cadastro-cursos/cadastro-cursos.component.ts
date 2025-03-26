@@ -58,8 +58,8 @@ export class CadastroCursosComponent implements OnInit {
           this.cadastroAula.patchValue(aula);
           this.selectedModulo = aula.modulo || '';
           if (aula.video.documentoUrl) {
-            this.selectedVideos['video'] = null; // Garante que não há arquivo local selecionado
-            this.videoPreview = aula.video.documentoUrl; // Atualiza a preview do vídeo
+            this.selectedVideos['video'] = null;
+            this.videoPreview = aula.video.documentoUrl;
             console.log('Video da aula:', aula.video);
           }
         },

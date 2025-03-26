@@ -55,6 +55,7 @@ export class InputVideoComponent {
   }
 
   isPreviewVideo(preview: string | ArrayBuffer): boolean {
-    return typeof preview === 'string' && preview.startsWith('data:video/');
+    return typeof preview === 'string' && (preview.startsWith('data:video/') || preview.startsWith('http'));
   }
+  
 }
