@@ -29,6 +29,7 @@ export class CadastroCursosComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode = false;
   aulaId: string | null = null;
+  videoPreview: string | ArrayBuffer | null = null;
 
   constructor(
     private location: Location,
@@ -56,7 +57,11 @@ export class CadastroCursosComponent implements OnInit {
           console.log('Dados da aula recebidos:', aula);
           this.cadastroAula.patchValue(aula);
           this.selectedModulo = aula.modulo || '';
-
+          if (aula.video.documentoUrl) {
+            this.selectedVideos['video'] = null; // Garante que não há arquivo local selecionado
+            this.videoPreview = aula.video.documentoUrl; // Atualiza a preview do vídeo
+            console.log('Video da aula:', aula.video);
+          }
         },
         (error) => {
           console.error('Erro ao carregar os dados da aula:', error);

@@ -34,7 +34,7 @@
 
             <div class="form-group">
                 <label for="videoAula">Video da aula</label>
-                <app-input-video label="Clique ou arraste o video para fazer upload" inputId="videoAula" (videoSelected)="onVideoSelected($event, 'video')"></app-input-video>
+                <app-input-video label="Clique ou arraste o video para fazer upload" inputId="videoAula" (videoSelected)="onVideoSelected($event, 'video')" [videoPreview]="videoPreview"></app-input-video>
             </div>
 
             <div class="form-group">
