@@ -82,7 +82,25 @@ export class BuscarAulasComponent implements OnInit {
     this.buscaRealizada = false;
   }
 
-  deleteAula(id: string): void {}
+  deleteAula(id: string): void {
+    if (confirm('Tem certeza de que deseja deletar esta aula?')) {
+      this.cursosService.deletarAula(id).subscribe(
+        (response) => {
+          console.log('Aula deletada com sucesso:', response);
+          // Remover a aula deletada da lista
+          this.aulas = this.aulas.filter((aula) => aula.id !== id);
+          this.totalPaginas = Math.ceil(
+            this.aulas.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+        },
+        (error) => {
+          console.error('Erro ao deletar aula:', error);
+          alert('Erro ao deletar aula.');
+        }
+      );
+    }
+  }
 
   editarAula(id: string): void {
     this.router.navigate(['/usuario/cadastro-de-aulas', id]);
