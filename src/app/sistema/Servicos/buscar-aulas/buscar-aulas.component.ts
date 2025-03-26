@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Aula } from '../cursos/aulas';
@@ -26,7 +27,8 @@ export class BuscarAulasComponent implements OnInit {
 
   constructor(
     private location: Location,
-    private cursosService: CursosService
+    private cursosService: CursosService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -78,5 +80,11 @@ export class BuscarAulasComponent implements OnInit {
     this.aulasPaginadas = [];
     this.totalPaginas = 0;
     this.buscaRealizada = false;
+  }
+
+  deleteAula(id: number): void {}
+
+  editarAula(id: number): void {
+    this.router.navigate(['/usuario/cadastro-de-aulas', id]);
   }
 }

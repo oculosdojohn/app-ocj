@@ -48,10 +48,10 @@
                     </td>
                     <td>
                         <div class="acoes">
-                            <button class="btn-acao edit">
+                            <button class="btn-acao edit" (click)="editarAula(aula.id)">
                                 <img src="assets/icones/Edit.png" alt="Editar">
                             </button>
-                            <button class="btn-acao delete">
+                            <button class="btn-acao delete" (click)="deleteAula(aula.id)">
                                 <img src="assets/icones/Delete.png" alt="Excluir">
                             </button>
                         </div>
