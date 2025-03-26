@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar aula</span>
+        <span> {{ isEditMode ? 'Editar aula' : 'Cadastrar aula' }}</span>
     </div>
 
     <div class="alerts">
@@ -56,7 +56,7 @@
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar aula
+                    {{ isEditMode ? 'Atualizar aula' : 'Cadastrar aula' }}
                 </button>
             </div>
         </form>

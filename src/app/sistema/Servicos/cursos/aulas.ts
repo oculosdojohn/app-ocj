@@ -1,7 +1,7 @@
 import { Modulos } from './enums/modulos';
 
 export class Aula {
-  id!: number;
+  id!: string;
   dataCadastro!: string;
   modulos!: Modulos;
   titulo!: string;

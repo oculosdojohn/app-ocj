@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Aula } from '../cursos/aulas';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
@@ -32,7 +33,9 @@ export class CadastroCursosComponent implements OnInit {
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
-    private cursosService: CursosService
+    private cursosService: CursosService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.cadastroAula = this.formBuilder.group({
       id: [''],
@@ -43,7 +46,23 @@ export class CadastroCursosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cadastroAula.get('modulo')?.setValue(this.selectedModulo);
+    this.aulaId = this.route.snapshot.paramMap.get('id');
+    if (this.aulaId) {
+      this.isEditMode = true;
+      this.cursosService.obterAulaPorId(this.aulaId).subscribe(
+        (aula: Aula) => {
+          console.log('Dados do colaborador recebidos:', aula);
+          this.cadastroAula.patchValue(aula);
+          this.selectedModulo = aula.modulos || '';
+        },
+        (error) => {
+          console.error('Erro ao carregar os dados do colaborador:', error);
+        }
+      );
+    }
+  }
 
   goBack() {
     this.location.back();
@@ -68,7 +87,7 @@ export class CadastroCursosComponent implements OnInit {
 
     const aula: Aula = {
       ...this.cadastroAula.value,
-      setor: this.cadastroAula.get('modulo')?.value || null,
+      modulos: this.cadastroAula.get('modulo')?.value || null,
     };
 
     const formData = new FormData();
@@ -86,20 +105,38 @@ export class CadastroCursosComponent implements OnInit {
     // Debug: Verificar o que está sendo enviado no formData
     formData.forEach((value, key) => console.log(`FormData: ${key} ->`, value));
 
-    this.cursosService.cadastrarAula(formData).subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.successMessage = 'Aula cadastrada com sucesso!';
-        this.errorMessage = null;
-        this.cadastroAula.reset();
-        console.debug('Aula cadastrada com sucesso:', response);
-      },
-      (error) => {
-        this.isLoading = false;
-        this.errorMessage = 'Erro ao cadastrar aula.';
-        this.successMessage = null;
-        console.error('Erro ao cadastrar aula:', error);
-      }
-    );
+    if (this.isEditMode && this.aulaId) {
+      this.cursosService.atualizarAula(this.aulaId, formData).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Aula atualizada com sucesso!';
+          this.errorMessage = null;
+          this.cadastroAula.reset();
+          console.debug('Aula atualizada com sucesso:', response);
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = 'Erro ao atualizar aula.';
+          this.successMessage = null;
+          console.error('Erro ao atualizar aula:', error);
+        }
+      );
+    } else {
+      this.cursosService.cadastrarAula(formData).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Aula cadastrada com sucesso!';
+          this.errorMessage = null;
+          this.cadastroAula.reset();
+          console.debug('Aula cadastrada com sucesso:', response);
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = 'Erro ao cadastrar aula.';
+          this.successMessage = null;
+          console.error('Erro ao cadastrar aula:', error);
+        }
+      );
+    }
   }
 }

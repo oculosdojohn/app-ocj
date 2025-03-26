@@ -82,9 +82,9 @@ export class BuscarAulasComponent implements OnInit {
     this.buscaRealizada = false;
   }
 
-  deleteAula(id: number): void {}
+  deleteAula(id: string): void {}
 
-  editarAula(id: number): void {
+  editarAula(id: string): void {
     this.router.navigate(['/usuario/cadastro-de-aulas', id]);
   }
 }
