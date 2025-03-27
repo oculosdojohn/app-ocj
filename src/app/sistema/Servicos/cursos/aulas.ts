@@ -8,7 +8,7 @@ export class Aula {
   descricao!: string;
   qtdMoedas!: string;
   video!: { documentoUrl: string; id: number };
-  arquivos!: { documentoUrl: string; id: number }[];
+  arquivos!: { documentoUrl: string; id: number; name: string }[];
 
   toJson(): string {
     return JSON.stringify({

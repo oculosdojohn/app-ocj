@@ -42,7 +42,7 @@
           <div *ngIf="videoAtual && videoAtual.arquivos && videoAtual.arquivos.length > 0; else noMaterialTemplate">
             <div class="list-group">
               <div class="list-group-item" *ngFor="let arquivo of videoAtual?.arquivos">
-                <span>{{ formatFileName(arquivo.documentoUrl) }}</span>
+                <span>{{ formatFileName(arquivo.name) }}</span>
                 <div>
                   <button class="btn-vizualizar" (click)="viewPdf(arquivo.documentoUrl)">Visualizar</button>
                 </div>
