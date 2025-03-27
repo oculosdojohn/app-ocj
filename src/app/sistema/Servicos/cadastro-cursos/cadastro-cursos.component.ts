@@ -14,7 +14,7 @@ import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
 })
 export class CadastroCursosComponent implements OnInit {
   selectedVideos: { [key: string]: File | null } = {};
-  selectedArquivos: File[] = [];
+  selectedArquivos: (File | { name: string; documentoUrl: string })[] = [];
   formData = new FormData();
   selectedModulo: string = '';
 
@@ -62,6 +62,15 @@ export class CadastroCursosComponent implements OnInit {
             this.videoPreview = aula.video.documentoUrl;
             console.log('Video da aula:', aula.video);
           }
+
+          if (aula.arquivos && aula.arquivos.length > 0) {
+            this.selectedArquivos = aula.arquivos.map((arquivo) => ({
+              name: arquivo.name,
+              documentoUrl: arquivo.documentoUrl,
+            }));
+          }
+          
+          console.log('Arquivos carregados:', this.selectedArquivos);
         },
         (error) => {
           console.error('Erro ao carregar os dados da aula:', error);
@@ -80,8 +89,8 @@ export class CadastroCursosComponent implements OnInit {
   }
 
   onArquivosSelecionados(arquivos: File[]) {
-    this.selectedArquivos = arquivos;
-    console.log('Arquivos selecionados:', arquivos);
+    this.selectedArquivos = [...this.selectedArquivos, ...arquivos];
+    console.log('Arquivos selecionados:', this.selectedArquivos);
   }
 
   onSubmit() {
@@ -102,10 +111,11 @@ export class CadastroCursosComponent implements OnInit {
       formData.append('video', this.selectedVideos['video']);
     }
 
-    if (this.selectedArquivos.length > 0) {
-      this.selectedArquivos.forEach((arquivo) => {
-        formData.append('arquivos', arquivo);
-      });
+    if (aula.arquivos && aula.arquivos.length > 0) {
+      this.selectedArquivos = aula.arquivos.map((arquivo) => ({
+        name: arquivo.name,
+        documentoUrl: arquivo.documentoUrl, // Mantenha a URL para exibição
+      }));
     }
 
     // Debug: Verificar o que está sendo enviado no formData

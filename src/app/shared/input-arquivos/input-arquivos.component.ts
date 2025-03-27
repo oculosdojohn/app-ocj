@@ -26,7 +26,7 @@ export class InputArquivosComponent {
 
   removePdf(index: number): void {
     this.arquivos.splice(index, 1);
-    this.arquivosSelecionados.emit(this.arquivos);
+    this.arquivosSelecionados.emit([...this.arquivos]);
     if (this.arquivos.length < 3) {
       this.errorMessage = null;
     }
@@ -44,18 +44,18 @@ export class InputArquivosComponent {
   }
 
   adicionarArquivos(novosArquivos: File[]): void {
-    for (let arquivo of novosArquivos) {
-      if (this.arquivos.length >= 3) {
-        this.errorMessage = 'Você pode enviar no máximo 3 arquivos PDF.';
-        return;
-      }
+    if (this.arquivos.length + novosArquivos.length > 3) {
+      this.errorMessage = 'Você pode enviar no máximo 3 arquivos PDF.';
+      return;
+    }
 
+    for (let arquivo of novosArquivos) {
       if (!this.arquivos.some((a) => a.name === arquivo.name)) {
         this.arquivos.push(arquivo);
       }
     }
 
-    this.arquivosSelecionados.emit(this.arquivos);
+    this.arquivosSelecionados.emit([...this.arquivos]);
     this.errorMessage = null;
   }
 }
