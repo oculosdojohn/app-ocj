@@ -63,13 +63,15 @@ export class CadastroCursosComponent implements OnInit {
             console.log('Video da aula:', aula.video);
           }
 
+          // Carrega os arquivos
           if (aula.arquivos && aula.arquivos.length > 0) {
             this.selectedArquivos = aula.arquivos.map((arquivo) => ({
-              name: arquivo.name,
               documentoUrl: arquivo.documentoUrl,
+              name: arquivo.name,
+              id: arquivo.id,
             }));
           }
-          
+
           console.log('Arquivos carregados:', this.selectedArquivos);
         },
         (error) => {
@@ -111,12 +113,15 @@ export class CadastroCursosComponent implements OnInit {
       formData.append('video', this.selectedVideos['video']);
     }
 
-    if (aula.arquivos && aula.arquivos.length > 0) {
-      this.selectedArquivos = aula.arquivos.map((arquivo) => ({
-        name: arquivo.name,
-        documentoUrl: arquivo.documentoUrl, // Mantenha a URL para exibição
-      }));
-    }
+    // Adiciona TODOS os arquivos (tanto os existentes quanto os novos)
+    this.selectedArquivos.forEach((arquivo) => {
+      if (arquivo instanceof File) {
+        formData.append('arquivos', arquivo);
+      } else {
+        // Para arquivos existentes, envie apenas a referência
+        formData.append('arquivosExistentes', JSON.stringify(arquivo));
+      }
+    });
 
     // Debug: Verificar o que está sendo enviado no formData
     formData.forEach((value, key) => console.log(`FormData: ${key} ->`, value));
