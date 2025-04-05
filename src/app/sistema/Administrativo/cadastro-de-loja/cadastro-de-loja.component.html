@@ -5,10 +5,10 @@
     </div>
   
     <div class="forms-container">
-        <form>
+        <form (ngSubmit)="onSubmit()" [formGroup]="lojaForm">
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome da loja" required>
+                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome da loja" required>
             </div>
 
             <div class="divisao">
