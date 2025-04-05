@@ -3,11 +3,12 @@ import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Loja } from '../../Administrativo/lojas/loja';
 import { LojaService } from '../../../services/administrativo/loja.service';
+import { Endereco } from '../../Administrativo/lojas/endereco';
 
 @Component({
   selector: 'app-cadastro-de-loja',
   templateUrl: './cadastro-de-loja.component.html',
-  styleUrls: ['./cadastro-de-loja.component.css']
+  styleUrls: ['./cadastro-de-loja.component.css'],
 })
 export class CadastroDeLojaComponent implements OnInit {
   lojaForm: FormGroup;
@@ -20,14 +21,23 @@ export class CadastroDeLojaComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private lojaService: LojaService
-  ) { 
+  ) {
     this.lojaForm = this.formBuilder.group({
       nome: ['', Validators.required],
+      endereco: this.formBuilder.group({
+        estado: [''],
+        cidade: [''],
+        cep: ['', Validators.required],
+        bairro: ['', Validators.required],
+        rua: ['', Validators.required],
+        numero: ['', Validators.required],
+        logradouro: [''],
+        complemento: [''],
+      }),
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   goBack() {
     this.location.back();
@@ -35,15 +45,24 @@ export class CadastroDeLojaComponent implements OnInit {
 
   onSubmit(): void {
     if (this.lojaForm.invalid) {
+      console.log('Estado do formulário:', this.lojaForm);
+      console.log('Erros nos controles:', this.lojaForm.controls);
+      console.log('Erros no endereço:', this.lojaForm.get('endereco')?.errors);
       this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
       return;
     }
 
+    const endereco: Endereco = this.lojaForm.get('endereco')?.value as Endereco;
+    console.log('Endereço:', endereco);
+
+    const loja: Loja = {
+      ...this.lojaForm.value,
+      endereco: endereco, // Mapeia o endereço corretamente
+    };
+
     this.isLoading = true;
     this.successMessage = null;
     this.errorMessage = null;
-
-    const loja: Loja = this.lojaForm.value;
 
     this.lojaService.cadastrarLoja(loja).subscribe(
       (response) => {
