@@ -54,13 +54,17 @@
                     <div class="form-group">
                         <label for="estado">Estado</label>
                         <app-select-padrao
-                          label="Selecione o estado">
+                          label="Selecione o estado"
+                          [options]="estados"
+                          [(selectedValue)]="selectedEstado">
                         </app-select-padrao>
                     </div>
                     <div class="form-group">
                         <label for="cidade">Cidade</label>
                         <app-select-padrao
-                          label="Selecione a cidade">
+                          label="Selecione a cidade"
+                          [options]="cidades"
+                          [(selectedValue)]="selectedCidade">
                         </app-select-padrao>
                     </div>
                 </div>

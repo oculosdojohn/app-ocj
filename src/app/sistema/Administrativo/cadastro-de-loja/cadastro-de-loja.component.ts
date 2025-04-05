@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Loja } from '../../Administrativo/lojas/loja';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Endereco } from '../../Administrativo/lojas/endereco';
+import { Estado, EnderecoService } from '../../../services/endereco.service';
 
 @Component({
   selector: 'app-cadastro-de-loja',
@@ -17,10 +18,16 @@ export class CadastroDeLojaComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode = false;
 
+  estados: { value: string; description: string }[] = [];
+  cidades: { value: string; description: string }[] = [];
+  selectedEstado: string = '';
+  selectedCidade: string = '';
+
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
-    private lojaService: LojaService
+    private lojaService: LojaService,
+    private enderecoService: EnderecoService
   ) {
     this.lojaForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -37,7 +44,25 @@ export class CadastroDeLojaComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.enderecoService.getEstados().subscribe((estados: Estado[]) => {
+      this.estados = estados.map((estado: Estado) => ({
+        value: estado.sigla,
+        description: estado.nome,
+      }));
+    });
+  }
+
+  onEstadoChange(nome: string): void {
+    this.enderecoService.getCidadesByEstado(nome).subscribe((cidades) => {
+      this.cidades = cidades.map((cidade) => ({
+        value: cidade.nome,
+        description: cidade.nome,
+      }));
+      this.selectedCidade = ''; 
+      this.lojaForm.get('endereco.cidade')?.setValue(null);
+    });
+  }
 
   goBack() {
     this.location.back();
@@ -57,7 +82,7 @@ export class CadastroDeLojaComponent implements OnInit {
 
     const loja: Loja = {
       ...this.lojaForm.value,
-      endereco: endereco, // Mapeia o endereço corretamente
+      endereco: endereco,
     };
 
     this.isLoading = true;
