@@ -19,33 +19,33 @@
             <div class="input-duo">
                 <div class="form-group">
                     <label for="cep">CEP</label>
-                    <input type="text" id="cep" name="cep" class="form-control" placeholder="Digite o CEP" required>
+                    <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" required>
                 </div>
                 <div class="form-group">
                     <label for="bairro">Bairro</label>
-                    <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Digite o bairro" required>
+                    <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" required>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="rua">Rua</label>
-                    <input type="text" id="rua" name="rua" class="form-control" placeholder="Digite a rua" required>
+                    <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" required>
                 </div>
                 <div class="form-group">
                     <label for="numero">Número</label>
-                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Digite o número" required>
+                    <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" required>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="complemento">Complemento</label>
-                    <input type="text" id="complemento" name="complemento" class="form-control" placeholder="Digite um complemento" required>
+                    <input type="text" id="complemento" name="complemento" formControlName="complemento" class="form-control" placeholder="Digite um complemento" required>
                 </div>
                 <div class="form-group">
                     <label for="logradouro">Logradouro</label>
-                    <input type="text" id="logradouro" name="logradouro" class="form-control" placeholder="Digite o logradouro" required>
+                    <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro" required>
                 </div>
             </div>
 
@@ -53,15 +53,13 @@
                 <div class="form-group">
                     <label for="estado">Estado</label>
                     <app-select-padrao
-                      label="Selecione o estado"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      label="Selecione o estado">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
                     <label for="cidade">Cidade</label>
                     <app-select-padrao
-                      label="Selecione a cidade"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      label="Selecione a cidade">
                     </app-select-padrao>
                 </div>
             </div>
