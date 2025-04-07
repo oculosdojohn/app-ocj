@@ -52,22 +52,13 @@ export class LojasComponent implements OnInit {
   fetchLojas(): void {
     this.lojaService.getLojas().subscribe(
       (lojas: any[]) => {
-        this.lojas = lojas.map((loja) => ({
-          ...loja,
-          endereco: {
-            rua: loja.rua,
-            numero: loja.numero,
-            bairro: loja.bairro,
-            cidade: loja.cidade,
-            estado: loja.estado,
-            cep: loja.cep,
-          },
-        }));
+        console.log('Lojas retornadas:', lojas);
+        this.lojas = lojas; // Usa os dados retornados diretamente
         this.totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
         this.atualizarPaginacao();
       },
       (error) => {
-        console.error('Erro ao carregar empresas:', error);
+        console.error('Erro ao carregar lojas:', error);
       }
     );
   }

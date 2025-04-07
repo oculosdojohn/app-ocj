@@ -32,8 +32,8 @@ export class CadastroDeLojaComponent implements OnInit {
     this.lojaForm = this.formBuilder.group({
       nome: ['', Validators.required],
       endereco: this.formBuilder.group({
-        estado: [''],
-        cidade: [''],
+        estado: ['', Validators.required],
+        cidade: ['', Validators.required],
         cep: ['', Validators.required],
         bairro: ['', Validators.required],
         rua: ['', Validators.required],
