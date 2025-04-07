@@ -52,11 +52,12 @@ export class CadastroDeLojaComponent implements OnInit {
       }));
       console.log('Estados carregados:', this.estados);
     });
+    this.onEstadoChange('');
   }
 
   onEstadoChange(nome: string): void {
     console.log('onEstadoChange chamado com o estado:', nome);
-    if (nome === 'all') {
+    if (!nome) {
       this.enderecoService.getTodasCidades().subscribe((cidades) => {
         this.cidades = cidades.map((cidade) => ({
           value: cidade.nome,
