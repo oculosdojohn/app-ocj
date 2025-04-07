@@ -320,7 +320,8 @@
                     <label for="loja">Loja</label>
                     <app-select-padrao
                       label="Selecione loja"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="lojas"
+                      [(selectedValue)]="selectedLoja">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
