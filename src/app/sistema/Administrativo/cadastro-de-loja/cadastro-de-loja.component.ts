@@ -57,6 +57,7 @@ export class CadastroDeLojaComponent implements OnInit {
 
   onEstadoChange(nome: string): void {
     console.log('onEstadoChange chamado com o estado:', nome);
+    this.lojaForm.get('endereco.estado')?.setValue(nome);
     if (!nome) {
       this.enderecoService.getTodasCidades().subscribe((cidades) => {
         this.cidades = cidades.map((cidade) => ({
@@ -77,6 +78,11 @@ export class CadastroDeLojaComponent implements OnInit {
         this.lojaForm.get('endereco.cidade')?.setValue(null);
       });
     }
+  }
+
+  onCidadeChange(nome: string): void {
+    console.log('onCidadeChange chamado com a cidade:', nome);
+    this.lojaForm.get('endereco.cidade')?.setValue(nome);
   }
 
   goBack() {

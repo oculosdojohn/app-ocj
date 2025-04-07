@@ -24,7 +24,8 @@
                           label="Selecione o estado"
                           [options]="estados"
                           [(selectedValue)]="selectedEstado"
-                          (selectedValueChange)="onEstadoChange($event)">
+                          (selectedValueChange)="onEstadoChange($event)"
+                          formControlName="estado">
                         </app-select-padrao>
                     </div>
                     <div class="form-group">
@@ -32,7 +33,9 @@
                         <app-select-padrao
                           label="Selecione a cidade"
                           [options]="cidades"
-                          [(selectedValue)]="selectedCidade">
+                          [(selectedValue)]="selectedCidade"
+                          (selectedValueChange)="onCidadeChange($event)"
+                          formControlName="cidade">
                         </app-select-padrao>
                     </div>
                 </div>
