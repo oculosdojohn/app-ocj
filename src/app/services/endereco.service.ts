@@ -50,17 +50,17 @@ export class EnderecoService {
     return of(listaEstados);
   }
 
-  getCidadesByEstado(estadoId: string): Observable<any[]> {
-    const url = `${this._apiBaseUrl}/estados/${estadoId}/municipios`;
-    return this.http.get<any[]>(url).pipe(
+  getCidadesByEstado(sigla: string): Observable<{ nome: string }[]> {
+    const url = `${this._apiBaseUrl}/estados/${sigla}/municipios`;
+    return this.http.get<{ nome: string }[]>(url).pipe(
       catchError((error) => {
-        console.error('Erro ao buscar cidades', error);
+        console.error('Erro ao buscar cidades por estado:', error);
         return of([]);
       })
     );
   }
 
-  getCidadesByNomeEstado(estadoNome: string): Observable<any[]> {
+  getNomeEstado(estadoNome: string): Observable<any[]> {
     const url = `${this._apiBaseUrl}/estados`;
     return this.http.get<any[]>(url).pipe(
       map((estados) =>
@@ -69,8 +69,8 @@ export class EnderecoService {
         )
       ),
       switchMap((estado) => {
-        if (estado && estado.id) {
-          return this.getCidadesByEstado(estado.id);
+        if (estado && estado.sigla) {
+          return this.getCidadesByEstado(estado.sigla);
         } else {
           console.error('Estado não encontrado');
           return of([]);
@@ -78,6 +78,16 @@ export class EnderecoService {
       }),
       catchError((error) => {
         console.error('Erro ao buscar estado', error);
+        return of([]);
+      })
+    );
+  }
+
+  getTodasCidades(): Observable<{ nome: string }[]> {
+    const url = `${this._apiBaseUrl}/municipios`;
+    return this.http.get<{ nome: string }[]>(url).pipe(
+      catchError((error) => {
+        console.error('Erro ao buscar todas as cidades', error);
         return of([]);
       })
     );

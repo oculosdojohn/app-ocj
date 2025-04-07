@@ -50,18 +50,32 @@ export class CadastroDeLojaComponent implements OnInit {
         value: estado.sigla,
         description: estado.nome,
       }));
+      console.log('Estados carregados:', this.estados);
     });
   }
 
   onEstadoChange(nome: string): void {
-    this.enderecoService.getCidadesByEstado(nome).subscribe((cidades) => {
-      this.cidades = cidades.map((cidade) => ({
-        value: cidade.nome,
-        description: cidade.nome,
-      }));
-      this.selectedCidade = ''; 
-      this.lojaForm.get('endereco.cidade')?.setValue(null);
-    });
+    console.log('onEstadoChange chamado com o estado:', nome);
+    if (nome === 'all') {
+      this.enderecoService.getTodasCidades().subscribe((cidades) => {
+        this.cidades = cidades.map((cidade) => ({
+          value: cidade.nome,
+          description: cidade.nome,
+        }));
+        this.selectedCidade = '';
+        this.lojaForm.get('endereco.cidade')?.setValue(null);
+      });
+    } else {
+      this.enderecoService.getCidadesByEstado(nome).subscribe((cidades) => {
+        console.log('Cidades filtradas pelo estado:', cidades);
+        this.cidades = cidades.map((cidade) => ({
+          value: cidade.nome,
+          description: cidade.nome,
+        }));
+        this.selectedCidade = '';
+        this.lojaForm.get('endereco.cidade')?.setValue(null);
+      });
+    }
   }
 
   goBack() {

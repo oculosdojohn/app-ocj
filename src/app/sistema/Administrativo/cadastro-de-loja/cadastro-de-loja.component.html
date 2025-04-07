@@ -19,6 +19,26 @@
             <div formGroupName="endereco">
                 <div class="input-duo">
                     <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <app-select-padrao
+                          label="Selecione o estado"
+                          [options]="estados"
+                          [(selectedValue)]="selectedEstado"
+                          (selectedValueChange)="onEstadoChange($event)">
+                        </app-select-padrao>
+                    </div>
+                    <div class="form-group">
+                        <label for="cidade">Cidade</label>
+                        <app-select-padrao
+                          label="Selecione a cidade"
+                          [options]="cidades"
+                          [(selectedValue)]="selectedCidade">
+                        </app-select-padrao>
+                    </div>
+                </div>
+
+                <div class="input-duo">
+                    <div class="form-group">
                         <label for="cep">CEP</label>
                         <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" required>
                     </div>
@@ -47,25 +67,6 @@
                     <div class="form-group">
                         <label for="logradouro">Logradouro</label>
                         <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro" required>
-                    </div>
-                </div>
-
-                <div class="input-duo">
-                    <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <app-select-padrao
-                          label="Selecione o estado"
-                          [options]="estados"
-                          [(selectedValue)]="selectedEstado">
-                        </app-select-padrao>
-                    </div>
-                    <div class="form-group">
-                        <label for="cidade">Cidade</label>
-                        <app-select-padrao
-                          label="Selecione a cidade"
-                          [options]="cidades"
-                          [(selectedValue)]="selectedCidade">
-                        </app-select-padrao>
                     </div>
                 </div>
             </div>
