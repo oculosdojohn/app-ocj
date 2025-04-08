@@ -66,5 +66,17 @@ export class LojasComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-de-lojas', id]);
   }
 
-  deleteLoja(id: string): void {}
+  deleteLoja(id: string): void {
+    if (confirm('Tem certeza que deseja deletar esta loja?')) {
+      this.lojaService.deleteLojaById(id).subscribe(
+        () => {
+          console.log('Loja deletada com sucesso!');
+          this.fetchLojas();
+        },
+        (error) => {
+          console.error('Erro ao deletar a loja:', error);
+        }
+      );
+    }
+  }
 }
