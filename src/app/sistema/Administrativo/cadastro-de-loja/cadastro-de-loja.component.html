@@ -3,12 +3,24 @@
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
         <span>Cadastrar loja</span>
     </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
   
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="lojaForm">
             <div class="form-group">
                 <label for="nome">Nome<span *ngIf="isRequired('nome')" class="required-asterisk">*</span></label>
                 <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome da loja" required>
+                <div *ngIf="lojaForm.get('nome')?.invalid && (lojaForm.get('nome')?.touched || lojaForm.get('nome')?.dirty)" class="error-obrigatorio">
+                    O campo Nome é obrigatório.
+                </div>
             </div>
 
             <div class="divisao">
@@ -44,10 +56,16 @@
                     <div class="form-group">
                         <label for="cep">CEP<span *ngIf="isRequired('endereco.cep')" class="required-asterisk">*</span></label>
                         <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" required>
+                        <div *ngIf="lojaForm.get('endereco.cep')?.invalid && (lojaForm.get('endereco.cep')?.touched || lojaForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
+                            O campo CEP é obrigatório.
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="bairro">Bairro<span *ngIf="isRequired('endereco.bairro')" class="required-asterisk">*</span></label>
                         <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" required>
+                        <div *ngIf="lojaForm.get('endereco.bairro')?.invalid && (lojaForm.get('endereco.bairro')?.touched || lojaForm.get('endereco.bairro')?.dirty)" class="error-obrigatorio">
+                            O campo Bairro é obrigatório.
+                        </div>
                     </div>
                 </div>
     
@@ -55,10 +73,16 @@
                     <div class="form-group">
                         <label for="rua">Rua<span *ngIf="isRequired('endereco.rua')" class="required-asterisk">*</span></label>
                         <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" required>
+                        <div *ngIf="lojaForm.get('endereco.rua')?.invalid && (lojaForm.get('endereco.rua')?.touched || lojaForm.get('endereco.rua')?.dirty)" class="error-obrigatorio">
+                            O campo Rua é obrigatório.
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="numero">Número<span *ngIf="isRequired('endereco.numero')" class="required-asterisk">*</span></label>
                         <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" required>
+                        <div *ngIf="lojaForm.get('endereco.numero')?.invalid && (lojaForm.get('endereco.numero')?.touched || lojaForm.get('endereco.numero')?.dirty)" class="error-obrigatorio">
+                            O campo Número é obrigatório.
+                        </div>
                     </div>
                 </div>
     
@@ -82,6 +106,4 @@
         </form>
     </div>
     <div *ngIf="isLoading">Carregando...</div>
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>
