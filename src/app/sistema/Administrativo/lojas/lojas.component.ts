@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Loja } from './loja';
 import { Endereco } from './endereco';
+import { LojaService } from '../../../services/administrativo/loja.service';
 
 @Component({
   selector: 'app-lojas',
@@ -11,25 +12,16 @@ import { Endereco } from './endereco';
 export class LojasComponent implements OnInit {
   termoBusca: string = '';
 
-  lojas: Loja[] = [
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'},
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'},
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'},
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'},
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'},
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'},
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'},
-      { nome: 'Óculos do John - Loja de Russas', endereco: {estado: 'CE', cidade: 'Russas', CEP: '62900-000', bairro: 'Centro', rua: 'R. Padre Raul Viêira', numero: '617', logradouro: 'Logradouro A', complemento: ''}, responsavel: 'Everardo Costta', qtdFuncionarios: '12'}
-    ];
-
+  lojas: Loja[] = [];
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
   lojasPaginados: Loja[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private lojaService: LojaService) {}
 
   ngOnInit(): void {
+    this.fetchLojas();
     this.atualizarPaginacao();
   }
 
@@ -54,5 +46,37 @@ export class LojasComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  fetchLojas(): void {
+    this.lojaService.getLojas().subscribe(
+      (lojas: any[]) => {
+        console.log('Lojas retornadas:', lojas);
+        this.lojas = lojas; // Usa os dados retornados diretamente
+        this.totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
+        this.atualizarPaginacao();
+      },
+      (error) => {
+        console.error('Erro ao carregar lojas:', error);
+      }
+    );
+  }
+
+  editarLoja(id: string): void {
+    this.router.navigate(['/usuario/cadastro-de-lojas', id]);
+  }
+
+  deleteLoja(id: string): void {
+    if (confirm('Tem certeza que deseja deletar esta loja?')) {
+      this.lojaService.deleteLojaById(id).subscribe(
+        () => {
+          console.log('Loja deletada com sucesso!');
+          this.fetchLojas();
+        },
+        (error) => {
+          console.error('Erro ao deletar a loja:', error);
+        }
+      );
+    }
   }
 }

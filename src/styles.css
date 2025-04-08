@@ -291,6 +291,37 @@ select {
   word-wrap: normal;
 }
 
+.required-asterisk {
+  color: red;
+  margin-left: 4px;
+}
+
+.error-obrigatorio {
+  color: red;
+  font-size: 14px;
+}
+
+.alerts-container {
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin-top: 24px;
+}
+
+.alert-success {
+  background-color: var(--success);
+  color: var(--white);
+}
+
+.alert-warning {
+  background-color: var(--warning);
+  color: var(--white);
+}
+
+.alert-danger {
+  background-color: var(--danger);
+  color: var(--white);
+}
+
 button,
 [type=button],
 [type=reset],

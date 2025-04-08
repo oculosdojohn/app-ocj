@@ -34,24 +34,26 @@
                             <span>{{ loja.nome }}</span>
                         </div>
                     </td>
-                    <td>{{ loja.endereco.rua }}, {{ loja.endereco.numero }} - {{ loja.endereco.bairro }}, {{ loja.endereco.cidade }} - {{ loja.endereco.estado }}, {{ loja.endereco.CEP }}</td>
+                    <td>{{ loja.endereco.rua }}, {{ loja.endereco.numero }} - {{ loja.endereco.bairro }}, {{ loja.endereco.cidade }} - {{ loja.endereco.estado }}, {{ loja.endereco.cep }}</td>
                     <td>
                         <div class="perfil">
                             <div class="avatar"></div>
-                            <span>{{ loja.responsavel }}</span>
+                            <span>{{ loja.supervisor }}</span>
                         </div>
                     </td>
-                    <td>{{ loja.qtdFuncionarios }}</td>
+                    <td>{{ loja.quantidadeFuncionarios }}</td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarLoja(loja.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="deleteLoja(loja.id)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

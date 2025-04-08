@@ -320,7 +320,8 @@
                     <label for="loja">Loja</label>
                     <app-select-padrao
                       label="Selecione loja"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="lojas"
+                      [(selectedValue)]="selectedLoja">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
@@ -329,26 +330,19 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="departamento">Departamento</label>
-                <app-select-padrao
-                  label="Selecione o departamento"
-                  [customStyles]="{'background': '#FFFFFF'}">
-                </app-select-padrao>
-            </div>
-
             <div class="input-duo">
+                <div class="form-group">
+                    <label for="departamento">Departamento</label>
+                    <app-select-padrao
+                      label="Selecione o departamento"
+                      [customStyles]="{'background': '#FFFFFF'}">
+                    </app-select-padrao>
+                </div>
+
                 <div class="form-group">
                     <label for="cargo">Cargo</label>
                     <app-select-padrao
                       label="Selecione um cargo"
-                      [customStyles]="{'background': '#FFFFFF'}">
-                    </app-select-padrao>
-                </div>
-                <div class="form-group">
-                    <label for="grauHierarquico">Grau hierárquico</label>
-                    <app-select-padrao
-                      label="Selecionar grau hierárquico "
                       [customStyles]="{'background': '#FFFFFF'}">
                     </app-select-padrao>
                 </div>
