@@ -47,4 +47,58 @@ export class CursosService {
       })
     );
   }
+
+  obterAulaPorId(id: string): Observable<Aula> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.get<Aula>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao obter a aula.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  atualizarAula(id: string, formData: FormData): Observable<any> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.put<any>(url, formData).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao atualizar a aula.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  deletarAula(id: string): Observable<any> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.delete<any>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao deletar a aula.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }

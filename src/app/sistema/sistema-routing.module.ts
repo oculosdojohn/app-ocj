@@ -49,8 +49,11 @@ const routes: Routes = [
       { path: 'lojas-john', component: LojasComponent},
       { path: 'departamentos-da-empresa', component: DepartamentosComponent},
       { path: 'cadastro-de-colaborador', component: CadastroDeColaboradorComponent},
+      { path: 'cadastro-de-colaborador/:id', component: CadastroDeColaboradorComponent},
       { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent},
+      { path: 'cadastro-de-loja/:id', component: CadastroDeLojaComponent},
       { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent},
+      { path: 'cadastro-de-departamento/:id', component: CadastroDeDepartamentoComponent},
 
       // somente rh e admin podem ver
       { path: 'feedbacks', component: FeedbaksComponent},
@@ -58,14 +61,22 @@ const routes: Routes = [
       { path: 'registros', component: RegistrosComponent},
       { path: 'ferias', component: FeriasComponent},
       { path: 'cadastro-de-ferias', component: CadastroFeriasComponent},
+      { path: 'cadastro-de-ferias/:id', component: CadastroFeriasComponent},
       { path: 'aniversariantes-do-mes', component: AniversariantesComponent},
+      { path: 'aniversariantes-do-mes/:id', component: AniversariantesComponent},
       { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent},
+      { path: 'cadastro-de-feedback/:id', component: CadastroDeFeedbackComponent},
       { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent},
+      { path: 'cadastro-de-registro/:id', component: CadastroDeRegistroComponent},
       { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent},
+      { path: 'cadastro-de-procedimentos-medicos/:id', component: CadastroDeProcedimentosMedicoComponent},
 
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
+      { path: 'cadastro-de-aulas/:id', component: CadastroCursosComponent},
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
+      { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent},
       { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent},
+      { path: 'cadastro-lojinha-produto/:id', component: CadastroLojinhaProdutosComponent},
       
       // todos podem ver essas rotas
       { path: 'forum-de-noticias', component: ForumNoticiasComponent},

@@ -1,20 +1,20 @@
 import { Modulos } from './enums/modulos';
 
 export class Aula {
-  id!: number;
+  id!: string;
   dataCadastro!: string;
-  modulos!: Modulos;
+  modulo!: Modulos;
   titulo!: string;
   descricao!: string;
   qtdMoedas!: string;
   video!: { documentoUrl: string; id: number };
-  arquivos!: { documentoUrl: string; id: number }[];
+  arquivos!: { documentoUrl: string; id: number; name: string }[];
 
   toJson(): string {
     return JSON.stringify({
       id: this.id,
       dataCadastro: this.dataCadastro,
-      modulo: this.modulos,
+      modulo: this.modulo,
       qtdMoedas: this.qtdMoedas,
       titulo: this.titulo,
       descricao: this.descricao,

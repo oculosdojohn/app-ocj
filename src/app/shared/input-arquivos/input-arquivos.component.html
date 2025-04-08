@@ -13,6 +13,9 @@
     </div>
   </div>
 
+  <!-- Exibir mensagens de erro -->
+  <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
   <!-- Exibir PDFs enviados -->
   <div class="form-group" *ngIf="arquivos.length > 0">
     <label>Arquivos para envio:</label>

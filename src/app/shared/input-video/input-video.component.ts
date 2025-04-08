@@ -9,8 +9,7 @@ export class InputVideoComponent {
   @Input() label: string = 'Clique ou arraste o video para fazer upload';
   @Input() inputId: string = 'video';
   @Output() videoSelected = new EventEmitter<File | null>();
-
-  videoPreview: string | ArrayBuffer | null = null;
+  @Input() videoPreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null; 
 
   constructor() { }
@@ -56,6 +55,7 @@ export class InputVideoComponent {
   }
 
   isPreviewVideo(preview: string | ArrayBuffer): boolean {
-    return typeof preview === 'string' && preview.startsWith('data:video/');
+    return typeof preview === 'string' && (preview.startsWith('data:video/') || preview.startsWith('http'));
   }
+  
 }

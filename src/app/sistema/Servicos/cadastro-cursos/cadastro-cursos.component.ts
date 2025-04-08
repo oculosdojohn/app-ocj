@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Aula } from '../cursos/aulas';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
@@ -13,11 +14,11 @@ import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
 })
 export class CadastroCursosComponent implements OnInit {
   selectedVideos: { [key: string]: File | null } = {};
-  selectedArquivos: File[] = [];
+  selectedArquivos: (File | { name: string; documentoUrl: string })[] = [];
   formData = new FormData();
   selectedModulo: string = '';
 
-  modulos = Object.keys(Modulos).map((key) => ({
+  modulo = Object.keys(Modulos).map((key) => ({
     value: Modulos[key as keyof typeof Modulos],
     description: ModulosDescricao[Modulos[key as keyof typeof Modulos]],
   }));
@@ -28,11 +29,14 @@ export class CadastroCursosComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode = false;
   aulaId: string | null = null;
+  videoPreview: string | ArrayBuffer | null = null;
 
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
-    private cursosService: CursosService
+    private cursosService: CursosService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.cadastroAula = this.formBuilder.group({
       id: [''],
@@ -43,7 +47,39 @@ export class CadastroCursosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cadastroAula.get('modulo')?.setValue(this.selectedModulo);
+    this.aulaId = this.route.snapshot.paramMap.get('id');
+    if (this.aulaId) {
+      this.isEditMode = true;
+      this.cursosService.obterAulaPorId(this.aulaId).subscribe(
+        (aula: Aula) => {
+          console.log('Dados da aula recebidos:', aula);
+          this.cadastroAula.patchValue(aula);
+          this.selectedModulo = aula.modulo || '';
+          if (aula.video.documentoUrl) {
+            this.selectedVideos['video'] = null;
+            this.videoPreview = aula.video.documentoUrl;
+            console.log('Video da aula:', aula.video);
+          }
+
+          // Carrega os arquivos
+          if (aula.arquivos && aula.arquivos.length > 0) {
+            this.selectedArquivos = aula.arquivos.map((arquivo) => ({
+              documentoUrl: arquivo.documentoUrl,
+              name: arquivo.name,
+              id: arquivo.id,
+            }));
+          }
+
+          console.log('Arquivos carregados:', this.selectedArquivos);
+        },
+        (error) => {
+          console.error('Erro ao carregar os dados da aula:', error);
+        }
+      );
+    }
+  }
 
   goBack() {
     this.location.back();
@@ -55,8 +91,8 @@ export class CadastroCursosComponent implements OnInit {
   }
 
   onArquivosSelecionados(arquivos: File[]) {
-    this.selectedArquivos = arquivos;
-    console.log('Arquivos selecionados:', arquivos);
+    this.selectedArquivos = [...this.selectedArquivos, ...arquivos];
+    console.log('Arquivos selecionados:', this.selectedArquivos);
   }
 
   onSubmit() {
@@ -68,7 +104,7 @@ export class CadastroCursosComponent implements OnInit {
 
     const aula: Aula = {
       ...this.cadastroAula.value,
-      setor: this.cadastroAula.get('modulo')?.value || null,
+      modulo: this.cadastroAula.get('modulo')?.value || null,
     };
 
     const formData = new FormData();
@@ -77,29 +113,52 @@ export class CadastroCursosComponent implements OnInit {
       formData.append('video', this.selectedVideos['video']);
     }
 
-    if (this.selectedArquivos.length > 0) {
-      this.selectedArquivos.forEach((arquivo) => {
+    // Adiciona TODOS os arquivos (tanto os existentes quanto os novos)
+    this.selectedArquivos.forEach((arquivo) => {
+      if (arquivo instanceof File) {
         formData.append('arquivos', arquivo);
-      });
-    }
+      } else {
+        // Para arquivos existentes, envie apenas a referência
+        formData.append('arquivosExistentes', JSON.stringify(arquivo));
+      }
+    });
 
     // Debug: Verificar o que está sendo enviado no formData
     formData.forEach((value, key) => console.log(`FormData: ${key} ->`, value));
 
-    this.cursosService.cadastrarAula(formData).subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.successMessage = 'Aula cadastrada com sucesso!';
-        this.errorMessage = null;
-        this.cadastroAula.reset();
-        console.debug('Aula cadastrada com sucesso:', response);
-      },
-      (error) => {
-        this.isLoading = false;
-        this.errorMessage = 'Erro ao cadastrar aula.';
-        this.successMessage = null;
-        console.error('Erro ao cadastrar aula:', error);
-      }
-    );
+    if (this.isEditMode && this.aulaId) {
+      this.cursosService.atualizarAula(this.aulaId, formData).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Aula atualizada com sucesso!';
+          this.errorMessage = null;
+          this.router.navigate(['/usuario/buscar-aulas']);
+          console.debug('Aula atualizada com sucesso:', response);
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = 'Erro ao atualizar aula.';
+          this.successMessage = null;
+          this.cadastroAula.reset();
+          console.error('Erro ao atualizar aula:', error);
+        }
+      );
+    } else {
+      this.cursosService.cadastrarAula(formData).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Aula cadastrada com sucesso!';
+          this.errorMessage = null;
+          this.cadastroAula.reset();
+          console.debug('Aula cadastrada com sucesso:', response);
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = 'Erro ao cadastrar aula.';
+          this.successMessage = null;
+          console.error('Erro ao cadastrar aula:', error);
+        }
+      );
+    }
   }
 }

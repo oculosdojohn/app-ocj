@@ -20,34 +20,42 @@ export class InputArquivosComponent {
   onPdfSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      for (let i = 0; i < input.files.length; i++) {
-        if (this.arquivos.length < 3) {
-          this.arquivos.push(input.files[i]);
-        } else {
-          this.errorMessage = 'Você pode enviar no máximo 3 arquivos PDF.';
-          break;
-        }
-      }
-      this.arquivosSelecionados.emit(this.arquivos);
+      this.adicionarArquivos(Array.from(input.files));
     }
   }
 
   removePdf(index: number): void {
     this.arquivos.splice(index, 1);
-    this.arquivosSelecionados.emit(this.arquivos);
+    this.arquivosSelecionados.emit([...this.arquivos]);
+    if (this.arquivos.length < 3) {
+      this.errorMessage = null;
+    }
   }
 
   onDrop(event: DragEvent): void {
     event.preventDefault();
-    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
-      for (let i = 0; i < event.dataTransfer.files.length; i++) {
-        this.arquivos.push(event.dataTransfer.files[i]);
-      }
-      this.arquivosSelecionados.emit(this.arquivos);
+    if (event.dataTransfer?.files.length) {
+      this.adicionarArquivos(Array.from(event.dataTransfer.files));
     }
   }
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
+  }
+
+  adicionarArquivos(novosArquivos: File[]): void {
+    if (this.arquivos.length + novosArquivos.length > 3) {
+      this.errorMessage = 'Você pode enviar no máximo 3 arquivos PDF.';
+      return;
+    }
+
+    for (let arquivo of novosArquivos) {
+      if (!this.arquivos.some((a) => a.name === arquivo.name)) {
+        this.arquivos.push(arquivo);
+      }
+    }
+
+    this.arquivosSelecionados.emit([...this.arquivos]);
+    this.errorMessage = null;
   }
 }
