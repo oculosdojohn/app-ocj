@@ -43,15 +43,17 @@
                     </td>
                     <td>{{ loja.quantidadeFuncionarios }}</td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarLoja(loja.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="deleteLoja(loja.id)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

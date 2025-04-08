@@ -13,7 +13,6 @@ export class LojasComponent implements OnInit {
   termoBusca: string = '';
 
   lojas: Loja[] = [];
-
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
@@ -62,4 +61,10 @@ export class LojasComponent implements OnInit {
       }
     );
   }
+
+  editarLoja(id: string): void {
+    this.router.navigate(['/usuario/cadastro-de-lojas', id]);
+  }
+
+  deleteLoja(id: string): void {}
 }
