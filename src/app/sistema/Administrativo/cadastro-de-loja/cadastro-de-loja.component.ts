@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Loja } from '../../Administrativo/lojas/loja';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Endereco } from '../../Administrativo/lojas/endereco';
@@ -123,5 +123,14 @@ export class CadastroDeLojaComponent implements OnInit {
         this.successMessage = null;
       }
     );
+  }
+
+  isRequired(controlName: string): boolean {
+    const control = this.lojaForm.get(controlName);
+    if (control && control.validator) {
+      const validator = control.validator({} as AbstractControl);
+      return !!(validator && validator['required']);
+    }
+    return false;
   }
 }

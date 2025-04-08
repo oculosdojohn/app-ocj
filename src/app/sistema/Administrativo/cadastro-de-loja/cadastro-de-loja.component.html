@@ -7,7 +7,7 @@
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="lojaForm">
             <div class="form-group">
-                <label for="nome">Nome</label>
+                <label for="nome">Nome<span *ngIf="isRequired('nome')" class="required-asterisk">*</span></label>
                 <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome da loja" required>
             </div>
 
@@ -19,7 +19,7 @@
             <div formGroupName="endereco">
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="estado">Estado</label>
+                        <label for="estado">Estado<span *ngIf="isRequired('endereco.estado')" class="required-asterisk">*</span></label>
                         <app-select-padrao
                           label="Selecione o estado"
                           [options]="estados"
@@ -29,7 +29,7 @@
                         </app-select-padrao>
                     </div>
                     <div class="form-group">
-                        <label for="cidade">Cidade</label>
+                        <label for="cidade">Cidade<span *ngIf="isRequired('endereco.cidade')" class="required-asterisk">*</span></label>
                         <app-select-padrao
                           label="Selecione a cidade"
                           [options]="cidades"
@@ -42,22 +42,22 @@
 
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="cep">CEP</label>
+                        <label for="cep">CEP<span *ngIf="isRequired('endereco.cep')" class="required-asterisk">*</span></label>
                         <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" required>
                     </div>
                     <div class="form-group">
-                        <label for="bairro">Bairro</label>
+                        <label for="bairro">Bairro<span *ngIf="isRequired('endereco.bairro')" class="required-asterisk">*</span></label>
                         <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" required>
                     </div>
                 </div>
     
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="rua">Rua</label>
+                        <label for="rua">Rua<span *ngIf="isRequired('endereco.rua')" class="required-asterisk">*</span></label>
                         <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" required>
                     </div>
                     <div class="form-group">
-                        <label for="numero">Número</label>
+                        <label for="numero">Número<span *ngIf="isRequired('endereco.numero')" class="required-asterisk">*</span></label>
                         <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" required>
                     </div>
                 </div>

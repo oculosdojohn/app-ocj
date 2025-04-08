@@ -291,6 +291,11 @@ select {
   word-wrap: normal;
 }
 
+.required-asterisk {
+  color: red;
+  margin-left: 4px;
+}
+
 button,
 [type=button],
 [type=reset],
