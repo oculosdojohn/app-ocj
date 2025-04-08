@@ -47,7 +47,8 @@
                           [options]="cidades"
                           [(selectedValue)]="selectedCidade"
                           (selectedValueChange)="onCidadeChange($event)"
-                          formControlName="cidade">
+                          formControlName="cidade"
+                          [disabled]="lojaForm.get('endereco.cidade')?.disabled === true">
                         </app-select-padrao>
                     </div>
                 </div>

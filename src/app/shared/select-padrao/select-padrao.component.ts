@@ -19,6 +19,8 @@ export class SelectPadraoComponent {
   @Input() selectedValue: string = '';
   @Output() selectedValueChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() customStyles: { [key: string]: string } = {};
+  @Input() disabled: boolean = false;
+
 
   isOpen: boolean = false;
 

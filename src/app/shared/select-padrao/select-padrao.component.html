@@ -1,7 +1,7 @@
 <!-- select.component.html -->
 <div class="select-container">
     <label [class.active]="selectedValue">{{ label }}</label>
-    <div [ngStyle]="customStyles" class="select-dropdown" (click)="isOpen = !isOpen">
+    <div [ngStyle]="customStyles" class="select-dropdown" [class.disabled]="disabled" (click)="!disabled && (isOpen = !isOpen)">
       <div class="selected-value">{{ getSelectedDescription() }}</div>
       <div class="arrow-down" [ngClass]="{'icon-rotate': isOpen}">
         <img src="assets/icones/carret.svg" alt="Arrow down">

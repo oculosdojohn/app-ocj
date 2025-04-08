@@ -55,23 +55,29 @@ export class CadastroDeLojaComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarEstadosECidades();
+    this.lojaForm.get('endereco.cidade')?.disable(); 
     this.onEstadoChange('');
     this.verificarModoEdicao();
   }
 
   onEstadoChange(nome: string): void {
+    const cidadeControl = this.lojaForm.get('endereco.cidade');
+  
     console.log('onEstadoChange chamado com o estado:', nome);
     this.lojaForm.get('endereco.estado')?.setValue(nome);
+  
     if (!nome) {
+      cidadeControl?.disable();
       this.enderecoService.getTodasCidades().subscribe((cidades) => {
         this.cidades = cidades.map((cidade) => ({
           value: cidade.nome,
           description: cidade.nome,
         }));
         this.selectedCidade = '';
-        this.lojaForm.get('endereco.cidade')?.setValue(null);
+        cidadeControl?.setValue(null);
       });
     } else {
+      cidadeControl?.enable();
       this.enderecoService.getCidadesByEstado(nome).subscribe((cidades) => {
         console.log('Cidades filtradas pelo estado:', cidades);
         this.cidades = cidades.map((cidade) => ({
@@ -79,10 +85,10 @@ export class CadastroDeLojaComponent implements OnInit {
           description: cidade.nome,
         }));
         this.selectedCidade = '';
-        this.lojaForm.get('endereco.cidade')?.setValue(null);
+        cidadeControl?.setValue(null);
       });
     }
-  }
+  }  
 
   onCidadeChange(nome: string): void {
     console.log('onCidadeChange chamado com a cidade:', nome);
