@@ -12,4 +12,22 @@ export class DepartamentoService {
   apiURL: string = environment.apiURLBase + '/api/departamento';
 
   constructor(private http: HttpClient) {}
+
+  cadastrarDepartamento(departamento: Departamento): Observable<Departamento> {
+      console.log('Dados enviados para o backend:', departamento);
+      return this.http.post<Departamento>(this.apiURL, departamento).pipe(
+        map((response) => response),
+        catchError((error) => {
+          let errorMessage = 'Erro ao salvar a departamento.';
+  
+          if (error.error instanceof ErrorEvent) {
+            errorMessage = `Erro: ${error.error.message}`;
+          } else if (error.status) {
+            errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+          }
+          console.error(errorMessage);
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+    }
 }

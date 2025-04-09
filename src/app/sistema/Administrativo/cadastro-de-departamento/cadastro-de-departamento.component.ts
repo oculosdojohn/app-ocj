@@ -47,7 +47,7 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     this.departamentoForm = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: [''],
-      responsaveis: [''],
+      responsaveis: [[]],
       orcamento: ['', Validators.required],
       telefone: ['', Validators.required],
       email: ['', Validators.required],
@@ -61,7 +61,40 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     this.location.back();
   }
 
-  onSubmit(): void {}
+  onSubmit(): void {
+    if (this.departamentoForm.invalid) {
+      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
+      return;
+    }
+
+    const departamento: Departamento = {
+      ...this.departamentoForm.value,
+      responsaveis: Array.isArray(this.departamentoForm.value.responsaveis)
+        ? this.departamentoForm.value.responsaveis
+        : [], // Garante que seja um array simples
+    };
+    console.log('Payload enviado:', departamento);
+
+    this.isLoading = true;
+    this.successMessage = null;
+    this.errorMessage = null;
+
+    this.departamentoService.cadastrarDepartamento(departamento).subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.successMessage = 'Departamento cadastrada com sucesso!';
+        this.errorMessage = null;
+        this.departamentoForm.reset();
+      },
+      (error) => {
+        this.isLoading = false;
+        this.errorMessage =
+          error.message || 'Erro ao cadastrar a departamento.';
+        this.successMessage = null;
+        console.error('Erro no servidor:', error);
+      }
+    );
+  }
 
   isRequired(controlName: string): boolean {
     const control = this.departamentoForm.get(controlName);
