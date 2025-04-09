@@ -130,7 +130,7 @@ export class CadastroDeLojaComponent implements OnInit {
         },
         (error) => {
           this.isLoading = false;
-          this.errorMessage = error.message || 'Erro ao atualizada a loja.';
+          this.errorMessage = error.message || 'Erro ao atualizar a loja.';
           this.successMessage = null;
         }
       );

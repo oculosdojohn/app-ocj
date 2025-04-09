@@ -55,7 +55,9 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.verificarModoEdicao();
+  }
 
   goBack() {
     this.location.back();
@@ -71,7 +73,7 @@ export class CadastroDeDepartamentoComponent implements OnInit {
       ...this.departamentoForm.value,
       responsaveis: Array.isArray(this.departamentoForm.value.responsaveis)
         ? this.departamentoForm.value.responsaveis
-        : [], // Garante que seja um array simples
+        : [],
     };
     console.log('Payload enviado:', departamento);
 
@@ -79,21 +81,40 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     this.successMessage = null;
     this.errorMessage = null;
 
-    this.departamentoService.cadastrarDepartamento(departamento).subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.successMessage = 'Departamento cadastrada com sucesso!';
-        this.errorMessage = null;
-        this.departamentoForm.reset();
-      },
-      (error) => {
-        this.isLoading = false;
-        this.errorMessage =
-          error.message || 'Erro ao cadastrar a departamento.';
-        this.successMessage = null;
-        console.error('Erro no servidor:', error);
-      }
-    );
+    if (this.isEditMode && this.departamentoId) {
+      this.departamentoService
+        .atualizarDepartamento(this.departamentoId, departamento)
+        .subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.successMessage = 'Departamento atualizado com sucesso!';
+            this.errorMessage = null;
+            this.router.navigate(['/usuario/departamentos-da-empresa']);
+          },
+          (error) => {
+            this.isLoading = false;
+            this.errorMessage =
+              error.message || 'Erro ao atualizar o departamento.';
+            this.successMessage = null;
+          }
+        );
+    } else {
+      this.departamentoService.cadastrarDepartamento(departamento).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Departamento cadastrada com sucesso!';
+          this.errorMessage = null;
+          this.departamentoForm.reset();
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage =
+            error.message || 'Erro ao cadastrar a departamento.';
+          this.successMessage = null;
+          console.error('Erro no servidor:', error);
+        }
+      );
+    }
   }
 
   isRequired(controlName: string): boolean {
@@ -103,5 +124,24 @@ export class CadastroDeDepartamentoComponent implements OnInit {
       return !!(validator && validator['required']);
     }
     return false;
+  }
+
+  private verificarModoEdicao(): void {
+    this.departamentoId = this.route.snapshot.paramMap.get('id');
+    if (this.departamentoId) {
+      this.isEditMode = true;
+      this.departamentoService
+        .getDepartamentoById(Number(this.departamentoId))
+        .subscribe(
+          (departamento: Departamento) => {
+            console.log('Dados de departamento recebidos:', departamento);
+
+            this.departamentoForm.patchValue(departamento);
+          },
+          (error) => {
+            console.error('Erro ao carregar os dados de departamento', error);
+          }
+        );
+    }
   }
 }
