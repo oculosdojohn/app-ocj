@@ -7,6 +7,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { Departamento } from '../../Administrativo/departamentos/departamento';
 import { DepartamentoService } from '../../../services/administrativo/departamento.service';
 
 @Component({
