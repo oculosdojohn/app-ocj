@@ -68,4 +68,18 @@ export class DepartamentosComponent implements OnInit {
   editarDepartamento(id: string): void {
     this.router.navigate(['/usuario/cadastro-de-departamento', id]);
   }
+
+  deleteDepartamento(id: string): void {
+    if (confirm('Tem certeza que deseja deletar este departamento?')) {
+      this.departamentoService.deleteDepartamentoById(id).subscribe(
+        () => {
+          console.log('Departamento deletada com sucesso!');
+          this.fetchDepartamentos();
+        },
+        (error) => {
+          console.error('Erro ao deletar a departamento:', error);
+        }
+      );
+    }
+  }
 }
