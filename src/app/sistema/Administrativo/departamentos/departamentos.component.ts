@@ -1,34 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Departamento } from './departamento';
+import { DepartamentoService } from '../../../services/administrativo/departamento.service';
 
 @Component({
   selector: 'app-departamentos',
   templateUrl: './departamentos.component.html',
-  styleUrls: ['./departamentos.component.css']
+  styleUrls: ['./departamentos.component.css'],
 })
 export class DepartamentosComponent implements OnInit {
-
   termoBusca: string = '';
 
   departamentos: Departamento[] = [];
-  
+
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.departamentos.length / this.itensPorPagina);
   departamentosPaginados: Departamento[] = [];
 
-  constructor(private router: Router) { } 
-     
-   ngOnInit(): void {
-    this.atualizarPaginacao();
-   }
-     
-   cadastrarDepartamento(): void {
-     this.router.navigate(['/usuario/cadastro-de-departamento']); 
-   }
+  constructor(
+    private router: Router,
+    private departamentoService: DepartamentoService
+  ) {}
 
-   onSearch(searchTerm: string) {
+  ngOnInit(): void {
+    this.fetchDepartamentos();
+    this.atualizarPaginacao();
+  }
+
+  cadastrarDepartamento(): void {
+    this.router.navigate(['/usuario/cadastro-de-departamento']);
+  }
+
+  onSearch(searchTerm: string) {
     console.log('Search term:', searchTerm);
   }
 
@@ -45,5 +49,19 @@ export class DepartamentosComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  fetchDepartamentos(): void {
+    this.departamentoService.getDepartamentos().subscribe(
+      (departamentos: any[]) => {
+        console.log('departamentos retornadas:', departamentos);
+        this.departamentos = departamentos;
+        this.totalPaginas = Math.ceil(this.departamentos.length / this.itensPorPagina);
+        this.atualizarPaginacao();
+      },
+      (error) => {
+        console.error('Erro ao carregar departamentos:', error);
+      }
+    );
   }
 }
