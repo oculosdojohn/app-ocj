@@ -44,7 +44,15 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     private router: Router,
     private departamentoService: DepartamentoService
   ) {
-    this.departamentoForm = this.formBuilder.group({});
+    this.departamentoForm = this.formBuilder.group({
+      nome: ['', Validators.required],
+      descricao: [''],
+      responsaveis: [''],
+      orcamento: ['', Validators.required],
+      telefone: ['', Validators.required],
+      email: ['', Validators.required],
+      localizacao: [''],
+    });
   }
 
   ngOnInit(): void {}
@@ -54,4 +62,13 @@ export class CadastroDeDepartamentoComponent implements OnInit {
   }
 
   onSubmit(): void {}
+
+  isRequired(controlName: string): boolean {
+    const control = this.departamentoForm.get(controlName);
+    if (control && control.validator) {
+      const validator = control.validator({} as AbstractControl);
+      return !!(validator && validator['required']);
+    }
+    return false;
+  }
 }
