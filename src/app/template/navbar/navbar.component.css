@@ -250,6 +250,7 @@ a.active-link span {
   position: absolute;
   top: 120%;
   right: 0;
+  left: 35%;
   background: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
