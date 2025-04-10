@@ -1,19 +1,36 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar departamento</span>
+        <span>{{ isEditMode ? 'Editar departamento' : 'Cadastrar departamento' }}</span>
+    </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
     </div>
   
     <div class="forms-container">
-        <form>
+        <form (ngSubmit)="onSubmit()" [formGroup]="departamentoForm">
             <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do departamento" required>
+                <label for="nome">
+                    Nome
+                    <span *ngIf="isRequired('nome')" class="required-asterisk">*</span>
+                </label>
+                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome do departamento" required>
+                <div *ngIf="departamentoForm.get('nome')?.invalid && (departamentoForm.get('nome')?.touched || departamentoForm.get('nome')?.dirty)" class="error-obrigatorio">
+                    O campo Nome é obrigatório.
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="descricao">Descrição</label>
-                <textarea type="text" id="descricao" name="descricao" class="form-control" placeholder="Digite a descrição do departamento" rows="3" required></textarea>
+                <label for="descricao">
+                    Descrição
+                </label>
+                <textarea type="text" id="descricao" name="descricao" formControlName="descricao" class="form-control" placeholder="Digite a descrição do departamento" rows="3"></textarea>
             </div>
 
             <div class="form-group">
@@ -27,31 +44,52 @@
             </div>
 
             <div class="form-group">
-                <label for="orcamento">Orçamento mensal</label>
-                <input type="text" id="orcamento" name="orcamento" class="form-control" placeholder="Digite o orçamento" required>
+                <label for="orcamento">
+                    Orçamento mensal
+                    <span *ngIf="isRequired('orcamento')" class="required-asterisk">*</span>
+                </label>
+                <input type="text" id="orcamento" name="orcamento" formControlName="orcamento" class="form-control" placeholder="Digite o orçamento" required>
+                <div *ngIf="departamentoForm.get('orcamento')?.invalid && (departamentoForm.get('orcamento')?.touched || departamentoForm.get('orcamento')?.dirty)" class="error-obrigatorio">
+                    O campo Orçamento mensal é obrigatório.
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="localizacao">Localização</label>
-                <input type="text" id="localizacao" name="localizacao" class="form-control" placeholder="Digite a localização" required>
+                <label for="localizacao">
+                    Localização
+                </label>
+                <input type="text" id="localizacao" name="localizacao" formControlName="localizacao" class="form-control" placeholder="Digite a localização">
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Digite o e-mail" required>
+                    <label for="email">
+                        E-mail
+                        <span *ngIf="isRequired('email')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="email" name="email" formControlName="email" class="form-control" placeholder="Digite o e-mail" required>
+                    <div *ngIf="departamentoForm.get('email')?.invalid && (departamentoForm.get('email')?.touched || departamentoForm.get('email')?.dirty)" class="error-obrigatorio">
+                        O campo E-mail é obrigatório.
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="telefone">Telefone</label>
-                    <input type="text" id="telefone" name="telefone" class="form-control" placeholder="Digite o telefone" required>
+                    <label for="telefone">
+                        Telefone
+                        <span *ngIf="isRequired('telefone')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="telefone" name="telefone" formControlName="telefone" class="form-control" placeholder="Digite o telefone" required>
+                    <div *ngIf="departamentoForm.get('telefone')?.invalid && (departamentoForm.get('telefone')?.touched || departamentoForm.get('telefone')?.dirty)" class="error-obrigatorio">
+                        O campo Telefone é obrigatório.
+                    </div>
                 </div>
             </div>
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar departamento
+                    {{ isEditMode ? 'Atualizar departamento' : 'Cadastrar departamento' }}
                 </button>
             </div>
         </form>
     </div>
+    <div *ngIf="isLoading">Carregando...</div>
 </div>

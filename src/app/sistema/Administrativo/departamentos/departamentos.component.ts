@@ -1,43 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Departamento } from './departamento';
+import { DepartamentoService } from '../../../services/administrativo/departamento.service';
 
 @Component({
   selector: 'app-departamentos',
   templateUrl: './departamentos.component.html',
-  styleUrls: ['./departamentos.component.css']
+  styleUrls: ['./departamentos.component.css'],
 })
 export class DepartamentosComponent implements OnInit {
-
   termoBusca: string = '';
 
-  departamentos: Departamento[] = [
-      { nome: 'Comercial', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '10' },
-      { nome: 'Administrativo', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '15' },
-      { nome: 'Laboratório', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '8' },
-      { nome: 'Diretoria', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '5' },
-      { nome: 'Financeiro', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '12' },
-      { nome: 'Marketing', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '10' },
-      { nome: 'Comercial', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '10' },
-      { nome: 'Comercial', descricao: '', orcamento: 0, telefone: '', email: '', responsavel: 'Everardo Costta', qtdFuncionarios: '10' }
-    ];
-  
+  departamentos: Departamento[] = [];
+
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.departamentos.length / this.itensPorPagina);
   departamentosPaginados: Departamento[] = [];
 
-  constructor(private router: Router) { } 
-     
-   ngOnInit(): void {
-    this.atualizarPaginacao();
-   }
-     
-   cadastrarDepartamento(): void {
-     this.router.navigate(['/usuario/cadastro-de-departamento']); 
-   }
+  constructor(
+    private router: Router,
+    private departamentoService: DepartamentoService
+  ) {}
 
-   onSearch(searchTerm: string) {
+  ngOnInit(): void {
+    this.fetchDepartamentos();
+    this.atualizarPaginacao();
+  }
+
+  cadastrarDepartamento(): void {
+    this.router.navigate(['/usuario/cadastro-de-departamento']);
+  }
+
+  onSearch(searchTerm: string) {
     console.log('Search term:', searchTerm);
   }
 
@@ -54,5 +49,37 @@ export class DepartamentosComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  fetchDepartamentos(): void {
+    this.departamentoService.getDepartamentos().subscribe(
+      (departamentos: any[]) => {
+        console.log('departamentos retornadas:', departamentos);
+        this.departamentos = departamentos;
+        this.totalPaginas = Math.ceil(this.departamentos.length / this.itensPorPagina);
+        this.atualizarPaginacao();
+      },
+      (error) => {
+        console.error('Erro ao carregar departamentos:', error);
+      }
+    );
+  }
+
+  editarDepartamento(id: string): void {
+    this.router.navigate(['/usuario/cadastro-de-departamento', id]);
+  }
+
+  deleteDepartamento(id: string): void {
+    if (confirm('Tem certeza que deseja deletar este departamento?')) {
+      this.departamentoService.deleteDepartamentoById(id).subscribe(
+        () => {
+          console.log('Departamento deletada com sucesso!');
+          this.fetchDepartamentos();
+        },
+        (error) => {
+          console.error('Erro ao deletar a departamento:', error);
+        }
+      );
+    }
   }
 }

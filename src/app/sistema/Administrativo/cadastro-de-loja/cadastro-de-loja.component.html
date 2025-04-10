@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar loja</span>
+        <span>{{ isEditMode ? 'Editar loja' : 'Cadastrar loja' }}</span>
     </div>
 
     <div class="alerts">
@@ -47,7 +47,8 @@
                           [options]="cidades"
                           [(selectedValue)]="selectedCidade"
                           (selectedValueChange)="onCidadeChange($event)"
-                          formControlName="cidade">
+                          formControlName="cidade"
+                          [disabled]="lojaForm.get('endereco.cidade')?.disabled === true">
                         </app-select-padrao>
                     </div>
                 </div>
@@ -100,7 +101,7 @@
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar loja
+                    {{ isEditMode ? 'Atualizar loja' : 'Cadastrar loja' }}
                 </button>
             </div>
         </form>

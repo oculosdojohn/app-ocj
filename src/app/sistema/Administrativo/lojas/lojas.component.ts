@@ -52,7 +52,7 @@ export class LojasComponent implements OnInit {
     this.lojaService.getLojas().subscribe(
       (lojas: any[]) => {
         console.log('Lojas retornadas:', lojas);
-        this.lojas = lojas; // Usa os dados retornados diretamente
+        this.lojas = lojas;
         this.totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
         this.atualizarPaginacao();
       },

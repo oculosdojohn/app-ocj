@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { Loja } from '../../Administrativo/lojas/loja';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Endereco } from '../../Administrativo/lojas/endereco';
@@ -17,6 +23,7 @@ export class CadastroDeLojaComponent implements OnInit {
   successMessage: string | null = null;
   errorMessage: string | null = null;
   isEditMode = false;
+  lojaId: string | null = null;
 
   estados: { value: string; description: string }[] = [];
   cidades: { value: string; description: string }[] = [];
@@ -27,7 +34,9 @@ export class CadastroDeLojaComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private lojaService: LojaService,
-    private enderecoService: EnderecoService
+    private enderecoService: EnderecoService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.lojaForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -45,29 +54,30 @@ export class CadastroDeLojaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.enderecoService.getEstados().subscribe((estados: Estado[]) => {
-      this.estados = estados.map((estado: Estado) => ({
-        value: estado.sigla,
-        description: estado.nome,
-      }));
-      console.log('Estados carregados:', this.estados);
-    });
+    this.carregarEstadosECidades();
+    this.lojaForm.get('endereco.cidade')?.disable(); 
     this.onEstadoChange('');
+    this.verificarModoEdicao();
   }
 
   onEstadoChange(nome: string): void {
+    const cidadeControl = this.lojaForm.get('endereco.cidade');
+  
     console.log('onEstadoChange chamado com o estado:', nome);
     this.lojaForm.get('endereco.estado')?.setValue(nome);
+  
     if (!nome) {
+      cidadeControl?.disable();
       this.enderecoService.getTodasCidades().subscribe((cidades) => {
         this.cidades = cidades.map((cidade) => ({
           value: cidade.nome,
           description: cidade.nome,
         }));
         this.selectedCidade = '';
-        this.lojaForm.get('endereco.cidade')?.setValue(null);
+        cidadeControl?.setValue(null);
       });
     } else {
+      cidadeControl?.enable();
       this.enderecoService.getCidadesByEstado(nome).subscribe((cidades) => {
         console.log('Cidades filtradas pelo estado:', cidades);
         this.cidades = cidades.map((cidade) => ({
@@ -75,10 +85,10 @@ export class CadastroDeLojaComponent implements OnInit {
           description: cidade.nome,
         }));
         this.selectedCidade = '';
-        this.lojaForm.get('endereco.cidade')?.setValue(null);
+        cidadeControl?.setValue(null);
       });
     }
-  }
+  }  
 
   onCidadeChange(nome: string): void {
     console.log('onCidadeChange chamado com a cidade:', nome);
@@ -110,19 +120,35 @@ export class CadastroDeLojaComponent implements OnInit {
     this.successMessage = null;
     this.errorMessage = null;
 
-    this.lojaService.cadastrarLoja(loja).subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.successMessage = 'Loja cadastrada com sucesso!';
-        this.errorMessage = null;
-        this.lojaForm.reset();
-      },
-      (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message || 'Erro ao cadastrar a loja.';
-        this.successMessage = null;
-      }
-    );
+    if (this.isEditMode && this.lojaId) {
+      this.lojaService.atualizarLoja(this.lojaId, loja).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Loja atualizada com sucesso!';
+          this.errorMessage = null;
+          this.router.navigate(['/usuario/lojas-john']);
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message || 'Erro ao atualizar a loja.';
+          this.successMessage = null;
+        }
+      );
+    } else {
+      this.lojaService.cadastrarLoja(loja).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Loja cadastrada com sucesso!';
+          this.errorMessage = null;
+          this.lojaForm.reset();
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message || 'Erro ao cadastrar a loja.';
+          this.successMessage = null;
+        }
+      );
+    }
   }
 
   isRequired(controlName: string): boolean {
@@ -132,5 +158,49 @@ export class CadastroDeLojaComponent implements OnInit {
       return !!(validator && validator['required']);
     }
     return false;
+  }
+
+  private verificarModoEdicao(): void {
+    this.lojaId = this.route.snapshot.paramMap.get('id');
+    if (this.lojaId) {
+      this.isEditMode = true;
+      this.lojaService.getLojaById(Number(this.lojaId)).subscribe(
+        (loja: Loja) => {
+          console.log('Dados da loja recebidos:', loja);
+  
+          const estado = loja.endereco.estado;
+          const cidade = loja.endereco.cidade;
+  
+          this.lojaForm.patchValue(loja);
+          this.onEstadoChange(estado);
+          this.selectedEstado = estado;
+  
+          this.enderecoService.getCidadesByEstado(estado).subscribe((cidades) => {
+            this.cidades = cidades.map((cidade) => ({
+              value: cidade.nome,
+              description: cidade.nome,
+            }));
+            this.selectedCidade = cidade;
+            this.lojaForm.get('endereco.cidade')?.setValue(cidade);
+          });
+        },
+        (error) => {
+          console.error('Erro ao carregar os dados da loja:', error);
+        }
+      );
+    }
+  }
+  
+
+  private carregarEstadosECidades(): void {
+    this.enderecoService.getEstados().subscribe((estados: Estado[]) => {
+      this.estados = estados.map((estado: Estado) => ({
+        value: estado.sigla,
+        description: estado.nome,
+      }));
+      console.log('Estados carregados:', this.estados);
+    });
+
+    this.onEstadoChange('');
   }
 }
