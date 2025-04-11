@@ -51,3 +51,27 @@
   font-size: 16px;
   font-weight: 600;
 }
+
+/* Divisão */
+.divisao {
+  width: 100%;
+}
+
+.divisao p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.data-itens {
+  margin: 16px 0;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.item-data label {
+  color: #716f6e;
+}
