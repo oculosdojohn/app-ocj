@@ -1,1 +1,12 @@
-<p>detalhes-loja works!</p>
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a (click)="goBack()">Lojas &gt; </a> <span class="breadcrumb-highlight">Ver detalhes da loja</span>
+        </div>
+    </div>
+    <div class="actions">
+        <h1>{{ loja.nome }}</h1>
+        <p>N° de funcionários: {{ loja.quantidadeFuncionarios }}</p>
+    </div>
+</div>
+<div class="subMain-container"></div>
