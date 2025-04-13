@@ -42,7 +42,7 @@
                     <td>{{ departamento.quantidadeFuncionarios }}</td>
                     <td>
                         <div class="acoes">
-                            <button class="btn-acao visualizar">
+                            <button class="btn-acao visualizar" (click)="visualizarDepartamento(departamento.id)">
                                 <img src="assets/icones/See.png" alt="Visualizar">
                             </button>
                             <button class="btn-acao edit" (click)="editarDepartamento(departamento.id)">

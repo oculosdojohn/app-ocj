@@ -58,6 +58,7 @@ const routes: Routes = [
       { path: 'detalhes-loja/:id', component: DetalhesLojaComponent},
       { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent},
       { path: 'cadastro-de-departamento/:id', component: CadastroDeDepartamentoComponent},
+      { path: 'detalhes-departamento/:id', component: DetalhesDepartamentoComponent},
 
       // somente rh e admin podem ver
       { path: 'feedbacks', component: FeedbaksComponent},
