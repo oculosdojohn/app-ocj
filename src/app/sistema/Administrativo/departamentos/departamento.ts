@@ -4,7 +4,7 @@ export class Departamento {
     descricao!: string;
     responsaveis!: string[];
     orcamento!: number;
-    qtdFuncionarios!: string;
+    quantidadeFuncionarios!: string;
     telefone!: string;
     email!: string;
     localizacao!: string;

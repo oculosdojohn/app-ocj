@@ -75,3 +75,21 @@
 .item-data label {
   color: #716f6e;
 }
+
+.data-grid-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  background: #ddd;
+  border-radius: 50%;
+}
