@@ -1,0 +1,78 @@
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a (click)="goBack()">Lojas &gt; </a> <span class="breadcrumb-highlight">Ver detalhes da loja</span>
+        </div>
+    </div>
+    <div class="actions">
+        <h1>{{ loja.nome }}</h1>
+        <p>N° de funcionários: {{ loja.quantidadeFuncionarios }}</p>
+    </div>
+</div>
+<div class="subMain-container">
+    <div class="divisao">
+        <p>Endereço</p>
+        <hr class="line">
+    </div>
+    <div class="data-itens">
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Cidade</label>
+                <p>{{ loja.endereco.cidade }}</p>
+            </div>
+            <div class="item-data">
+                <label>Estado</label>
+                <p>{{ loja.endereco.estado }}</p>
+            </div>
+        </div>
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Rua</label>
+                <p>{{ loja.endereco.rua }}</p>
+            </div>
+            <div class="item-data">
+                <label>Número</label>
+                <p>{{ loja.endereco.numero }}</p>
+            </div>
+        </div>
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Bairro</label>
+                <p>{{ loja.endereco.bairro }}</p>
+            </div>
+            <div class="item-data">
+                <label>CEP</label>
+                <p>{{ loja.endereco.cep }}</p>
+            </div>
+        </div>
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Complemento</label>
+                <p>{{ loja.endereco.complemento }}</p>
+            </div>
+            <div class="item-data">
+                <label>Logradouro</label>
+                <p>{{ loja.endereco.logradouro }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="divisao">
+        <p>Superior responsável</p>
+        <hr class="line">
+    </div>
+
+    <div class="data-grid-trio">
+        <div class="item-data">
+            <div class="perfil">
+                <div class="avatar"></div>
+                <span>Everardo Costta</span>
+            </div>
+        </div>
+        <div class="item-data">
+            <p>Gerente</p>
+        </div>
+        <div class="item-data">
+            <p>(00) 90000-0000</p>
+        </div>
+    </div>
+</div>

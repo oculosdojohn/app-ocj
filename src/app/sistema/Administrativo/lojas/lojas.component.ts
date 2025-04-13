@@ -62,6 +62,10 @@ export class LojasComponent implements OnInit {
     );
   }
 
+  visualizarLoja(id: string): void {
+    this.router.navigate(['/usuario/detalhes-loja', id]);
+  }
+
   editarLoja(id: string): void {
     this.router.navigate(['/usuario/cadastro-de-lojas', id]);
   }

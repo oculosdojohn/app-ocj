@@ -1,0 +1,95 @@
+.main-container {
+  margin: 90px 32px 24px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.subMain-container {
+  margin: 24px 32px 24px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Breadcrumb e buscar */
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  align-items: center;
+}
+
+.breadcrumb {
+  font-size: 1rem;
+  color: #666261;
+  margin: 0;
+}
+
+.breadcrumb a {
+  color: #666;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.breadcrumb a:hover {
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.breadcrumb-highlight {
+  margin-left: 5px;
+  color: #008000;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Divisão */
+.divisao {
+  width: 100%;
+}
+
+.divisao p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.data-itens {
+  margin: 16px 0;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.item-data label {
+  color: #716f6e;
+}
+
+.data-grid-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  background: #ddd;
+  border-radius: 50%;
+}

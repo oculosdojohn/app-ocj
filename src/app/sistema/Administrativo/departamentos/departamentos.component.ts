@@ -65,6 +65,10 @@ export class DepartamentosComponent implements OnInit {
     );
   }
 
+  visualizarDepartamento(id: string): void {
+    this.router.navigate(['/usuario/detalhes-departamento', id]);
+  }
+
   editarDepartamento(id: string): void {
     this.router.navigate(['/usuario/cadastro-de-departamento', id]);
   }

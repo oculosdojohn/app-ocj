@@ -5,7 +5,7 @@
     </div>
   
     <div class="forms-container">
-        <form>
+        <form (ngSubmit)="onSubmit()" [formGroup]="colaboradorForm">
             <div class="divisao">
                 <p>Dados gerais</p>
                 <hr class="line">
@@ -17,14 +17,26 @@
             </div>
 
             <div class="form-group">
-                <label for="nome">Nome completo</label>
-                <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o Nome completo" required>
+                <label for="nome">
+                    Nome completo
+                    <span *ngIf="isRequired('nome')" class="required-asterisk">*</span>
+                </label>
+                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o Nome completo" required>
+                <div *ngIf="colaboradorForm.get('nome')?.invalid && (colaboradorForm.get('nome')?.touched || colaboradorForm.get('nome')?.dirty)" class="error-obrigatorio">
+                    O campo Nome completo é obrigatório.
+                </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="data">Data de nascimento</label>
-                    <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data de nascimento" required>
+                    <label for="data">
+                        Data de nascimento
+                        <span *ngIf="isRequired('dataNascimento')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="data" name="data" formControlName="dataNascimento" class="form-control" placeholder="Digite a data de nascimento" required>
+                    <div *ngIf="colaboradorForm.get('dataNascimento')?.invalid && (colaboradorForm.get('dataNascimento')?.touched || colaboradorForm.get('dataNascimento')?.dirty)" class="error-obrigatorio">
+                        O campo Data de nascimento é obrigatório.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="estadoCivil">Estado civil</label>
@@ -335,7 +347,8 @@
                     <label for="departamento">Departamento</label>
                     <app-select-padrao
                       label="Selecione o departamento"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="departamentos"
+                      [(selectedValue)]="selectedDepartamento">
                     </app-select-padrao>
                 </div>
 

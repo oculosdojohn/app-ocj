@@ -31,6 +31,9 @@ import { CadastroDeProcedimentosMedicoComponent } from './RH/cadastro-de-procedi
 import { ModuloCursoComponent } from './Servicos/modulo-curso/modulo-curso.component';
 import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
 import { BuscarAulasComponent } from './Servicos/buscar-aulas/buscar-aulas.component';
+import { DetalhesLojaComponent } from './Administrativo/vizualizar-adm/detalhes-loja/detalhes-loja.component';
+import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/detalhes-colaborador/detalhes-colaborador.component';
+import { DetalhesDepartamentoComponent } from './Administrativo/vizualizar-adm/detalhes-departamento/detalhes-departamento.component';
 
 const routes: Routes = [
   { path: 'usuario', 
@@ -52,8 +55,10 @@ const routes: Routes = [
       { path: 'cadastro-de-colaborador/:id', component: CadastroDeColaboradorComponent},
       { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent},
       { path: 'cadastro-de-lojas/:id', component: CadastroDeLojaComponent},
+      { path: 'detalhes-loja/:id', component: DetalhesLojaComponent},
       { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent},
       { path: 'cadastro-de-departamento/:id', component: CadastroDeDepartamentoComponent},
+      { path: 'detalhes-departamento/:id', component: DetalhesDepartamentoComponent},
 
       // somente rh e admin podem ver
       { path: 'feedbacks', component: FeedbaksComponent},

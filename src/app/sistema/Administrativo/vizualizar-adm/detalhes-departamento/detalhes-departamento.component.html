@@ -1,0 +1,62 @@
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a (click)="goBack()">Departamentos &gt; </a> <span class="breadcrumb-highlight">Ver detalhes do departamento</span>
+        </div>
+    </div>
+    <div class="actions">
+        <h1>{{ departamento.nome }}</h1>
+        <p>N° de funcionários: {{ departamento.quantidadeFuncionarios }}</p>
+    </div>
+</div>
+<div class="subMain-container">
+    <div class="divisao">
+        <p>Dados gerais</p>
+        <hr class="line">
+    </div>
+    <div class="data-itens">
+        <div class="item-data">
+            <label>Descrição</label>
+            <p>{{ departamento.descricao }}</p>
+        </div>
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Orçamento mensal</label>
+                <p>R$10000,00</p>
+            </div>
+            <div class="item-data">
+                <label>Localização</label>
+                <p>{{ departamento.localizacao }}</p>
+            </div>
+        </div>
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Telefone</label>
+                <p>{{ departamento.telefone }}</p>
+            </div>
+            <div class="item-data">
+                <label>E-mail</label>
+                <p>{{ departamento.email }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="divisao">
+        <p>Superior responsável</p>
+        <hr class="line">
+    </div>
+
+    <div class="data-grid-trio">
+        <div class="item-data">
+            <div class="perfil">
+                <div class="avatar"></div>
+                <span>Everardo Costta</span>
+            </div>
+        </div>
+        <div class="item-data">
+            <p>Gerente</p>
+        </div>
+        <div class="item-data">
+            <p>(00) 90000-0000</p>
+        </div>
+    </div>
+</div>
