@@ -347,7 +347,8 @@
                     <label for="departamento">Departamento</label>
                     <app-select-padrao
                       label="Selecione o departamento"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="departamentos"
+                      [(selectedValue)]="selectedDepartamento">
                     </app-select-padrao>
                 </div>
 

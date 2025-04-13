@@ -22,9 +22,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedArquivos: File[] = [];
   lojas: { value: string; description: string }[] = [];
   selectedLoja: string = '';
+  departamentos: { value: string; description: string }[] = [];
+  selectedDepartamento: string = '';
 
   constructor(
-    private location: Location, 
+    private location: Location,
     private lojaService: LojaService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -35,12 +37,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.colaboradorForm = this.formBuilder.group({
       nome: ['', Validators.required],
       dataNascimento: ['', Validators.required],
-
     });
   }
 
   ngOnInit(): void {
     this.carregarLojas();
+    this.carregarDepartamentos();
   }
 
   goBack() {
@@ -74,6 +76,20 @@ export class CadastroDeColaboradorComponent implements OnInit {
   atualizarLojas(): void {
     console.log('Atualizando lista de lojas...');
     this.carregarLojas();
+  }
+
+  carregarDepartamentos(): void {
+    this.departamentoService.getDepartamentos().subscribe(
+      (departamentos) => {
+        this.departamentos = departamentos.map((departamento) => ({
+          value: departamento.nome,
+          description: departamento.nome,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as departamentos:', error);
+      }
+    );
   }
 
   onSubmit(): void {}
