@@ -1,9 +1,9 @@
 import { EstadoCivil } from './estado-civil';
 
 export const EstadoCivilDescricoes: Record<EstadoCivil, string> = {
-  [EstadoCivil.SOLTEIRO]: 'Solteiro',
-  [EstadoCivil.CASADO]: 'Casado',
-  [EstadoCivil.DIVORCIADO]: 'Divorciado',
-  [EstadoCivil.VIUVO]: 'Viúvo',
+  [EstadoCivil.SOLTEIRO]: 'Solteiro (a)',
+  [EstadoCivil.CASADO]: 'Casado (a)',
+  [EstadoCivil.DIVORCIADO]: 'Divorciado (a)',
+  [EstadoCivil.VIUVO]: 'Viúvo (a)',
   [EstadoCivil.UNIAO_ESTAVEL]: 'União Estável',
 };
