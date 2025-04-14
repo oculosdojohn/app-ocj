@@ -97,7 +97,8 @@ export class CadastroDeColaboradorComponent implements OnInit {
     value: Escolha[key as keyof typeof Escolha],
     description: EscolhaDescricoes[Escolha[key as keyof typeof Escolha]]
   }));
-  selectedEscolha: string = '';
+  selectedFilhos: string = '';
+  selectedDeficiencia: string = '';
 
 
   constructor(

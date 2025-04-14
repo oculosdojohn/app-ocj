@@ -87,7 +87,8 @@
                     <label for="nacionalidade">Nacionalidade</label>
                     <app-select-padrao
                       label="Selecionar nacionalidade"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="nacionalidades"
+                      [(selectedValue)]="selectedNacionalidade">
                     </app-select-padrao>
                 </div>
 
@@ -102,7 +103,8 @@
                     <label for="deficiencia">Portador de deficiência?</label>
                     <app-select-padrao
                       label="Selecionar uma opção"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="escolhas"
+                      [(selectedValue)]="selectedDeficiencia">
                     </app-select-padrao>
                 </div>
 
@@ -117,7 +119,8 @@
                     <label for="filhos">Possui filhos?</label>
                     <app-select-padrao
                       label="Selecionar uma opção"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="escolhas"
+                      [(selectedValue)]="selectedFilhos">
                     </app-select-padrao>
                 </div>
 
@@ -371,7 +374,8 @@
                     <label for="tipoContrato">Tipo de contratação</label>
                     <app-select-padrao
                       label="Selecionar tipo de contratação"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="tiposContratacao"
+                      [(selectedValue)]="selectedTipoContratacao">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
@@ -384,7 +388,8 @@
                 <label for="departamento">Período de experiência</label>
                 <app-select-padrao
                   label="Selecionar período de experiência"
-                  [customStyles]="{'background': '#FFFFFF'}">
+                  [options]="periodosExperiencia"
+                  [(selectedValue)]="selectedPeriodoExperiencia">
                 </app-select-padrao>
             </div>
 
