@@ -33,7 +33,7 @@
                         Data de nascimento
                         <span *ngIf="isRequired('dataNascimento')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="data" name="data" formControlName="dataNascimento" class="form-control" placeholder="Digite a data de nascimento" required>
+                    <input type="date" id="data" name="data" formControlName="dataNascimento" class="form-control" placeholder="Digite a data de nascimento" required>
                     <div *ngIf="colaboradorForm.get('dataNascimento')?.invalid && (colaboradorForm.get('dataNascimento')?.touched || colaboradorForm.get('dataNascimento')?.dirty)" class="error-obrigatorio">
                         O campo Data de nascimento é obrigatório.
                     </div>
