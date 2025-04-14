@@ -61,6 +61,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
   }));
   selectedEscolaridade: string = '';
 
+  cargos = Object.keys(Permissao).map(key => ({
+    value: Permissao[key as keyof typeof Permissao],
+    description: PermissaoDescricoes[Permissao[key as keyof typeof Permissao]]
+  }));
+  selectedCargo: string = '';
+
 
   constructor(
     private location: Location,
