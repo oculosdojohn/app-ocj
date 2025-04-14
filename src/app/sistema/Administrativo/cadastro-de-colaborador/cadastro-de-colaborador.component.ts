@@ -15,6 +15,14 @@ import { RacaEtnia } from '../funcionarios/enums/raca-etnia';
 import { RacaEtniaDescricoes } from '../funcionarios/enums/raca-etnia-descricoes';
 import { Permissao } from 'src/app/login/permissao';
 import { PermissaoDescricoes } from 'src/app/login/permissao-descricao';
+import { Nacionalidade } from '../funcionarios/enums/nacionalidade';
+import { NacionalidadeDescricoes } from '../funcionarios/enums/nacionalidade-descricoes';
+import { TipoContratacao } from '../funcionarios/enums/tipo-contratacao';
+import { TipoContratacaoDescricoes } from '../funcionarios/enums/tipo-contratacao-descricoes';
+import { PeriodoExperiencia } from '../funcionarios/enums/periodo-experiencia';
+import { PeriodoExperienciaDescricoes } from '../funcionarios/enums/periodo-experiencia-descricoes';
+import { Escolha } from '../funcionarios/enums/escolha';
+import { EscolhaDescricoes } from '../funcionarios/enums/escolha-descricoes';
 import { Usuario } from 'src/app/login/usuario';
 
 
@@ -61,11 +69,35 @@ export class CadastroDeColaboradorComponent implements OnInit {
   }));
   selectedEscolaridade: string = '';
 
+  nacionalidades = Object.keys(Nacionalidade).map(key => ({
+    value: Nacionalidade[key as keyof typeof Nacionalidade],
+    description: NacionalidadeDescricoes[Nacionalidade[key as keyof typeof Nacionalidade]]
+  }));
+  selectedNacionalidade: string = '';
+
   cargos = Object.keys(Permissao).map(key => ({
     value: Permissao[key as keyof typeof Permissao],
     description: PermissaoDescricoes[Permissao[key as keyof typeof Permissao]]
   }));
   selectedCargo: string = '';
+
+  tiposContratacao = Object.keys(TipoContratacao).map(key => ({
+    value: TipoContratacao[key as keyof typeof TipoContratacao],
+    description: TipoContratacaoDescricoes[TipoContratacao[key as keyof typeof TipoContratacao]]
+  }));
+  selectedTipoContratacao: string = '';
+
+  periodosExperiencia = Object.keys(PeriodoExperiencia).map(key => ({
+    value: PeriodoExperiencia[key as keyof typeof PeriodoExperiencia],
+    description: PeriodoExperienciaDescricoes[PeriodoExperiencia[key as keyof typeof PeriodoExperiencia]]
+  }));
+  selectedPeriodoExperiencia: string = '';
+
+  escolhas = Object.keys(Escolha).map(key => ({
+    value: Escolha[key as keyof typeof Escolha],
+    description: EscolhaDescricoes[Escolha[key as keyof typeof Escolha]]
+  }));
+  selectedEscolha: string = '';
 
 
   constructor(
