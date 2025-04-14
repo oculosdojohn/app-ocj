@@ -37,6 +37,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.colaboradorForm = this.formBuilder.group({
       nome: ['', Validators.required],
       dataNascimento: ['', Validators.required],
+      emailPessoal: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
     });
   }
 
@@ -63,7 +66,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.lojaService.getLojas().subscribe(
       (lojas) => {
         this.lojas = lojas.map((loja) => ({
-          value: loja.nome,
+          value: loja.id,
           description: loja.nome,
         }));
       },
@@ -82,7 +85,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.departamentoService.getDepartamentos().subscribe(
       (departamentos) => {
         this.departamentos = departamentos.map((departamento) => ({
-          value: departamento.nome,
+          value: departamento.id,
           description: departamento.nome,
         }));
       },
