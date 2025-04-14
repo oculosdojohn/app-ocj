@@ -42,7 +42,8 @@
                     <label for="estadoCivil">Estado civil</label>
                     <app-select-padrao
                       label="Selecionar estado civil"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="estadosCivis"
+                      [(selectedValue)]="selectedEstadoCivil">
                     </app-select-padrao>
                 </div>
             </div>
@@ -52,14 +53,16 @@
                     <label for="genero">Gênero</label>
                     <app-select-padrao
                       label="Selecionar gênero"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="generos"
+                      [(selectedValue)]="selectedGenero">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
                     <label for="etnia">Raça/Etnia</label>
                     <app-select-padrao
                       label="Selecionar raça/etnia"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="etnias"
+                      [(selectedValue)]="selectedEtnia">
                     </app-select-padrao>
                 </div>
             </div>
@@ -69,7 +72,8 @@
                     <label for="escolaridade">Escolaridade</label>
                     <app-select-padrao
                       label="Selecionar escolaridade"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="escolaridades"
+                      [(selectedValue)]="selectedEscolaridade">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">

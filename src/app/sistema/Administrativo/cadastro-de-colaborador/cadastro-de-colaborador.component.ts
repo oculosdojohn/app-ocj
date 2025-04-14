@@ -5,6 +5,18 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { DepartamentoService } from '../../../services/administrativo/departamento.service';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { Escolaridade } from '../../Administrativo/funcionarios/enums/escolaridade';
+import { EscolaridadeDescricoes } from '../funcionarios/enums/escolaridade-descricoes';
+import { EstadoCivil } from '../../Administrativo/funcionarios/enums/estado-civil';
+import { EstadoCivilDescricoes } from '../funcionarios/enums/estado-civil-descricoes';
+import { Genero } from '../../Administrativo/funcionarios/enums/genero';
+import { GeneroDescricoes } from '../funcionarios/enums/genero-descricoes';
+import { RacaEtnia } from '../funcionarios/enums/raca-etnia';
+import { RacaEtniaDescricoes } from '../funcionarios/enums/raca-etnia-descricoes';
+import { Permissao } from 'src/app/login/permissao';
+import { PermissaoDescricoes } from 'src/app/login/permissao-descricao';
+import { Usuario } from 'src/app/login/usuario';
+
 
 @Component({
   selector: 'app-cadastro-de-colaborador',
@@ -24,6 +36,31 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedLoja: string = '';
   departamentos: { value: string; description: string }[] = [];
   selectedDepartamento: string = '';
+
+  estadosCivis = Object.keys(EstadoCivil).map(key => ({
+    value: EstadoCivil[key as keyof typeof EstadoCivil],
+    description: EstadoCivilDescricoes[EstadoCivil[key as keyof typeof EstadoCivil]]
+  }));
+  selectedEstadoCivil: string = '';
+
+  generos = Object.keys(Genero).map(key => ({
+    value: Genero[key as keyof typeof Genero],
+    description: GeneroDescricoes[Genero[key as keyof typeof Genero]]
+  }));
+  selectedGenero: string = '';
+
+  etnias = Object.keys(RacaEtnia).map(key => ({
+    value: RacaEtnia[key as keyof typeof RacaEtnia],
+    description: RacaEtniaDescricoes[RacaEtnia[key as keyof typeof RacaEtnia]]
+  }));
+  selectedEtnia: string = '';
+
+  escolaridades = Object.keys(Escolaridade).map(key => ({
+    value: Escolaridade[key as keyof typeof Escolaridade],
+    description: EscolaridadeDescricoes[Escolaridade[key as keyof typeof Escolaridade]]
+  }));
+  selectedEscolaridade: string = '';
+
 
   constructor(
     private location: Location,
