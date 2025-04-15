@@ -33,7 +33,7 @@
                         Data de nascimento
                         <span *ngIf="isRequired('dataNascimento')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="data" name="data" formControlName="dataNascimento" class="form-control" placeholder="Digite a data de nascimento" required>
+                    <input type="date" id="data" name="data" formControlName="dataNascimento" class="form-control" placeholder="Digite a data de nascimento" required>
                     <div *ngIf="colaboradorForm.get('dataNascimento')?.invalid && (colaboradorForm.get('dataNascimento')?.touched || colaboradorForm.get('dataNascimento')?.dirty)" class="error-obrigatorio">
                         O campo Data de nascimento é obrigatório.
                     </div>
@@ -42,7 +42,8 @@
                     <label for="estadoCivil">Estado civil</label>
                     <app-select-padrao
                       label="Selecionar estado civil"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="estadosCivis"
+                      [(selectedValue)]="selectedEstadoCivil">
                     </app-select-padrao>
                 </div>
             </div>
@@ -52,14 +53,16 @@
                     <label for="genero">Gênero</label>
                     <app-select-padrao
                       label="Selecionar gênero"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="generos"
+                      [(selectedValue)]="selectedGenero">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
                     <label for="etnia">Raça/Etnia</label>
                     <app-select-padrao
                       label="Selecionar raça/etnia"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="etnias"
+                      [(selectedValue)]="selectedEtnia">
                     </app-select-padrao>
                 </div>
             </div>
@@ -69,7 +72,8 @@
                     <label for="escolaridade">Escolaridade</label>
                     <app-select-padrao
                       label="Selecionar escolaridade"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="escolaridades"
+                      [(selectedValue)]="selectedEscolaridade">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
@@ -83,7 +87,8 @@
                     <label for="nacionalidade">Nacionalidade</label>
                     <app-select-padrao
                       label="Selecionar nacionalidade"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="nacionalidades"
+                      [(selectedValue)]="selectedNacionalidade">
                     </app-select-padrao>
                 </div>
 
@@ -98,7 +103,8 @@
                     <label for="deficiencia">Portador de deficiência?</label>
                     <app-select-padrao
                       label="Selecionar uma opção"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="escolhas"
+                      [(selectedValue)]="selectedDeficiencia">
                     </app-select-padrao>
                 </div>
 
@@ -113,7 +119,8 @@
                     <label for="filhos">Possui filhos?</label>
                     <app-select-padrao
                       label="Selecionar uma opção"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="escolhas"
+                      [(selectedValue)]="selectedFilhos">
                     </app-select-padrao>
                 </div>
 
@@ -146,7 +153,7 @@
 
                 <div class="form-group">
                     <label for="dataExpedicao">Data de Expedição</label>
-                    <input type="text" id="dataExpedicao" name="dataExpedicao" class="form-control" placeholder="Digite a data de expedição" required>
+                    <input type="date" id="dataExpedicao" name="dataExpedicao" class="form-control" placeholder="Digite a data de expedição" required>
                 </div>
             </div>
 
@@ -338,7 +345,7 @@
                 </div>
                 <div class="form-group">
                     <label for="dataAdmissao">Data de admissão</label>
-                    <input type="text" id="dataAdmissao" name="dataAdmissao" class="form-control" placeholder="Digite a data de admissão" required>
+                    <input type="date" id="dataAdmissao" name="dataAdmissao" class="form-control" placeholder="Digite a data de admissão" required>
                 </div>
             </div>
 
@@ -356,7 +363,8 @@
                     <label for="cargo">Cargo</label>
                     <app-select-padrao
                       label="Selecione um cargo"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="cargos"
+                      [(selectedValue)]="selectedCargo">
                     </app-select-padrao>
                 </div>
             </div>
@@ -366,7 +374,8 @@
                     <label for="tipoContrato">Tipo de contratação</label>
                     <app-select-padrao
                       label="Selecionar tipo de contratação"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="tiposContratacao"
+                      [(selectedValue)]="selectedTipoContratacao">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
@@ -379,22 +388,41 @@
                 <label for="departamento">Período de experiência</label>
                 <app-select-padrao
                   label="Selecionar período de experiência"
-                  [customStyles]="{'background': '#FFFFFF'}">
+                  [options]="periodosExperiencia"
+                  [(selectedValue)]="selectedPeriodoExperiencia">
                 </app-select-padrao>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="dataContrato">Data do contrato</label>
-                    <input type="text" id="dataContrato" name="dataContrato" class="form-control" placeholder="Digite o data do contrato" required>
+                    <label for="dataDoContrato">
+                        Data do contrato
+                        <span *ngIf="isRequired('dataDoContrato')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="date" id="dataDoContrato" name="dataDoContrato" ormControlName="dataDoContrato" class="form-control" placeholder="Digite o data do contrato" required>
+                    <div *ngIf="colaboradorForm.get('dataDoContrato')?.invalid && (colaboradorForm.get('dataDoContrato')?.touched || colaboradorForm.get('dataDoContrato')?.dirty)" class="error-obrigatorio">
+                        O campo Data do contrato é obrigatório.
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="duracaoContrato">Duração do contrato</label>
-                    <input type="text" id="duracaoContrato" name="duracaoContrato" class="form-control" placeholder="Digite a duração do contrato" required>
+                    <label for="duracaoDoContrato">
+                        Duração do contrato
+                        <span *ngIf="isRequired('duracaoDoContrato')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" ormControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato" required>
+                    <div *ngIf="colaboradorForm.get('duracaoDoContrato')?.invalid && (colaboradorForm.get('duracaoDoContrato')?.touched || colaboradorForm.get('duracaoDoContrato')?.dirty)" class="error-obrigatorio">
+                        O campo Duração do contrato é obrigatório.
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="terminoContrato">Data do término do contrato</label>
-                    <input type="text" id="terminoContrato" name="terminoContrato" class="form-control" placeholder="Digite a data de término do contrato" required>
+                    <label for="dataTerminoDoContrato">
+                        Data do término do contrato
+                        <span *ngIf="isRequired('dataTerminoDoContrato')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" ormControlName="dataTerminoDoContrato" class="form-control" placeholder="Digite a data de término do contrato" required>
+                    <div *ngIf="colaboradorForm.get('dataTerminoDoContrato')?.invalid && (colaboradorForm.get('dataTerminoDoContrato')?.touched || colaboradorForm.get('dataTerminoDoContrato')?.dirty)" class="error-obrigatorio">
+                        O campo Data do término do contrato é obrigatório.
+                    </div>
                 </div>
             </div>
 
@@ -425,14 +453,38 @@
                 <hr class="line">
             </div>
 
+            <div class="form-group">
+                <label for="emailPessoal">
+                    E-mail pessoal
+                    <span *ngIf="isRequired('emailPessoal')" class="required-asterisk">*</span>
+                </label>
+                <input type="email" id="emailPessoal" name="emailPessoal" formControlName="emailPessoal" class="form-control" placeholder="Digite o e-mail" required>
+                <div *ngIf="colaboradorForm.get('emailPessoal')?.invalid && (colaboradorForm.get('emailPessoal')?.touched || colaboradorForm.get('emailPessoal')?.dirty)" class="error-obrigatorio">
+                    O campo E-mail pessoal é obrigatório.
+                </div>
+            </div>
+
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="emailPessoal">E-mail pessoal</label>
-                    <input type="email" id="emailPessoal" name="emailPessoal" class="form-control" placeholder="Digite o e-mail" required>
+                    <label for="password">
+                        Senha
+                        <span *ngIf="isRequired('password')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="password" id="password" name="password" formControlName="password" class="form-control" placeholder="Digite uma senha" required>
+                    <div *ngIf="colaboradorForm.get('password')?.invalid && (colaboradorForm.get('password')?.touched || colaboradorForm.get('password')?.dirty)" class="error-obrigatorio">
+                        O campo Senha é obrigatório.
+                    </div>
                 </div>
+
                 <div class="form-group">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" class="form-control" placeholder="Digite a senha" required>
+                    <label for="confirmPassword">
+                        Confirmar senha
+                        <span *ngIf="isRequired('confirmPassword')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="confirmPassword" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirme a sua senha" required>
+                    <div *ngIf="colaboradorForm.get('confirmPassword')?.invalid && (colaboradorForm.get('confirmPassword')?.touched || colaboradorForm.get('confirmPassword')?.dirty)" class="error-obrigatorio">
+                        O campo Confirmar senha é obrigatório.
+                    </div>
                 </div>
             </div>
 
