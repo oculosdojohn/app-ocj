@@ -111,6 +111,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     private colaboradorService: ColaboradorService
   ) {
     this.colaboradorForm = this.formBuilder.group({
+      // geral
       nome: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       estadoCivil: [''],
@@ -124,12 +125,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
       deficiencia: [''],
       possuiFilhos: [''],
       quantidadeFilhos: [''],
+      // documentos
+      cpf: ['', Validators.required],
+      // dados contrato
       dataExpedicao: ['', Validators.required],
       dataAdmissao: ['', Validators.required],
       salario: ['', Validators.required],
       dataDoContrato: ['', Validators.required],
       duracaoDoContrato: ['', Validators.required],
       dataTerminoDoContrato: ['', Validators.required],
+      // credenciais
       emailPessoal: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
