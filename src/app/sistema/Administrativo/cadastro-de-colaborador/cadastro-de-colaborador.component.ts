@@ -24,6 +24,8 @@ import { PeriodoExperienciaDescricoes } from '../funcionarios/enums/periodo-expe
 import { Escolha } from '../funcionarios/enums/escolha';
 import { EscolhaDescricoes } from '../funcionarios/enums/escolha-descricoes';
 import { Usuario } from 'src/app/login/usuario';
+import { Endereco } from '../lojas/endereco';
+import { Colaborador } from '../funcionarios/colaborador';
 
 
 @Component({
@@ -233,7 +235,40 @@ export class CadastroDeColaboradorComponent implements OnInit {
     );
   }
 
-  onSubmit(): void {}
+  onSubmit(): void {
+    if (this.colaboradorForm.invalid) {
+      console.log('Estado do formulário:', this.colaboradorForm);
+      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
+      return;
+    }
+
+    const endereco: Endereco = this.colaboradorForm.get('endereco')?.value as Endereco;
+    console.log('Endereço:', endereco);
+
+    const colaborador: Colaborador = {
+      ...this.colaboradorForm.value,
+      endereco: endereco,
+    };
+
+    this.isLoading = true;
+    this.successMessage = null;
+    this.errorMessage = null;
+
+    this.colaboradorService.cadastrarColaborador(colaborador).subscribe(
+      (response) => {
+        this.isLoading = false;
+        this.successMessage = 'Usuário cadastrada com sucesso!';
+        this.errorMessage = null;
+        // this.colaboradorForm.reset();
+      },
+      (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.message || 'Erro ao cadastrar a Usuário.';
+        this.successMessage = null;
+      }
+    );
+
+  }
 
   isRequired(controlName: string): boolean {
     const control = this.colaboradorForm.get(controlName);
