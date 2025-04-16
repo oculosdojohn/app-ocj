@@ -172,6 +172,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       dataDoContrato: ['', Validators.required],
       duracaoDoContrato: ['', Validators.required],
       dataTerminoDoContrato: ['', Validators.required],
+      superiorResponsavel: [''],
       status: ['', Validators.required],
       // credenciais
       emailPessoal: ['', [Validators.required, Validators.email]],
