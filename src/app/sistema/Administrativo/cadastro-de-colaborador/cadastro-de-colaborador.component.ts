@@ -112,7 +112,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   ) {
     this.colaboradorForm = this.formBuilder.group({
       // geral
-      nome: ['', Validators.required],
+      username: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       estadoCivil: [''],
       genero: [''],

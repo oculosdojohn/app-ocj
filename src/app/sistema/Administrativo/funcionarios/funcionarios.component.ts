@@ -11,16 +11,7 @@ export class FuncionariosComponent implements OnInit {
 
   termoBusca: string = '';
 
-  colaboradores: Colaborador[] = [
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Ativo', departamento: 'Comercial' },
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Ativo', departamento: 'Comercial' },
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Ativo', departamento: 'Comercial'},
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Inativo', departamento: 'Comercial' },
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Ativo', departamento: 'Comercial' },
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Inativo', departamento: 'Comercial' },
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Ativo', departamento: 'Comercial' },
-        { nome: 'Everardo Costta', loja: 'Óculos do John - Loja de Russas', cargo: 'Consultor', status: 'Inativo', departamento: 'Comercial' }
-      ];
+  colaboradores: Colaborador[] = [];
     
     itensPorPagina = 6;
     paginaAtual = 1;
