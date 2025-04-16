@@ -144,6 +144,23 @@ export class CadastroDeColaboradorComponent implements OnInit {
       agencia: ['', Validators.required],
       contaCorrente: ['', Validators.required],
       documentos: this.formBuilder.array([]),
+      // contato
+      telefoneUm: [''],
+      telefoneDois: [''],
+      emailEmpresarial: ['', [Validators.email]],
+      instagram: [''],
+      // endereco
+      endereco: this.formBuilder.group({
+        pais: ['', Validators.required],
+        estado: ['', Validators.required],
+        cidade: ['', Validators.required],
+        cep: ['', Validators.required],
+        bairro: ['', Validators.required],
+        rua: ['', Validators.required],
+        numero: ['', Validators.required],
+        logradouro: [''],
+        complemento: [''],
+      }),
       // dados contrato
       dataAdmissao: ['', Validators.required],
       salario: ['', Validators.required],
