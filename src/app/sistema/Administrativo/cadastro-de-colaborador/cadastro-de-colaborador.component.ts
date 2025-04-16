@@ -162,11 +162,17 @@ export class CadastroDeColaboradorComponent implements OnInit {
         complemento: [''],
       }),
       // dados contrato
+      loja: ['', Validators.required],
       dataAdmissao: ['', Validators.required],
+      departamento: ['', Validators.required],
+      cargo: ['', Validators.required],
+      tipoDeContratacao: ['', Validators.required],
       salario: ['', Validators.required],
+      periodoDeExperiencia: ['', Validators.required],
       dataDoContrato: ['', Validators.required],
       duracaoDoContrato: ['', Validators.required],
       dataTerminoDoContrato: ['', Validators.required],
+      status: ['', Validators.required],
       // credenciais
       emailPessoal: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
