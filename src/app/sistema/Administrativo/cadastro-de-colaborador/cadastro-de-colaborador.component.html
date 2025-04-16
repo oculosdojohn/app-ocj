@@ -379,8 +379,14 @@
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
-                    <label for="salario">Salário</label>
-                    <input type="text" id="salario" name="salario" class="form-control" placeholder="Digite o valor" required>
+                    <label for="salario">
+                        Salário
+                        <span *ngIf="isRequired('salario')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="salario" name="salario" formControlName='salario' class="form-control" placeholder="Digite o valor" required>
+                    <div *ngIf="colaboradorForm.get('salario')?.invalid && (colaboradorForm.get('salario')?.touched || colaboradorForm.get('salario')?.dirty)" class="error-obrigatorio">
+                        O campo Salário é obrigatório.
+                    </div>
                 </div>
             </div>
 
@@ -399,7 +405,7 @@
                         Data do contrato
                         <span *ngIf="isRequired('dataDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataDoContrato" name="dataDoContrato" ormControlName="dataDoContrato" class="form-control" placeholder="Digite o data do contrato" required>
+                    <input type="date" id="dataDoContrato" name="dataDoContrato" formControlName="dataDoContrato" class="form-control" placeholder="Digite o data do contrato" required>
                     <div *ngIf="colaboradorForm.get('dataDoContrato')?.invalid && (colaboradorForm.get('dataDoContrato')?.touched || colaboradorForm.get('dataDoContrato')?.dirty)" class="error-obrigatorio">
                         O campo Data do contrato é obrigatório.
                     </div>
@@ -409,7 +415,7 @@
                         Duração do contrato
                         <span *ngIf="isRequired('duracaoDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" ormControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato" required>
+                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato" required>
                     <div *ngIf="colaboradorForm.get('duracaoDoContrato')?.invalid && (colaboradorForm.get('duracaoDoContrato')?.touched || colaboradorForm.get('duracaoDoContrato')?.dirty)" class="error-obrigatorio">
                         O campo Duração do contrato é obrigatório.
                     </div>
@@ -419,7 +425,7 @@
                         Data do término do contrato
                         <span *ngIf="isRequired('dataTerminoDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" ormControlName="dataTerminoDoContrato" class="form-control" placeholder="Digite a data de término do contrato" required>
+                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" formControlName="dataTerminoDoContrato" class="form-control" placeholder="Digite a data de término do contrato" required>
                     <div *ngIf="colaboradorForm.get('dataTerminoDoContrato')?.invalid && (colaboradorForm.get('dataTerminoDoContrato')?.touched || colaboradorForm.get('dataTerminoDoContrato')?.dirty)" class="error-obrigatorio">
                         O campo Data do término do contrato é obrigatório.
                     </div>
