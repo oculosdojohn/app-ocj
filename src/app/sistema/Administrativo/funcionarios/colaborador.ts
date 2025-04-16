@@ -43,7 +43,7 @@ export class Colaborador {
   loja!: string;
   dataAdmissao!: string;
   departamento!: string;
-  cargo!: Permissao;
+  cargo!: string;
   tipoDeContratacao!: string;
   salario!: string;
   periodoDeExperiencia!: string;
