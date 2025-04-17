@@ -40,7 +40,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode = false;
   selectedImages: { [key: string]: File | null } = {};
-  status: string = 'ativo';
+  status: string = 'ATIVO';
   selectedArquivos: File[] = [];
   lojas: { value: string; description: string }[] = [];
   selectedLoja: string = '';
@@ -153,9 +153,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
       instagram: [''],
       // endereco
       endereco: this.formBuilder.group({
-        pais: ['', Validators.required],
-        estado: ['', Validators.required],
-        cidade: ['', Validators.required],
+        pais: [''],
+        estado: [''],
+        cidade: [''],
         cep: ['', Validators.required],
         bairro: ['', Validators.required],
         rua: ['', Validators.required],
@@ -175,7 +175,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       duracaoDoContrato: ['', Validators.required],
       dataTerminoDoContrato: ['', Validators.required],
       superiorResponsavel: [''],
-      status: ['', Validators.required],
+      status: ['ATIVO', Validators.required],
       // credenciais
       emailPessoal: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -242,17 +242,31 @@ export class CadastroDeColaboradorComponent implements OnInit {
       return;
     }
 
-    const endereco: Endereco = this.colaboradorForm.get('endereco')?.value as Endereco;
+    this.isLoading = true;
+    this.successMessage = null;
+    this.errorMessage = null;
+     // Atualiza diretamente os valores dos campos do formulário com os valores selecionados
+    this.colaboradorForm.get('cargo')?.setValue(this.selectedCargo);
+    this.colaboradorForm.get('loja')?.setValue(this.selectedLoja);
+    this.colaboradorForm.get('estadoCivil')?.setValue(this.selectedEstadoCivil);
+    this.colaboradorForm.get('genero')?.setValue(this.selectedGenero);
+    this.colaboradorForm.get('etnia')?.setValue(this.selectedEtnia);
+    this.colaboradorForm.get('escolaridade')?.setValue(this.selectedEscolaridade);
+    this.colaboradorForm.get('nacionalidade')?.setValue(this.selectedNacionalidade);
+    this.colaboradorForm.get('periodoDeExperiencia')?.setValue(this.selectedPeriodoExperiencia);
+
+    const endereco: Endereco = this.colaboradorForm.get('endereco')
+      ?.value as Endereco;
     console.log('Endereço:', endereco);
 
     const colaborador: Colaborador = {
       ...this.colaboradorForm.value,
       endereco: endereco,
+      cargo: this.colaboradorForm.get('cargo')?.value,
+      departamento: this.colaboradorForm.get('departamento')?.value,
     };
 
-    this.isLoading = true;
-    this.successMessage = null;
-    this.errorMessage = null;
+    console.log('Dados do Colaborador para Cadastro:', colaborador);
 
     this.colaboradorService.cadastrarColaborador(colaborador).subscribe(
       (response) => {
@@ -267,7 +281,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
         this.successMessage = null;
       }
     );
-
   }
 
   isRequired(controlName: string): boolean {
