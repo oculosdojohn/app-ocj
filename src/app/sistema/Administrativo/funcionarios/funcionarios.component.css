@@ -156,16 +156,38 @@ tr:hover {
   font-weight: bold;
 }
 
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
 .btn-acao {
   border: none;
-  background: none;
+  background: #e4e4e4b5;
   cursor: pointer;
-  margin-right: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
 }
 
 .btn-acao img {
   width: 18px;
   height: 18px;
+}
+
+.visualizar:hover {
+  background: #3d4b123b;
+}
+
+.edit:hover {
+  background: #007bff3b;
+}
+
+.delete:hover {
+  background: #dc35453b;
 }
 
 /* Paginação */
