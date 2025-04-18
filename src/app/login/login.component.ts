@@ -43,14 +43,11 @@ export class LoginComponent implements OnInit {
           id: userId,
           username: response.username,
           password: '',
-          email: response.email || '',
-          nome: response.nome || '',
+          emailPessoal: response.emailPessoal || '',
           confirmPassword: '',
           permissao:
             response.authorities.length > 0 ? response.authorities[0] : null,
           fotoUrl: response.fotoUrl || '',
-          nomeDaEmpresa: response.nomeDaEmpresa || '',
-          setorDaEmpresa: response.setorDaEmpresa || '',
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
          // Adicione o console log aqui

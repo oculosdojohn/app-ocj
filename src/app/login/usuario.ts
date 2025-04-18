@@ -6,9 +6,6 @@ export class Usuario {
   username!: string;
   password!: string;
   confirmPassword!: string;
-  email!: string;
-  nome!: string;
-  nomeDaEmpresa!: string;
-  setorDaEmpresa!: string;
+  emailPessoal!: string;
   permissao!: Permissao; 
 }
