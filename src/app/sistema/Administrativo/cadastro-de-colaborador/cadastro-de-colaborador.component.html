@@ -350,7 +350,7 @@
                       label="Selecione loja"
                       [options]="lojas"
                       [(selectedValue)]="selectedLoja"
-                      formControlName="loja">
+                      formControlName="identificadorLoja">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
@@ -366,7 +366,7 @@
                       label="Selecione o departamento"
                       [options]="departamentos"
                       [(selectedValue)]="selectedDepartamento"
-                      formControlName="departamento">
+                      formControlName="identificadorDepartamento">
                     </app-select-padrao>
                 </div>
 
@@ -427,12 +427,8 @@
                 <div class="form-group">
                     <label for="duracaoDoContrato">
                         Duração do contrato
-                        <span *ngIf="isRequired('duracaoDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato" required>
-                    <div *ngIf="colaboradorForm.get('duracaoDoContrato')?.invalid && (colaboradorForm.get('duracaoDoContrato')?.touched || colaboradorForm.get('duracaoDoContrato')?.dirty)" class="error-obrigatorio">
-                        O campo Duração do contrato é obrigatório.
-                    </div>
+                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato">
                 </div>
                 <div class="form-group">
                     <label for="dataTerminoDoContrato">
@@ -450,7 +446,7 @@
                 <label for="superiorResponsavel">Superior responsável</label>
                 <app-select-padrao
                   label="Selecionar responsável"
-                  formControlName="superiorResponsavel">
+                  formControlName="identificadorSuperiorResponsavel">
                 </app-select-padrao>
             </div>
 

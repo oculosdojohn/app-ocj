@@ -13,8 +13,8 @@ import { Genero } from '../../Administrativo/funcionarios/enums/genero';
 import { GeneroDescricoes } from '../funcionarios/enums/genero-descricoes';
 import { RacaEtnia } from '../funcionarios/enums/raca-etnia';
 import { RacaEtniaDescricoes } from '../funcionarios/enums/raca-etnia-descricoes';
-import { Permissao } from 'src/app/login/permissao';
-import { PermissaoDescricoes } from 'src/app/login/permissao-descricao';
+import { Cargo } from '../funcionarios/enums/cargo';
+import { CargoDescricoes } from '../funcionarios/enums/cargo-descricoes';
 import { Nacionalidade } from '../funcionarios/enums/nacionalidade';
 import { NacionalidadeDescricoes } from '../funcionarios/enums/nacionalidade-descricoes';
 import { TipoContratacao } from '../funcionarios/enums/tipo-contratacao';
@@ -35,6 +35,7 @@ import { Colaborador } from '../funcionarios/colaborador';
 })
 export class CadastroDeColaboradorComponent implements OnInit {
   colaboradorForm: FormGroup;
+  formData = new FormData();
   isLoading = false;
   successMessage: string | null = null;
   errorMessage: string | null = null;
@@ -77,9 +78,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
   }));
   selectedNacionalidade: string = '';
 
-  cargos = Object.keys(Permissao).map(key => ({
-    value: Permissao[key as keyof typeof Permissao],
-    description: PermissaoDescricoes[Permissao[key as keyof typeof Permissao]]
+  cargos = Object.keys(Cargo).map(key => ({
+    value: Cargo[key as keyof typeof Cargo],
+    description: CargoDescricoes[Cargo[key as keyof typeof Cargo]]
   }));
   selectedCargo: string = '';
 
@@ -164,17 +165,17 @@ export class CadastroDeColaboradorComponent implements OnInit {
         complemento: [''],
       }),
       // dados contrato
-      loja: ['', Validators.required],
+      identificadorLoja: ['', Validators.required],
       dataAdmissao: ['', Validators.required],
-      departamento: ['', Validators.required],
+      identificadorDepartamento: ['', Validators.required],
       cargo: ['', Validators.required],
       tipoDeContratacao: ['', Validators.required],
       salario: ['', Validators.required],
       periodoDeExperiencia: ['', Validators.required],
       dataDoContrato: ['', Validators.required],
-      duracaoDoContrato: ['', Validators.required],
+      // duracaoDoContrato: [''],
       dataTerminoDoContrato: ['', Validators.required],
-      superiorResponsavel: [''],
+      identificadorSuperiorResponsavel: [''],
       status: ['ATIVO', Validators.required],
       // credenciais
       emailPessoal: ['', [Validators.required, Validators.email]],
@@ -248,6 +249,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
      // Atualiza diretamente os valores dos campos do formulário com os valores selecionados
     this.colaboradorForm.get('cargo')?.setValue(this.selectedCargo);
     this.colaboradorForm.get('loja')?.setValue(this.selectedLoja);
+    this.colaboradorForm.get('departamento')?.setValue(this.selectedDepartamento);
     this.colaboradorForm.get('estadoCivil')?.setValue(this.selectedEstadoCivil);
     this.colaboradorForm.get('genero')?.setValue(this.selectedGenero);
     this.colaboradorForm.get('etnia')?.setValue(this.selectedEtnia);
@@ -262,13 +264,18 @@ export class CadastroDeColaboradorComponent implements OnInit {
     const colaborador: Colaborador = {
       ...this.colaboradorForm.value,
       endereco: endereco,
-      cargo: this.colaboradorForm.get('cargo')?.value,
-      departamento: this.colaboradorForm.get('departamento')?.value,
     };
 
-    console.log('Dados do Colaborador para Cadastro:', colaborador);
+    const formData = new FormData();
+    formData.append('colaborador', JSON.stringify(colaborador));
 
-    this.colaboradorService.cadastrarColaborador(colaborador).subscribe(
+    // console.log('Dados do Colaborador para Cadastro:', colaborador);
+    console.log('FormData antes do envio:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    this.colaboradorService.cadastrarColaborador(formData).subscribe(
       (response) => {
         this.isLoading = false;
         this.successMessage = 'Usuário cadastrada com sucesso!';

@@ -13,9 +13,12 @@ export class ColaboradorService {
 
   constructor(private http: HttpClient) {}
 
-  cadastrarColaborador(colaborador: Colaborador): Observable<Colaborador> {
-    console.log('Dados enviados para o backend:', colaborador);
-    return this.http.post<Colaborador>(this.apiURL, colaborador).pipe(
+  cadastrarColaborador(formData: FormData): Observable<any> {
+    console.log('Dados enviados para o backend:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+    return this.http.post<any>(this.apiURL, formData).pipe(
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao salvar o colaborador.';
