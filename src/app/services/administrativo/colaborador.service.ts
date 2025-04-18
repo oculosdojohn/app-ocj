@@ -50,4 +50,39 @@ export class ColaboradorService {
       })
     );
   }
+
+  getColaboradorById(id: number): Observable<Colaborador> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.get<Colaborador>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar a usuário.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  deleteColaboradorById(id: string): Observable<void> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.delete<void>(url).pipe(
+      catchError((error) => {
+        let errorMessage = 'Erro ao deletar a usuário.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
