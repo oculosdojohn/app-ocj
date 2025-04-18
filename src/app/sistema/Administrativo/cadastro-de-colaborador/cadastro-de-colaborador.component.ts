@@ -251,22 +251,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.isLoading = true;
     this.successMessage = null;
     this.errorMessage = null;
-    // Atualiza diretamente os valores dos campos do formulário com os valores selecionados
-    this.colaboradorForm.get('cargo')?.setValue(this.selectedCargo);
-    this.colaboradorForm.get('identificadorLoja')?.setValue(this.selectedLoja);
-    this.colaboradorForm.get('identificadorDepartamento')?.setValue(this.selectedDepartamento);
-    this.colaboradorForm.get('estadoCivil')?.setValue(this.selectedEstadoCivil);
-    this.colaboradorForm.get('genero')?.setValue(this.selectedGenero);
-    this.colaboradorForm.get('etnia')?.setValue(this.selectedEtnia);
-    this.colaboradorForm
-      .get('escolaridade')
-      ?.setValue(this.selectedEscolaridade);
-    this.colaboradorForm
-      .get('nacionalidade')
-      ?.setValue(this.selectedNacionalidade);
-    this.colaboradorForm
-      .get('periodoDeExperiencia')
-      ?.setValue(this.selectedPeriodoExperiencia);
 
     const endereco: Endereco = this.colaboradorForm.get('endereco')
       ?.value as Endereco;
@@ -339,11 +323,34 @@ export class CadastroDeColaboradorComponent implements OnInit {
             this.selectedTipoContratacao = colaborador.tipoDeContratacao;
             this.selectedFilhos = colaborador.possuiFilhos;
             this.selectedDeficiencia = colaborador.portadorDeficiencia;
+            this.tratarLojaEDepartamento(colaborador);
           },
           (error) => {
             console.error('Erro ao carregar os dados do usuário', error);
           }
         );
+    }
+  }
+
+  private tratarLojaEDepartamento(colaborador: Colaborador): void {
+    if (colaborador.loja) {
+      this.selectedLoja = colaborador.loja.id;
+      this.lojas = [
+        {
+          value: colaborador.loja.id,
+          description: colaborador.loja.nome,
+        },
+      ];
+    }
+
+    if (colaborador.departamento) {
+      this.selectedDepartamento = colaborador.departamento.id; 
+      this.departamentos = [
+        {
+          value: colaborador.departamento.id,
+          description: colaborador.departamento.nome,
+        },
+      ];
     }
   }
 }
