@@ -253,10 +253,8 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.errorMessage = null;
     // Atualiza diretamente os valores dos campos do formulário com os valores selecionados
     this.colaboradorForm.get('cargo')?.setValue(this.selectedCargo);
-    this.colaboradorForm.get('loja')?.setValue(this.selectedLoja);
-    this.colaboradorForm
-      .get('departamento')
-      ?.setValue(this.selectedDepartamento);
+    this.colaboradorForm.get('identificadorLoja')?.setValue(this.selectedLoja);
+    this.colaboradorForm.get('identificadorDepartamento')?.setValue(this.selectedDepartamento);
     this.colaboradorForm.get('estadoCivil')?.setValue(this.selectedEstadoCivil);
     this.colaboradorForm.get('genero')?.setValue(this.selectedGenero);
     this.colaboradorForm.get('etnia')?.setValue(this.selectedEtnia);
