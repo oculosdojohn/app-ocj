@@ -322,14 +322,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
         .getColaboradorById(Number(this.colaboradorId))
         .subscribe(
           (colaborador: Colaborador) => {
-            console.log('Dados do usuário recebidos:', colaborador);
+            console.log('Dados do usuário recebido:', colaborador);
 
-            this.colaboradorForm.patchValue(colaborador);
+            this.colaboradorForm.patchValue({
+              ...colaborador,
+              endereco: colaborador.endereco || {},
+              status: colaborador.status || 'Ativo',
+            });
 
             // Preenche os campos de seleção
             this.selectedCargo = colaborador.cargo;
-            this.selectedLoja = colaborador.identificadorLoja;
-            this.selectedDepartamento = colaborador.identificadorDepartamento;
             this.selectedEstadoCivil = colaborador.estadoCivil;
             this.selectedGenero = colaborador.genero;
             this.selectedEtnia = colaborador.etnia;
