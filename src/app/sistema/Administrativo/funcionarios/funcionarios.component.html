@@ -42,7 +42,7 @@
                             <span>{{ colaborador.loja?.nome }}</span>
                         </div>
                     </td>
-                    <td>{{ colaborador.cargo }}</td>
+                    <td>{{ getDescricaoCargo(colaborador.cargo) }}</td>
                     <td>
                         <span [class.ativo]="colaborador.status === 'Ativo'"
                               [class.inativo]="colaborador.status === 'Inativo'">

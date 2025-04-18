@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Colaborador } from './colaborador';
 import { ColaboradorService } from '../../../services/administrativo/colaborador.service';
+import { CargoDescricoes } from './enums/cargo-descricoes';
 
 @Component({
   selector: 'app-funcionarios',
@@ -49,6 +50,13 @@ export class FuncionariosComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  getDescricaoCargo(cargo: string): string {
+    return (
+      CargoDescricoes[cargo as keyof typeof CargoDescricoes] ||
+      'Cargo desconhecido'
+    );
   }
 
   fetchColaboradores(): void {
