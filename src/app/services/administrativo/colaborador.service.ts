@@ -21,7 +21,7 @@ export class ColaboradorService {
     return this.http.post<any>(this.apiURL, formData).pipe(
       map((response) => response),
       catchError((error) => {
-        let errorMessage = 'Erro ao salvar o colaborador.';
+        let errorMessage = 'Erro ao salvar a usuario.';
 
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;

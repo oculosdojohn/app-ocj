@@ -267,13 +267,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     };
 
     const formData = new FormData();
-    formData.append('colaborador', JSON.stringify(colaborador));
-
-    // console.log('Dados do Colaborador para Cadastro:', colaborador);
-    console.log('FormData antes do envio:');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
+    formData.append('usuarioDTO', JSON.stringify(colaborador));
 
     this.colaboradorService.cadastrarColaborador(formData).subscribe(
       (response) => {
