@@ -44,12 +44,12 @@
             </div>
 
             <div class="form-group">
-                <label for="orcamento">
+                <label for="orcamentoMensal">
                     Orçamento mensal
-                    <span *ngIf="isRequired('orcamento')" class="required-asterisk">*</span>
+                    <span *ngIf="isRequired('orcamentoMensal')" class="required-asterisk">*</span>
                 </label>
-                <input type="text" id="orcamento" name="orcamento" formControlName="orcamento" class="form-control" placeholder="Digite o orçamento" required>
-                <div *ngIf="departamentoForm.get('orcamento')?.invalid && (departamentoForm.get('orcamento')?.touched || departamentoForm.get('orcamento')?.dirty)" class="error-obrigatorio">
+                <input type="text" id="orcamentoMensal" name="orcamentoMensal" formControlName="orcamentoMensal" class="form-control" placeholder="Digite o orçamento" required>
+                <div *ngIf="departamentoForm.get('orcamentoMensal')?.invalid && (departamentoForm.get('orcamentoMensal')?.touched || departamentoForm.get('orcamentoMensal')?.dirty)" class="error-obrigatorio">
                     O campo Orçamento mensal é obrigatório.
                 </div>
             </div>
