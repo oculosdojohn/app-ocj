@@ -85,4 +85,27 @@ export class ColaboradorService {
       })
     );
   }
+
+  getUsuariosPorCargo(cargo: string): Observable<Colaborador[]> {
+    const url = `${this.apiURL}/cargos/${cargo}`;
+    return this.http.get<Colaborador[]>(url).pipe(
+      map((response) => {
+        return response.filter(
+          (colaborador) =>
+            colaborador.cargo === 'GERENTE' || colaborador.cargo === 'GERENTE_GERAL'
+        );
+      }),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar os usuários por cargo.';
+  
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
