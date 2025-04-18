@@ -3,7 +3,7 @@ import { Endereco } from '../lojas/endereco';
 
 export class Colaborador {
   id!: string;
-  foto!: File;
+  foto!: { documentoUrl: string; id: number; name: string } | null;
   fotoUrl!: any;
   username!: string;
   dataNascimento!: string;
