@@ -40,10 +40,10 @@ export class Colaborador {
   emailEmpresarial!: string;
   instagram!: string;
   endereco!: Endereco;
-  loja!: string;
+  loja!: { id: string; nome: string } | null;
   identificadorLoja!: string;
   dataAdmissao!: string;
-  departamento!: string;
+  departamento!: { id: string; nome: string } | null;
   identificadorDepartamento!: string;
   cargo!: string;
   tipoDeContratacao!: string;

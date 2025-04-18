@@ -39,7 +39,7 @@
                     </td>
                     <td>
                         <div class="perfil">
-                            <span>{{ colaborador.loja }}</span>
+                            <span>{{ colaborador.loja?.nome }}</span>
                         </div>
                     </td>
                     <td>{{ colaborador.cargo }}</td>
@@ -49,7 +49,7 @@
                             {{ colaborador.status }}
                         </span>
                     </td>
-                    <td>{{ colaborador.departamento }}</td>
+                    <td>{{ colaborador.departamento?.nome }}</td>
                     <td>
                         <button class="btn-acao">
                             <img src="assets/icones/See.png" alt="Visualizar">

@@ -33,4 +33,21 @@ export class ColaboradorService {
       })
     );
   }
+
+  getColaboradores(): Observable<Colaborador[]> {
+    return this.http.get<Colaborador[]>(this.apiURL).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar as usuário.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
