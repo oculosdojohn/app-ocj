@@ -396,7 +396,7 @@
                         Salário
                         <span *ngIf="isRequired('salario')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="salario" name="salario" formControlName='salario' class="form-control" placeholder="Digite o valor" required>
+                    <input type="number" id="salario" name="salario" formControlName='salario' class="form-control" placeholder="Digite o valor" required>
                     <div *ngIf="colaboradorForm.get('salario')?.invalid && (colaboradorForm.get('salario')?.touched || colaboradorForm.get('salario')?.dirty)" class="error-obrigatorio">
                         O campo Salário é obrigatório.
                     </div>

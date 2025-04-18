@@ -41,7 +41,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   errorMessage: string | null = null;
   isEditMode = false;
   selectedImages: { [key: string]: File | null } = {};
-  status: string = 'ATIVO';
+  status: string = 'Ativo';
   selectedArquivos: File[] = [];
   lojas: { value: string; description: string }[] = [];
   selectedLoja: string = '';
@@ -176,7 +176,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       // duracaoDoContrato: [''],
       dataTerminoDoContrato: ['', Validators.required],
       identificadorSuperiorResponsavel: [''],
-      status: ['ATIVO', Validators.required],
+      status: ['Ativo', Validators.required],
       // credenciais
       emailPessoal: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],

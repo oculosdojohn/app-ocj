@@ -47,7 +47,7 @@ export class Colaborador {
   identificadorDepartamento!: string;
   cargo!: string;
   tipoDeContratacao!: string;
-  salario!: string;
+  salario!: number;
   periodoDeExperiencia!: string;
   dataDoContrato!: string;
   duracaoDoContrato!: number;
