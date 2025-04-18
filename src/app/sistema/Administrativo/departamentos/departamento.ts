@@ -2,7 +2,7 @@ export class Departamento {
     id!: string;
     nome!: string;
     descricao!: string;
-    responsaveis!: string[];
+    responsaveis!: {id: string; username: string; foto: { id: string; documentoUrl: string; nome: string } | null}[] | null;
     orcamento!: number;
     quantidadeFuncionarios!: string;
     telefone!: string;
