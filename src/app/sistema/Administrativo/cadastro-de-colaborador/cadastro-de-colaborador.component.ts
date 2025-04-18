@@ -48,6 +48,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   departamentos: { value: string; description: string }[] = [];
   selectedDepartamento: string = '';
   foto: File | null = null;
+  colaboradorId: string | null = null;
 
   estadosCivis = Object.keys(EstadoCivil).map(key => ({
     value: EstadoCivil[key as keyof typeof EstadoCivil],
@@ -189,6 +190,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   ngOnInit(): void {
     this.carregarLojas();
     this.carregarDepartamentos();
+    this.verificarModoEdicao();
   }
 
   goBack() {
@@ -249,16 +251,24 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.isLoading = true;
     this.successMessage = null;
     this.errorMessage = null;
-     // Atualiza diretamente os valores dos campos do formulário com os valores selecionados
+    // Atualiza diretamente os valores dos campos do formulário com os valores selecionados
     this.colaboradorForm.get('cargo')?.setValue(this.selectedCargo);
     this.colaboradorForm.get('loja')?.setValue(this.selectedLoja);
-    this.colaboradorForm.get('departamento')?.setValue(this.selectedDepartamento);
+    this.colaboradorForm
+      .get('departamento')
+      ?.setValue(this.selectedDepartamento);
     this.colaboradorForm.get('estadoCivil')?.setValue(this.selectedEstadoCivil);
     this.colaboradorForm.get('genero')?.setValue(this.selectedGenero);
     this.colaboradorForm.get('etnia')?.setValue(this.selectedEtnia);
-    this.colaboradorForm.get('escolaridade')?.setValue(this.selectedEscolaridade);
-    this.colaboradorForm.get('nacionalidade')?.setValue(this.selectedNacionalidade);
-    this.colaboradorForm.get('periodoDeExperiencia')?.setValue(this.selectedPeriodoExperiencia);
+    this.colaboradorForm
+      .get('escolaridade')
+      ?.setValue(this.selectedEscolaridade);
+    this.colaboradorForm
+      .get('nacionalidade')
+      ?.setValue(this.selectedNacionalidade);
+    this.colaboradorForm
+      .get('periodoDeExperiencia')
+      ?.setValue(this.selectedPeriodoExperiencia);
 
     const endereco: Endereco = this.colaboradorForm.get('endereco')
       ?.value as Endereco;
@@ -277,19 +287,22 @@ export class CadastroDeColaboradorComponent implements OnInit {
       formData.append('foto', foto);
     }
 
-    this.colaboradorService.cadastrarColaborador(formData).subscribe(
-      (response) => {
-        this.isLoading = false;
-        this.successMessage = 'Usuário cadastrada com sucesso!';
-        this.errorMessage = null;
-        // this.colaboradorForm.reset();
-      },
-      (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.message || 'Erro ao cadastrar a Usuário.';
-        this.successMessage = null;
-      }
-    );
+    if (this.isEditMode && this.colaboradorId) {
+    } else {
+      this.colaboradorService.cadastrarColaborador(formData).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Usuário cadastrada com sucesso!';
+          this.errorMessage = null;
+          // this.colaboradorForm.reset();
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message || 'Erro ao cadastrar a Usuário.';
+          this.successMessage = null;
+        }
+      );
+    }
   }
 
   isRequired(controlName: string): boolean {
@@ -299,5 +312,38 @@ export class CadastroDeColaboradorComponent implements OnInit {
       return !!(validator && validator['required']);
     }
     return false;
+  }
+
+  private verificarModoEdicao(): void {
+    this.colaboradorId = this.route.snapshot.paramMap.get('id');
+    if (this.colaboradorId) {
+      this.isEditMode = true;
+      this.colaboradorService
+        .getColaboradorById(Number(this.colaboradorId))
+        .subscribe(
+          (colaborador: Colaborador) => {
+            console.log('Dados do usuário recebidos:', colaborador);
+
+            this.colaboradorForm.patchValue(colaborador);
+
+            // Preenche os campos de seleção
+            this.selectedCargo = colaborador.cargo;
+            this.selectedLoja = colaborador.identificadorLoja;
+            this.selectedDepartamento = colaborador.identificadorDepartamento;
+            this.selectedEstadoCivil = colaborador.estadoCivil;
+            this.selectedGenero = colaborador.genero;
+            this.selectedEtnia = colaborador.etnia;
+            this.selectedEscolaridade = colaborador.escolaridade;
+            this.selectedNacionalidade = colaborador.nacionalidade;
+            this.selectedPeriodoExperiencia = colaborador.periodoDeExperiencia;
+            this.selectedTipoContratacao = colaborador.tipoDeContratacao;
+            this.selectedFilhos = colaborador.possuiFilhos;
+            this.selectedDeficiencia = colaborador.portadorDeficiencia;
+          },
+          (error) => {
+            console.error('Erro ao carregar os dados do usuário', error);
+          }
+        );
+    }
   }
 }

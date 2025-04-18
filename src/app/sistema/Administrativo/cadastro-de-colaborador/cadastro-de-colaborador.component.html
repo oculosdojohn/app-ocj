@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar colaborador</span>
+        <span>{{ isEditMode ? 'Editar colaborador' : 'Cadastrar colaborador' }}</span>
     </div>
   
     <div class="forms-container">
@@ -480,7 +480,7 @@
                 </div>
             </div>
 
-            <div class="input-duo">
+            <div class="input-duo" *ngIf="!isEditMode">
                 <div class="form-group">
                     <label for="password">
                         Senha
@@ -506,7 +506,7 @@
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar colaborador
+                    {{ isEditMode ? 'Atualizar colaborador' : 'Cadastrar colaborador' }}
                 </button>
             </div>
         </form>
