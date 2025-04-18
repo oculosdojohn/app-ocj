@@ -47,6 +47,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedLoja: string = '';
   departamentos: { value: string; description: string }[] = [];
   selectedDepartamento: string = '';
+  foto: File | null = null;
 
   estadosCivis = Object.keys(EstadoCivil).map(key => ({
     value: EstadoCivil[key as keyof typeof EstadoCivil],
@@ -115,6 +116,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   ) {
     this.colaboradorForm = this.formBuilder.group({
       // geral
+      foto: [''],
       username: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       estadoCivil: [''],
@@ -195,6 +197,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
 
   onImageSelected(image: File | null, tipo: string) {
     this.selectedImages[tipo] = image;
+    this.colaboradorForm.get(tipo)?.setValue(image);
     console.log(`Imagem de ${tipo} selecionada:`, image);
   }
 
@@ -268,6 +271,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('usuarioDTO', JSON.stringify(colaborador));
+
+    const foto = this.colaboradorForm.get('foto')?.value;
+    if (foto) {
+      formData.append('foto', foto);
+    }
 
     this.colaboradorService.cadastrarColaborador(formData).subscribe(
       (response) => {

@@ -3,6 +3,7 @@ import { Endereco } from '../lojas/endereco';
 
 export class Colaborador {
   id!: string;
+  foto!: File;
   fotoUrl!: any;
   username!: string;
   dataNascimento!: string;
@@ -62,7 +63,7 @@ export class Colaborador {
   toJson(): string {
     return JSON.stringify({
       id: this.id,
-      fotoUrl: this.fotoUrl,
+      foto: this.foto,
       username: this.username,
       dataNascimento: this.dataNascimento,
       estadoCivil: this.estadoCivil,
