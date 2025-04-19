@@ -7,5 +7,6 @@ export class Usuario {
   password!: string;
   confirmPassword!: string;
   emailPessoal!: string;
-  permissao!: Permissao; 
+  permissao!: Permissao;
+  cargo!: string; 
 }

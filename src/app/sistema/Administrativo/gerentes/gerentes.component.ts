@@ -1,40 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Gerente } from './gerente';
+import { Colaborador } from '../funcionarios/colaborador';
+import { CargoDescricoes } from '../funcionarios/enums/cargo-descricoes';
+import { ColaboradorService } from '../../../services/administrativo/colaborador.service';
 
 @Component({
   selector: 'app-gerentes',
   templateUrl: './gerentes.component.html',
-  styleUrls: ['./gerentes.component.css']
+  styleUrls: ['./gerentes.component.css'],
 })
 export class GerentesComponent implements OnInit {
-  
   termoBusca: string = '';
 
-  gerentes: Gerente[] = [
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente', departamento: 'Diretoria', status: 'Ativo' },
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente geral', departamento: 'Diretoria', status: 'Ativo' },
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente geral', departamento: 'Diretoria', status: 'Inativo' },
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente geral', departamento: 'Diretoria', status: 'Inativo' },
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente', departamento: 'Diretoria', status: 'Inativo' },
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente', departamento: 'Diretoria', status: 'Inativo' },
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente', departamento: 'Diretoria', status: 'Inativo' },
-    { nome: 'Everardo Costa', loja: 'Óculos do John - Loja de Russas', cargo: 'Gerente', departamento: 'Diretoria', status: 'Inativo' }
-  ];
+  gerentes: Colaborador[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.gerentes.length / this.itensPorPagina);
-  gerentesPaginados: Gerente[] = [];
+  gerentesPaginados: Colaborador[] = [];
 
-  constructor(private router: Router) { } 
-      
+  constructor(
+    private router: Router,
+    private colaboradorService: ColaboradorService
+  ) {}
+
   ngOnInit(): void {
     this.atualizarPaginacao();
+    this.fetchGerentes();
   }
 
   cadastrarGerente(): void {
-    this.router.navigate(['/usuario/cadastro-de-gerente']); 
+    this.router.navigate(['/usuario/cadastro-de-gerente']);
   }
 
   onSearch(searchTerm: string) {
@@ -54,5 +51,21 @@ export class GerentesComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  fetchGerentes(): void {
+    this.colaboradorService.getUsuariosPorCargo('GERENTE').subscribe(
+      (colaboradores: any[]) => {
+        console.log('usuários retornadas:', colaboradores);
+        this.gerentes = colaboradores;
+        this.totalPaginas = Math.ceil(
+          this.gerentes.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+      },
+      (error) => {
+        console.error('Erro ao carregar departamentos:', error);
+      }
+    );
   }
 }
