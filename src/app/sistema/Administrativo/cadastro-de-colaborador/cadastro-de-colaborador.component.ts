@@ -177,8 +177,8 @@ export class CadastroDeColaboradorComponent implements OnInit {
       // endereco
       endereco: this.formBuilder.group({
         pais: [''],
-        estado: [''],
-        cidade: [''],
+        estado: ['', Validators.required],
+        cidade: ['', Validators.required],
         cep: ['', Validators.required],
         bairro: ['', Validators.required],
         rua: ['', Validators.required],

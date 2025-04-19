@@ -340,7 +340,7 @@
 
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="estado">Estado</label>
+                        <label for="estado">Estado<span *ngIf="isRequired('endereco.estado')" class="required-asterisk">*</span></label>
                         <app-select-padrao
                           label="Selecione o estado"
                           formControlName="estado"
@@ -350,7 +350,7 @@
                         </app-select-padrao>
                     </div>
                     <div class="form-group">
-                        <label for="cidade">Cidade</label>
+                        <label for="cidade">Cidade<span *ngIf="isRequired('endereco.cidade')" class="required-asterisk">*</span></label>
                         <app-select-padrao
                           label="Selecione a cidade"
                           [options]="cidades"
