@@ -83,6 +83,12 @@ form {
   min-height: 50px;
 }
 
+.disabled-cursor {
+  cursor: not-allowed;
+  background: #ededed;
+  color: #a9a9a9;
+}
+
 .input-duo {
   display: flex;
   justify-content: space-between;

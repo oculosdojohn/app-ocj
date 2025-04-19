@@ -211,7 +211,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.carregarDepartamentos();
     this.verificarModoEdicao();
     this.carregarEstadosECidades();
-    this.colaboradorForm.get('endereco.cidade')?.disable(); 
+    this.colaboradorForm.get('endereco.cidade')?.disable();
+    this.colaboradorForm.get('quantidadeFilhos')?.disable();
+    this.colaboradorForm.get('deficiencia')?.disable();
   }
 
   goBack() {
@@ -420,5 +422,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
     });
 
     this.onEstadoChange('');
+  }
+
+  onDependenciaChange(controlName: string, dependentControlName: string, value: string | null): void {
+    const dependentControl = this.colaboradorForm.get(dependentControlName);
+  
+    if (value === 'Sim') {
+      dependentControl?.enable();
+    } else {
+      dependentControl?.disable();
+      dependentControl?.setValue(null); 
+    }
   }
 }

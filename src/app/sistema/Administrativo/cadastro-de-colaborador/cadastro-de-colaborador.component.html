@@ -113,13 +113,15 @@
                       label="Selecionar uma opção"
                       [options]="escolhas"
                       [(selectedValue)]="selectedDeficiencia"
-                      formControlName="portadorDeficiencia">
+                      formControlName="portadorDeficiencia"
+                      (selectedValueChange)="onDependenciaChange('portadorDeficiencia', 'deficiencia', $event)">
                     </app-select-padrao>
                 </div>
 
                 <div class="form-group">
                     <label for="deficiencia">Qual deficiência?</label>
-                    <input type="text" id="deficiencia" name="deficiencia" formControlName="deficiencia" class="form-control" placeholder="Digite qual deficiência">
+                    <input type="text" id="deficiencia" name="deficiencia" formControlName="deficiencia" class="form-control" placeholder="Digite qual deficiência" 
+                    [disabled]="!colaboradorForm.get('descricaoDeficiencia')?.enabled" [ngClass]="{ 'disabled-cursor': !colaboradorForm.get('deficiencia')?.enabled }">
                 </div>
             </div>
 
@@ -130,13 +132,15 @@
                       label="Selecionar uma opção"
                       [options]="escolhas"
                       [(selectedValue)]="selectedFilhos"
-                      formControlName="possuiFilhos">
+                      formControlName="possuiFilhos"
+                      (selectedValueChange)="onDependenciaChange('possuiFilhos', 'quantidadeFilhos', $event)">
                     </app-select-padrao>
                 </div>
 
                 <div class="form-group">
                     <label for="quantidadeFilhos">Quantidade de filhos</label>
-                    <input type="number" id="quantidadeFilhos" name="quantidadeFilhos" formControlName="quantidadeFilhos" class="form-control" placeholder="Digite a quantidade">
+                    <input type="number" id="quantidadeFilhos" name="quantidadeFilhos" formControlName="quantidadeFilhos" class="form-control" placeholder="Digite a quantidade" 
+                    [disabled]="!colaboradorForm.get('quantidadeFilhos')?.enabled" [ngClass]="{ 'disabled-cursor': !colaboradorForm.get('quantidadeFilhos')?.enabled }">
                 </div>
             </div>
 
