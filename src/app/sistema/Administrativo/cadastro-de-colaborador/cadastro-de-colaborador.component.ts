@@ -153,7 +153,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       // contato
       telefoneUm: [''],
       telefoneDois: [''],
-      emailEmpresarial: ['', [Validators.email]],
+      emailEmpresarial: ['', [Validators.required, Validators.email]],
       instagram: [''],
       // endereco
       endereco: this.formBuilder.group({
