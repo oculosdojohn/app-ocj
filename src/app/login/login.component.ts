@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           confirmPassword: '',
           permissao:
             response.authorities.length > 0 ? response.authorities[0] : null,
-          fotoUrl: response.fotoUrl || '',
+          foto: response.foto || '',
           cargo: response.cargo || '',
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));

@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
 
   permissaoUsuario: string = '';
   nomeUsuario: string = '';
+  fotoUsuario: string = '';
 
   isGeralMenuOpen = false;
   isRHMenuOpen = false;
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
       (usuario) => {
         this.nomeUsuario = usuario.username;
         this.permissaoUsuario = CargoDescricoes[usuario.cargo as keyof typeof CargoDescricoes] || usuario.cargo;
+        this.fotoUsuario = usuario.foto?.documentoUrl || '';
       },
       (error) => {
         console.error('Erro ao obter perfil do usuário:', error);
@@ -82,5 +84,21 @@ export class NavbarComponent implements OnInit {
 
   toggleRHMenu() {
     this.isRHMenuOpen = !this.isRHMenuOpen;
+  }
+
+  getInitial(name: string): string {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getRandomColor(seed: string): string {
+    const colors = [
+      '#FFB3BA', // Rosa pastel
+      '#FFDFBA', // Laranja pastel
+      '#BAFFC9', // Verde pastel
+      '#BAE1FF', // Azul pastel
+      '#D5BAFF', // Roxo pastel
+    ];
+    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    return colors[index];
   }
 }
