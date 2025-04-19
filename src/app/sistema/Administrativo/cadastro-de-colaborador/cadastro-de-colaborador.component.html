@@ -82,9 +82,6 @@
                       [(selectedValue)]="selectedEscolaridade"
                       formControlName="escolaridade">
                     </app-select-padrao>
-                    <div *ngIf="colaboradorForm.get('escolaridade')?.invalid && (colaboradorForm.get('escolaridade')?.touched || colaboradorForm.get('escolaridade')?.dirty)" class="error-obrigatorio">
-                        O campo Escolaridade é obrigatório.
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso</label>
@@ -360,23 +357,35 @@
 
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="cep">CEP</label>
+                        <label for="cep">CEP<span *ngIf="isRequired('endereco.cep')" class="required-asterisk">*</span></label>
                         <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP">
+                        <div *ngIf="colaboradorForm.get('endereco.cep')?.invalid && (colaboradorForm.get('endereco.cep')?.touched || colaboradorForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
+                            O campo CEP é obrigatório.
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="bairro">Bairro</label>
+                        <label for="bairro">Bairro<span *ngIf="isRequired('endereco.bairro')" class="required-asterisk">*</span></label>
                         <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro">
+                        <div *ngIf="colaboradorForm.get('endereco.cep')?.invalid && (colaboradorForm.get('endereco.cep')?.touched || colaboradorForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
+                            O campo Bairro é obrigatório.
+                        </div>
                     </div>
                 </div>
     
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="rua">Rua</label>
+                        <label for="rua">Rua<span *ngIf="isRequired('endereco.rua')" class="required-asterisk">*</span></label>
                         <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua">
+                        <div *ngIf="colaboradorForm.get('endereco.cep')?.invalid && (colaboradorForm.get('endereco.cep')?.touched || colaboradorForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
+                            O campo Rua é obrigatório.
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="numero">Número</label>
+                        <label for="numero">Número<span *ngIf="isRequired('endereco.numero')" class="required-asterisk">*</span></label>
                         <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número">
+                        <div *ngIf="colaboradorForm.get('endereco.cep')?.invalid && (colaboradorForm.get('endereco.cep')?.touched || colaboradorForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
+                            O campo Número é obrigatório.
+                        </div>
                     </div>
                 </div>
     
@@ -408,9 +417,6 @@
                       [(selectedValue)]="selectedLoja"
                       formControlName="identificadorLoja">
                     </app-select-padrao>
-                    <div *ngIf="colaboradorForm.get('identificadorLoja')?.invalid && (colaboradorForm.get('identificadorLoja')?.touched || colaboradorForm.get('identificadorLoja')?.dirty)" class="error-obrigatorio">
-                        O campo Loja é obrigatório.
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="dataAdmissao">
@@ -436,9 +442,6 @@
                       [(selectedValue)]="selectedDepartamento"
                       formControlName="identificadorDepartamento">
                     </app-select-padrao>
-                    <div *ngIf="colaboradorForm.get('identificadorDepartamento')?.invalid && (colaboradorForm.get('identificadorDepartamento')?.touched || colaboradorForm.get('identificadorDepartamento')?.dirty)" class="error-obrigatorio">
-                        O campo Departamento é obrigatório.
-                    </div>
                 </div>
 
                 <div class="form-group">
@@ -452,9 +455,6 @@
                       [(selectedValue)]="selectedCargo"
                       formControlName="cargo">
                     </app-select-padrao>
-                    <div *ngIf="colaboradorForm.get('cargo')?.invalid && (colaboradorForm.get('cargo')?.touched || colaboradorForm.get('cargo')?.dirty)" class="error-obrigatorio">
-                        O campo Cargo é obrigatório.
-                    </div>
                 </div>
             </div>
 
@@ -470,9 +470,6 @@
                       [(selectedValue)]="selectedTipoContratacao"
                       formControlName="tipoDeContratacao">
                     </app-select-padrao>
-                    <div *ngIf="colaboradorForm.get('tipoDeContratacao')?.invalid && (colaboradorForm.get('tipoDeContratacao')?.touched || colaboradorForm.get('tipoDeContratacao')?.dirty)" class="error-obrigatorio">
-                        O campo Tipo de contratação é obrigatório.
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="salario">
@@ -497,9 +494,6 @@
                   [(selectedValue)]="selectedPeriodoExperiencia"
                   formControlName="periodoDeExperiencia">
                 </app-select-padrao>
-                <div *ngIf="colaboradorForm.get('periodoDeExperiencia')?.invalid && (colaboradorForm.get('periodoDeExperiencia')?.touched || colaboradorForm.get('periodoDeExperiencia')?.dirty)" class="error-obrigatorio">
-                    O campo Período de experiência é obrigatório.
-                </div>
             </div>
 
             <div class="input-duo">
