@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { DepartamentoService } from '../../../services/administrativo/departamento.service';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
@@ -26,7 +31,7 @@ import { EscolhaDescricoes } from '../funcionarios/enums/escolha-descricoes';
 import { Usuario } from 'src/app/login/usuario';
 import { Endereco } from '../lojas/endereco';
 import { Colaborador } from '../funcionarios/colaborador';
-
+import { Estado, EnderecoService } from '../../../services/endereco.service';
 
 @Component({
   selector: 'app-cadastro-de-colaborador',
@@ -50,61 +55,74 @@ export class CadastroDeColaboradorComponent implements OnInit {
   foto: File | null = null;
   colaboradorId: string | null = null;
 
-  estadosCivis = Object.keys(EstadoCivil).map(key => ({
+  estadosCivis = Object.keys(EstadoCivil).map((key) => ({
     value: EstadoCivil[key as keyof typeof EstadoCivil],
-    description: EstadoCivilDescricoes[EstadoCivil[key as keyof typeof EstadoCivil]]
+    description:
+      EstadoCivilDescricoes[EstadoCivil[key as keyof typeof EstadoCivil]],
   }));
   selectedEstadoCivil: string = '';
 
-  generos = Object.keys(Genero).map(key => ({
+  generos = Object.keys(Genero).map((key) => ({
     value: Genero[key as keyof typeof Genero],
-    description: GeneroDescricoes[Genero[key as keyof typeof Genero]]
+    description: GeneroDescricoes[Genero[key as keyof typeof Genero]],
   }));
   selectedGenero: string = '';
 
-  etnias = Object.keys(RacaEtnia).map(key => ({
+  etnias = Object.keys(RacaEtnia).map((key) => ({
     value: RacaEtnia[key as keyof typeof RacaEtnia],
-    description: RacaEtniaDescricoes[RacaEtnia[key as keyof typeof RacaEtnia]]
+    description: RacaEtniaDescricoes[RacaEtnia[key as keyof typeof RacaEtnia]],
   }));
   selectedEtnia: string = '';
 
-  escolaridades = Object.keys(Escolaridade).map(key => ({
+  escolaridades = Object.keys(Escolaridade).map((key) => ({
     value: Escolaridade[key as keyof typeof Escolaridade],
-    description: EscolaridadeDescricoes[Escolaridade[key as keyof typeof Escolaridade]]
+    description:
+      EscolaridadeDescricoes[Escolaridade[key as keyof typeof Escolaridade]],
   }));
   selectedEscolaridade: string = '';
 
-  nacionalidades = Object.keys(Nacionalidade).map(key => ({
+  nacionalidades = Object.keys(Nacionalidade).map((key) => ({
     value: Nacionalidade[key as keyof typeof Nacionalidade],
-    description: NacionalidadeDescricoes[Nacionalidade[key as keyof typeof Nacionalidade]]
+    description:
+      NacionalidadeDescricoes[Nacionalidade[key as keyof typeof Nacionalidade]],
   }));
   selectedNacionalidade: string = '';
 
-  cargos = Object.keys(Cargo).map(key => ({
+  cargos = Object.keys(Cargo).map((key) => ({
     value: Cargo[key as keyof typeof Cargo],
-    description: CargoDescricoes[Cargo[key as keyof typeof Cargo]]
+    description: CargoDescricoes[Cargo[key as keyof typeof Cargo]],
   }));
   selectedCargo: string = '';
 
-  tiposContratacao = Object.keys(TipoContratacao).map(key => ({
+  tiposContratacao = Object.keys(TipoContratacao).map((key) => ({
     value: TipoContratacao[key as keyof typeof TipoContratacao],
-    description: TipoContratacaoDescricoes[TipoContratacao[key as keyof typeof TipoContratacao]]
+    description:
+      TipoContratacaoDescricoes[
+        TipoContratacao[key as keyof typeof TipoContratacao]
+      ],
   }));
   selectedTipoContratacao: string = '';
 
-  periodosExperiencia = Object.keys(PeriodoExperiencia).map(key => ({
+  periodosExperiencia = Object.keys(PeriodoExperiencia).map((key) => ({
     value: PeriodoExperiencia[key as keyof typeof PeriodoExperiencia],
-    description: PeriodoExperienciaDescricoes[PeriodoExperiencia[key as keyof typeof PeriodoExperiencia]]
+    description:
+      PeriodoExperienciaDescricoes[
+        PeriodoExperiencia[key as keyof typeof PeriodoExperiencia]
+      ],
   }));
   selectedPeriodoExperiencia: string = '';
 
-  escolhas = Object.keys(Escolha).map(key => ({
+  escolhas = Object.keys(Escolha).map((key) => ({
     value: Escolha[key as keyof typeof Escolha],
-    description: EscolhaDescricoes[Escolha[key as keyof typeof Escolha]]
+    description: EscolhaDescricoes[Escolha[key as keyof typeof Escolha]],
   }));
   selectedFilhos: string = '';
   selectedDeficiencia: string = '';
 
+  estados: { value: string; description: string }[] = [];
+  cidades: { value: string; description: string }[] = [];
+  selectedEstado: string = '';
+  selectedCidade: string = '';
 
   constructor(
     private location: Location,
@@ -113,7 +131,8 @@ export class CadastroDeColaboradorComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private departamentoService: DepartamentoService,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private enderecoService: EnderecoService
   ) {
     this.colaboradorForm = this.formBuilder.group({
       // geral
@@ -191,6 +210,8 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.carregarLojas();
     this.carregarDepartamentos();
     this.verificarModoEdicao();
+    this.carregarEstadosECidades();
+    this.colaboradorForm.get('endereco.cidade')?.disable(); 
   }
 
   goBack() {
@@ -239,6 +260,41 @@ export class CadastroDeColaboradorComponent implements OnInit {
         console.error('Erro ao carregar as departamentos:', error);
       }
     );
+  }
+
+  onEstadoChange(nome: string): void {
+    const cidadeControl = this.colaboradorForm.get('endereco.cidade');
+
+    console.log('onEstadoChange chamado com o estado:', nome);
+    this.colaboradorForm.get('endereco.estado')?.setValue(nome);
+
+    if (!nome) {
+      cidadeControl?.disable();
+      this.enderecoService.getTodasCidades().subscribe((cidades) => {
+        this.cidades = cidades.map((cidade) => ({
+          value: cidade.nome,
+          description: cidade.nome,
+        }));
+        this.selectedCidade = '';
+        cidadeControl?.setValue(null);
+      });
+    } else {
+      cidadeControl?.enable();
+      this.enderecoService.getCidadesByEstado(nome).subscribe((cidades) => {
+        console.log('Cidades filtradas pelo estado:', cidades);
+        this.cidades = cidades.map((cidade) => ({
+          value: cidade.nome,
+          description: cidade.nome,
+        }));
+        this.selectedCidade = '';
+        cidadeControl?.setValue(null);
+      });
+    }
+  }
+
+  onCidadeChange(nome: string): void {
+    console.log('onCidadeChange chamado com a cidade:', nome);
+    this.colaboradorForm.get('endereco.cidade')?.setValue(nome);
   }
 
   onSubmit(): void {
@@ -344,7 +400,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     }
 
     if (colaborador.departamento) {
-      this.selectedDepartamento = colaborador.departamento.id; 
+      this.selectedDepartamento = colaborador.departamento.id;
       this.departamentos = [
         {
           value: colaborador.departamento.id,
@@ -352,5 +408,17 @@ export class CadastroDeColaboradorComponent implements OnInit {
         },
       ];
     }
+  }
+
+  private carregarEstadosECidades(): void {
+    this.enderecoService.getEstados().subscribe((estados: Estado[]) => {
+      this.estados = estados.map((estado: Estado) => ({
+        value: estado.sigla,
+        description: estado.nome,
+      }));
+      console.log('Estados carregados:', this.estados);
+    });
+
+    this.onEstadoChange('');
   }
 }
