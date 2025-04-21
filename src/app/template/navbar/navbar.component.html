@@ -14,7 +14,17 @@
         </div>
         <!-- User Profile -->
         <div class="profile-info">
-          <img class="user-photo" src="assets/imgs/foto-ever.jpeg" alt="Foto do usuário">
+          <div class="user-photo" *ngIf="fotoUsuario; else fallbackPhoto">
+            <img [src]="fotoUsuario" alt="Foto do usuário">
+          </div>
+          <ng-template #fallbackPhoto>
+            <div
+              class="user-initial"
+              [style.background-color]="getRandomColor(nomeUsuario)"
+            >
+              {{ getInitial(nomeUsuario) }}
+            </div>
+          </ng-template>
           <div class="user-info">
             <h3>{{ nomeUsuario }}</h3>
             <span>{{ permissaoUsuario }}</span>

@@ -6,12 +6,21 @@ import {
   EventEmitter,
   ElementRef,
   Renderer2,
+  forwardRef,
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-select-padrao',
   templateUrl: './select-padrao.component.html',
   styleUrls: ['./select-padrao.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectPadraoComponent),
+      multi: true,
+    },
+  ],
 })
 export class SelectPadraoComponent {
   @Input() label: string = '';
@@ -23,11 +32,34 @@ export class SelectPadraoComponent {
 
 
   isOpen: boolean = false;
+  onChange = (value: string) => {};
+  onTouched = () => {};
+  value: string = '';
 
   constructor(private elementRef: ElementRef) {}
 
+  writeValue(value: string): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
   onSelect(option: { value: string, description: string }) {
+    console.log('Selecionado:', option);
     this.selectedValue = option.value;
+    this.value = option.value;
+    this.onChange(this.value);
+    this.onTouched();
     this.selectedValueChange.emit(this.selectedValue);
     this.isOpen = false;
   }

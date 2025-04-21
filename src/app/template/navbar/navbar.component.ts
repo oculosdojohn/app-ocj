@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { CargoDescricoes } from 'src/app/sistema/Administrativo/funcionarios/enums/cargo-descricoes';
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +13,9 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  permissaoUsuario: string = 'Administrador';
-  nomeUsuario: string = 'Johnatta';
+  permissaoUsuario: string = '';
+  nomeUsuario: string = '';
+  fotoUsuario: string = '';
 
   isGeralMenuOpen = false;
   isRHMenuOpen = false;
@@ -20,10 +23,22 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.obterPerfilUsuario().subscribe(
+      (usuario) => {
+        this.nomeUsuario = usuario.username;
+        this.permissaoUsuario = CargoDescricoes[usuario.cargo as keyof typeof CargoDescricoes] || usuario.cargo;
+        this.fotoUsuario = usuario.foto?.documentoUrl || '';
+      },
+      (error) => {
+        console.error('Erro ao obter perfil do usuário:', error);
+      }
+    );
+  }
 
   logout() {
     this.router.navigate(['/login']);
@@ -69,5 +84,21 @@ export class NavbarComponent implements OnInit {
 
   toggleRHMenu() {
     this.isRHMenuOpen = !this.isRHMenuOpen;
+  }
+
+  getInitial(name: string): string {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getRandomColor(seed: string): string {
+    const colors = [
+      '#FFB3BA', // Rosa pastel
+      '#FFDFBA', // Laranja pastel
+      '#BAFFC9', // Verde pastel
+      '#BAE1FF', // Azul pastel
+      '#D5BAFF', // Roxo pastel
+    ];
+    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    return colors[index];
   }
 }

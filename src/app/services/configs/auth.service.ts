@@ -78,8 +78,16 @@ export class AuthService {
   }
 
   obterPerfilUsuario(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiURL}/token`).pipe(
-      map((response) => response),
+    const token = this.obterToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+  
+    return this.http.get<Usuario>(`${this.apiURL}/token`, { headers }).pipe(
+      map((response) => {
+        console.log('Resposta do endpoint /token:', response);
+        return response;
+      }),
       catchError((error: HttpErrorResponse) => {
         console.error('Erro ao obter perfil do usuário:', error);
         return throwError(
@@ -181,12 +189,22 @@ export class AuthService {
       .set('username', email)
       .set('password', password)
       .set('grant_type', 'password');
-
+  
     const headers = {
       Authorization: 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`),
       'Content-Type': 'application/x-www-form-urlencoded',
     };
-
-    return this.http.post(this.tokenURL, params.toString(), { headers });
+  
+    console.log('Tentando autenticar usuário com email:', email); // Log do email enviado
+    return this.http.post(this.tokenURL, params.toString(), { headers }).pipe(
+      map((response: any) => {
+        console.log('Resposta do backend (token recebido):', response); // Log da resposta do backend
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erro ao autenticar o usuário:', error); // Log de erro
+        return throwError('Erro ao autenticar. Verifique suas credenciais.');
+      })
+    );
   }
 }

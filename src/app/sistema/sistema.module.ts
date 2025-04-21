@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 import { SistemaRoutingModule } from './sistema-routing.module';
 import { LojasComponent } from './Administrativo/lojas/lojas.component';
@@ -81,7 +82,8 @@ import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/de
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgxMaskModule.forRoot(),
   ]
 })
 export class SistemaModule { }

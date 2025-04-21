@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar colaborador</span>
+        <span>{{ isEditMode ? 'Editar colaborador' : 'Cadastrar colaborador' }}</span>
     </div>
   
     <div class="forms-container">
@@ -13,27 +13,27 @@
 
             <div class="form-group">
                 <label for="foto">Foto</label>
-                <app-input-img label="Clique ou arraste a foto para fazer upload" inputId="foto" (imageSelected)="onImageSelected($event, 'photo')"></app-input-img>
+                <app-input-img label="Clique ou arraste a foto para fazer upload" inputId="foto" (imageSelected)="onImageSelected($event, 'foto')"></app-input-img>
             </div>
 
             <div class="form-group">
-                <label for="nome">
+                <label for="username">
                     Nome completo
-                    <span *ngIf="isRequired('nome')" class="required-asterisk">*</span>
+                    <span *ngIf="isRequired('username')" class="required-asterisk">*</span>
                 </label>
-                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o Nome completo" required>
-                <div *ngIf="colaboradorForm.get('nome')?.invalid && (colaboradorForm.get('nome')?.touched || colaboradorForm.get('nome')?.dirty)" class="error-obrigatorio">
+                <input type="text" id="username" name="username" formControlName="username" class="form-control" placeholder="Digite o Nome completo" required>
+                <div *ngIf="colaboradorForm.get('username')?.invalid && (colaboradorForm.get('username')?.touched || colaboradorForm.get('username')?.dirty)" class="error-obrigatorio">
                     O campo Nome completo é obrigatório.
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="data">
+                    <label for="dataNascimento">
                         Data de nascimento
                         <span *ngIf="isRequired('dataNascimento')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="data" name="data" formControlName="dataNascimento" class="form-control" placeholder="Digite a data de nascimento" required>
+                    <input type="date" id="dataNascimento" name="dataNascimento" formControlName="dataNascimento" class="form-control" required>
                     <div *ngIf="colaboradorForm.get('dataNascimento')?.invalid && (colaboradorForm.get('dataNascimento')?.touched || colaboradorForm.get('dataNascimento')?.dirty)" class="error-obrigatorio">
                         O campo Data de nascimento é obrigatório.
                     </div>
@@ -43,7 +43,8 @@
                     <app-select-padrao
                       label="Selecionar estado civil"
                       [options]="estadosCivis"
-                      [(selectedValue)]="selectedEstadoCivil">
+                      [(selectedValue)]="selectedEstadoCivil"
+                      formControlName="estadoCivil">
                     </app-select-padrao>
                 </div>
             </div>
@@ -54,7 +55,8 @@
                     <app-select-padrao
                       label="Selecionar gênero"
                       [options]="generos"
-                      [(selectedValue)]="selectedGenero">
+                      [(selectedValue)]="selectedGenero"
+                      formControlName="genero">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
@@ -62,23 +64,28 @@
                     <app-select-padrao
                       label="Selecionar raça/etnia"
                       [options]="etnias"
-                      [(selectedValue)]="selectedEtnia">
+                      [(selectedValue)]="selectedEtnia"
+                      formControlName="etnia">
                     </app-select-padrao>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="escolaridade">Escolaridade</label>
+                    <label for="escolaridade">
+                        Escolaridade
+                        <span *ngIf="isRequired('escolaridade')" class="required-asterisk">*</span>
+                    </label>
                     <app-select-padrao
                       label="Selecionar escolaridade"
                       [options]="escolaridades"
-                      [(selectedValue)]="selectedEscolaridade">
+                      [(selectedValue)]="selectedEscolaridade"
+                      formControlName="escolaridade">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso</label>
-                    <input type="text" id="curso" name="curso" class="form-control" placeholder="Digite seus cursos" required>
+                    <input type="text" id="curso" name="curso" formControlName="curso" class="form-control" placeholder="Digite seus cursos">
                 </div>
             </div>
 
@@ -88,45 +95,52 @@
                     <app-select-padrao
                       label="Selecionar nacionalidade"
                       [options]="nacionalidades"
-                      [(selectedValue)]="selectedNacionalidade">
+                      [(selectedValue)]="selectedNacionalidade"
+                      formControlName="nacionalidade">
                     </app-select-padrao>
                 </div>
 
                 <div class="form-group">
                     <label for="naturalidade">Naturalidade</label>
-                    <input type="text" id="naturalidade" name="naturalidade" class="form-control" placeholder="Digite a naturalidade" required>
+                    <input type="text" id="naturalidade" name="naturalidade" formControlName="naturalidade" class="form-control" placeholder="Digite a naturalidade">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="deficiencia">Portador de deficiência?</label>
+                    <label for="portadorDeficiencia">Portador de deficiência?</label>
                     <app-select-padrao
                       label="Selecionar uma opção"
                       [options]="escolhas"
-                      [(selectedValue)]="selectedDeficiencia">
+                      [(selectedValue)]="selectedDeficiencia"
+                      formControlName="portadorDeficiencia"
+                      (selectedValueChange)="onDependenciaChange('portadorDeficiencia', 'deficiencia', $event)">
                     </app-select-padrao>
                 </div>
 
                 <div class="form-group">
-                    <label for="qualDeficiencia">Qual deficiência?</label>
-                    <input type="text" id="qual-deficiencia" name="qual-deficiencia" class="form-control" placeholder="Digite qual deficiência" required>
+                    <label for="deficiencia">Qual deficiência?</label>
+                    <input type="text" id="deficiencia" name="deficiencia" formControlName="deficiencia" class="form-control" placeholder="Digite qual deficiência" 
+                    [disabled]="!colaboradorForm.get('descricaoDeficiencia')?.enabled" [ngClass]="{ 'disabled-cursor': !colaboradorForm.get('deficiencia')?.enabled }">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="filhos">Possui filhos?</label>
+                    <label for="possuiFilhos">Possui filhos?</label>
                     <app-select-padrao
                       label="Selecionar uma opção"
                       [options]="escolhas"
-                      [(selectedValue)]="selectedFilhos">
+                      [(selectedValue)]="selectedFilhos"
+                      formControlName="possuiFilhos"
+                      (selectedValueChange)="onDependenciaChange('possuiFilhos', 'quantidadeFilhos', $event)">
                     </app-select-padrao>
                 </div>
 
                 <div class="form-group">
-                    <label for="qtdFilhos">Quantidade de filhos</label>
-                    <input type="text" id="qtdFilhos" name="qtdFilhos" class="form-control" placeholder="Digite o número de filhos" required>
+                    <label for="quantidadeFilhos">Quantidade de filhos</label>
+                    <input type="number" id="quantidadeFilhos" name="quantidadeFilhos" formControlName="quantidadeFilhos" class="form-control" placeholder="Digite a quantidade" 
+                    [disabled]="!colaboradorForm.get('quantidadeFilhos')?.enabled" [ngClass]="{ 'disabled-cursor': !colaboradorForm.get('quantidadeFilhos')?.enabled }">
                 </div>
             </div>
 
@@ -136,99 +150,141 @@
             </div>
 
             <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="Digite o CPF" required>
+                <label for="cpf">
+                    CPF
+                    <span *ngIf="isRequired('cpf')" class="required-asterisk">*</span>
+                </label>
+                <input type="text" id="cpf" name="cpf" formControlName="cpf" class="form-control" placeholder="Digite o CPF" mask="000.000.000-00" [dropSpecialCharacters]="false" required>
+                <div *ngIf="colaboradorForm.get('cpf')?.invalid && (colaboradorForm.get('cpf')?.touched || colaboradorForm.get('cpf')?.dirty)" class="error-obrigatorio">
+                    O campo CPF é obrigatório.
+                </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="rg">RG</label>
-                    <input type="text" id="rg" name="rg" class="form-control" placeholder="Digite o número do RG" required>
+                    <label for="rg">
+                        RG
+                        <span *ngIf="isRequired('rg')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="rg" name="rg" formControlName="rg" class="form-control" placeholder="Digite o número do RG" mask="0000000000-0" [dropSpecialCharacters]="false" required>
+                    <div *ngIf="colaboradorForm.get('rg')?.invalid && (colaboradorForm.get('rg')?.touched || colaboradorForm.get('rg')?.dirty)" class="error-obrigatorio">
+                        O campo RG é obrigatório.
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="orgaoExpedidor">Órgão Expedidor</label>
-                    <input type="text" id="orgaoExpedidor" name="orgaoExpedidor" class="form-control" placeholder="Digite o órgão expedidor" required>
+                    <label for="orgaoExpedidor">
+                        Órgão Expedidor
+                        <span *ngIf="isRequired('orgaoExpedidor')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="orgaoExpedidor" name="orgaoExpedidor" formControlName="orgaoExpedidor" class="form-control" placeholder="Digite o órgão expedidor" required>
+                    <div *ngIf="colaboradorForm.get('orgaoExpedidor')?.invalid && (colaboradorForm.get('orgaoExpedidor')?.touched || colaboradorForm.get('orgaoExpedidor')?.dirty)" class="error-obrigatorio">
+                        O campo Órgão expedidor é obrigatório.
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="dataExpedicao">Data de Expedição</label>
-                    <input type="date" id="dataExpedicao" name="dataExpedicao" class="form-control" placeholder="Digite a data de expedição" required>
+                    <label for="dataExpedicao">
+                        Data de Expedição
+                        <span *ngIf="isRequired('dataExpedicao')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="date" id="dataExpedicao" name="dataExpedicao" formControlName="dataExpedicao" class="form-control" required>
+                    <div *ngIf="colaboradorForm.get('dataExpedicao')?.invalid && (colaboradorForm.get('dataExpedicao')?.touched || colaboradorForm.get('dataExpedicao')?.dirty)" class="error-obrigatorio">
+                        O campo Data de expedição é obrigatório.
+                    </div>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="nomeMae">Nome da mãe</label>
-                    <input type="text" id="nomeMae" name="nomeMae" class="form-control" placeholder="Digite o nome da mãe" required>
+                    <input type="text" id="nomeMae" name="nomeMae" formControlName="nomeMae" class="form-control" placeholder="Digite o nome da mãe">
                 </div>
 
                 <div class="form-group">
                     <label for="nomePai">Nome do pai</label>
-                    <input type="text" id="nomePai" name="nomePai" class="form-control" placeholder="Digite o nome do pai" required>
+                    <input type="text" id="nomePai" name="nomePai" formControlName="nomePai" class="form-control" placeholder="Digite o nome do pai">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="cnh">CNH</label>
-                    <input type="text" id="cnh" name="cnh" class="form-control" placeholder="Digite o número da CNH" required>
+                    <input type="text" id="cnh" name="cnh" formControlName="cnh" class="form-control" placeholder="Digite o número da CNH">
                 </div>
 
                 <div class="form-group">
                     <label for="reservista">Reservista</label>
-                    <input type="text" id="reservista" name="reservista" class="form-control" placeholder="Digite a data de nascimento" required>
+                    <input type="text" id="reservista" name="reservista" formControlName="reservista" class="form-control" placeholder="Digite o número da reservista">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="tituloEleitor">Titulo de Eleitor</label>
-                    <input type="text" id="tituloEleitor" name="tituloEleitor" class="form-control" placeholder="Digite o titulo de eleitor" required>
+                    <label for="tituloDeEleitor">Titulo de Eleitor</label>
+                    <input type="text" id="tituloDeEleitor" name="tituloDeEleitor" formControlName="tituloDeEleitor" class="form-control" placeholder="Digite o titulo de eleitor">
                 </div>
 
                 <div class="form-group">
                     <label for="zonaEleitoral">Zona Eleitoral</label>
-                    <input type="text" id="zonaEleitoral" name="zonaEleitoral" class="form-control" placeholder="Digite a zona eleitoral" required>
+                    <input type="text" id="zonaEleitoral" name="zonaEleitoral" formControlName="zonaEleitoral" class="form-control" placeholder="Digite a zona eleitoral">
                 </div>
 
                 <div class="form-group">
                     <label for="secaoEleitoral">Seção Eleitoral</label>
-                    <input type="text" id="secaoEleitoral" name="secaoEleitoral" class="form-control" placeholder="Digite o número da seção" required>
+                    <input type="text" id="secaoEleitoral" name="secaoEleitoral" formControlName="secaoEleitoral" class="form-control" placeholder="Digite o número da seção">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="pis">PIS</label>
-                    <input type="text" id="pis" name="pis" class="form-control" placeholder="Digite o PIS" required>
+                    <input type="text" id="pis" name="pis" formControlName="pis" class="form-control" placeholder="Digite o PIS">
                 </div>
 
                 <div class="form-group">
                     <label for="ctpsNum">CTPS NUM</label>
-                    <input type="text" id="ctpsNum" name="ctpsNum" class="form-control" placeholder="Digite o CTPS NUM" required>
+                    <input type="text" id="ctpsNum" name="ctpsNum" formControlName="ctpsNum" class="form-control" placeholder="Digite o CTPS NUM" required>
                 </div>
 
                 <div class="form-group">
                     <label for="ctpsSerie">CTPS Série</label>
-                    <input type="text" id="ctpsSerie" name="ctpsSerie" class="form-control" placeholder="Digite o CTPS Série" required>
+                    <input type="text" id="ctpsSerie" name="ctpsSerie" formControlName="ctpsSerie" class="form-control" placeholder="Digite o CTPS Série">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="banco">Banco</label>
-                    <input type="text" id="banco" name="banco" class="form-control" placeholder="Digite o nome do banco" required>
+                    <label for="banco">
+                        Banco
+                        <span *ngIf="isRequired('banco')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="banco" name="banco" formControlName="banco" class="form-control" placeholder="Digite o nome do banco" required>
+                    <div *ngIf="colaboradorForm.get('banco')?.invalid && (colaboradorForm.get('banco')?.touched || colaboradorForm.get('banco')?.dirty)" class="error-obrigatorio">
+                        O campo Banco é obrigatório.
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="agencia">Agência</label>
-                    <input type="text" id="agencia" name="agencia" class="form-control" placeholder="Digite o número da agência" required>
+                    <label for="agencia">
+                        Agência
+                        <span *ngIf="isRequired('agencia')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="agencia" name="agencia" formControlName="agencia" class="form-control" placeholder="Digite o número da agência" required>
+                    <div *ngIf="colaboradorForm.get('agencia')?.invalid && (colaboradorForm.get('agencia')?.touched || colaboradorForm.get('agencia')?.dirty)" class="error-obrigatorio">
+                        O campo Agência é obrigatório.
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="contaCorrente">Conta corrente</label>
-                    <input type="text" id="contaCorrente" name="contaCorrente" class="form-control" placeholder="Digite o número da conta" required>
+                    <label for="contaCorrente">
+                        Conta corrente
+                        <span *ngIf="isRequired('contaCorrente')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="contaCorrente" name="contaCorrente" formControlName="contaCorrente" class="form-control" placeholder="Digite o número da conta" required>
+                    <div *ngIf="colaboradorForm.get('contaCorrente')?.invalid && (colaboradorForm.get('contaCorrente')?.touched || colaboradorForm.get('contaCorrente')?.dirty)" class="error-obrigatorio">
+                        O campo Conta corrente é obrigatório.
+                    </div>
                 </div>
             </div>
 
@@ -246,24 +302,30 @@
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="telefone1">Telefone 1</label>
-                    <input type="text" id="telefone1" name="telefone1" class="form-control" placeholder="Digite o telefone" required>
+                    <label for="telefoneUm">Telefone 1</label>
+                    <input type="text" id="telefoneUm" name="telefoneUm" formControlName="telefoneUm" class="form-control" placeholder="Digite um telefone" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
                 </div>
 
                 <div class="form-group">
-                    <label for="telefone2">Telefone 2</label>
-                    <input type="text" id="telefone2" name="telefone2" class="form-control" placeholder="Digite o telefone">
+                    <label for="telefoneDois">Telefone 2</label>
+                    <input type="text" id="telefoneDois" name="telefoneDois" formControlName="telefoneDois" class="form-control" placeholder="Digite um telefone" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="emailEmpresarial">E-mail empresarial</label>
-                <input type="email" id="emailEmpresarial" name="emailEmpresarial" class="form-control" placeholder="Digite o e-mail" required>
+                <label for="emailEmpresarial">
+                    E-mail empresarial
+                    <span *ngIf="isRequired('emailEmpresarial')" class="required-asterisk">*</span>
+                </label>
+                <input type="email" id="emailEmpresarial" name="emailEmpresarial" formControlName="emailEmpresarial" class="form-control" placeholder="Digite um e-mail">
+                <div *ngIf="colaboradorForm.get('emailEmpresarial')?.invalid && (colaboradorForm.get('emailEmpresarial')?.touched || colaboradorForm.get('emailEmpresarial')?.dirty)" class="error-obrigatorio">
+                    O campo E-mail empresarial é obrigatório.
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="instagram">Instagram</label>
-                <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Digite o instagram" required>
+                <input type="text" id="instagram" name="instagram" formControlName="instagram" class="form-control" placeholder="Digite o instagram">
             </div>
 
             <div class="divisao">
@@ -271,62 +333,83 @@
                 <hr class="line">
             </div>
 
-            <div class="input-duo">
+            <div formGroupName="endereco">
                 <div class="form-group">
-                    <label for="cep">CEP</label>
-                    <input type="text" id="cep" name="cep" class="form-control" placeholder="Digite o CEP" required>
-                </div>
-                <div class="form-group">
-                    <label for="bairro">Bairro</label>
-                    <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Digite o bairro" required>
-                </div>
-            </div>
-
-            <div class="input-duo">
-                <div class="form-group">
-                    <label for="rua">Rua</label>
-                    <input type="text" id="rua" name="rua" class="form-control" placeholder="Digite a rua" required>
-                </div>
-                <div class="form-group">
-                    <label for="numero">Número</label>
-                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Digite o número" required>
-                </div>
-            </div>
-
-            <div class="input-duo">
-                <div class="form-group">
-                    <label for="complemento">Complemento</label>
-                    <input type="text" id="complemento" name="complemento" class="form-control" placeholder="Digite um complemento" required>
-                </div>
-                <div class="form-group">
-                    <label for="logradouro">Logradouro</label>
-                    <input type="text" id="logradouro" name="logradouro" class="form-control" placeholder="Digite o logradouro" required>
-                </div>
-            </div>
-
-            <div class="input-duo">
-                <div class="form-group">
-                    <label for="estado">Estado</label>
+                    <label for="pais">País</label>
                     <app-select-padrao
-                      label="Selecione o estado"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      label="Selecione o país"
+                      formControlName="pais">
                     </app-select-padrao>
                 </div>
-                <div class="form-group">
-                    <label for="cidade">Cidade</label>
-                    <app-select-padrao
-                      label="Selecione a cidade"
-                      [customStyles]="{'background': '#FFFFFF'}">
-                    </app-select-padrao>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="pais">País</label>
-                <app-select-padrao
-                  label="Selecione o país"
-                  [customStyles]="{'background': '#FFFFFF'}">
-                </app-select-padrao>
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="estado">Estado<span *ngIf="isRequired('endereco.estado')" class="required-asterisk">*</span></label>
+                        <app-select-padrao
+                          label="Selecione o estado"
+                          formControlName="estado"
+                          [options]="estados"
+                          [(selectedValue)]="selectedEstado"
+                          (selectedValueChange)="onEstadoChange($event)">
+                        </app-select-padrao>
+                    </div>
+                    <div class="form-group">
+                        <label for="cidade">Cidade<span *ngIf="isRequired('endereco.cidade')" class="required-asterisk">*</span></label>
+                        <app-select-padrao
+                          label="Selecione a cidade"
+                          [options]="cidades"
+                          [(selectedValue)]="selectedCidade"
+                          (selectedValueChange)="onCidadeChange($event)"
+                          formControlName="cidade"
+                          [disabled]="colaboradorForm.get('endereco.cidade')?.disabled === true">
+                        </app-select-padrao>
+                    </div>
+                </div>
+
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="cep">CEP<span *ngIf="isRequired('endereco.cep')" class="required-asterisk">*</span></label>
+                        <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" mask="00000-000" [dropSpecialCharacters]="false">
+                        <div *ngIf="colaboradorForm.get('endereco.cep')?.invalid && (colaboradorForm.get('endereco.cep')?.touched || colaboradorForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
+                            O campo CEP é obrigatório.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bairro">Bairro<span *ngIf="isRequired('endereco.bairro')" class="required-asterisk">*</span></label>
+                        <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro">
+                        <div *ngIf="colaboradorForm.get('endereco.bairro')?.invalid && (colaboradorForm.get('endereco.bairro')?.touched || colaboradorForm.get('endereco.bairro')?.dirty)" class="error-obrigatorio">
+                            O campo Bairro é obrigatório.
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="rua">Rua<span *ngIf="isRequired('endereco.rua')" class="required-asterisk">*</span></label>
+                        <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua">
+                        <div *ngIf="colaboradorForm.get('endereco.rua')?.invalid && (colaboradorForm.get('endereco.rua')?.touched || colaboradorForm.get('endereco.rua')?.dirty)" class="error-obrigatorio">
+                            O campo Rua é obrigatório.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="numero">Número<span *ngIf="isRequired('endereco.numero')" class="required-asterisk">*</span></label>
+                        <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número">
+                        <div *ngIf="colaboradorForm.get('endereco.numero')?.invalid && (colaboradorForm.get('endereco.numero')?.touched || colaboradorForm.get('endereco.numero')?.dirty)" class="error-obrigatorio">
+                            O campo Número é obrigatório.
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="input-duo">
+                    <div class="form-group">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" id="complemento" formControlName="complemento" name="complemento" class="form-control" placeholder="Digite um complemento">
+                    </div>
+                    <div class="form-group">
+                        <label for="logradouro">Logradouro</label>
+                        <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro">
+                    </div>
+                </div>
             </div>
 
             <div class="divisao">
@@ -336,60 +419,91 @@
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="loja">Loja</label>
+                    <label for="loja">
+                        Loja
+                        <span *ngIf="isRequired('identificadorLoja')" class="required-asterisk">*</span></label>
                     <app-select-padrao
                       label="Selecione loja"
                       [options]="lojas"
-                      [(selectedValue)]="selectedLoja">
+                      [(selectedValue)]="selectedLoja"
+                      formControlName="identificadorLoja">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
-                    <label for="dataAdmissao">Data de admissão</label>
-                    <input type="date" id="dataAdmissao" name="dataAdmissao" class="form-control" placeholder="Digite a data de admissão" required>
+                    <label for="dataAdmissao">
+                        Data de admissão
+                        <span *ngIf="isRequired('dataAdmissao')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="date" id="dataAdmissao" name="dataAdmissao" formControlName="dataAdmissao"  class="form-control" required>
+                </div>
+                <div *ngIf="colaboradorForm.get('dataAdmissao')?.invalid && (colaboradorForm.get('dataAdmissao')?.touched || colaboradorForm.get('dataAdmissao')?.dirty)" class="error-obrigatorio">
+                    O campo Data de admissão é obrigatório.
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="departamento">Departamento</label>
+                    <label for="departamento">
+                        Departamento
+                        <span *ngIf="isRequired('identificadorDepartamento')" class="required-asterisk">*</span>
+                    </label>
                     <app-select-padrao
                       label="Selecione o departamento"
                       [options]="departamentos"
-                      [(selectedValue)]="selectedDepartamento">
+                      [(selectedValue)]="selectedDepartamento"
+                      formControlName="identificadorDepartamento">
                     </app-select-padrao>
                 </div>
 
                 <div class="form-group">
-                    <label for="cargo">Cargo</label>
+                    <label for="cargo">
+                        Cargo
+                        <span *ngIf="isRequired('cargo')" class="required-asterisk">*</span>
+                    </label>
                     <app-select-padrao
                       label="Selecione um cargo"
                       [options]="cargos"
-                      [(selectedValue)]="selectedCargo">
+                      [(selectedValue)]="selectedCargo"
+                      formControlName="cargo">
                     </app-select-padrao>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="tipoContrato">Tipo de contratação</label>
+                    <label for="tipoDeContratacao">
+                        Tipo de contratação
+                        <span *ngIf="isRequired('tipoDeContratacao')" class="required-asterisk">*</span>
+                    </label>
                     <app-select-padrao
                       label="Selecionar tipo de contratação"
                       [options]="tiposContratacao"
-                      [(selectedValue)]="selectedTipoContratacao">
+                      [(selectedValue)]="selectedTipoContratacao"
+                      formControlName="tipoDeContratacao">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
-                    <label for="salario">Salário</label>
-                    <input type="text" id="salario" name="salario" class="form-control" placeholder="Digite o valor" required>
+                    <label for="salario">
+                        Salário
+                        <span *ngIf="isRequired('salario')" class="required-asterisk">*</span>
+                    </label>
+                    <input type="number" id="salario" name="salario" formControlName='salario' class="form-control" placeholder="Digite o salário" mask="separator.2" thousandSeparator="." decimalMarker="," [dropSpecialCharacters]="true" required>
+                    <div *ngIf="colaboradorForm.get('salario')?.invalid && (colaboradorForm.get('salario')?.touched || colaboradorForm.get('salario')?.dirty)" class="error-obrigatorio">
+                        O campo Salário é obrigatório.
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="departamento">Período de experiência</label>
+                <label for="periodoDeExperiencia">
+                    Período de experiência
+                    <span *ngIf="isRequired('periodoDeExperiencia')" class="required-asterisk">*</span>
+                </label>
                 <app-select-padrao
                   label="Selecionar período de experiência"
                   [options]="periodosExperiencia"
-                  [(selectedValue)]="selectedPeriodoExperiencia">
+                  [(selectedValue)]="selectedPeriodoExperiencia"
+                  formControlName="periodoDeExperiencia">
                 </app-select-padrao>
             </div>
 
@@ -399,7 +513,7 @@
                         Data do contrato
                         <span *ngIf="isRequired('dataDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataDoContrato" name="dataDoContrato" ormControlName="dataDoContrato" class="form-control" placeholder="Digite o data do contrato" required>
+                    <input type="date" id="dataDoContrato" name="dataDoContrato" formControlName="dataDoContrato" class="form-control" required>
                     <div *ngIf="colaboradorForm.get('dataDoContrato')?.invalid && (colaboradorForm.get('dataDoContrato')?.touched || colaboradorForm.get('dataDoContrato')?.dirty)" class="error-obrigatorio">
                         O campo Data do contrato é obrigatório.
                     </div>
@@ -407,19 +521,15 @@
                 <div class="form-group">
                     <label for="duracaoDoContrato">
                         Duração do contrato
-                        <span *ngIf="isRequired('duracaoDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" ormControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato" required>
-                    <div *ngIf="colaboradorForm.get('duracaoDoContrato')?.invalid && (colaboradorForm.get('duracaoDoContrato')?.touched || colaboradorForm.get('duracaoDoContrato')?.dirty)" class="error-obrigatorio">
-                        O campo Duração do contrato é obrigatório.
-                    </div>
+                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato">
                 </div>
                 <div class="form-group">
                     <label for="dataTerminoDoContrato">
                         Data do término do contrato
                         <span *ngIf="isRequired('dataTerminoDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" ormControlName="dataTerminoDoContrato" class="form-control" placeholder="Digite a data de término do contrato" required>
+                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" formControlName="dataTerminoDoContrato" class="form-control" required>
                     <div *ngIf="colaboradorForm.get('dataTerminoDoContrato')?.invalid && (colaboradorForm.get('dataTerminoDoContrato')?.touched || colaboradorForm.get('dataTerminoDoContrato')?.dirty)" class="error-obrigatorio">
                         O campo Data do término do contrato é obrigatório.
                     </div>
@@ -427,10 +537,10 @@
             </div>
 
             <div class="form-group">
-                <label for="responsavel">Superior responsável</label>
+                <label for="superiorResponsavel">Superior responsável</label>
                 <app-select-padrao
                   label="Selecionar responsável"
-                  [customStyles]="{'background': '#FFFFFF'}">
+                  formControlName="identificadorSuperiorResponsavel">
                 </app-select-padrao>
             </div>
 
@@ -438,12 +548,12 @@
                 <label>Status</label>
                 <div class="radio-group">
                     <div class="radio-item">
-                        <input type="radio" id="statusAtivo" name="status" value="ativo" [(ngModel)]="status" checked>
-                        <label for="statusAtivo">Ativo</label>
+                        <input type="radio" id="ativo" name="status" value="Ativo" formControlName="status" checked>
+                        <label for="ativo">Ativo</label>
                     </div>
                     <div class="radio-item">
-                        <input type="radio" id="statusInativo" name="status" value="inativo" [(ngModel)]="status">
-                        <label for="statusInativo">Inativo</label>
+                        <input type="radio" id="inativo" name="status" value="Inativo" formControlName="status">
+                        <label for="inativo">Inativo</label>
                     </div>
                 </div>
             </div>
@@ -458,13 +568,13 @@
                     E-mail pessoal
                     <span *ngIf="isRequired('emailPessoal')" class="required-asterisk">*</span>
                 </label>
-                <input type="email" id="emailPessoal" name="emailPessoal" formControlName="emailPessoal" class="form-control" placeholder="Digite o e-mail" required>
+                <input type="email" id="emailPessoal" name="emailPessoal" formControlName="emailPessoal" class="form-control" placeholder="Digite um e-mail" required>
                 <div *ngIf="colaboradorForm.get('emailPessoal')?.invalid && (colaboradorForm.get('emailPessoal')?.touched || colaboradorForm.get('emailPessoal')?.dirty)" class="error-obrigatorio">
                     O campo E-mail pessoal é obrigatório.
                 </div>
             </div>
 
-            <div class="input-duo">
+            <div class="input-duo" *ngIf="!isEditMode">
                 <div class="form-group">
                     <label for="password">
                         Senha
@@ -481,7 +591,7 @@
                         Confirmar senha
                         <span *ngIf="isRequired('confirmPassword')" class="required-asterisk">*</span>
                     </label>
-                    <input type="confirmPassword" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirme a sua senha" required>
+                    <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirme a sua senha" required>
                     <div *ngIf="colaboradorForm.get('confirmPassword')?.invalid && (colaboradorForm.get('confirmPassword')?.touched || colaboradorForm.get('confirmPassword')?.dirty)" class="error-obrigatorio">
                         O campo Confirmar senha é obrigatório.
                     </div>
@@ -490,9 +600,18 @@
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar colaborador
+                    {{ isEditMode ? 'Atualizar colaborador' : 'Cadastrar colaborador' }}
                 </button>
             </div>
         </form>
+
+        <div class="alerts">
+            <div class="alerts-container alert-success" *ngIf="successMessage">
+              {{ successMessage }}
+            </div>
+            <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
+        </div>
     </div>
 </div>

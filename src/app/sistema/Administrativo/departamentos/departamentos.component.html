@@ -34,9 +34,19 @@
                         </div>
                     </td>
                     <td>
-                        <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ departamento.responsaveis }}</span>
+                        <div class="perfil" *ngIf="departamento.responsaveis && departamento.responsaveis.length > 0">
+                            <div *ngFor="let responsavel of departamento.responsaveis" class="responsavel">
+                                <div class="avatar" [ngStyle]="{'background-color': getRandomColor(responsavel.username)}">
+                                    <img [src]="responsavel.foto?.documentoUrl" alt="Foto do Responsável" class="foto-responsavel" *ngIf="responsavel.foto?.documentoUrl; else defaultAvatar" />
+                                    <ng-template #defaultAvatar>
+                                        <span>{{ getInitial(responsavel.username) }}</span>
+                                    </ng-template>
+                                </div>
+                              <span>{{ responsavel.username }}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="!departamento.responsaveis || departamento.responsaveis.length === 0">
+                            <span>Sem responsáveis</span>
                         </div>
                     </td>
                     <td>{{ departamento.quantidadeFuncionarios }}</td>

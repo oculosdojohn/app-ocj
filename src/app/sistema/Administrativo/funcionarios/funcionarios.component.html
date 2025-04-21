@@ -33,33 +33,40 @@
                 <tr *ngFor="let colaborador of colaboradoresPaginados">
                     <td>
                         <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ colaborador.nome }}</span>
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                                <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(colaborador.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ colaborador.username }}</span>
                         </div>
                     </td>
                     <td>
                         <div class="perfil">
-                            <span>{{ colaborador.loja }}</span>
+                            <span>{{ colaborador.loja?.nome }}</span>
                         </div>
                     </td>
-                    <td>{{ colaborador.cargo }}</td>
+                    <td>{{ getDescricaoCargo(colaborador.cargo) }}</td>
                     <td>
                         <span [class.ativo]="colaborador.status === 'Ativo'"
                               [class.inativo]="colaborador.status === 'Inativo'">
                             {{ colaborador.status }}
                         </span>
                     </td>
-                    <td>{{ colaborador.departamento }}</td>
+                    <td>{{ colaborador.departamento?.nome }}</td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarUsuario(colaborador.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="deleteUsuario(colaborador.id)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

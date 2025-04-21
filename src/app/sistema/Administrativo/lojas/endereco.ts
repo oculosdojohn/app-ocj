@@ -7,4 +7,5 @@ export class Endereco {
   numero!: string;
   logradouro!: string;
   complemento!: string;
+  pais!: string;
 }

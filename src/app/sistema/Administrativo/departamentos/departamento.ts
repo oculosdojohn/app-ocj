@@ -2,8 +2,8 @@ export class Departamento {
     id!: string;
     nome!: string;
     descricao!: string;
-    responsaveis!: string[];
-    orcamento!: number;
+    responsaveis!: {id: string; username: string; foto: { id: string; documentoUrl: string; nome: string } | null}[] | null;
+    orcamentoMensal!: number;
     quantidadeFuncionarios!: string;
     telefone!: string;
     email!: string;
