@@ -6,6 +6,7 @@ import {
   Output,
   forwardRef,
 } from '@angular/core';
+import { DocumentosService } from 'src/app/services/funcionalidades/documentos.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -34,7 +35,7 @@ export class InputArquivosComponent {
   ) => void = () => {};
   onTouched: () => void = () => {};
 
-  constructor() {}
+  constructor(private documentosService: DocumentosService) {}
 
   ngOnInit(): void {
     console.log('InputArquivosComponent inicializado');
@@ -68,9 +69,34 @@ export class InputArquivosComponent {
   }
 
   removePdf(index: number): void {
+    const arquivoRemovido = this.arquivos[index];
+
+    // Remove o arquivo do array
     this.arquivos.splice(index, 1);
+
+    // Notifica o backend se o arquivo tiver uma URL e um ID
+    if (this.isArquivoComUrl(arquivoRemovido)) {
+      console.log('Removendo arquivo com URL:', arquivoRemovido);
+      this.documentosService
+        .deleteDocumentoById(arquivoRemovido.id.toString())
+        .subscribe({
+          next: () => {
+            console.log(
+              'Arquivo removido com sucesso no backend:',
+              arquivoRemovido
+            );
+          },
+          error: (error) => {
+            console.error('Erro ao remover o arquivo no backend:', error);
+          },
+        });
+    }
+
+    // Atualiza o estado do componente
     this.onChange([...this.arquivos]);
     this.arquivosSelecionados.emit([...this.arquivos]);
+
+    // Limpa a mensagem de erro se necessário
     if (this.arquivos.length < 3) {
       this.errorMessage = null;
     }
@@ -119,7 +145,7 @@ export class InputArquivosComponent {
 
   isArquivoComUrl(
     arquivo: File | { id: number; name: string; documentoUrl: string }
-  ): boolean {
+  ): arquivo is { id: number; name: string; documentoUrl: string } {
     return !(arquivo instanceof File);
   }
 

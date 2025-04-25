@@ -72,17 +72,7 @@ export class CadastroCursosComponent implements OnInit {
               id: arquivo.id,
             }));
             this.cadastroAula.get('arquivos')?.setValue(arquivosMapeados);
-
-            // Sincroniza o valor do FormControl com selectedArquivos
             this.selectedArquivos = arquivosMapeados;
-            console.log(
-              'Arquivos carregados no FormControl:',
-              arquivosMapeados
-            );
-            console.log(
-              'Arquivos sincronizados com selectedArquivos:',
-              this.selectedArquivos
-            );
           } else {
             console.log('Nenhum arquivo encontrado para a aula.');
           }
@@ -128,12 +118,10 @@ export class CadastroCursosComponent implements OnInit {
       formData.append('video', this.selectedVideos['video']);
     }
 
-    // Adiciona TODOS os arquivos (tanto os existentes quanto os novos)
     this.selectedArquivos.forEach((arquivo) => {
       if (arquivo instanceof File) {
         formData.append('arquivos', arquivo);
       } else {
-        // Para arquivos existentes, envie apenas a referência
         formData.append('arquivosExistentes', JSON.stringify(arquivo));
       }
     });
