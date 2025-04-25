@@ -1,9 +1,24 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Input,
+  Output,
+  forwardRef,
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input-arquivos',
   templateUrl: './input-arquivos.component.html',
   styleUrls: ['./input-arquivos.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputArquivosComponent),
+      multi: true,
+    },
+  ],
 })
 export class InputArquivosComponent {
   @Input() label: string = 'Clique ou arraste o arquivo para fazer upload';
@@ -12,10 +27,24 @@ export class InputArquivosComponent {
   successMessage: string | null = null;
   errorMessage: string | null = null;
   arquivos: File[] = [];
+  onChange: (value: File[]) => void = () => {};
+  onTouched: () => void = () => {};
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  writeValue(value: File[]): void {
+    this.arquivos = value || [];
+  }
+
+  registerOnChange(fn: (value: File[]) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
 
   onPdfSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -26,6 +55,7 @@ export class InputArquivosComponent {
 
   removePdf(index: number): void {
     this.arquivos.splice(index, 1);
+    this.onChange([...this.arquivos]);
     this.arquivosSelecionados.emit([...this.arquivos]);
     if (this.arquivos.length < 3) {
       this.errorMessage = null;
@@ -55,6 +85,7 @@ export class InputArquivosComponent {
       }
     }
 
+    this.onChange([...this.arquivos]);
     this.arquivosSelecionados.emit([...this.arquivos]);
     this.errorMessage = null;
   }
