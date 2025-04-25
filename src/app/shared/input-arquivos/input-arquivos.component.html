@@ -21,7 +21,12 @@
     <label>Arquivos para envio:</label>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let arquivo of arquivos; let i = index">
-        {{ arquivo.name }}
+        <ng-container *ngIf="arquivoHasDocumentoUrl(arquivo); else fileName">
+          <a [href]="arquivo.documentoUrl" target="_blank">{{ arquivo.name }}</a>
+        </ng-container>
+        <ng-template #fileName>
+          {{ arquivo.name }}
+        </ng-template>
         <button type="button" class="btn btn-danger btn-sm float-right" (click)="removePdf(i)">Remover</button>
       </li>
     </ul>

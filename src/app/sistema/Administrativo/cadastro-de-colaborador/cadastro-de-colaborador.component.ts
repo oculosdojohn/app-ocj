@@ -48,7 +48,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedImages: { [key: string]: File | null } = {};
   status: string = 'Ativo';
   selectedArquivos: (
-  | File | { documentoUrl: string; id: number; name: string })[] = [];
+    | File
+    | { documentoUrl: string; id: number; name: string }
+  )[] = [];
   lojas: { value: string; description: string }[] = [];
   selectedLoja: string = '';
   departamentos: { value: string; description: string }[] = [];
@@ -229,7 +231,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
     console.log(`Imagem de ${tipo} selecionada:`, image);
   }
 
-  onArquivosSelecionados(arquivos: File[]) {
+  onArquivosSelecionados(
+    arquivos: (File | { id: number; name: string; documentoUrl: string })[]
+  ): void {
     this.selectedArquivos = arquivos;
     this.colaboradorForm.get('documentos')?.setValue(arquivos);
     console.log('Arquivos selecionados:', arquivos);
@@ -384,6 +388,17 @@ export class CadastroDeColaboradorComponent implements OnInit {
               this.selectedFoto['foto'] = null;
               this.fotoPreview = colaborador.foto.documentoUrl;
               console.log('Foto do user carregada:', colaborador.foto);
+            }
+
+            // Atualiza o FormControl 'documentos' com os documentos recebidos
+            if (colaborador.documentos) {
+              this.colaboradorForm
+                .get('documentos')
+                ?.setValue(colaborador.documentos);
+              console.log(
+                'Documentos carregados no FormControl:',
+                colaborador.documentos
+              );
             }
 
             // Preenche os campos de seleção

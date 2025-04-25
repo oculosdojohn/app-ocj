@@ -44,6 +44,7 @@ export class CadastroCursosComponent implements OnInit {
       descricao: ['', Validators.required],
       modulo: ['', Validators.required],
       qtdMoedas: ['', Validators.required],
+      arquivos: [[]],
     });
   }
 
@@ -63,16 +64,28 @@ export class CadastroCursosComponent implements OnInit {
             console.log('Video da aula:', aula.video);
           }
 
-          // Carrega os arquivos
+          // Carrega os arquivos existentes no FormControl
           if (aula.arquivos && aula.arquivos.length > 0) {
-            this.selectedArquivos = aula.arquivos.map((arquivo) => ({
+            const arquivosMapeados = aula.arquivos.map((arquivo) => ({
               documentoUrl: arquivo.documentoUrl,
               name: arquivo.name,
               id: arquivo.id,
             }));
-          }
+            this.cadastroAula.get('arquivos')?.setValue(arquivosMapeados);
 
-          console.log('Arquivos carregados:', this.selectedArquivos);
+            // Sincroniza o valor do FormControl com selectedArquivos
+            this.selectedArquivos = arquivosMapeados;
+            console.log(
+              'Arquivos carregados no FormControl:',
+              arquivosMapeados
+            );
+            console.log(
+              'Arquivos sincronizados com selectedArquivos:',
+              this.selectedArquivos
+            );
+          } else {
+            console.log('Nenhum arquivo encontrado para a aula.');
+          }
         },
         (error) => {
           console.error('Erro ao carregar os dados da aula:', error);
@@ -90,9 +103,11 @@ export class CadastroCursosComponent implements OnInit {
     console.log(`video de ${tipo} selecionada:`, video);
   }
 
-  onArquivosSelecionados(arquivos: File[]) {
-    this.selectedArquivos = [...this.selectedArquivos, ...arquivos];
-    console.log('Arquivos selecionados:', this.selectedArquivos);
+  onArquivosSelecionados(
+    arquivos: (File | { id: number; name: string; documentoUrl: string })[]
+  ): void {
+    this.selectedArquivos = arquivos;
+    console.log('Arquivos selecionados:', arquivos);
   }
 
   onSubmit() {

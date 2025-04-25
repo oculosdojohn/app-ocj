@@ -22,23 +22,37 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputArquivosComponent {
   @Input() label: string = 'Clique ou arraste o arquivo para fazer upload';
-  @Output() arquivosSelecionados = new EventEmitter<File[]>();
+  @Output() arquivosSelecionados = new EventEmitter<
+    (File | { id: number; name: string; documentoUrl: string })[]
+  >();
 
   successMessage: string | null = null;
   errorMessage: string | null = null;
-  arquivos: File[] = [];
-  onChange: (value: File[]) => void = () => {};
+  arquivos: (File | { id: number; name: string; documentoUrl: string })[] = [];
+  onChange: (
+    value: (File | { id: number; name: string; documentoUrl: string })[]
+  ) => void = () => {};
   onTouched: () => void = () => {};
 
   constructor() {}
 
-  ngOnInit(): void {}
-
-  writeValue(value: File[]): void {
-    this.arquivos = value || [];
+  ngOnInit(): void {
+    console.log('InputArquivosComponent inicializado');
   }
 
-  registerOnChange(fn: (value: File[]) => void): void {
+  writeValue(
+    value: (File | { id: number; name: string; documentoUrl: string })[]
+  ): void {
+    console.log('Arquivos recebidos no writeValue:', value);
+    this.arquivos = value || [];
+    console.log('Arquivos armazenados no componente:', this.arquivos);
+  }
+
+  registerOnChange(
+    fn: (
+      value: (File | { id: number; name: string; documentoUrl: string })[]
+    ) => void
+  ): void {
     this.onChange = fn;
   }
 
@@ -80,7 +94,7 @@ export class InputArquivosComponent {
     }
 
     for (let arquivo of novosArquivos) {
-      if (!this.arquivos.some((a) => a.name === arquivo.name)) {
+      if (!this.arquivos.some((a) => this.isSameArquivo(a, arquivo))) {
         this.arquivos.push(arquivo);
       }
     }
@@ -88,5 +102,30 @@ export class InputArquivosComponent {
     this.onChange([...this.arquivos]);
     this.arquivosSelecionados.emit([...this.arquivos]);
     this.errorMessage = null;
+  }
+
+  isSameArquivo(
+    a: File | { id: number; name: string; documentoUrl: string },
+    b: File | { id: number; name: string; documentoUrl: string }
+  ): boolean {
+    if (a instanceof File && b instanceof File) {
+      return a.name === b.name && a.size === b.size;
+    }
+    if ('documentoUrl' in a && 'documentoUrl' in b) {
+      return a.documentoUrl === b.documentoUrl;
+    }
+    return false;
+  }
+
+  isArquivoComUrl(
+    arquivo: File | { id: number; name: string; documentoUrl: string }
+  ): boolean {
+    return !(arquivo instanceof File);
+  }
+
+  arquivoHasDocumentoUrl(
+    arquivo: File | { id: number; name: string; documentoUrl: string }
+  ): arquivo is { id: number; name: string; documentoUrl: string } {
+    return (arquivo as { documentoUrl: string }).documentoUrl !== undefined;
   }
 }
