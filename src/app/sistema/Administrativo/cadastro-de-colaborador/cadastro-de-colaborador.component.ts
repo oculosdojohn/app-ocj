@@ -244,7 +244,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       (lojas) => {
         this.lojas = lojas.map((loja) => ({
           value: loja.id,
-          description: loja.nome,
+          description: `${loja.nome} - ${loja.endereco.cidade}`,
         }));
       },
       (error) => {
