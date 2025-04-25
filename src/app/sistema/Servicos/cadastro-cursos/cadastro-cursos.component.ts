@@ -51,36 +51,10 @@ export class CadastroCursosComponent implements OnInit {
   ngOnInit(): void {
     this.cadastroAula.get('modulo')?.setValue(this.selectedModulo);
     this.aulaId = this.route.snapshot.paramMap.get('id');
+
     if (this.aulaId) {
       this.isEditMode = true;
-      this.cursosService.obterAulaPorId(this.aulaId).subscribe(
-        (aula: Aula) => {
-          console.log('Dados da aula recebidos:', aula);
-          this.cadastroAula.patchValue(aula);
-          this.selectedModulo = aula.modulo || '';
-          if (aula.video.documentoUrl) {
-            this.selectedVideos['video'] = null;
-            this.videoPreview = aula.video.documentoUrl;
-            console.log('Video da aula:', aula.video);
-          }
-
-          // Carrega os arquivos existentes no FormControl
-          if (aula.arquivos && aula.arquivos.length > 0) {
-            const arquivosMapeados = aula.arquivos.map((arquivo) => ({
-              documentoUrl: arquivo.documentoUrl,
-              name: arquivo.name,
-              id: arquivo.id,
-            }));
-            this.cadastroAula.get('arquivos')?.setValue(arquivosMapeados);
-            this.selectedArquivos = arquivosMapeados;
-          } else {
-            console.log('Nenhum arquivo encontrado para a aula.');
-          }
-        },
-        (error) => {
-          console.error('Erro ao carregar os dados da aula:', error);
-        }
-      );
+      this.carregarDadosDaAula();
     }
   }
 
@@ -126,9 +100,6 @@ export class CadastroCursosComponent implements OnInit {
       }
     });
 
-    // Debug: Verificar o que está sendo enviado no formData
-    formData.forEach((value, key) => console.log(`FormData: ${key} ->`, value));
-
     if (this.isEditMode && this.aulaId) {
       this.cursosService.atualizarAula(this.aulaId, formData).subscribe(
         (response) => {
@@ -163,5 +134,36 @@ export class CadastroCursosComponent implements OnInit {
         }
       );
     }
+  }
+
+  private carregarDadosDaAula(): void {
+    this.cursosService.obterAulaPorId(this.aulaId!).subscribe(
+      (aula: Aula) => {
+        console.log('Dados da aula recebidos:', aula);
+        this.cadastroAula.patchValue(aula);
+        this.selectedModulo = aula.modulo || '';
+
+        if (aula.video.documentoUrl) {
+          this.selectedVideos['video'] = null;
+          this.videoPreview = aula.video.documentoUrl;
+          console.log('Video da aula:', aula.video);
+        }
+
+        if (aula.arquivos && aula.arquivos.length > 0) {
+          const arquivosMapeados = aula.arquivos.map((arquivo) => ({
+            documentoUrl: arquivo.documentoUrl,
+            name: arquivo.name,
+            id: arquivo.id,
+          }));
+          this.cadastroAula.get('arquivos')?.setValue(arquivosMapeados);
+          this.selectedArquivos = arquivosMapeados;
+        } else {
+          console.log('Nenhum arquivo encontrado para a aula.');
+        }
+      },
+      (error) => {
+        console.error('Erro ao carregar os dados da aula:', error);
+      }
+    );
   }
 }
