@@ -9,8 +9,7 @@ export class InputImgComponent {
   @Input() label: string = 'Clique ou arraste a foto para fazer upload';
   @Input() inputId: string = 'image';
   @Output() imageSelected = new EventEmitter<File | null>();
-
-  fotoPreview: string | ArrayBuffer | null = null;
+  @Input() fotoPreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
 
   constructor() {}
@@ -45,7 +44,6 @@ export class InputImgComponent {
 
     reader.readAsDataURL(file);
 
-    // Atualiza o campo de input file com o novo arquivo
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(file);
     inputElement.files = dataTransfer.files;
@@ -56,6 +54,6 @@ export class InputImgComponent {
   }
 
   isPreviewImage(preview: string | ArrayBuffer): boolean {
-    return typeof preview === 'string' && preview.startsWith('data:image/');
+    return typeof preview === 'string' && (preview.startsWith('data:image/') || preview.startsWith('http'));
   }
 }

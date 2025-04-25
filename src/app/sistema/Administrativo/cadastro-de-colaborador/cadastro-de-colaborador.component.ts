@@ -47,13 +47,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
   isEditMode = false;
   selectedImages: { [key: string]: File | null } = {};
   status: string = 'Ativo';
-  selectedArquivos: (File | {documentoUrl: string; id: number; name: string; })[] = [];
+  selectedArquivos: (
+  | File | { documentoUrl: string; id: number; name: string })[] = [];
   lojas: { value: string; description: string }[] = [];
   selectedLoja: string = '';
   departamentos: { value: string; description: string }[] = [];
   selectedDepartamento: string = '';
   foto: File | null = null;
   colaboradorId: string | null = null;
+  selectedFoto: { [key: string]: File | null } = {};
+  fotoPreview: string | ArrayBuffer | null = null;
 
   estadosCivis = Object.keys(EstadoCivil).map((key) => ({
     value: EstadoCivil[key as keyof typeof EstadoCivil],
@@ -376,6 +379,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
               endereco: colaborador.endereco || {},
               status: colaborador.status || 'Ativo',
             });
+
+            if (colaborador.foto && colaborador.foto.documentoUrl) {
+              this.selectedFoto['foto'] = null;
+              this.fotoPreview = colaborador.foto.documentoUrl;
+              console.log('Foto do user carregada:', colaborador.foto);
+            }
 
             // Preenche os campos de seleção
             this.selectedCargo = colaborador.cargo;
