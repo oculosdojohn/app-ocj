@@ -13,16 +13,14 @@
     </div>
   </div>
 
-  <!-- Exibir mensagens de erro -->
   <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
 
-  <!-- Exibir PDFs enviados -->
   <div class="form-group" *ngIf="arquivos.length > 0">
     <label>Arquivos para envio:</label>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let arquivo of arquivos; let i = index">
         <ng-container *ngIf="arquivoHasDocumentoUrl(arquivo); else fileName">
-          <a [href]="arquivo.documentoUrl" target="_blank">{{ arquivo.name }}</a>
+          <span>{{ arquivo.name }}</span>
         </ng-container>
         <ng-template #fileName>
           {{ arquivo.name }}

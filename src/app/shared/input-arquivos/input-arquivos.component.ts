@@ -70,11 +70,8 @@ export class InputArquivosComponent {
 
   removePdf(index: number): void {
     const arquivoRemovido = this.arquivos[index];
-
-    // Remove o arquivo do array
     this.arquivos.splice(index, 1);
 
-    // Notifica o backend se o arquivo tiver uma URL e um ID
     if (this.isArquivoComUrl(arquivoRemovido)) {
       console.log('Removendo arquivo com URL:', arquivoRemovido);
       this.documentosService
@@ -91,12 +88,9 @@ export class InputArquivosComponent {
           },
         });
     }
-
-    // Atualiza o estado do componente
     this.onChange([...this.arquivos]);
     this.arquivosSelecionados.emit([...this.arquivos]);
 
-    // Limpa a mensagem de erro se necessário
     if (this.arquivos.length < 3) {
       this.errorMessage = null;
     }
