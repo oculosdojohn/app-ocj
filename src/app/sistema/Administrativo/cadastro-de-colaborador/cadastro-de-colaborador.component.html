@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label for="foto">Foto</label>
-                <app-input-img label="Clique ou arraste a foto para fazer upload" inputId="foto" (imageSelected)="onImageSelected($event, 'foto')"></app-input-img>
+                <app-input-img label="Clique ou arraste a foto para fazer upload" inputId="foto" (imageSelected)="onImageSelected($event, 'foto')" [fotoPreview]="fotoPreview"></app-input-img>
             </div>
 
             <div class="form-group">
@@ -154,7 +154,7 @@
                     CPF
                     <span *ngIf="isRequired('cpf')" class="required-asterisk">*</span>
                 </label>
-                <input type="text" id="cpf" name="cpf" formControlName="cpf" class="form-control" placeholder="Digite o CPF" mask="000.000.000-00" [dropSpecialCharacters]="false" required>
+                <input type="text" id="cpf" name="cpf" formControlName="cpf" class="form-control" placeholder="000.000.000-00" mask="000.000.000-00" [dropSpecialCharacters]="false" required>
                 <div *ngIf="colaboradorForm.get('cpf')?.invalid && (colaboradorForm.get('cpf')?.touched || colaboradorForm.get('cpf')?.dirty)" class="error-obrigatorio">
                     O campo CPF é obrigatório.
                 </div>
@@ -166,7 +166,7 @@
                         RG
                         <span *ngIf="isRequired('rg')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="rg" name="rg" formControlName="rg" class="form-control" placeholder="Digite o número do RG" mask="0000000000-0" [dropSpecialCharacters]="false" required>
+                    <input type="text" id="rg" name="rg" formControlName="rg" class="form-control" placeholder="0000000000-0" mask="0000000000-0" [dropSpecialCharacters]="false" required>
                     <div *ngIf="colaboradorForm.get('rg')?.invalid && (colaboradorForm.get('rg')?.touched || colaboradorForm.get('rg')?.dirty)" class="error-obrigatorio">
                         O campo RG é obrigatório.
                     </div>
@@ -244,7 +244,7 @@
 
                 <div class="form-group">
                     <label for="ctpsNum">CTPS NUM</label>
-                    <input type="text" id="ctpsNum" name="ctpsNum" formControlName="ctpsNum" class="form-control" placeholder="Digite o CTPS NUM" required>
+                    <input type="text" id="ctpsNum" name="ctpsNum" formControlName="ctpsNum" class="form-control" placeholder="Digite o CTPS NUM">
                 </div>
 
                 <div class="form-group">
@@ -257,41 +257,30 @@
                 <div class="form-group">
                     <label for="banco">
                         Banco
-                        <span *ngIf="isRequired('banco')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="banco" name="banco" formControlName="banco" class="form-control" placeholder="Digite o nome do banco" required>
-                    <div *ngIf="colaboradorForm.get('banco')?.invalid && (colaboradorForm.get('banco')?.touched || colaboradorForm.get('banco')?.dirty)" class="error-obrigatorio">
-                        O campo Banco é obrigatório.
-                    </div>
+                    <input type="text" id="banco" name="banco" formControlName="banco" class="form-control" placeholder="Digite o nome do banco">
                 </div>
 
                 <div class="form-group">
                     <label for="agencia">
                         Agência
-                        <span *ngIf="isRequired('agencia')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="agencia" name="agencia" formControlName="agencia" class="form-control" placeholder="Digite o número da agência" required>
-                    <div *ngIf="colaboradorForm.get('agencia')?.invalid && (colaboradorForm.get('agencia')?.touched || colaboradorForm.get('agencia')?.dirty)" class="error-obrigatorio">
-                        O campo Agência é obrigatório.
-                    </div>
+                    <input type="text" id="agencia" name="agencia" formControlName="agencia" class="form-control" placeholder="Digite o número da agência">
                 </div>
 
                 <div class="form-group">
                     <label for="contaCorrente">
                         Conta corrente
-                        <span *ngIf="isRequired('contaCorrente')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="contaCorrente" name="contaCorrente" formControlName="contaCorrente" class="form-control" placeholder="Digite o número da conta" required>
-                    <div *ngIf="colaboradorForm.get('contaCorrente')?.invalid && (colaboradorForm.get('contaCorrente')?.touched || colaboradorForm.get('contaCorrente')?.dirty)" class="error-obrigatorio">
-                        O campo Conta corrente é obrigatório.
-                    </div>
+                    <input type="text" id="contaCorrente" name="contaCorrente" formControlName="contaCorrente" class="form-control" placeholder="Digite o número da conta">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="arquivos">Arquivos</label>
                 <app-input-arquivos 
-                    (arquivosSelecionados)="onArquivosSelecionados($event)">
+                    (arquivosSelecionados)="onArquivosSelecionados($event)"
+                    formControlName="documentos">
                 </app-input-arquivos>
             </div>
 
@@ -303,12 +292,12 @@
             <div class="input-duo">
                 <div class="form-group">
                     <label for="telefoneUm">Telefone 1</label>
-                    <input type="text" id="telefoneUm" name="telefoneUm" formControlName="telefoneUm" class="form-control" placeholder="Digite um telefone" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
+                    <input type="text" id="telefoneUm" name="telefoneUm" formControlName="telefoneUm" class="form-control" placeholder="(00) 00000-0000" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
                 </div>
 
                 <div class="form-group">
                     <label for="telefoneDois">Telefone 2</label>
-                    <input type="text" id="telefoneDois" name="telefoneDois" formControlName="telefoneDois" class="form-control" placeholder="Digite um telefone" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
+                    <input type="text" id="telefoneDois" name="telefoneDois" formControlName="telefoneDois" class="form-control" placeholder="(00) 00000-0000" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
                 </div>
             </div>
 
@@ -344,7 +333,7 @@
 
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="estado">Estado<span *ngIf="isRequired('endereco.estado')" class="required-asterisk">*</span></label>
+                        <label for="estado">Estado</label>
                         <app-select-padrao
                           label="Selecione o estado"
                           formControlName="estado"
@@ -354,7 +343,7 @@
                         </app-select-padrao>
                     </div>
                     <div class="form-group">
-                        <label for="cidade">Cidade<span *ngIf="isRequired('endereco.cidade')" class="required-asterisk">*</span></label>
+                        <label for="cidade">Cidade</label>
                         <app-select-padrao
                           label="Selecione a cidade"
                           [options]="cidades"
@@ -368,35 +357,23 @@
 
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="cep">CEP<span *ngIf="isRequired('endereco.cep')" class="required-asterisk">*</span></label>
+                        <label for="cep">CEP</label>
                         <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" mask="00000-000" [dropSpecialCharacters]="false">
-                        <div *ngIf="colaboradorForm.get('endereco.cep')?.invalid && (colaboradorForm.get('endereco.cep')?.touched || colaboradorForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
-                            O campo CEP é obrigatório.
-                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="bairro">Bairro<span *ngIf="isRequired('endereco.bairro')" class="required-asterisk">*</span></label>
+                        <label for="bairro">Bairro</label>
                         <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro">
-                        <div *ngIf="colaboradorForm.get('endereco.bairro')?.invalid && (colaboradorForm.get('endereco.bairro')?.touched || colaboradorForm.get('endereco.bairro')?.dirty)" class="error-obrigatorio">
-                            O campo Bairro é obrigatório.
-                        </div>
                     </div>
                 </div>
     
                 <div class="input-duo">
                     <div class="form-group">
-                        <label for="rua">Rua<span *ngIf="isRequired('endereco.rua')" class="required-asterisk">*</span></label>
+                        <label for="rua">Rua</label>
                         <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua">
-                        <div *ngIf="colaboradorForm.get('endereco.rua')?.invalid && (colaboradorForm.get('endereco.rua')?.touched || colaboradorForm.get('endereco.rua')?.dirty)" class="error-obrigatorio">
-                            O campo Rua é obrigatório.
-                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="numero">Número<span *ngIf="isRequired('endereco.numero')" class="required-asterisk">*</span></label>
+                        <label for="numero">Número</label>
                         <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número">
-                        <div *ngIf="colaboradorForm.get('endereco.numero')?.invalid && (colaboradorForm.get('endereco.numero')?.touched || colaboradorForm.get('endereco.numero')?.dirty)" class="error-obrigatorio">
-                            O campo Número é obrigatório.
-                        </div>
                     </div>
                 </div>
     

@@ -33,7 +33,7 @@
                 <textarea type="text" id="descricao" name="descricao" formControlName="descricao" class="form-control" placeholder="Digite a descrição do departamento" rows="3"></textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" *ngIf="isEditMode">
                 <label for="responsavel">Responsáveis</label>
                 <app-multiplo-select
                   label="Selecionar responsável"
@@ -46,12 +46,8 @@
             <div class="form-group">
                 <label for="orcamentoMensal">
                     Orçamento mensal
-                    <span *ngIf="isRequired('orcamentoMensal')" class="required-asterisk">*</span>
                 </label>
-                <input type="text" id="orcamentoMensal" name="orcamentoMensal" formControlName="orcamentoMensal" class="form-control" placeholder="Digite o orçamento" required>
-                <div *ngIf="departamentoForm.get('orcamentoMensal')?.invalid && (departamentoForm.get('orcamentoMensal')?.touched || departamentoForm.get('orcamentoMensal')?.dirty)" class="error-obrigatorio">
-                    O campo Orçamento mensal é obrigatório.
-                </div>
+                <input type="text" id="orcamentoMensal" name="orcamentoMensal" formControlName="orcamentoMensal" class="form-control" placeholder="Digite o orçamento">
             </div>
 
             <div class="form-group">
@@ -65,22 +61,14 @@
                 <div class="form-group">
                     <label for="email">
                         E-mail
-                        <span *ngIf="isRequired('email')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="email" name="email" formControlName="email" class="form-control" placeholder="Digite o e-mail" required>
-                    <div *ngIf="departamentoForm.get('email')?.invalid && (departamentoForm.get('email')?.touched || departamentoForm.get('email')?.dirty)" class="error-obrigatorio">
-                        O campo E-mail é obrigatório.
-                    </div>
+                    <input type="text" id="email" name="email" formControlName="email" class="form-control" placeholder="Digite o e-mail">
                 </div>
                 <div class="form-group">
                     <label for="telefone">
                         Telefone
-                        <span *ngIf="isRequired('telefone')" class="required-asterisk">*</span>
                     </label>
-                    <input type="text" id="telefone" name="telefone" formControlName="telefone" class="form-control" placeholder="Digite o telefone" required>
-                    <div *ngIf="departamentoForm.get('telefone')?.invalid && (departamentoForm.get('telefone')?.touched || departamentoForm.get('telefone')?.dirty)" class="error-obrigatorio">
-                        O campo Telefone é obrigatório.
-                    </div>
+                    <input type="text" id="telefone" name="telefone" formControlName="telefone" class="form-control" placeholder="Digite o telefone">
                 </div>
             </div>
 

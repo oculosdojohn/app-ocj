@@ -48,9 +48,9 @@ export class CadastroDeDepartamentoComponent implements OnInit {
       nome: ['', Validators.required],
       descricao: [''],
       responsaveis: [[]],
-      orcamentoMensal: ['', Validators.required],
-      telefone: ['', Validators.required],
-      email: ['', Validators.required],
+      orcamentoMensal: [''],
+      telefone: [''],
+      email: ['', Validators.email],
       localizacao: [''],
     });
   }

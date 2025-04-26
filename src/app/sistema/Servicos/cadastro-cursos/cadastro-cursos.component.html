@@ -48,9 +48,10 @@
             </div>
 
             <div class="form-group">
-                <label for="arquivosAula">Material da aula</label>
+                <label for="arquivos">Material da aula</label>
                 <app-input-arquivos 
-                    (arquivosSelecionados)="onArquivosSelecionados($event)">
+                    (arquivosSelecionados)="onArquivosSelecionados($event)"
+                    formControlName="arquivos">
                 </app-input-arquivos>
             </div>
 

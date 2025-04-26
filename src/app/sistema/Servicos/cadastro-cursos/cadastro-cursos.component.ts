@@ -44,40 +44,17 @@ export class CadastroCursosComponent implements OnInit {
       descricao: ['', Validators.required],
       modulo: ['', Validators.required],
       qtdMoedas: ['', Validators.required],
+      arquivos: [[]],
     });
   }
 
   ngOnInit(): void {
     this.cadastroAula.get('modulo')?.setValue(this.selectedModulo);
     this.aulaId = this.route.snapshot.paramMap.get('id');
+
     if (this.aulaId) {
       this.isEditMode = true;
-      this.cursosService.obterAulaPorId(this.aulaId).subscribe(
-        (aula: Aula) => {
-          console.log('Dados da aula recebidos:', aula);
-          this.cadastroAula.patchValue(aula);
-          this.selectedModulo = aula.modulo || '';
-          if (aula.video.documentoUrl) {
-            this.selectedVideos['video'] = null;
-            this.videoPreview = aula.video.documentoUrl;
-            console.log('Video da aula:', aula.video);
-          }
-
-          // Carrega os arquivos
-          if (aula.arquivos && aula.arquivos.length > 0) {
-            this.selectedArquivos = aula.arquivos.map((arquivo) => ({
-              documentoUrl: arquivo.documentoUrl,
-              name: arquivo.name,
-              id: arquivo.id,
-            }));
-          }
-
-          console.log('Arquivos carregados:', this.selectedArquivos);
-        },
-        (error) => {
-          console.error('Erro ao carregar os dados da aula:', error);
-        }
-      );
+      this.carregarDadosDaAula();
     }
   }
 
@@ -90,9 +67,11 @@ export class CadastroCursosComponent implements OnInit {
     console.log(`video de ${tipo} selecionada:`, video);
   }
 
-  onArquivosSelecionados(arquivos: File[]) {
-    this.selectedArquivos = [...this.selectedArquivos, ...arquivos];
-    console.log('Arquivos selecionados:', this.selectedArquivos);
+  onArquivosSelecionados(
+    arquivos: (File | { id: number; name: string; documentoUrl: string })[]
+  ): void {
+    this.selectedArquivos = arquivos;
+    console.log('Arquivos selecionados:', arquivos);
   }
 
   onSubmit() {
@@ -113,18 +92,13 @@ export class CadastroCursosComponent implements OnInit {
       formData.append('video', this.selectedVideos['video']);
     }
 
-    // Adiciona TODOS os arquivos (tanto os existentes quanto os novos)
     this.selectedArquivos.forEach((arquivo) => {
       if (arquivo instanceof File) {
         formData.append('arquivos', arquivo);
       } else {
-        // Para arquivos existentes, envie apenas a referência
         formData.append('arquivosExistentes', JSON.stringify(arquivo));
       }
     });
-
-    // Debug: Verificar o que está sendo enviado no formData
-    formData.forEach((value, key) => console.log(`FormData: ${key} ->`, value));
 
     if (this.isEditMode && this.aulaId) {
       this.cursosService.atualizarAula(this.aulaId, formData).subscribe(
@@ -160,5 +134,36 @@ export class CadastroCursosComponent implements OnInit {
         }
       );
     }
+  }
+
+  private carregarDadosDaAula(): void {
+    this.cursosService.obterAulaPorId(this.aulaId!).subscribe(
+      (aula: Aula) => {
+        console.log('Dados da aula recebidos:', aula);
+        this.cadastroAula.patchValue(aula);
+        this.selectedModulo = aula.modulo || '';
+
+        if (aula.video.documentoUrl) {
+          this.selectedVideos['video'] = null;
+          this.videoPreview = aula.video.documentoUrl;
+          console.log('Video da aula:', aula.video);
+        }
+
+        if (aula.arquivos && aula.arquivos.length > 0) {
+          const arquivosMapeados = aula.arquivos.map((arquivo) => ({
+            documentoUrl: arquivo.documentoUrl,
+            name: arquivo.name,
+            id: arquivo.id,
+          }));
+          this.cadastroAula.get('arquivos')?.setValue(arquivosMapeados);
+          this.selectedArquivos = arquivosMapeados;
+        } else {
+          console.log('Nenhum arquivo encontrado para a aula.');
+        }
+      },
+      (error) => {
+        console.error('Erro ao carregar os dados da aula:', error);
+      }
+    );
   }
 }

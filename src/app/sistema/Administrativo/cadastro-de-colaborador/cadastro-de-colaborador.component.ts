@@ -47,13 +47,18 @@ export class CadastroDeColaboradorComponent implements OnInit {
   isEditMode = false;
   selectedImages: { [key: string]: File | null } = {};
   status: string = 'Ativo';
-  selectedArquivos: File[] = [];
+  selectedArquivos: (
+    | File
+    | { documentoUrl: string; id: number; name: string }
+  )[] = [];
   lojas: { value: string; description: string }[] = [];
   selectedLoja: string = '';
   departamentos: { value: string; description: string }[] = [];
   selectedDepartamento: string = '';
   foto: File | null = null;
   colaboradorId: string | null = null;
+  selectedFoto: { [key: string]: File | null } = {};
+  fotoPreview: string | ArrayBuffer | null = null;
 
   estadosCivis = Object.keys(EstadoCivil).map((key) => ({
     value: EstadoCivil[key as keyof typeof EstadoCivil],
@@ -165,24 +170,24 @@ export class CadastroDeColaboradorComponent implements OnInit {
       pis: [''],
       ctpsNum: [''],
       ctpsSerie: [''],
-      banco: ['', Validators.required],
-      agencia: ['', Validators.required],
-      contaCorrente: ['', Validators.required],
-      documentos: this.formBuilder.array([]),
+      banco: [''],
+      agencia: [''],
+      contaCorrente: [''],
+      documentos: [[]],
       // contato
       telefoneUm: [''],
       telefoneDois: [''],
-      emailEmpresarial: ['', [Validators.required, Validators.email]],
+      emailEmpresarial: ['', [Validators.email]],
       instagram: [''],
       // endereco
       endereco: this.formBuilder.group({
         pais: [''],
-        estado: ['', Validators.required],
-        cidade: ['', Validators.required],
-        cep: ['', Validators.required],
-        bairro: ['', Validators.required],
-        rua: ['', Validators.required],
-        numero: ['', Validators.required],
+        estado: [''],
+        cidade: [''],
+        cep: [''],
+        bairro: [''],
+        rua: [''],
+        numero: [''],
         logradouro: [''],
         complemento: [''],
       }),
@@ -192,11 +197,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
       identificadorDepartamento: ['', Validators.required],
       cargo: ['', Validators.required],
       tipoDeContratacao: ['', Validators.required],
-      salario: ['', Validators.required],
+      salario: [''],
       periodoDeExperiencia: ['', Validators.required],
       dataDoContrato: ['', Validators.required],
       // duracaoDoContrato: [''],
-      dataTerminoDoContrato: ['', Validators.required],
+      dataTerminoDoContrato: [''],
       identificadorSuperiorResponsavel: [''],
       status: ['Ativo', Validators.required],
       // credenciais
@@ -226,8 +231,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
     console.log(`Imagem de ${tipo} selecionada:`, image);
   }
 
-  onArquivosSelecionados(arquivos: File[]) {
+  onArquivosSelecionados(
+    arquivos: (File | { id: number; name: string; documentoUrl: string })[]
+  ): void {
     this.selectedArquivos = arquivos;
+    this.colaboradorForm.get('documentos')?.setValue(arquivos);
     console.log('Arquivos selecionados:', arquivos);
   }
 
@@ -236,7 +244,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       (lojas) => {
         this.lojas = lojas.map((loja) => ({
           value: loja.id,
-          description: loja.nome,
+          description: `${loja.nome} - ${loja.endereco.cidade}`,
         }));
       },
       (error) => {
@@ -327,6 +335,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
       formData.append('foto', foto);
     }
 
+    // Adiciona os documentos ao FormData
+    const documentos = this.colaboradorForm.get('documentos')?.value || [];
+    documentos.forEach((documento: File, index: number) => {
+      formData.append(`documentos[${index}]`, documento);
+    });
+
     if (this.isEditMode && this.colaboradorId) {
     } else {
       this.colaboradorService.cadastrarColaborador(formData).subscribe(
@@ -369,6 +383,23 @@ export class CadastroDeColaboradorComponent implements OnInit {
               endereco: colaborador.endereco || {},
               status: colaborador.status || 'Ativo',
             });
+
+            if (colaborador.foto && colaborador.foto.documentoUrl) {
+              this.selectedFoto['foto'] = null;
+              this.fotoPreview = colaborador.foto.documentoUrl;
+              console.log('Foto do user carregada:', colaborador.foto);
+            }
+
+            // Atualiza o FormControl 'documentos' com os documentos recebidos
+            if (colaborador.documentos) {
+              this.colaboradorForm
+                .get('documentos')
+                ?.setValue(colaborador.documentos);
+              console.log(
+                'Documentos carregados no FormControl:',
+                colaborador.documentos
+              );
+            }
 
             // Preenche os campos de seleção
             this.selectedCargo = colaborador.cargo;
@@ -424,14 +455,18 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.onEstadoChange('');
   }
 
-  onDependenciaChange(controlName: string, dependentControlName: string, value: string | null): void {
+  onDependenciaChange(
+    controlName: string,
+    dependentControlName: string,
+    value: string | null
+  ): void {
     const dependentControl = this.colaboradorForm.get(dependentControlName);
-  
+
     if (value === 'Sim') {
       dependentControl?.enable();
     } else {
       dependentControl?.disable();
-      dependentControl?.setValue(null); 
+      dependentControl?.setValue(null);
     }
   }
 }

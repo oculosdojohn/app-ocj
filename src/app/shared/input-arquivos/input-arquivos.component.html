@@ -13,15 +13,18 @@
     </div>
   </div>
 
-  <!-- Exibir mensagens de erro -->
   <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
 
-  <!-- Exibir PDFs enviados -->
   <div class="form-group" *ngIf="arquivos.length > 0">
     <label>Arquivos para envio:</label>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let arquivo of arquivos; let i = index">
-        {{ arquivo.name }}
+        <ng-container *ngIf="arquivoHasDocumentoUrl(arquivo); else fileName">
+          <span>{{ arquivo.name }}</span>
+        </ng-container>
+        <ng-template #fileName>
+          {{ arquivo.name }}
+        </ng-template>
         <button type="button" class="btn btn-danger btn-sm float-right" (click)="removePdf(i)">Remover</button>
       </li>
     </ul>
