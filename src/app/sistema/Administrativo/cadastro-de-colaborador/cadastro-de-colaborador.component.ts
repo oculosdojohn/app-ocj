@@ -124,8 +124,10 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedFilhos: string = '';
   selectedDeficiencia: string = '';
 
+  paises: { value: string; description: string }[] = [];
   estados: { value: string; description: string }[] = [];
   cidades: { value: string; description: string }[] = [];
+  selectedPais: string = '';
   selectedEstado: string = '';
   selectedCidade: string = '';
 
@@ -216,6 +218,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.carregarDepartamentos();
     this.verificarModoEdicao();
     this.carregarEstadosECidades();
+    this.carregarPaises();
     this.colaboradorForm.get('endereco.cidade')?.disable();
     this.colaboradorForm.get('quantidadeFilhos')?.disable();
     this.colaboradorForm.get('deficiencia')?.disable();
@@ -453,6 +456,21 @@ export class CadastroDeColaboradorComponent implements OnInit {
     });
 
     this.onEstadoChange('');
+  }
+
+  carregarPaises(): void {
+    this.enderecoService.getPaises().subscribe(
+      (paises) => {
+        this.paises = paises.map((pais) => ({
+          value: pais.sigla,
+          description: pais.nome,
+        }));
+        console.log('Países carregados:', this.paises);
+      },
+      (error) => {
+        console.error('Erro ao carregar os países:', error);
+      }
+    );
   }
 
   onDependenciaChange(

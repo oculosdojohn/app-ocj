@@ -92,4 +92,20 @@ export class EnderecoService {
       })
     );
   }
+
+  getPaises(): Observable<{ nome: string; sigla: string }[]> {
+    const url = `${this._apiBaseUrl}/paises`;
+    return this.http.get<any[]>(url).pipe(
+      map((paises) =>
+        paises.map((pais) => ({
+          nome: pais.nome,
+          sigla: pais.id['ISO-ALPHA-3'],
+        }))
+      ),
+      catchError((error) => {
+        console.error('Erro ao buscar a lista de países:', error);
+        return of([]);
+      })
+    );
+  }
 }

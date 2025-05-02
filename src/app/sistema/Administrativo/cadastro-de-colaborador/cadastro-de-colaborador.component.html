@@ -327,7 +327,9 @@
                     <label for="pais">País</label>
                     <app-select-padrao
                       label="Selecione o país"
-                      formControlName="pais">
+                      formControlName="pais"
+                      [options]="paises"
+                      [(selectedValue)]="selectedPais">
                     </app-select-padrao>
                 </div>
 
