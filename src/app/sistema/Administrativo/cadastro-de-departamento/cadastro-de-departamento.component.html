@@ -68,7 +68,7 @@
                     <label for="telefone">
                         Telefone
                     </label>
-                    <input type="text" id="telefone" name="telefone" formControlName="telefone" class="form-control" placeholder="Digite o telefone">
+                    <input type="text" id="telefone" name="telefone" formControlName="telefone" class="form-control" placeholder="(00) 00000-0000" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
                 </div>
             </div>
 

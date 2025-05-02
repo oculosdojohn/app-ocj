@@ -56,7 +56,7 @@
                 <div class="input-duo">
                     <div class="form-group">
                         <label for="cep">CEP<span *ngIf="isRequired('endereco.cep')" class="required-asterisk">*</span></label>
-                        <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" mask="00000-000" [dropSpecialCharacters]="false" required>
+                        <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="00000-000" mask="00000-000" [dropSpecialCharacters]="false" required>
                         <div *ngIf="lojaForm.get('endereco.cep')?.invalid && (lojaForm.get('endereco.cep')?.touched || lojaForm.get('endereco.cep')?.dirty)" class="error-obrigatorio">
                             O campo CEP é obrigatório.
                         </div>
