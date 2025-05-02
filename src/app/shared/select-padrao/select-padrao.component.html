@@ -12,7 +12,8 @@
       <div class="option"
            *ngFor="let option of options"
            (click)="onSelect(option)"
-           [class.selected]="option.value === selectedValue">
+           [class.selected]="option.value === selectedValue"
+           [attr.data-value]="option.value">
           {{ option.description }}
       </div>
     </div>

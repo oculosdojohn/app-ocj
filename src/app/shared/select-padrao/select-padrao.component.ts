@@ -24,19 +24,26 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class SelectPadraoComponent {
   @Input() label: string = '';
-  @Input() options: { value: string, description: string }[] = [];
+  @Input() options: { value: string; description: string }[] = [];
   @Input() selectedValue: string = '';
   @Output() selectedValueChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() customStyles: { [key: string]: string } = {};
   @Input() disabled: boolean = false;
 
-
   isOpen: boolean = false;
   onChange = (value: string) => {};
   onTouched = () => {};
   value: string = '';
+  filteredOptions: { value: string; description: string }[] = [];
+  searchText: string = '';
+  searchTimeout: any;
+  highlightedValue: string = '';
 
   constructor(private elementRef: ElementRef) {}
+
+  ngOnInit(): void {
+    this.filteredOptions = [...this.options];
+  }
 
   writeValue(value: string): void {
     this.value = value;
@@ -54,7 +61,7 @@ export class SelectPadraoComponent {
     this.disabled = isDisabled;
   }
 
-  onSelect(option: { value: string, description: string }) {
+  onSelect(option: { value: string; description: string }) {
     console.log('Selecionado:', option);
     this.selectedValue = option.value;
     this.value = option.value;
@@ -65,7 +72,9 @@ export class SelectPadraoComponent {
   }
 
   getSelectedDescription(): string {
-    const selectedOption = this.options.find(option => option.value === this.selectedValue);
+    const selectedOption = this.options.find(
+      (option) => option.value === this.selectedValue
+    );
     return selectedOption ? selectedOption.description : '';
   }
 
@@ -73,6 +82,32 @@ export class SelectPadraoComponent {
   clickout(event: Event) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.isOpen = false;
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent): void {
+    if (this.isOpen) {
+      clearTimeout(this.searchTimeout);
+
+      this.searchText += event.key.toLowerCase();
+
+
+      const matchingOptionIndex = this.options.findIndex((option) =>
+        option.description.toLowerCase().startsWith(this.searchText)
+      );
+
+      if (matchingOptionIndex !== -1) {
+        this.highlightedValue = this.options[matchingOptionIndex].value;
+        const optionElement = document.querySelector(
+          `.option[data-value="${this.highlightedValue}"]`
+        );
+        optionElement?.scrollIntoView({ behavior: 'auto', block: 'center' });
+      }
+
+      this.searchTimeout = setTimeout(() => {
+        this.searchText = '';
+      }, 500);
     }
   }
 }
