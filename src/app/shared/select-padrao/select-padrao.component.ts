@@ -92,22 +92,33 @@ export class SelectPadraoComponent {
 
       this.searchText += event.key.toLowerCase();
 
-
       const matchingOptionIndex = this.options.findIndex((option) =>
         option.description.toLowerCase().startsWith(this.searchText)
       );
 
       if (matchingOptionIndex !== -1) {
         this.highlightedValue = this.options[matchingOptionIndex].value;
-        const optionElement = document.querySelector(
+
+        const dropdownContainer =
+          this.elementRef.nativeElement.querySelector('.options-container');
+
+        const optionElement = dropdownContainer.querySelector(
           `.option[data-value="${this.highlightedValue}"]`
         );
-        optionElement?.scrollIntoView({ behavior: 'auto', block: 'center' });
+
+        if (dropdownContainer && optionElement) {
+          const optionOffsetTop = optionElement.offsetTop;
+          const optionHeight = optionElement.offsetHeight;
+          const containerHeight = dropdownContainer.offsetHeight;
+
+          dropdownContainer.scrollTop =
+            optionOffsetTop - containerHeight / 2 + optionHeight / 2;
+        }
       }
 
       this.searchTimeout = setTimeout(() => {
         this.searchText = '';
-      }, 500);
+      }, 1000);
     }
   }
 }
