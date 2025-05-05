@@ -86,18 +86,15 @@ export class ColaboradorService {
     );
   }
 
-  getUsuariosPorCargo(cargo: string): Observable<Colaborador[]> {
-    const url = `${this.apiURL}/cargos/${cargo}`;
-    return this.http.get<Colaborador[]>(url).pipe(
-      map((response) => {
-        return response.filter(
-          (colaborador) =>
-            colaborador.cargo === 'GERENTE' || colaborador.cargo === 'GERENTE_GERAL'
-        );
-      }),
+  getUsuariosPorCargo(cargos: string[]): Observable<Colaborador[]> {
+    const url = `${this.apiURL}/cargos/in`;
+    const params = { cargo: cargos };
+
+    return this.http.get<Colaborador[]>(url, { params }).pipe(
+      map((response) => response),
       catchError((error) => {
-        let errorMessage = 'Erro ao buscar os usuários por cargo.';
-  
+        let errorMessage = 'Erro ao buscar os usuários por cargos.';
+
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {

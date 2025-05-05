@@ -54,17 +54,15 @@ export class GerentesComponent implements OnInit {
   }
 
   fetchGerentes(): void {
-    this.colaboradorService.getUsuariosPorCargo('GERENTE').subscribe(
-      (colaboradores: any[]) => {
-        console.log('usuários retornadas:', colaboradores);
+    this.colaboradorService.getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL']).subscribe(
+      (colaboradores: Colaborador[]) => {
+        console.log('Usuários retornados:', colaboradores);
         this.gerentes = colaboradores;
-        this.totalPaginas = Math.ceil(
-          this.gerentes.length / this.itensPorPagina
-        );
+        this.totalPaginas = Math.ceil(this.gerentes.length / this.itensPorPagina);
         this.atualizarPaginacao();
       },
       (error) => {
-        console.error('Erro ao carregar departamentos:', error);
+        console.error('Erro ao carregar gerentes:', error);
       }
     );
   }
