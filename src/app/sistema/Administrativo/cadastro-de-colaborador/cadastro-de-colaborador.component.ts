@@ -205,7 +205,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       salario: [''],
       periodoDeExperiencia: ['', Validators.required],
       dataDoContrato: ['', Validators.required],
-      // duracaoDoContrato: [''],
+      duracaoDoContrato: [''],
       dataTerminoDoContrato: [''],
       identificadorSuperiorResponsavel: [''],
       status: ['Ativo', Validators.required],
@@ -226,6 +226,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.colaboradorForm.get('endereco.cidade')?.disable();
     this.colaboradorForm.get('quantidadeFilhos')?.disable();
     this.colaboradorForm.get('deficiencia')?.disable();
+    this.registrarListenersDoFormulario();
   }
 
   goBack() {
@@ -512,5 +513,56 @@ export class CadastroDeColaboradorComponent implements OnInit {
       dependentControl?.disable();
       dependentControl?.setValue(null);
     }
+  }
+
+  obterDiasPorPeriodo(periodo: PeriodoExperiencia): number {
+    switch (periodo) {
+      case PeriodoExperiencia.TRINTA_DIAS:
+        return 30;
+      case PeriodoExperiencia.QUARENTA_CINCO_DIAS:
+        return 45;
+      case PeriodoExperiencia.MAIS_QUARENTA_CINCO:
+        return 90;
+      case PeriodoExperiencia.NOVENTA_DIAS:
+        return 90;
+      case PeriodoExperiencia.NAO_SE_APLICA:
+      default:
+        return 0;
+    }
+  }
+
+  calcularDataTermino(): void {
+    const dataInicio = this.colaboradorForm.get('dataDoContrato')?.value;
+    const periodo = this.colaboradorForm.get('periodoDeExperiencia')?.value;
+    const dias = this.obterDiasPorPeriodo(periodo);
+
+    if (dataInicio && dias > 0) {
+      const inicio = new Date(dataInicio);
+      const termino = new Date(inicio);
+      termino.setDate(inicio.getDate() + dias);
+      this.colaboradorForm
+        .get('dataTerminoDoContrato')
+        ?.setValue(termino.toISOString().split('T')[0]);
+    } else {
+      this.colaboradorForm.get('dataTerminoDoContrato')?.reset();
+    }
+  }
+
+  private registrarListenersDoFormulario(): void {
+    // Atualiza duração do contrato e término ao selecionar período de experiência
+    this.colaboradorForm
+      .get('periodoDeExperiencia')
+      ?.valueChanges.subscribe((value) => {
+        const dias = this.obterDiasPorPeriodo(value);
+        this.colaboradorForm
+          .get('duracaoDoContrato')
+          ?.setValue(dias > 0 ? dias : null);
+        this.calcularDataTermino();
+      });
+
+    // Atualiza data de término se mudar a data inicial
+    this.colaboradorForm.get('dataDoContrato')?.valueChanges.subscribe(() => {
+      this.calcularDataTermino();
+    });
   }
 }

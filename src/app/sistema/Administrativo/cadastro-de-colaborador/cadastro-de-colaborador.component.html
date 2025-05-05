@@ -490,28 +490,20 @@
                 <div class="form-group">
                     <label for="dataDoContrato">
                         Data do contrato
-                        <span *ngIf="isRequired('dataDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataDoContrato" name="dataDoContrato" formControlName="dataDoContrato" class="form-control" required>
-                    <div *ngIf="colaboradorForm.get('dataDoContrato')?.invalid && (colaboradorForm.get('dataDoContrato')?.touched || colaboradorForm.get('dataDoContrato')?.dirty)" class="error-obrigatorio">
-                        O campo Data do contrato é obrigatório.
-                    </div>
+                    <input type="date" id="dataDoContrato" name="dataDoContrato" formControlName="dataDoContrato" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="duracaoDoContrato">
                         Duração do contrato
                     </label>
-                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato">
+                    <input type="number" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Duração em dias" readonly>
                 </div>
                 <div class="form-group">
                     <label for="dataTerminoDoContrato">
                         Data do término do contrato
-                        <span *ngIf="isRequired('dataTerminoDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" formControlName="dataTerminoDoContrato" class="form-control" required>
-                    <div *ngIf="colaboradorForm.get('dataTerminoDoContrato')?.invalid && (colaboradorForm.get('dataTerminoDoContrato')?.touched || colaboradorForm.get('dataTerminoDoContrato')?.dirty)" class="error-obrigatorio">
-                        O campo Data do término do contrato é obrigatório.
-                    </div>
+                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" formControlName="dataTerminoDoContrato" class="form-control" readonly>
                 </div>
             </div>
 
