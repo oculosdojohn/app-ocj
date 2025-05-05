@@ -517,8 +517,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
 
   obterDiasPorPeriodo(periodo: PeriodoExperiencia): number {
     switch (periodo) {
-      case PeriodoExperiencia.TRINTA_DIAS:
-        return 30;
       case PeriodoExperiencia.QUARENTA_CINCO_DIAS:
         return 45;
       case PeriodoExperiencia.MAIS_QUARENTA_CINCO:
