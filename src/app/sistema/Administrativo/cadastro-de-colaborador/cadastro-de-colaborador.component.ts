@@ -260,11 +260,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
     );
   }
 
-  atualizarLojas(): void {
-    console.log('Atualizando lista de lojas...');
-    this.carregarLojas();
-  }
-
   carregarDepartamentos(): void {
     this.departamentoService.getDepartamentos().subscribe(
       (departamentos) => {
@@ -433,7 +428,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
             this.selectedTipoContratacao = colaborador.tipoDeContratacao;
             this.selectedFilhos = colaborador.possuiFilhos;
             this.selectedDeficiencia = colaborador.portadorDeficiencia;
-            this.tratarLojaEDepartamento(colaborador);
+            this.tratarRetornoDTO(colaborador);
             this.selectedCidade = colaborador.endereco.cidade;
             this.selectedEstado = colaborador.endereco.estado;
             this.selectedPais = colaborador.endereco.pais;
@@ -445,13 +440,13 @@ export class CadastroDeColaboradorComponent implements OnInit {
     }
   }
 
-  private tratarLojaEDepartamento(colaborador: Colaborador): void {
+  private tratarRetornoDTO(colaborador: Colaborador): void {
     if (colaborador.loja) {
       this.selectedLoja = colaborador.loja.id;
       this.lojas = [
         {
           value: colaborador.loja.id,
-          description: colaborador.loja.nome,
+          description: `${colaborador.loja.nome} - ${colaborador.loja.endereco?.cidade}`,
         },
       ];
     }
