@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="divisao">
-        <p>Superior responsável</p>
+        <p>Responsáveis</p>
         <hr class="line">
     </div>
 
@@ -67,18 +67,23 @@
         <hr class="line">
     </div>
 
-    <div class="data-grid-trio">
+    <div class="data-grid-trio" *ngFor="let colaborador of departamento.colaboradores">
         <div class="item-data">
             <div class="perfil">
-                <div class="avatar"></div>
-                <span>Everardo Costta</span>
+                <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                    <img [src]="colaborador.foto?.documentoUrl" alt="Foto do colaborador" class="foto-colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+                    <ng-template #defaultAvatar>
+                        <span>{{ getInitial(colaborador.username) }}</span>
+                    </ng-template>
+                </div>
+                <span>{{ colaborador.username }}</span>
             </div>
         </div>
         <div class="item-data">
-            <p>Consultora</p>
+            <p>{{ getDescricaoCargo(colaborador.cargo) }}</p>
         </div>
         <div class="item-data">
-            <p>Óculos do John Russas</p>
+            <p>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</p>
         </div>
     </div>
 </div>
