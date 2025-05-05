@@ -19,7 +19,7 @@ export class Departamento {
         id: string;
         username: string;
         cargo: string;
-        loja: { nome: string; endereco: { cidade: string } };
+        loja?: { nome: string; endereco?: { cidade: string } };
         foto: { id: string; documentoUrl: string; nome: string } | null;
       }[]
     | null;
