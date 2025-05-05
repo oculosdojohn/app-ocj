@@ -416,6 +416,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
             this.selectedFilhos = colaborador.possuiFilhos;
             this.selectedDeficiencia = colaborador.portadorDeficiencia;
             this.tratarLojaEDepartamento(colaborador);
+            this.selectedCidade = colaborador.endereco.cidade;
+            this.selectedEstado = colaborador.endereco.estado;
+            this.selectedPais = colaborador.endereco.pais;
           },
           (error) => {
             console.error('Erro ao carregar os dados do usuário', error);
