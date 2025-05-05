@@ -1,1 +1,22 @@
-<p>detalhes-colaborador works!</p>
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a (click)="goBack()">Colaboradores &gt; </a> <span class="breadcrumb-highlight">Ver detalhes do colaborador</span>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+            <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Responsável" class="foto-colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+            <ng-template #defaultAvatar>
+                <span>{{ getInitial(colaborador.username) }}</span>
+            </ng-template>
+        </div>
+        <div class="name-user">
+            <h1>{{ colaborador.username }}</h1>
+            <div class="loja">
+                <img src="assets/icones/location.svg" alt="marcador" />
+                <p>{{ colaborador.loja?.nome }}</p>
+            </div>
+        </div>
+    </div>
+</div>
