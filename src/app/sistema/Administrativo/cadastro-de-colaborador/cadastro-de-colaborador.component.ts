@@ -465,6 +465,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
         },
       ];
     }
+
+    if (colaborador.superiorResponsavel) {
+      this.selectedDepartamento = colaborador.superiorResponsavel.id;
+      this.responsaveis = [
+        {
+          value: colaborador.superiorResponsavel.id,
+          description: colaborador.superiorResponsavel.username,
+        },
+      ];
+    }
   }
 
   private carregarEstadosECidades(): void {

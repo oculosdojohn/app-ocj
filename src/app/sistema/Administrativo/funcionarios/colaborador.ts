@@ -53,7 +53,7 @@ export class Colaborador {
   dataDoContrato!: string;
   duracaoDoContrato!: number;
   dataTerminoDoContrato!: string;
-  superiorResponsavel!: string;
+  superiorResponsavel!: { id: string; username: string } | null;
   identificadorSuperiorResponsavel!: string;
   status!: string;
   emailPessoal!: string;
@@ -110,7 +110,6 @@ export class Colaborador {
       dataDoContrato: this.dataDoContrato,
       duracaoDoContrato: this.duracaoDoContrato,
       dataTerminoDoContrato: this.dataTerminoDoContrato,
-      superiorResponsavel: this.superiorResponsavel,
       identificadorSuperiorResponsavel: this.identificadorSuperiorResponsavel,
       status: this.status,
       emailPessoal: this.emailPessoal,
