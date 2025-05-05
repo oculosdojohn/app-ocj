@@ -51,14 +51,17 @@ export class CadastroDeColaboradorComponent implements OnInit {
     | File
     | { documentoUrl: string; id: number; name: string }
   )[] = [];
-  lojas: { value: string; description: string }[] = [];
-  selectedLoja: string = '';
-  departamentos: { value: string; description: string }[] = [];
-  selectedDepartamento: string = '';
   foto: File | null = null;
   colaboradorId: string | null = null;
   selectedFoto: { [key: string]: File | null } = {};
   fotoPreview: string | ArrayBuffer | null = null;
+
+  lojas: { value: string; description: string }[] = [];
+  selectedLoja: string = '';
+  departamentos: { value: string; description: string }[] = [];
+  selectedDepartamento: string = '';
+  responsaveis: { value: string; description: string }[] = [];
+  selectedResponsavel: string = '';
 
   estadosCivis = Object.keys(EstadoCivil).map((key) => ({
     value: EstadoCivil[key as keyof typeof EstadoCivil],
@@ -216,6 +219,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   ngOnInit(): void {
     this.carregarLojas();
     this.carregarDepartamentos();
+    this.carregarUsuarios();
     this.verificarModoEdicao();
     this.carregarEstadosECidades();
     this.carregarPaises();
@@ -271,6 +275,20 @@ export class CadastroDeColaboradorComponent implements OnInit {
       },
       (error) => {
         console.error('Erro ao carregar as departamentos:', error);
+      }
+    );
+  }
+
+  carregarUsuarios(): void {
+    this.colaboradorService.getColaboradores().subscribe(
+      (usuarios) => {
+        this.responsaveis = usuarios.map((usuario) => ({
+          value: usuario.id,
+          description: usuario.username,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as usuarios:', error);
       }
     );
   }

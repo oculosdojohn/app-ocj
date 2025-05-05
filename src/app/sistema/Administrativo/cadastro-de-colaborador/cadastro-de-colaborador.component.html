@@ -516,9 +516,11 @@
             </div>
 
             <div class="form-group">
-                <label for="superiorResponsavel">Superior responsável</label>
+                <label for="identificadorSuperiorResponsavel">Superior responsável</label>
                 <app-select-padrao
                   label="Selecionar responsável"
+                  [options]="responsaveis"
+                  [(selectedValue)]="selectedResponsavel"
                   formControlName="identificadorSuperiorResponsavel">
                 </app-select-padrao>
             </div>
