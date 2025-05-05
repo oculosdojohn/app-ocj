@@ -53,17 +53,44 @@ export class GerentesComponent implements OnInit {
     this.atualizarPaginacao();
   }
 
-  fetchGerentes(): void {
-    this.colaboradorService.getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL']).subscribe(
-      (colaboradores: Colaborador[]) => {
-        console.log('Usuários retornados:', colaboradores);
-        this.gerentes = colaboradores;
-        this.totalPaginas = Math.ceil(this.gerentes.length / this.itensPorPagina);
-        this.atualizarPaginacao();
-      },
-      (error) => {
-        console.error('Erro ao carregar gerentes:', error);
-      }
+  getDescricaoCargo(cargo: string): string {
+    return (
+      CargoDescricoes[cargo as keyof typeof CargoDescricoes] ||
+      'Cargo desconhecido'
     );
+  }
+
+  fetchGerentes(): void {
+    this.colaboradorService
+      .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL'])
+      .subscribe(
+        (colaboradores: Colaborador[]) => {
+          console.log('Usuários retornados:', colaboradores);
+          this.gerentes = colaboradores;
+          this.totalPaginas = Math.ceil(
+            this.gerentes.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+        },
+        (error) => {
+          console.error('Erro ao carregar gerentes:', error);
+        }
+      );
+  }
+
+  getInitial(name: string): string {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getRandomColor(seed: string): string {
+    const colors = [
+      '#FFB3BA', // Rosa pastel
+      '#FFDFBA', // Laranja pastel
+      '#BAFFC9', // Verde pastel
+      '#BAE1FF', // Azul pastel
+      '#D5BAFF', // Roxo pastel
+    ];
+    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    return colors[index];
   }
 }

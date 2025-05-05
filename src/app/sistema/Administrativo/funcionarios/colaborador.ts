@@ -41,7 +41,7 @@ export class Colaborador {
   emailEmpresarial!: string;
   instagram!: string;
   endereco!: Endereco;
-  loja!: { id: string; nome: string } | null;
+  loja!: { id: string; nome: string; endereco: { cidade: string } } | null;
   identificadorLoja!: string;
   dataAdmissao!: string;
   departamento!: { id: string; nome: string } | null;
