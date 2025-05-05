@@ -78,6 +78,28 @@ export class GerentesComponent implements OnInit {
       );
   }
 
+  visualizarUsuario(id: string): void {
+    this.router.navigate(['/usuario/detalhes-colaborador', id]);
+  }
+
+  editarUsuario(id: string): void {
+    this.router.navigate(['/usuario/cadastro-de-colaborador', id]);
+  }
+
+  deleteUsuario(id: string): void {
+    if (confirm('Tem certeza que deseja deletar este usuário?')) {
+      this.colaboradorService.deleteColaboradorById(id).subscribe(
+        () => {
+          console.log('Usuário deletada com sucesso!');
+          this.fetchGerentes();
+        },
+        (error) => {
+          console.error('Erro ao deletar a usuário:', error);
+        }
+      );
+    }
+  }
+
   getInitial(name: string): string {
     return name ? name.charAt(0).toUpperCase() : '?';
   }
