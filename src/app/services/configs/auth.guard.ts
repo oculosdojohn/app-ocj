@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -7,9 +13,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-
   constructor(private authService: AuthService, private router: Router) {}
-  
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -19,16 +24,19 @@ export class AuthGuard implements CanActivate {
     if (usuario) {
       const role = usuario.permissao;
 
-      if (
-        role === 'ROLE_ADMIN' ||
-        role === 'ROLE_RH' ||
-        role === 'ROLE_GERENTE_GERAL' ||
-        role === 'ROLE_GERENTE' ||
-        role === 'ROLE_SUPERVISOR' ||
-        role === 'ROLE_VENDEDOR' ||
-        role === 'ROLE_COLABORADOR'
+      // Lista de permissões
+      const permissoesPermitidas = [
+        'ROLE_ADMIN',
+        'ROLE_RH',
+        'ROLE_GERENTE_GERAL',
+        'ROLE_GERENTE',
+        'ROLE_SUPERVISOR',
+        'ROLE_VENDEDOR',
+        'ROLE_COLABORADOR',
+      ];
 
-      ) {
+      // Verifica se o papel do usuário está na lista de permissões
+      if (permissoesPermitidas.includes(role)) {
         return true;
       }
     }
