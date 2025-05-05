@@ -1,1 +1,16 @@
-<p>sector-navigation works!</p>
+<div class="nav-container">
+    <div class="sector-tabs">
+      <button *ngFor="let sector of sectors; let i = index"
+              (click)="selectSector(i)"
+              [class.active]="i === activeIndex">
+        {{ sector.name }}
+      </button>
+    </div>
+  
+    <div class="sector-content">
+      <ng-container *ngIf="activeComponent"
+                    [ngComponentOutlet]="activeComponent">
+      </ng-container>
+    </div>
+</div>
+  

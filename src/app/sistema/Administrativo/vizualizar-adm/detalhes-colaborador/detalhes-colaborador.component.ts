@@ -13,6 +13,18 @@ import { CargoDescricoes } from '../../../../sistema/Administrativo/funcionarios
 })
 export class DetalhesColaboradorComponent implements OnInit {
   colaborador!: Colaborador;
+  selectedSectorId = 'geral';
+
+  setores = [
+    { name: 'Dados do colaborador', id: 'geral' },
+    { name: 'Medicina', id: 'medicina' },
+    { name: 'Registros', id: 'registro' },
+    { name: 'Progresso no curso', id: 'curso' },
+    { name: 'Observações', id: 'observacao' },
+  ];
+
+  selectedDepartamento: any;
+  selectedCargo: any;
 
   constructor(
     private location: Location,
@@ -64,5 +76,9 @@ export class DetalhesColaboradorComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  onSectorChange(id: string) {
+    this.selectedSectorId = id;
   }
 }

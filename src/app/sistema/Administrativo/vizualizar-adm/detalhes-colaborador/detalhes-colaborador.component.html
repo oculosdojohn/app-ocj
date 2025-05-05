@@ -19,4 +19,29 @@
             </div>
         </div>
     </div>
+    <app-sector-navigation [sectors]="setores" (sectorChange)="onSectorChange($event)"></app-sector-navigation>
+</div>
+
+<div class="subMain-container">
+    <ng-container [ngSwitch]="selectedSectorId">
+        <div *ngSwitchCase="'geral'">
+            <span>teste 01</span>
+        </div>
+
+        <div *ngSwitchCase="'medicina'">
+            <span>teste 02</span>
+        </div>
+
+        <div *ngSwitchCase="'registro'">
+            <span>teste 03</span>
+        </div>
+    
+        <div *ngSwitchCase="'curso'">
+            <span>teste 04</span>
+        </div>
+
+        <div *ngSwitchCase="'observacao'">
+            <span>teste 05</span>
+        </div>
+      </ng-container>
 </div>
