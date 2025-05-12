@@ -327,7 +327,9 @@
                     <label for="pais">País</label>
                     <app-select-padrao
                       label="Selecione o país"
-                      formControlName="pais">
+                      formControlName="pais"
+                      [options]="paises"
+                      [(selectedValue)]="selectedPais">
                     </app-select-padrao>
                 </div>
 
@@ -358,7 +360,7 @@
                 <div class="input-duo">
                     <div class="form-group">
                         <label for="cep">CEP</label>
-                        <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="Digite o CEP" mask="00000-000" [dropSpecialCharacters]="false">
+                        <input type="text" id="cep" name="cep" formControlName="cep" class="form-control" placeholder="00000-000" mask="00000-000" [dropSpecialCharacters]="false">
                     </div>
                     <div class="form-group">
                         <label for="bairro">Bairro</label>
@@ -488,35 +490,29 @@
                 <div class="form-group">
                     <label for="dataDoContrato">
                         Data do contrato
-                        <span *ngIf="isRequired('dataDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataDoContrato" name="dataDoContrato" formControlName="dataDoContrato" class="form-control" required>
-                    <div *ngIf="colaboradorForm.get('dataDoContrato')?.invalid && (colaboradorForm.get('dataDoContrato')?.touched || colaboradorForm.get('dataDoContrato')?.dirty)" class="error-obrigatorio">
-                        O campo Data do contrato é obrigatório.
-                    </div>
+                    <input type="date" id="dataDoContrato" name="dataDoContrato" formControlName="dataDoContrato" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="duracaoDoContrato">
                         Duração do contrato
                     </label>
-                    <input type="text" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Digite a duração do contrato">
+                    <input type="number" id="duracaoDoContrato" name="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Duração em dias" readonly>
                 </div>
                 <div class="form-group">
                     <label for="dataTerminoDoContrato">
                         Data do término do contrato
-                        <span *ngIf="isRequired('dataTerminoDoContrato')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" formControlName="dataTerminoDoContrato" class="form-control" required>
-                    <div *ngIf="colaboradorForm.get('dataTerminoDoContrato')?.invalid && (colaboradorForm.get('dataTerminoDoContrato')?.touched || colaboradorForm.get('dataTerminoDoContrato')?.dirty)" class="error-obrigatorio">
-                        O campo Data do término do contrato é obrigatório.
-                    </div>
+                    <input type="date" id="dataTerminoDoContrato" name="dataTerminoDoContrato" formControlName="dataTerminoDoContrato" class="form-control" readonly>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="superiorResponsavel">Superior responsável</label>
+                <label for="identificadorSuperiorResponsavel">Superior responsável</label>
                 <app-select-padrao
                   label="Selecionar responsável"
+                  [options]="responsaveis"
+                  [(selectedValue)]="selectedResponsavel"
                   formControlName="identificadorSuperiorResponsavel">
                 </app-select-padrao>
             </div>

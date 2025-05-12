@@ -1,7 +1,6 @@
 import { PeriodoExperiencia } from './periodo-experiencia';
 
 export const PeriodoExperienciaDescricoes: Record<PeriodoExperiencia, string> = {
-    [PeriodoExperiencia.TRINTA_DIAS]: '30 Dias',
     [PeriodoExperiencia.QUARENTA_CINCO_DIAS]: '45 Dias',
     [PeriodoExperiencia.MAIS_QUARENTA_CINCO]: '+ 45 Dias',
     [PeriodoExperiencia.NOVENTA_DIAS]: '90 Dias',

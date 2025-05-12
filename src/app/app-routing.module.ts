@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { PainelAdminComponent } from './sistema/Dashboard-Usuarios/painel-admin/painel-admin.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AuthGuard } from './services/configs/auth.guard';
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: '', component: LayoutComponent, children: [
     { path : 'usuario/dashboard-admin', component: PainelAdminComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'usuario/dashboard-admin', pathMatch: 'full' }
-  ]}
+  ]},
+  { path: 'forbidden', component: ForbiddenComponent }
 ];
 
 @NgModule({

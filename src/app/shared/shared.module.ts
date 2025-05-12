@@ -10,6 +10,7 @@ import { PlaylistVideoComponent } from './playlist-video/playlist-video.componen
 import { InputVideoComponent } from './input-video/input-video.component';
 import { SearchComponent } from './search/search.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { SectorNavigationComponent } from './sector-navigation/sector-navigation.component';
 
 
 
@@ -23,7 +24,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     PlaylistVideoComponent,
     InputVideoComponent,
     SearchComponent,
-    PaginationComponent
+    PaginationComponent,
+    SectorNavigationComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     PlaylistVideoComponent,
     InputVideoComponent,
     SearchComponent,
-    PaginationComponent
+    PaginationComponent,
+    SectorNavigationComponent
   ]
 })
 export class SharedModule { }

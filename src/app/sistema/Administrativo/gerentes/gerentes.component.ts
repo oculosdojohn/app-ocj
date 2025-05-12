@@ -53,19 +53,66 @@ export class GerentesComponent implements OnInit {
     this.atualizarPaginacao();
   }
 
-  fetchGerentes(): void {
-    this.colaboradorService.getUsuariosPorCargo('GERENTE').subscribe(
-      (colaboradores: any[]) => {
-        console.log('usuários retornadas:', colaboradores);
-        this.gerentes = colaboradores;
-        this.totalPaginas = Math.ceil(
-          this.gerentes.length / this.itensPorPagina
-        );
-        this.atualizarPaginacao();
-      },
-      (error) => {
-        console.error('Erro ao carregar departamentos:', error);
-      }
+  getDescricaoCargo(cargo: string): string {
+    return (
+      CargoDescricoes[cargo as keyof typeof CargoDescricoes] ||
+      'Cargo desconhecido'
     );
+  }
+
+  fetchGerentes(): void {
+    this.colaboradorService
+      .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL'])
+      .subscribe(
+        (colaboradores: Colaborador[]) => {
+          console.log('Usuários retornados:', colaboradores);
+          this.gerentes = colaboradores;
+          this.totalPaginas = Math.ceil(
+            this.gerentes.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+        },
+        (error) => {
+          console.error('Erro ao carregar gerentes:', error);
+        }
+      );
+  }
+
+  visualizarUsuario(id: string): void {
+    this.router.navigate(['/usuario/detalhes-colaborador', id]);
+  }
+
+  editarUsuario(id: string): void {
+    this.router.navigate(['/usuario/cadastro-de-colaborador', id]);
+  }
+
+  deleteUsuario(id: string): void {
+    if (confirm('Tem certeza que deseja deletar este usuário?')) {
+      this.colaboradorService.deleteColaboradorById(id).subscribe(
+        () => {
+          console.log('Usuário deletada com sucesso!');
+          this.fetchGerentes();
+        },
+        (error) => {
+          console.error('Erro ao deletar a usuário:', error);
+        }
+      );
+    }
+  }
+
+  getInitial(name: string): string {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getRandomColor(seed: string): string {
+    const colors = [
+      '#FFB3BA', // Rosa pastel
+      '#FFDFBA', // Laranja pastel
+      '#BAFFC9', // Verde pastel
+      '#BAE1FF', // Azul pastel
+      '#D5BAFF', // Roxo pastel
+    ];
+    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    return colors[index];
   }
 }

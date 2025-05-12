@@ -20,12 +20,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './services/configs/auth.service';
 import { TokenInterceptor } from './services/configs/token.interceptor';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LayoutComponent
+    LayoutComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,

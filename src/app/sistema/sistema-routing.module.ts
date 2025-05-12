@@ -53,6 +53,7 @@ const routes: Routes = [
       { path: 'departamentos-da-empresa', component: DepartamentosComponent},
       { path: 'cadastro-de-colaborador', component: CadastroDeColaboradorComponent},
       { path: 'cadastro-de-colaborador/:id', component: CadastroDeColaboradorComponent},
+      { path: 'detalhes-colaborador/:id', component: DetalhesColaboradorComponent},
       { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent},
       { path: 'cadastro-de-lojas/:id', component: CadastroDeLojaComponent},
       { path: 'detalhes-loja/:id', component: DetalhesLojaComponent},

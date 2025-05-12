@@ -29,13 +29,18 @@
                 <tr *ngFor="let gerente of gerentesPaginados">
                     <td>
                         <div class="perfil">
-                            <div class="avatar"></div>
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(gerente.username)}">
+                                <img [src]="gerente.foto?.documentoUrl" alt="Foto do gerente" *ngIf="gerente.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(gerente.username) }}</span>
+                                </ng-template>
+                            </div>
                             <span>{{ gerente.username }}</span>
                         </div>
                     </td>
-                    <td>{{ gerente.loja }}</td>
-                    <td>{{ gerente.cargo }}</td>
-                    <td>{{ gerente.departamento }}</td>
+                    <td>{{ gerente.loja?.nome }} - {{ gerente.loja?.endereco?.cidade }}</td>
+                    <td>{{ getDescricaoCargo(gerente.cargo) }}</td>
+                    <td>{{ gerente.departamento?.nome }}</td>
                     <td>
                         <span [class.ativo]="gerente.status === 'Ativo'"
                               [class.inativo]="gerente.status === 'Inativo'">
@@ -43,15 +48,17 @@
                         </span>
                     </td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarUsuario(gerente.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarUsuario(gerente.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="deleteUsuario(gerente.id)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

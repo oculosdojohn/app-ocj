@@ -51,14 +51,17 @@ export class CadastroDeColaboradorComponent implements OnInit {
     | File
     | { documentoUrl: string; id: number; name: string }
   )[] = [];
-  lojas: { value: string; description: string }[] = [];
-  selectedLoja: string = '';
-  departamentos: { value: string; description: string }[] = [];
-  selectedDepartamento: string = '';
   foto: File | null = null;
   colaboradorId: string | null = null;
   selectedFoto: { [key: string]: File | null } = {};
   fotoPreview: string | ArrayBuffer | null = null;
+
+  lojas: { value: string; description: string }[] = [];
+  selectedLoja: string = '';
+  departamentos: { value: string; description: string }[] = [];
+  selectedDepartamento: string = '';
+  responsaveis: { value: string; description: string }[] = [];
+  selectedResponsavel: string = '';
 
   estadosCivis = Object.keys(EstadoCivil).map((key) => ({
     value: EstadoCivil[key as keyof typeof EstadoCivil],
@@ -124,8 +127,10 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedFilhos: string = '';
   selectedDeficiencia: string = '';
 
+  paises: { value: string; description: string }[] = [];
   estados: { value: string; description: string }[] = [];
   cidades: { value: string; description: string }[] = [];
+  selectedPais: string = '';
   selectedEstado: string = '';
   selectedCidade: string = '';
 
@@ -199,8 +204,8 @@ export class CadastroDeColaboradorComponent implements OnInit {
       tipoDeContratacao: ['', Validators.required],
       salario: [''],
       periodoDeExperiencia: ['', Validators.required],
-      dataDoContrato: ['', Validators.required],
-      // duracaoDoContrato: [''],
+      dataDoContrato: [''],
+      duracaoDoContrato: [''],
       dataTerminoDoContrato: [''],
       identificadorSuperiorResponsavel: [''],
       status: ['Ativo', Validators.required],
@@ -214,11 +219,14 @@ export class CadastroDeColaboradorComponent implements OnInit {
   ngOnInit(): void {
     this.carregarLojas();
     this.carregarDepartamentos();
+    this.carregarUsuarios();
     this.verificarModoEdicao();
     this.carregarEstadosECidades();
+    this.carregarPaises();
     this.colaboradorForm.get('endereco.cidade')?.disable();
     this.colaboradorForm.get('quantidadeFilhos')?.disable();
     this.colaboradorForm.get('deficiencia')?.disable();
+    this.registrarListenersDoFormulario();
   }
 
   goBack() {
@@ -253,11 +261,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
     );
   }
 
-  atualizarLojas(): void {
-    console.log('Atualizando lista de lojas...');
-    this.carregarLojas();
-  }
-
   carregarDepartamentos(): void {
     this.departamentoService.getDepartamentos().subscribe(
       (departamentos) => {
@@ -268,6 +271,20 @@ export class CadastroDeColaboradorComponent implements OnInit {
       },
       (error) => {
         console.error('Erro ao carregar as departamentos:', error);
+      }
+    );
+  }
+
+  carregarUsuarios(): void {
+    this.colaboradorService.getColaboradores().subscribe(
+      (usuarios) => {
+        this.responsaveis = usuarios.map((usuario) => ({
+          value: usuario.id,
+          description: usuario.username,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as usuarios:', error);
       }
     );
   }
@@ -412,7 +429,10 @@ export class CadastroDeColaboradorComponent implements OnInit {
             this.selectedTipoContratacao = colaborador.tipoDeContratacao;
             this.selectedFilhos = colaborador.possuiFilhos;
             this.selectedDeficiencia = colaborador.portadorDeficiencia;
-            this.tratarLojaEDepartamento(colaborador);
+            this.tratarRetornoDTO(colaborador);
+            this.selectedCidade = colaborador.endereco.cidade;
+            this.selectedEstado = colaborador.endereco.estado;
+            this.selectedPais = colaborador.endereco.pais;
           },
           (error) => {
             console.error('Erro ao carregar os dados do usuário', error);
@@ -421,13 +441,13 @@ export class CadastroDeColaboradorComponent implements OnInit {
     }
   }
 
-  private tratarLojaEDepartamento(colaborador: Colaborador): void {
+  private tratarRetornoDTO(colaborador: Colaborador): void {
     if (colaborador.loja) {
       this.selectedLoja = colaborador.loja.id;
       this.lojas = [
         {
           value: colaborador.loja.id,
-          description: colaborador.loja.nome,
+          description: `${colaborador.loja.nome} - ${colaborador.loja.endereco?.cidade}`,
         },
       ];
     }
@@ -438,6 +458,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
         {
           value: colaborador.departamento.id,
           description: colaborador.departamento.nome,
+        },
+      ];
+    }
+
+    if (colaborador.superiorResponsavel) {
+      this.selectedDepartamento = colaborador.superiorResponsavel.id;
+      this.responsaveis = [
+        {
+          value: colaborador.superiorResponsavel.id,
+          description: colaborador.superiorResponsavel.username,
         },
       ];
     }
@@ -455,6 +485,21 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.onEstadoChange('');
   }
 
+  carregarPaises(): void {
+    this.enderecoService.getPaises().subscribe(
+      (paises) => {
+        this.paises = paises.map((pais) => ({
+          value: pais.sigla,
+          description: pais.nome,
+        }));
+        console.log('Países carregados:', this.paises);
+      },
+      (error) => {
+        console.error('Erro ao carregar os países:', error);
+      }
+    );
+  }
+
   onDependenciaChange(
     controlName: string,
     dependentControlName: string,
@@ -468,5 +513,54 @@ export class CadastroDeColaboradorComponent implements OnInit {
       dependentControl?.disable();
       dependentControl?.setValue(null);
     }
+  }
+
+  obterDiasPorPeriodo(periodo: PeriodoExperiencia): number {
+    switch (periodo) {
+      case PeriodoExperiencia.QUARENTA_CINCO_DIAS:
+        return 45;
+      case PeriodoExperiencia.MAIS_QUARENTA_CINCO:
+        return 90;
+      case PeriodoExperiencia.NOVENTA_DIAS:
+        return 90;
+      case PeriodoExperiencia.NAO_SE_APLICA:
+      default:
+        return 0;
+    }
+  }
+
+  calcularDataTermino(): void {
+    const dataInicio = this.colaboradorForm.get('dataDoContrato')?.value;
+    const periodo = this.colaboradorForm.get('periodoDeExperiencia')?.value;
+    const dias = this.obterDiasPorPeriodo(periodo);
+
+    if (dataInicio && dias > 0) {
+      const inicio = new Date(dataInicio);
+      const termino = new Date(inicio);
+      termino.setDate(inicio.getDate() + dias);
+      this.colaboradorForm
+        .get('dataTerminoDoContrato')
+        ?.setValue(termino.toISOString().split('T')[0]);
+    } else {
+      this.colaboradorForm.get('dataTerminoDoContrato')?.reset();
+    }
+  }
+
+  private registrarListenersDoFormulario(): void {
+    // Atualiza duração do contrato e término ao selecionar período de experiência
+    this.colaboradorForm
+      .get('periodoDeExperiencia')
+      ?.valueChanges.subscribe((value) => {
+        const dias = this.obterDiasPorPeriodo(value);
+        this.colaboradorForm
+          .get('duracaoDoContrato')
+          ?.setValue(dias > 0 ? dias : null);
+        this.calcularDataTermino();
+      });
+
+    // Atualiza data de término se mudar a data inicial
+    this.colaboradorForm.get('dataDoContrato')?.valueChanges.subscribe(() => {
+      this.calcularDataTermino();
+    });
   }
 }
