@@ -21,13 +21,16 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './services/configs/auth.service';
 import { TokenInterceptor } from './services/configs/token.interceptor';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { EsqueciSenhaComponent } from './esqueci-senha/esqueci-senha.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LayoutComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    EsqueciSenhaComponent,
   ],
   imports: [
     BrowserModule,

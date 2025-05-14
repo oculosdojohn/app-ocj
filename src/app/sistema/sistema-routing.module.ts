@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { LayoutComponent } from '../layout/layout.component';
+
+import { AuthGuard } from '../services/configs/auth.guard'; 
+
 import { FuncionariosComponent } from './Administrativo/funcionarios/funcionarios.component';
 import { GerentesComponent } from './Administrativo/gerentes/gerentes.component';
 import { LojasComponent } from './Administrativo/lojas/lojas.component';
@@ -36,61 +40,64 @@ import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/de
 import { DetalhesDepartamentoComponent } from './Administrativo/vizualizar-adm/detalhes-departamento/detalhes-departamento.component';
 
 const routes: Routes = [
-  { path: 'usuario', 
-    component: LayoutComponent,  
+  {
+    path: 'usuario',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],  
     children: [
-      // tela de inicio de acordo com a role de cada usuario
+      // telas de dashboard por perfil
       { path: 'dashboard-admin', component: PainelAdminComponent },
       { path: 'dashboard-colaborador', component: PainelColaboradorComponent },
-      { path: 'dashboard-gerente', component: PainelGerenteComponent},
-      { path: 'dashboard-rh', component: PainelRhComponent},
-      { path: 'meu-perfil', component: MeuPerfilComponent},
+      { path: 'dashboard-gerente', component: PainelGerenteComponent },
+      { path: 'dashboard-rh', component: PainelRhComponent },
+      { path: 'meu-perfil', component: MeuPerfilComponent },
 
-      // somente rh e admin podem ver
-      { path: 'colaboradores-das-lojas', component: FuncionariosComponent},
-      { path: 'gerentes-lojas', component: GerentesComponent},
-      { path: 'lojas-john', component: LojasComponent},
-      { path: 'departamentos-da-empresa', component: DepartamentosComponent},
-      { path: 'cadastro-de-colaborador', component: CadastroDeColaboradorComponent},
-      { path: 'cadastro-de-colaborador/:id', component: CadastroDeColaboradorComponent},
-      { path: 'detalhes-colaborador/:id', component: DetalhesColaboradorComponent},
-      { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent},
-      { path: 'cadastro-de-lojas/:id', component: CadastroDeLojaComponent},
-      { path: 'detalhes-loja/:id', component: DetalhesLojaComponent},
-      { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent},
-      { path: 'cadastro-de-departamento/:id', component: CadastroDeDepartamentoComponent},
-      { path: 'detalhes-departamento/:id', component: DetalhesDepartamentoComponent},
+      // somente RH e Admin
+      { path: 'colaboradores-das-lojas', component: FuncionariosComponent },
+      { path: 'gerentes-lojas', component: GerentesComponent },
+      { path: 'lojas-john', component: LojasComponent },
+      { path: 'departamentos-da-empresa', component: DepartamentosComponent },
+      { path: 'cadastro-de-colaborador', component: CadastroDeColaboradorComponent },
+      { path: 'cadastro-de-colaborador/:id', component: CadastroDeColaboradorComponent },
+      { path: 'detalhes-colaborador/:id', component: DetalhesColaboradorComponent },
+      { path: 'cadastro-de-lojas', component: CadastroDeLojaComponent },
+      { path: 'cadastro-de-lojas/:id', component: CadastroDeLojaComponent },
+      { path: 'detalhes-loja/:id', component: DetalhesLojaComponent },
+      { path: 'cadastro-de-departamento', component: CadastroDeDepartamentoComponent },
+      { path: 'cadastro-de-departamento/:id', component: CadastroDeDepartamentoComponent },
+      { path: 'detalhes-departamento/:id', component: DetalhesDepartamentoComponent },
 
-      // somente rh e admin podem ver
-      { path: 'feedbacks', component: FeedbaksComponent},
-      { path: 'saude-ocupacional', component: MedicinaComponent},
-      { path: 'registros', component: RegistrosComponent},
-      { path: 'ferias', component: FeriasComponent},
-      { path: 'cadastro-de-ferias', component: CadastroFeriasComponent},
-      { path: 'cadastro-de-ferias/:id', component: CadastroFeriasComponent},
-      { path: 'aniversariantes-do-mes', component: AniversariantesComponent},
-      { path: 'aniversariantes-do-mes/:id', component: AniversariantesComponent},
-      { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent},
-      { path: 'cadastro-de-feedback/:id', component: CadastroDeFeedbackComponent},
-      { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent},
-      { path: 'cadastro-de-registro/:id', component: CadastroDeRegistroComponent},
-      { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent},
-      { path: 'cadastro-de-procedimentos-medicos/:id', component: CadastroDeProcedimentosMedicoComponent},
+      // somente RH e Admin
+      { path: 'feedbacks', component: FeedbaksComponent },
+      { path: 'saude-ocupacional', component: MedicinaComponent },
+      { path: 'registros', component: RegistrosComponent },
+      { path: 'ferias', component: FeriasComponent },
+      { path: 'cadastro-de-ferias', component: CadastroFeriasComponent },
+      { path: 'cadastro-de-ferias/:id', component: CadastroFeriasComponent },
+      { path: 'aniversariantes-do-mes', component: AniversariantesComponent },
+      { path: 'aniversariantes-do-mes/:id', component: AniversariantesComponent },
+      { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent },
+      { path: 'cadastro-de-feedback/:id', component: CadastroDeFeedbackComponent },
+      { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent },
+      { path: 'cadastro-de-registro/:id', component: CadastroDeRegistroComponent },
+      { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent },
+      { path: 'cadastro-de-procedimentos-medicos/:id', component: CadastroDeProcedimentosMedicoComponent },
 
-      { path: 'cadastro-de-aulas', component: CadastroCursosComponent},
-      { path: 'cadastro-de-aulas/:id', component: CadastroCursosComponent},
-      { path: 'cadastro-noticia', component: CadastroNoticiasComponent},
-      { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent},
-      { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent},
-      { path: 'cadastro-lojinha-produto/:id', component: CadastroLojinhaProdutosComponent},
-      
-      // todos podem ver essas rotas
-      { path: 'forum-de-noticias', component: ForumNoticiasComponent},
-      { path: 'fale-com-o-dono', component: FaleComODonoComponent},
-      { path: 'cursos-disponiveis', component:CursosComponent},
-      { path: 'lojinha-do-john', component:LojinhaComponent},
-      { path: 'curso/:modulo', component: ModuloCursoComponent},
-      { path: 'buscar-aulas', component: BuscarAulasComponent},
+      // Serviços
+      { path: 'cadastro-de-aulas', component: CadastroCursosComponent },
+      { path: 'cadastro-de-aulas/:id', component: CadastroCursosComponent },
+      { path: 'cadastro-noticia', component: CadastroNoticiasComponent },
+      { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent },
+      { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent },
+      { path: 'cadastro-lojinha-produto/:id', component: CadastroLojinhaProdutosComponent },
+
+      // rotas públicas (dentro de /usuario)
+      { path: 'forum-de-noticias', component: ForumNoticiasComponent },
+      { path: 'fale-com-o-dono', component: FaleComODonoComponent },
+      { path: 'cursos-disponiveis', component: CursosComponent },
+      { path: 'lojinha-do-john', component: LojinhaComponent },
+      { path: 'curso/:modulo', component: ModuloCursoComponent },
+      { path: 'buscar-aulas', component: BuscarAulasComponent },
     ]
   }
 ];
