@@ -105,7 +105,7 @@ export class AuthService {
     const { permissao: userPermissao } = this.getUsuarioAutenticado() || {};
 
     let request: Observable<any>;
-    if (userPermissao === Permissao.ROLE_ADMIN && perm === Permissao.RH.valueOf()) {
+    if (userPermissao === Permissao.ADMIN && perm === Permissao.RH.valueOf()) {
       request = this.cadastrarRh(usuario);
     } else {
       request = this.cadastrarColaborador(usuario);
