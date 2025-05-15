@@ -9,9 +9,11 @@
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Fórum de Notícias</span>
         </div>
         <div class="actions">
+            <!-- Quando tiver OK descomentar
             <div class="search-container">
                 <app-search (searchChange)="onSearch($event)"></app-search>
             </div>
+            -->
             <button
             class="btn-cadastrar"
             *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
@@ -21,6 +23,7 @@
         </div>
     </div>
 
+    <!--
     <div class="tabela-container">
         <table>
             <thead>
@@ -65,4 +68,9 @@
         (paginaMudou)="onPaginaMudou($event)">
         </app-pagination>
     </div> 
+    -->
+
+    <div class="image-center">
+        <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
+    </div>
 </div>

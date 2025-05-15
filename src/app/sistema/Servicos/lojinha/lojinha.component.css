@@ -80,6 +80,20 @@
   background: #0056b3;
 }
 
+.image-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.centered-image {
+  max-width: 300px; 
+  width: 100%;      
+  height: auto;
+}
+
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {

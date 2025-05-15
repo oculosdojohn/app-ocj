@@ -231,3 +231,17 @@
 .send-button:hover {
     background-color: #45a049;
 }
+
+
+.image-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.centered-image {
+    max-width: 300px; 
+    width: 100%;      
+    height: auto;
+}
