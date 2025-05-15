@@ -1,7 +1,7 @@
 import { Permissao } from "./permissao";
 
 export const PermissaoDescricoes: Record<Permissao, string> = {
-    [Permissao.ADMIN]: 'ADMIN',
+    [Permissao.ROLE_ADMIN]: 'ROLE_ADMIN',
     [Permissao.RH]: 'RH',
     [Permissao.GERENTE_GERAL]: 'GERENTE_GERAL',
     [Permissao.GERENTE]: 'GERENTE',
