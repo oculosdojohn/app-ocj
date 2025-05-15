@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate {
     if (usuario) {
       const role = usuario.permissao;
 
-      // Lista de permissões
       const permissoesPermitidas = [
         'ROLE_ADMIN',
         'ROLE_RH',
@@ -34,13 +33,12 @@ export class AuthGuard implements CanActivate {
         'ROLE_VENDEDOR',
         'ROLE_COLABORADOR',
       ];
-
-      // Verifica se o papel do usuário está na lista de permissões
       if (permissoesPermitidas.includes(role)) {
         return true;
       }
     }
-    this.router.navigate(['/forbidden']);
+    
+    this.router.navigate(['/login']);
     return false;
   }
 }
