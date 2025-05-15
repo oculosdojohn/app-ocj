@@ -12,6 +12,7 @@ import {
   ApexXAxis,
   ApexPlotOptions
 } from "ng-apexcharts";
+import { Permissao } from 'src/app/login/permissao';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -35,11 +36,14 @@ export class PainelAdminComponent implements OnInit {
   weatherData: any = {};
   motivationalMessage: { quote: string, author: string } = { quote: '', author: '' };
 
+  public Permissao = Permissao;       
+  public cargoUsuario!: Permissao;    
+
   constructor(
     private apiService: ServicesApisService,
     private motivationalMessagesService: MotivationalMessagesService,
     private cdr: ChangeDetectorRef,
-    private usuarioService: AuthService
+    private usuarioService: AuthService   // já existia, só renomeei pra ficar claro
   ) {}
 
   ngOnInit(): void {
@@ -49,13 +53,12 @@ export class PainelAdminComponent implements OnInit {
     this.renderChartDemissao();
     this.renderChartEscolaridade();
     this.usuarioService.obterPerfilUsuario().subscribe(
-      (usuario) => {
+      usuario => {
         this.usuario = usuario;
+        this.cargoUsuario = usuario.cargo as Permissao;  
         console.log('Perfil do usuário:', usuario);
       },
-      (error) => {
-        console.error('Erro ao obter perfil do usuário:', error);
-      }
+      error => console.error('Erro ao obter perfil do usuário:', error)
     );
   }
 

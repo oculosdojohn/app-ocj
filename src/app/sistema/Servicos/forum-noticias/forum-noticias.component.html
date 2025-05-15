@@ -12,7 +12,12 @@
             <div class="search-container">
                 <app-search (searchChange)="onSearch($event)"></app-search>
             </div>
-            <button class="btn-cadastrar" (click)="cadastrarNoticia()">Cadastrar Notícia</button>
+            <button
+            class="btn-cadastrar"
+            *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
+            (click)="cadastrarNoticia()">
+            Cadastrar Notícia
+            </button>
         </div>
     </div>
 

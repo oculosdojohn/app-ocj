@@ -4,6 +4,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { CargoDescricoes } from 'src/app/sistema/Administrativo/funcionarios/enums/cargo-descricoes';
+import { Permissao } from 'src/app/login/permissao';
+import { PermissaoDescricoes } from 'src/app/login/permissao-descricao';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +16,12 @@ export class NavbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   permissaoUsuario: string = '';
+  // adiciona o valor bruto do enum (Permissao.ADMIN, etc.)
+  cargoUsuario!: Permissao;
+
+  // expõe o enum para o template
+  public Permissao = Permissao;
+
   nomeUsuario: string = '';
   fotoUsuario: string = '';
 
@@ -31,7 +39,8 @@ export class NavbarComponent implements OnInit {
     this.authService.obterPerfilUsuario().subscribe(
       (usuario) => {
         this.nomeUsuario = usuario.username;
-        this.permissaoUsuario = CargoDescricoes[usuario.cargo as keyof typeof CargoDescricoes] || usuario.cargo;
+        this.cargoUsuario = usuario.cargo as Permissao;
+        this.permissaoUsuario = PermissaoDescricoes[this.cargoUsuario];
         this.fotoUsuario = usuario.foto?.documentoUrl || '';
       },
       (error) => {

@@ -22,6 +22,7 @@
     </div>
   </div>
 
+  <div *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
   <div class="cards-container">
     <div class="card info-card">
         <span>12</span>
@@ -78,5 +79,6 @@
     <div class="one-grafico">
       <div class="grafico"></div>
     </div>
+  </div>
   </div>
 </div>

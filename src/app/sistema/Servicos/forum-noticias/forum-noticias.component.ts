@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Noticia } from './noticia';
+import { Permissao } from 'src/app/login/permissao';
+import { AuthService } from 'src/app/services/configs/auth.service';
 
 @Component({
   selector: 'app-forum-noticias',
@@ -13,11 +15,6 @@ export class ForumNoticiasComponent implements OnInit {
     noticias: Noticia[] = [
         { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
         { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
         { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'}
   ];
       
@@ -26,10 +23,19 @@ export class ForumNoticiasComponent implements OnInit {
   totalPaginas = Math.ceil(this.noticias.length / this.itensPorPagina);
   noticiasPaginadas: Noticia[] = [];
 
-  constructor(private router: Router) {}
+  public Permissao = Permissao;
+  public cargoUsuario!: Permissao;
+
+  constructor(
+    private router: Router,
+    private authService: AuthService      
+  ) { }
 
   ngOnInit(): void {
     this.atualizarPaginacao();
+    this.authService.obterPerfilUsuario().subscribe(usuario => {
+      this.cargoUsuario = usuario.cargo as Permissao;
+    });
   }
 
   cadastrarNoticia(): void {

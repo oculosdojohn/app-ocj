@@ -8,6 +8,11 @@
         <div class="breadcrumb">
             <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Lojinha do John</span>
         </div>
-        <button class="btn-cadastrar" (click)="cadastrarProduto()">Cadastrar Produto</button>
+        <button
+        class="btn-cadastrar"
+        *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
+        (click)="cadastrarProduto()">
+        Cadastrar Produto
+      </button>
     </div>
 </div>

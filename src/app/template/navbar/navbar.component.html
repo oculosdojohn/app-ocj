@@ -56,6 +56,7 @@
                 <span class="ml-2">Início</span>
             </a>
 
+            <ng-container *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
             <div class="heading-home">Administrativo</div>
             <div>
                 <div>
@@ -130,6 +131,7 @@
                     </div>
                   </div>
                 </div>
+            </ng-container>
 
             <div class="heading-home">Recursos</div>
             <a mat-list-item routerLink="/usuario/cursos-disponiveis" [ngClass]="{'active-link': isActive('/usuario/cursos-disponiveis')}">

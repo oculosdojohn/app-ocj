@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
+import { Permissao } from 'src/app/login/permissao';
+import { AuthService } from 'src/app/services/configs/auth.service';
 
 @Component({
   selector: 'app-cursos',
@@ -39,10 +41,20 @@ export class CursosComponent implements OnInit {
   paginaAtual: number = 1;
   itensPorPagina: number = 6;
 
-  constructor(private router: Router) { } 
+  public Permissao = Permissao;   
+  public cargoUsuario!: Permissao; 
+
+  constructor(private router: Router,
+  private authService: AuthService
+  ) { } 
 
   ngOnInit(): void {
+    // já busca o perfil e define o cargo
+    this.authService.obterPerfilUsuario().subscribe(usuario => {
+      this.cargoUsuario = usuario.cargo as Permissao;
+    });
   }
+
 
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
