@@ -25,13 +25,13 @@ export class AuthGuard implements CanActivate {
       const role = usuario.permissao;
 
       const permissoesPermitidas = [
-        'ROLE_ADMIN',
-        'ROLE_RH',
-        'ROLE_GERENTE_GERAL',
-        'ROLE_GERENTE',
-        'ROLE_SUPERVISOR',
-        'ROLE_VENDEDOR',
-        'ROLE_COLABORADOR',
+        'ADMIN',
+        'RH',
+        'GERENTE_GERAL',
+        'GERENTE',
+        'SUPERVISOR',
+        'VENDEDOR',
+        'COLABORADOR',
       ];
       if (permissoesPermitidas.includes(role)) {
         return true;

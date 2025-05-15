@@ -16,10 +16,7 @@ export class NavbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   permissaoUsuario: string = '';
-  // adiciona o valor bruto do enum (Permissao.ADMIN, etc.)
   cargoUsuario!: Permissao;
-
-  // expõe o enum para o template
   public Permissao = Permissao;
 
   nomeUsuario: string = '';
