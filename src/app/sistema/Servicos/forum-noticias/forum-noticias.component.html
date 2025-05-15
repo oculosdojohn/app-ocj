@@ -16,7 +16,7 @@
             -->
             <button
             class="btn-cadastrar"
-            *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
+            *ngIf="cargoUsuario === Permissao.ROLE_ADMIN || cargoUsuario === Permissao.RH"
             (click)="cadastrarNoticia()">
             Cadastrar Notícia
             </button>

@@ -9,7 +9,7 @@
           <a>Home &gt; </a> <span class="breadcrumb-highlight"> Cursos</span>
         </div>
         <div class="actions"
-        *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
+        *ngIf="cargoUsuario === Permissao.ROLE_ADMIN || cargoUsuario === Permissao.RH">
         <button class="btn-line" (click)="buscarAulas()">Buscar aulas</button>
         <button class="btn-cadastrar" (click)="cadastrarAula()">Cadastrar Aula</button>
         </div>
