@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
          console.log('Permissão do usuário:', usuario.permissao);
 
         switch (usuario.permissao) {
-          case Permissao.ROLE_ADMIN:
+          case Permissao.ADMIN:
             this.router.navigate(['/usuario/dashboard-admin']);
             break;
           case Permissao.RH:
