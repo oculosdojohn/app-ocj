@@ -48,8 +48,22 @@ export class NavbarComponent implements OnInit {
       }
     );
   }
+
+  isAdmin(): boolean {
+    return this.cargoUsuario === 'ROLE_ADMIN';
+  }
   
+  isColaborador(): boolean {
+    return this.cargoUsuario === 'ROLE_COLABORADOR' || this.cargoUsuario === 'ROLE_VENDEDOR';
+  }
   
+  isGerente(): boolean {
+    return ['ROLE_GERENTE', 'SUPERVISOR', 'GERENTE_GERAL'].includes(this.cargoUsuario);
+  }
+  
+  isRH(): boolean {
+    return this.cargoUsuario === 'ROLE_RH';
+  }  
 
   logout() {
     this.router.navigate(['/login']);

@@ -20,26 +20,40 @@ export class AuthGuard implements CanActivate {
     const usuario = this.authService.getUsuarioAutenticado();
 
     if (usuario) {
-      const role = usuario.permissao; // Exemplo: 'ADMIN', 'RH', etc.
-
+      const role = usuario.permissao; 
       const permissoesRota = route.data['roles'] as string[] | undefined;
 
-      // Se a rota tem restrição de perfil, verifica se o perfil do usuário está na lista
       if (permissoesRota) {
         if (permissoesRota.includes(role)) {
           return true;
         } else {
-          this.router.navigate(['/usuario/forbidden']); // ou alguma página de acesso negado
+          const dashboard = this.getDashboardByRole(role);
+          this.router.navigate([dashboard]);
           return false;
         }
       }
-
-      // Se a rota não define restrição, permite o acesso
       return true;
     }
-
-    // Se não estiver logado
+    
     this.router.navigate(['/login']);
     return false;
+  }
+
+  private getDashboardByRole(role: string): string {
+    switch (role) {
+      case 'ROLE_ADMIN':
+        return '/usuario/dashboard-admin';
+      case 'ROLE_RH':
+        return '/usuario/dashboard-rh';
+      case 'ROLE_COLABORADOR':
+      case 'ROLE_VENDEDOR':
+        return '/usuario/dashboard-colaborador';
+      case 'ROLE_GERENTE':
+      case 'GERENTE_GERAL':
+      case 'SUPERVISOR':
+        return '/usuario/dashboard-gerente';
+      default:
+        return '/usuario/dashboard-colaborador'; // fallback para roles não reconhecidas
+    }
   }
 }

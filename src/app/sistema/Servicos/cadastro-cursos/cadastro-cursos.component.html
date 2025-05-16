@@ -4,14 +4,6 @@
         <span> {{ isEditMode ? 'Editar aula' : 'Cadastrar aula' }}</span>
     </div>
 
-    <div class="alerts">
-        <div class="alerts-container alert-success" *ngIf="successMessage">
-          {{ successMessage }}
-        </div>
-        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
-            {{ errorMessage }}
-        </div>
-    </div>
   
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="cadastroAula">
@@ -61,5 +53,18 @@
                 </button>
             </div>
         </form>
+
+        <div *ngIf="isLoading" class="overlay-loading">
+            <div class="spinner"></div>
+        </div>
+          
+        <div class="alerts">
+            <div class="alerts-container alert-success" *ngIf="successMessage">
+              {{ successMessage }}
+            </div>
+            <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
+        </div>
     </div>
 </div>

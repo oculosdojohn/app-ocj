@@ -46,9 +46,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],  
     children: [
       // telas de dashboard por perfil
-      { path: 'dashboard-admin', component: PainelAdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
+      { path: 'dashboard-admin', component: PainelAdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] } },
       { path: 'dashboard-colaborador', component: PainelColaboradorComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_COLABORADOR', 'ROLE_VENDEDOR'] } },
-      { path: 'dashboard-gerente', component: PainelGerenteComponent ,canActivate: [AuthGuard], data: { roles: ['GERENTE_GERAL', 'ROLE_GERENTE', 'SUPERVISOR'] } },
+      { path: 'dashboard-gerente', component: PainelGerenteComponent ,canActivate: [AuthGuard], data: { roles: ['GERENTE_GERAL', 'ROLE_GERENTE',  'SUPERVISOR'] } },
       { path: 'dashboard-rh', component: PainelRhComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RH'] } },
       { path: 'meu-perfil', component: MeuPerfilComponent },
 
@@ -83,12 +83,12 @@ const routes: Routes = [
       
 
       // Serviços
-      { path: 'cadastro-de-aulas', component: CadastroCursosComponent },
-      { path: 'cadastro-de-aulas/:id', component: CadastroCursosComponent },
-      { path: 'cadastro-noticia', component: CadastroNoticiasComponent },
-      { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent },
-      { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent },
-      { path: 'cadastro-lojinha-produto/:id', component: CadastroLojinhaProdutosComponent },
+      { path: 'cadastro-de-aulas', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-de-aulas/:id', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-noticia', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-lojinha-produto/:id', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },
