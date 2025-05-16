@@ -1,1 +1,25 @@
-<p>painel-gerente works!</p>
+<div class="main-container">
+    <div class="banner">
+      <div class="welcome">
+        <h1>👋 Bem-vindo, {{ usuario?.username }}</h1>
+        <div class="motivational-message">
+          <p>"{{ motivationalMessage.quote }}"</p>
+          <span class="author">{{ motivationalMessage.author }}</span>
+          <!-- <p>Permissão: {{ cargoUsuario }}</p>-->
+        </div>
+      </div>
+  
+      <div class="climate">
+        <div class="title-clima">
+          <h3>Clima de {{ weatherData.name }} </h3>
+        </div>
+        <div class="temperatura">
+          <img [src]="iconUrl" alt="Ícone do clima">
+          <span>{{ temperature | number:'1.0-0' }} °C</span>
+        </div>
+        <div class="descricao">
+          <h6>Vento: {{ windSpeed }} m/s, {{ weatherDescription }}</h6>
+        </div>
+      </div>
+    </div>
+</div>

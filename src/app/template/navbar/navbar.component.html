@@ -51,9 +51,24 @@
         <mat-nav-list class="pt-5">
             <div class="heading-home">Home</div>
             
-            <a mat-list-item routerLink="/usuario/dashboard-admin" [ngClass]="{'active-link': isActive('/usuario/dashboard-admin')}">
+            <a  *ngIf="isAdmin()"  mat-list-item routerLink="/usuario/dashboard-admin" [ngClass]="{'active-link': isActive('/usuario/dashboard-admin')}">
                 <img src="assets/icones/inicio.svg" alt="Ícone de Painel de Controle" class="icon">
                 <span class="ml-2">Início</span>
+            </a>
+
+            <a  *ngIf="isColaborador()" mat-list-item routerLink="/usuario/dashboard-colaborador" [ngClass]="{'active-link': isActive('/usuario/dashboard-colaborador')}">
+                <img src="assets/icones/inicio.svg" alt="Ícone de Painel de Controle" class="icon">
+                <span class="ml-2">Início</span>
+            </a>
+
+            <a *ngIf="isGerente()" mat-list-item routerLink="/usuario/dashboard-gerente" [ngClass]="{'active-link': isActive('/usuario/dashboard-gerente')}">
+              <img src="assets/icones/inicio.svg" alt="Ícone de Painel de Controle" class="icon">
+              <span class="ml-2">Início</span>
+            </a>
+
+            <a *ngIf="isRH()" mat-list-item routerLink="/usuario/dashboard-rh" [ngClass]="{'active-link': isActive('/usuario/dashboard-rh')}">
+            <img src="assets/icones/inicio.svg" alt="Ícone de Painel de Controle" class="icon">
+            <span class="ml-2">Início</span>
             </a>
 
             <ng-container *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">         >
