@@ -9,7 +9,7 @@ export class Loja {
   colaboradores!: {
     username: string;
     cargo: string;
-    departamento?: string;
+    departamento?: { nome: string };
     telefoneUm?: string;
   }[];
 }

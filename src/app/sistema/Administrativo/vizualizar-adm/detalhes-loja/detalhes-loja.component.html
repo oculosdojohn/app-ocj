@@ -91,10 +91,10 @@
             </div>
         </div>
         <div class="item-data">
-            <p>{{ colaborador.cargo || '-' }}</p>
+            <p>{{ getDescricaoCargo(colaborador.cargo) || '-' }}</p>
         </div>
         <div class="item-data">
-            <p>{{ colaborador.departamento || '-' }}</p>
+            <p>{{ colaborador.departamento?.nome || '-' }}</p>
         </div>
         <div class="item-data">
             <p>{{ colaborador.telefoneUm || '-' }}</p>

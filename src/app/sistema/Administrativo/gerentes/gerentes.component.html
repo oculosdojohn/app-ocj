@@ -33,7 +33,7 @@
                                     <span>{{ getInitial(gerente.username) }}</span>
                                 </ng-template>
                             </div>
-                            <span>{{ gerente.username }}</span>
+                            <span>{{ gerente.username || '-' }}</span>
                         </div>
                     </td>
                     <td>{{ gerente.loja?.nome }} - {{ gerente.loja?.endereco?.cidade }}</td>

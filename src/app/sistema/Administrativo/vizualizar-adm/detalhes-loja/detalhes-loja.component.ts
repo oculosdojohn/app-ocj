@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LojaService } from '../../../../services/administrativo/loja.service';
 import { Loja } from '../../../../sistema/Administrativo/lojas/loja';
-
+import { CargoDescricoes } from '../../funcionarios/enums/cargo-descricoes';
 
 @Component({
   selector: 'app-detalhes-loja',
@@ -40,5 +40,28 @@ export class DetalhesLojaComponent implements OnInit {
         }
       );
     }
+  }
+
+  getDescricaoCargo(cargo: string): string {
+    return (
+      CargoDescricoes[cargo as keyof typeof CargoDescricoes] ||
+      'Cargo desconhecido'
+    );
+  }
+
+  getInitial(name: string): string {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getRandomColor(seed: string): string {
+    const colors = [
+      '#FFB3BA', // Rosa pastel
+      '#FFDFBA', // Laranja pastel
+      '#BAFFC9', // Verde pastel
+      '#BAE1FF', // Azul pastel
+      '#D5BAFF', // Roxo pastel
+    ];
+    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    return colors[index];
   }
 }
