@@ -34,7 +34,7 @@ export class ForumNoticiasComponent implements OnInit {
   ngOnInit(): void {
     this.atualizarPaginacao();
     this.authService.obterPerfilUsuario().subscribe(usuario => {
-      this.cargoUsuario = usuario.cargo as Permissao;
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
   }
 

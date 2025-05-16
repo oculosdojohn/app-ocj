@@ -4,14 +4,7 @@
         <span>{{ isEditMode ? 'Editar loja' : 'Cadastrar loja' }}</span>
     </div>
 
-    <div class="alerts">
-        <div class="alerts-container alert-success" *ngIf="successMessage">
-          {{ successMessage }}
-        </div>
-        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
-            {{ errorMessage }}
-        </div>
-    </div>
+
   
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="lojaForm">
@@ -106,5 +99,15 @@
             </div>
         </form>
     </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
+    
     <div *ngIf="isLoading">Carregando...</div>
 </div>

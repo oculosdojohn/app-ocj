@@ -3,10 +3,8 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  UrlTree,
   Router,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -22,22 +20,25 @@ export class AuthGuard implements CanActivate {
     const usuario = this.authService.getUsuarioAutenticado();
 
     if (usuario) {
-      const role = usuario.permissao;
+      const role = usuario.permissao; // Exemplo: 'ADMIN', 'RH', etc.
 
-      const permissoesPermitidas = [
-        'ROLE_ADMIN',
-        'ROLE_RH',
-        'ROLE_GERENTE_GERAL',
-        'ROLE_GERENTE',
-        'ROLE_SUPERVISOR',
-        'ROLE_VENDEDOR',
-        'ROLE_COLABORADOR',
-      ];
-      if (permissoesPermitidas.includes(role)) {
-        return true;
+      const permissoesRota = route.data['roles'] as string[] | undefined;
+
+      // Se a rota tem restrição de perfil, verifica se o perfil do usuário está na lista
+      if (permissoesRota) {
+        if (permissoesRota.includes(role)) {
+          return true;
+        } else {
+          this.router.navigate(['/usuario/forbidden']); // ou alguma página de acesso negado
+          return false;
+        }
       }
+
+      // Se a rota não define restrição, permite o acesso
+      return true;
     }
-    
+
+    // Se não estiver logado
     this.router.navigate(['/login']);
     return false;
   }

@@ -51,7 +51,7 @@ export class CursosComponent implements OnInit {
   ngOnInit(): void {
     // já busca o perfil e define o cargo
     this.authService.obterPerfilUsuario().subscribe(usuario => {
-      this.cargoUsuario = usuario.cargo as Permissao;
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
   }
 

@@ -16,8 +16,10 @@ export class NavbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   permissaoUsuario: string = '';
-  cargoUsuario!: Permissao;
-  public Permissao = Permissao;
+
+  public Permissao = Permissao; // Expor para o HTML
+  cargoUsuario!: Permissao;     // Receberá 'ROLE_ADMIN', etc.
+
 
   nomeUsuario: string = '';
   fotoUsuario: string = '';
@@ -36,15 +38,18 @@ export class NavbarComponent implements OnInit {
     this.authService.obterPerfilUsuario().subscribe(
       (usuario) => {
         this.nomeUsuario = usuario.username;
-        this.cargoUsuario = usuario.cargo as Permissao;
+        this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
         this.permissaoUsuario = PermissaoDescricoes[this.cargoUsuario];
         this.fotoUsuario = usuario.foto?.documentoUrl || '';
+        console.log('Permissão atribuída (cargoUsuario):', this.cargoUsuario);
       },
       (error) => {
         console.error('Erro ao obter perfil do usuário:', error);
       }
     );
   }
+  
+  
 
   logout() {
     this.router.navigate(['/login']);
