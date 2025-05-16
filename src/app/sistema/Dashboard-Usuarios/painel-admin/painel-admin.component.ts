@@ -36,8 +36,8 @@ export class PainelAdminComponent implements OnInit {
   weatherData: any = {};
   motivationalMessage: { quote: string, author: string } = { quote: '', author: '' };
 
-  public Permissao = Permissao;       
-  public cargoUsuario!: Permissao;    
+  public Permissao = Permissao; 
+  cargoUsuario!: Permissao;     
 
   constructor(
     private apiService: ServicesApisService,
@@ -55,7 +55,7 @@ export class PainelAdminComponent implements OnInit {
     this.usuarioService.obterPerfilUsuario().subscribe(
       usuario => {
         this.usuario = usuario;
-        this.cargoUsuario = usuario.cargo as Permissao;  
+        this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
         console.log('Perfil do usuário:', usuario);
       },
       error => console.error('Erro ao obter perfil do usuário:', error)

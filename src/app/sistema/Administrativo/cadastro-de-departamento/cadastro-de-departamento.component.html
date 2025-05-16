@@ -3,15 +3,6 @@
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
         <span>{{ isEditMode ? 'Editar departamento' : 'Cadastrar departamento' }}</span>
     </div>
-
-    <div class="alerts">
-        <div class="alerts-container alert-success" *ngIf="successMessage">
-          {{ successMessage }}
-        </div>
-        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
-            {{ errorMessage }}
-        </div>
-    </div>
   
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="departamentoForm">
@@ -79,5 +70,15 @@
             </div>
         </form>
     </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
+    
     <div *ngIf="isLoading">Carregando...</div>
 </div>

@@ -20,7 +20,7 @@ export class LojinhaComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.obterPerfilUsuario().subscribe(usuario => {
-      this.cargoUsuario = usuario.cargo as Permissao;
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
   }
 
