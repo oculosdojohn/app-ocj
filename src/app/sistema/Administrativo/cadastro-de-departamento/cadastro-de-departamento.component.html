@@ -25,12 +25,13 @@
             </div>
 
             <div class="form-group" *ngIf="isEditMode">
-                <label for="responsavel">Responsáveis</label>
+                <label for="responsaveis">Responsáveis</label>
                 <app-multiplo-select
                   label="Selecionar responsável"
-                  [options]="valor"
+                  [options]="responsaveis"
                   [(selectedValue)]="selectedResponsavel"
-                  [multiple]="true">
+                  [multiple]="true"
+                  formControlName="responsaveis">
                 </app-multiplo-select>
             </div>
 

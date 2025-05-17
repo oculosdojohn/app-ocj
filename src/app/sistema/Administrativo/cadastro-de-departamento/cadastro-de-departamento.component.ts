@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Departamento } from '../../Administrativo/departamentos/departamento';
 import { DepartamentoService } from '../../../services/administrativo/departamento.service';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 
 @Component({
   selector: 'app-cadastro-de-departamento',
@@ -23,6 +24,9 @@ export class CadastroDeDepartamentoComponent implements OnInit {
   isEditMode = false;
   departamentoId: string | null = null;
 
+  responsaveis: { value: string; description: string }[] = [];
+  selectedResponsavel: string = '';
+
   valor: string[] = [
     'Alice Santos',
     'Bruno Oliveira',
@@ -35,14 +39,14 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     'Isabela Martins',
     'João Pereira',
   ];
-  selectedResponsavel: string = '';
 
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private departamentoService: DepartamentoService
+    private departamentoService: DepartamentoService,
+    private colaboradoresService: ColaboradorService
   ) {
     this.departamentoForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -130,6 +134,7 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     this.departamentoId = this.route.snapshot.paramMap.get('id');
     if (this.departamentoId) {
       this.isEditMode = true;
+      this.carregarUsuarios();
       this.departamentoService
         .getDepartamentoById(Number(this.departamentoId))
         .subscribe(
@@ -143,5 +148,19 @@ export class CadastroDeDepartamentoComponent implements OnInit {
           }
         );
     }
+  }
+
+  carregarUsuarios(): void {
+    this.colaboradoresService.getColaboradores().subscribe(
+      (usuarios) => {
+        this.responsaveis = usuarios.map((usuario) => ({
+          value: usuario.id,
+          description: usuario.username,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as usuarios:', error);
+      }
+    );
   }
 }
