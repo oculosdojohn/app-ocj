@@ -7,6 +7,8 @@ export class Departamento {
         id: string;
         username: string;
         foto: { id: string; documentoUrl: string; nome: string } | null;
+        emailPessoal: string;
+        telefoneUm: string;
       }[]
     | null;
   orcamentoMensal!: number;

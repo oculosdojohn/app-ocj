@@ -22,7 +22,7 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Orçamento mensal</label>
-                <p>R$10000,00</p>
+                <p>R$ {{ departamento.orcamentoMensal || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Localização</label>
@@ -45,18 +45,23 @@
         <hr class="line">
     </div>
 
-    <div class="data-grid-trio">
+    <div class="data-grid-trio" *ngFor="let responsavel of departamento.responsaveis">
         <div class="item-data">
             <div class="perfil">
-                <div class="avatar"></div>
-                <span>Everardo Costta</span>
+                <div class="avatar" [ngStyle]="{'background-color': getRandomColor(responsavel.username)}">
+                    <img [src]="responsavel.foto?.documentoUrl" alt="Foto do responsavel" class="foto-responsavel" *ngIf="responsavel.foto?.documentoUrl; else defaultAvatar" />
+                    <ng-template #defaultAvatar>
+                        <span>{{ getInitial(responsavel.username) }}</span>
+                    </ng-template>
+                </div>
+                <span>{{ responsavel.username || '-' }}</span>
             </div>
         </div>
         <div class="item-data">
-            <p>Gerente</p>
+            <p>{{ responsavel.emailPessoal || '-' }}</p>
         </div>
         <div class="item-data">
-            <p>(00) 90000-0000</p>
+            <p>{{ responsavel.telefoneUm || '-' }}</p>
         </div>
     </div>
 </div>
