@@ -4,7 +4,13 @@ export class Loja {
   id!: string;
   nome!: string;
   endereco!: Endereco;
-  supervisor!: string;
+  supervisor!: {
+    foto?: { documentoUrl: string; id: number; name: string }; 
+    username: string;
+    cargo: string;
+    telefoneUm?: string;
+  };
+  id_supervisor!: string;
   quantidadeFuncionarios!: string;
   colaboradores!: {
     username: string;
