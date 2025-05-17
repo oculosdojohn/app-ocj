@@ -12,8 +12,13 @@ import { CargoDescricoes } from '../../../../sistema/Administrativo/funcionarios
 })
 export class DetalhesDepartamentoComponent implements OnInit {
   departamento!: Departamento;
-  colaboradores: any[] = [];
   responsaveis: any[] = [];
+
+  colaboradores: any[] = [];
+  itensPorPagina = 8;
+  paginaAtual = 1;
+  totalPaginas = Math.ceil(this.colaboradores.length / this.itensPorPagina);
+  colaboradoresPaginados: any[] = [];
 
   constructor(
     private location: Location,
@@ -27,6 +32,21 @@ export class DetalhesDepartamentoComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  atualizarPaginacao(): void {
+    const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+    const fim = inicio + this.itensPorPagina;
+    this.colaboradoresPaginados = this.colaboradores.slice(inicio, fim);
+  }
+
+  get totalItens() {
+    return this.colaboradores.length;
+  }
+
+  onPaginaMudou(novaPagina: number) {
+    this.paginaAtual = novaPagina;
+    this.atualizarPaginacao();
   }
 
   getDescricaoCargo(cargo: string): string {
@@ -44,6 +64,7 @@ export class DetalhesDepartamentoComponent implements OnInit {
           this.departamento = response;
           this.colaboradores = response.colaboradores || [];
           this.responsaveis = response.responsaveis || [];
+          this.atualizarPaginacao();
           console.log('Dados de departamento carregados:', this.departamento);
         },
         (error) => {
