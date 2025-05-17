@@ -27,19 +27,6 @@ export class CadastroDeDepartamentoComponent implements OnInit {
   responsaveis: { value: string; description: string }[] = [];
   selectedResponsavel: string = '';
 
-  valor: string[] = [
-    'Alice Santos',
-    'Bruno Oliveira',
-    'Carla Mendes',
-    'Diego Ferreira',
-    'Elisa Costa',
-    'Felipe Almeida',
-    'Gabriela Rocha',
-    'Henrique Souza',
-    'Isabela Martins',
-    'João Pereira',
-  ];
-
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -51,16 +38,17 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     this.departamentoForm = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: [''],
-      responsaveis: [[]],
       orcamentoMensal: [''],
       telefone: [''],
       email: ['', Validators.email],
       localizacao: [''],
+      responsaveis: [[]],
     });
   }
 
   ngOnInit(): void {
     this.verificarModoEdicao();
+    this.carregarUsuarios();
   }
 
   goBack() {
@@ -73,11 +61,15 @@ export class CadastroDeDepartamentoComponent implements OnInit {
       return;
     }
 
+    const responsaveisSelecionados = Array.isArray(
+      this.departamentoForm.value.responsaveis
+    )
+      ? this.departamentoForm.value.responsaveis.map((r: any) => r.value)
+      : [];
+
     const departamento: Departamento = {
       ...this.departamentoForm.value,
-      responsaveis: Array.isArray(this.departamentoForm.value.responsaveis)
-        ? this.departamentoForm.value.responsaveis
-        : [],
+      responsaveis: responsaveisSelecionados,
     };
     console.log('Payload enviado:', departamento);
 
@@ -141,7 +133,16 @@ export class CadastroDeDepartamentoComponent implements OnInit {
           (departamento: Departamento) => {
             console.log('Dados de departamento recebidos:', departamento);
 
-            this.departamentoForm.patchValue(departamento);
+            const responsaveisSelecionados = (departamento.responsaveis || [])
+              .map((resp: any) =>
+                this.responsaveis.find((r) => r.value == resp.id)
+              )
+              .filter(Boolean);
+
+            this.departamentoForm.patchValue({
+              ...departamento,
+              responsaveis: responsaveisSelecionados,
+            });
           },
           (error) => {
             console.error('Erro ao carregar os dados de departamento', error);
@@ -162,5 +163,10 @@ export class CadastroDeDepartamentoComponent implements OnInit {
         console.error('Erro ao carregar as usuarios:', error);
       }
     );
+  }
+
+  onResponsaveisChange(event: any) {
+    console.log('Responsáveis selecionados:', event);
+    this.departamentoForm.get('responsaveis')?.setValue(event);
   }
 }

@@ -31,7 +31,8 @@
                   [options]="responsaveis"
                   [(selectedValue)]="selectedResponsavel"
                   [multiple]="true"
-                  formControlName="responsaveis">
+                  formControlName="responsaveis"
+                  (selectedValueChange)="onResponsaveisChange($event)">
                 </app-multiplo-select>
             </div>
 
