@@ -18,41 +18,41 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Cidade</label>
-                <p>{{ loja.endereco.cidade }}</p>
+                <p>{{ loja.endereco.cidade || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Estado</label>
-                <p>{{ loja.endereco.estado }}</p>
+                <p>{{ loja.endereco.estado || '-' }}</p>
             </div>
         </div>
         <div class="data-grid">
             <div class="item-data">
                 <label>Rua</label>
-                <p>{{ loja.endereco.rua }}</p>
+                <p>{{ loja.endereco.rua || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Número</label>
-                <p>{{ loja.endereco.numero }}</p>
+                <p>{{ loja.endereco.numero || '-' }}</p>
             </div>
         </div>
         <div class="data-grid">
             <div class="item-data">
                 <label>Bairro</label>
-                <p>{{ loja.endereco.bairro }}</p>
+                <p>{{ loja.endereco.bairro || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>CEP</label>
-                <p>{{ loja.endereco.cep }}</p>
+                <p>{{ loja.endereco.cep || '-' }}</p>
             </div>
         </div>
         <div class="data-grid">
             <div class="item-data">
                 <label>Complemento</label>
-                <p>{{ loja.endereco.complemento }}</p>
+                <p>{{ loja.endereco.complemento || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Logradouro</label>
-                <p>{{ loja.endereco.logradouro }}</p>
+                <p>{{ loja.endereco.logradouro || '-' }}</p>
             </div>
         </div>
     </div>
@@ -83,21 +83,37 @@
         <hr class="line">
     </div>
 
-    <div class="data-grid-quad">
-        <div class="item-data">
-            <div class="perfil">
-                <div class="avatar"></div>
-                <span>Everardo Costta</span>
+    <div class="container-scroll">
+        <div class="data-grid-quad" *ngFor="let colaborador of colaboradoresPaginados">
+            <div class="item-data">
+                <div class="perfil">
+                    <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                        <img [src]="colaborador.foto?.documentoUrl" alt="Foto do colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+                        <ng-template #defaultAvatar>
+                            <span>{{ getInitial(colaborador.username) }}</span>
+                        </ng-template>
+                    </div>
+                    <span>{{ colaborador.username || '-' }}</span>
+                </div>
+            </div>
+            <div class="item-data">
+                <p>{{ getDescricaoCargo(colaborador.cargo) || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <p>{{ colaborador.departamento?.nome || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <p>{{ colaborador.telefoneUm || '-' }}</p>
             </div>
         </div>
-        <div class="item-data">
-            <p>Gerente</p>
-        </div>
-        <div class="item-data">
-            <p>Comercial</p>
-        </div>
-        <div class="item-data">
-            <p>(00) 90000-0000</p>
-        </div>
     </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
 </div>
