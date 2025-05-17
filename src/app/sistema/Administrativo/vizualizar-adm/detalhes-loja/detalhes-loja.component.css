@@ -84,6 +84,7 @@
 .data-grid-quad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 24px;
 }
 
 .perfil {
@@ -97,4 +98,13 @@
   height: 30px;
   background: #ddd;
   border-radius: 50%;
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px;
+  gap: 15px;
 }

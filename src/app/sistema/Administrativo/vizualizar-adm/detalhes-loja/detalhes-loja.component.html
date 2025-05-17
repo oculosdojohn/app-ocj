@@ -83,7 +83,7 @@
         <hr class="line">
     </div>
 
-    <div class="data-grid-quad" *ngFor="let colaborador of loja.colaboradores">
+    <div class="data-grid-quad" *ngFor="let colaborador of colaboradoresPaginados">
         <div class="item-data">
             <div class="perfil">
                 <div class="avatar"></div>
@@ -100,4 +100,13 @@
             <p>{{ colaborador.telefoneUm || '-' }}</p>
         </div>
     </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
 </div>
