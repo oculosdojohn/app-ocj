@@ -129,6 +129,14 @@
   gap: 15px;
 }
 
+.container-scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  width: 100%;
+  gap: 12px;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
@@ -172,14 +180,6 @@
     width: 100%;
     gap: 12px;
     padding-bottom: 16px;
-  }
-
-  .container-scroll {
-    display: flex;
-    flex-direction: column;
-    overflow-x: auto;
-    width: 100%;
-    gap: 12px;
   }
 
   .data-grid-trio > .item-data,

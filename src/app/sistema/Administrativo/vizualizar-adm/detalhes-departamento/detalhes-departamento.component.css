@@ -79,12 +79,13 @@
 .data-grid-trio {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding-bottom: 16px;
+  gap: 16px;
 }
 
 .data-grid-quad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
 .perfil {
@@ -126,6 +127,14 @@
   gap: 15px;
 }
 
+.container-scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  width: 100%;
+  gap: 16px;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
@@ -149,6 +158,20 @@
     margin: 20px 20px 20px;
     padding: 20px;
   }
+
+  .container-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .data-grid-trio > .item-data,
+  .data-grid-quad > .item-data {
+    min-width: 120px;
+    flex: auto;
+  }
 }
 
 @media (max-width: 767px) {
@@ -162,26 +185,9 @@
     padding: 20px;
   }
 
-  .data-grid-trio {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    width: 100%;
-    gap: 12px;
-    padding-bottom: 16px;
-  }
-
-  .container-scroll {
-    display: flex;
-    flex-direction: column;
-    overflow-x: auto;
-    width: 100%;
-    gap: 12px;
-  }
-
   .data-grid-trio > .item-data,
   .data-grid-quad > .item-data {
-    min-width: 120px;
+    min-width: 200px;
     flex: auto;
   }
 }
