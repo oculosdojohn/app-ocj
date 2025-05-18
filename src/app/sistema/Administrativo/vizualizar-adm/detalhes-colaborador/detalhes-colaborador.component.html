@@ -223,31 +223,41 @@
                  <div class="data-grid">
                     <div class="item-data">
                         <label>Estado</label>
-                        <p>{{ colaborador.nacionalidade || '-' }}</p>
+                        <p>{{ colaborador.endereco.estado || '-' }}</p>
                     </div>
                     <div class="item-data">
                         <label>Cidade</label>
-                        <p>{{ colaborador.naturalidade || '-' }}</p>
+                        <p>{{ colaborador.endereco.cidade || '-' }}</p>
                     </div>
                 </div>
                  <div class="data-grid">
                     <div class="item-data">
                         <label>CEP</label>
-                        <p>{{ colaborador.nacionalidade || '-' }}</p>
+                        <p>{{ colaborador.endereco.cep || '-' }}</p>
                     </div>
                     <div class="item-data">
                         <label>Bairro</label>
-                        <p>{{ colaborador.naturalidade || '-' }}</p>
+                        <p>{{ colaborador.endereco.bairro || '-' }}</p>
                     </div>
                 </div>
                  <div class="data-grid">
                     <div class="item-data">
                         <label>Rua</label>
-                        <p>{{ colaborador.nacionalidade || '-' }}</p>
+                        <p>{{ colaborador.endereco.rua || '-' }}</p>
                     </div>
                     <div class="item-data">
                         <label>Número</label>
-                        <p>{{ colaborador.naturalidade || '-' }}</p>
+                        <p>{{ colaborador.endereco.numero || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Complemento</label>
+                        <p>{{ colaborador.endereco.complemento || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Logradouro</label>
+                        <p>{{ colaborador.endereco.logradouro || '-' }}</p>
                     </div>
                 </div>
             </div>
