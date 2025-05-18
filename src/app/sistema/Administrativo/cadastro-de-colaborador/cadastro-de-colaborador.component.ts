@@ -151,7 +151,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
   ) {
     this.colaboradorForm = this.formBuilder.group({
       // geral
-      foto: [''],
       username: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       estadoCivil: [''],
@@ -183,7 +182,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
       banco: [''],
       agencia: [''],
       contaCorrente: [''],
-      documentos: [[]],
       // contato
       telefoneUm: [''],
       telefoneDois: [''],
