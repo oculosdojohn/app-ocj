@@ -79,7 +79,7 @@
 }
 
 .avatar span {
-  font-size: 14px;
+  font-size: 32px;
   color: #202020;
   font-weight: 500;
 }
@@ -93,4 +93,97 @@
 .loja p {
   margin: 0;
   padding: 0;
+}
+
+/* Divisão */
+.divisao {
+  width: 100%;
+}
+
+.divisao p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.data-itens {
+  margin: 16px 0;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.item-data label {
+  color: #716f6e;
+}
+
+.data-grid-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.data-grid-quad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 24px;
+  gap: 8px;
+}
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 40px;
+    padding-bottom: 0;
+  }
+
+  .subMain-container {
+    margin: 20px 20px 20px;
+    padding: 40px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 40px;
+    padding-bottom: 0;
+  }
+
+  .subMain-container {
+    margin: 20px 20px 20px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 20px;
+    padding-bottom: 0;
+  }
+
+  .subMain-container {
+    margin: 20px 20px 20px;
+    padding: 20px;
+  }
+
+  .data-grid-trio {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    width: 100%;
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .data-grid-trio > .item-data,
+  .data-grid-quad > .item-data {
+    min-width: 120px;
+    flex: auto;
+  }
 }
