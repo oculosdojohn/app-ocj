@@ -15,7 +15,10 @@
             <h1>{{ colaborador.username }}</h1>
             <div class="loja">
                 <img src="assets/icones/location.svg" alt="marcador" />
-                <p>{{ colaborador.loja?.nome }}</p>
+                <p>
+                    {{ colaborador.loja?.nome || '-' }}
+                    <span *ngIf="colaborador.loja?.endereco?.cidade"> - {{ colaborador.loja?.endereco?.cidade }}</span>
+                </p>
             </div>
         </div>
     </div>
