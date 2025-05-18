@@ -235,6 +235,4 @@ export class PainelAdminComponent implements OnInit {
     );
     chart.render();
   }
-  
-  
 }

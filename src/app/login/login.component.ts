@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   mensagemSucesso!: string;
   errors!: String[];
   usuario: any;
-  isLoading = false;
 
   showForgotPassword: boolean = false;
   passwordVisible: { [key: string]: boolean } = {
@@ -35,15 +34,15 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('access_token');
     localStorage.removeItem('usuario');
     localStorage.removeItem('user_id');
-
+  
     this.authService.tentarLogar(this.email, this.password).subscribe(
       (response: any) => {
         const access_token = response.access_token;
         localStorage.setItem('access_token', access_token);
-  
+
         const userId = this.authService.getUserIdFromToken() ?? '';
         localStorage.setItem('user_id', userId || '');
-  
+
         const usuario: Usuario = {
           id: userId,
           username: response.username,
@@ -56,10 +55,9 @@ export class LoginComponent implements OnInit {
           cargo: response.cargo || '',
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
-        console.log('Permissão do usuário:', usuario.permissao);
-  
-        this.isLoading = false; // ✅ libera novamente
-  
+         // Adicione o console log aqui
+         console.log('Permissão do usuário:', usuario.permissao);
+
         switch (usuario.permissao) {
           case Permissao.ADMIN:
             this.router.navigate(['/usuario/dashboard-admin']);
@@ -82,7 +80,6 @@ export class LoginComponent implements OnInit {
         }
       },
       (errorResponse) => {
-        this.isLoading = false;
         this.errors = ['E-mail e/ou senha incorreto(s).'];
       }
     );
@@ -96,6 +93,7 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
     this.cadastrando = true;
   }
+
 
 
   togglePasswordVisibility(field: string) {
