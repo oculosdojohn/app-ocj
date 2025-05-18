@@ -330,9 +330,15 @@
                 <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
             </div>
         </div>
+
+        <div *ngSwitchCase="'feedback'">
+            <div class="image-center">
+                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
+            </div>
+        </div>
     
         <div *ngSwitchCase="'curso'">
-            <span>teste 04</span>
+            <app-info-curso></app-info-curso>
         </div>
 
         <div *ngSwitchCase="'observacao'">

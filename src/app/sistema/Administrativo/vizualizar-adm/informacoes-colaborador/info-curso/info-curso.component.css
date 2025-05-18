@@ -1,0 +1,82 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 100%;
+}
+
+/* cards */
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 160px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
+}
+
+.info-card span {
+  font-size: 32px;
+  font-weight: 700;
+  color: #cb4417;
+}
+
+.categoria-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.categoria-card p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4d4a49;
+  margin: 0;
+}
+
+.icone-card {
+  width: 48px;
+  height: 48px;
+  background: #deebe5;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+}
+
+.icone-card img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Divisão */
+.divisao {
+  width: 100%;
+}
+
+.divisao p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px;
+  gap: 15px;
+}
