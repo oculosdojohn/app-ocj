@@ -31,6 +31,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('user_id');
+  
     this.authService.tentarLogar(this.email, this.password).subscribe(
       (response: any) => {
         const access_token = response.access_token;
@@ -90,19 +94,7 @@ export class LoginComponent implements OnInit {
     this.cadastrando = true;
   }
 
-  salvaUserLocal() {
-    this.authService.obterUsuarioAutenticadoDoBackend().subscribe(
-      (usuario: Usuario) => {
-        this.usuario = usuario;
-        localStorage.setItem('idUser', usuario.id);
-        this.router.navigate(['/usuario/inicio']);
-        localStorage.setItem('usuario', usuario.username);
-      },
-      (error) => {
-        console.error('Erro ao obter dados do usuário:', error);
-      }
-    );
-  }
+
 
   togglePasswordVisibility(field: string) {
     this.passwordVisible[field] = !this.passwordVisible[field];

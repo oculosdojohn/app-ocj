@@ -35,9 +35,7 @@ export class AuthService {
   obterUsuarioAutenticadoDoBackend(): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiURL}/perfil`).pipe(
       map((usuario) => {
-        usuario.permissao = this.jwtHelper.decodeToken(
-          JSON.stringify(this.obterToken())
-        ).role;
+        usuario.permissao = this.jwtHelper.decodeToken(this.obterToken() || '')?.role;
         return usuario;
       })
     );
