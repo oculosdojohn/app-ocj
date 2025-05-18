@@ -4,6 +4,8 @@ import { MotivationalMessagesService } from 'src/app/services/motivational-messa
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { Usuario } from 'src/app/login/usuario';
 import * as ApexCharts from 'apexcharts';
+import { GraficosService } from 'src/app/services/administrativo/graficos.service';
+
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -46,16 +48,26 @@ export class PainelAdminComponent implements OnInit {
     private apiService: ServicesApisService,
     private motivationalMessagesService: MotivationalMessagesService,
     private cdr: ChangeDetectorRef,
-    private usuarioService: AuthService
+    private usuarioService: AuthService,
+    private graficosService: GraficosService
   ) {}
-
+  
+  //teste
   ngOnInit(): void {
     this.getWeatherForCurrentLocation();
     this.motivationalMessage =
       this.motivationalMessagesService.getRandomMessage();
-    this.renderChartAdmissao();
-    this.renderChartDemissao();
-    this.renderChartEscolaridade();
+      this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
+        this.renderChartEscolaridade(data);
+      });
+      
+      this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
+        this.renderChartGenero(data);
+      });
+      
+      this.graficosService.getColaboradoresPorLoja().subscribe((data) => {
+        this.renderChartPorLoja(data);
+      });
     this.usuarioService.obterPerfilUsuario().subscribe(
       (usuario) => {
         this.usuario = usuario;
@@ -106,98 +118,87 @@ export class PainelAdminComponent implements OnInit {
     }
   }
 
-  // graficos
-  renderChartAdmissao() {
-    var options = {
+  renderChartGenero(data: Record<string, number>) {
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+  
+    const options = {
       chart: {
-        type: 'line',
+        type: 'pie',
+        height: 350,
+        width: '100%',
+      },
+      series: values,
+      labels: labels,
+      theme: {
+        palette: 'palette2',
+      },
+      responsive: [
+        {
+          breakpoint: 980,
+          options: {
+            chart: {
+              width: 250,
+            },
+            legend: {
+              position: 'bottom',
+            },
+          },
+        },
+      ],
+    };
+  
+    const chart = new ApexCharts(
+      document.querySelector('#chartGenero'),
+      options
+    );
+    chart.render();
+  }
+  
+  renderChartPorLoja(data: Record<string, number>) {
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+  
+    const options = {
+      chart: {
+        type: 'bar',
         height: 350,
         width: '100%',
       },
       series: [
         {
-          name: 'Admissões',
-          data: [45, 5, 2, 50, 10, 60, 30, 91, 125, 160, 200, 150],
+          name: 'Colaboradores',
+          data: values,
         },
       ],
       xaxis: {
-        categories: [
-          'Jan',
-          'Fev',
-          'Mar',
-          'Abr',
-          'Mai',
-          'Jun',
-          'Jul',
-          'Ago',
-          'Set',
-          'Out',
-          'Nov',
-          'Dez',
-        ],
+        categories: labels,
       },
       theme: {
-        palette: 'palette3',
+        palette: 'palette4',
       },
     };
-
-    var chart = new ApexCharts(
-      document.querySelector('#chartAdmissao'),
+  
+    const chart = new ApexCharts(
+      document.querySelector('#chartColaboradoresPorLoja'),
       options
     );
     chart.render();
   }
+  
 
-  renderChartDemissao() {
-    var options = {
-      chart: {
-        type: 'line',
-        height: 350,
-        width: '100%',
-      },
-      series: [
-        {
-          name: 'Demissões',
-          data: [1, 5, 2, 50, 10, 60, 30, 91, 125, 160, 100, 50],
-        },
-      ],
-      xaxis: {
-        categories: [
-          'Jan',
-          'Fev',
-          'Mar',
-          'Abr',
-          'Mai',
-          'Jun',
-          'Jul',
-          'Ago',
-          'Set',
-          'Out',
-          'Nov',
-          'Dez',
-        ],
-      },
-      theme: {
-        palette: 'palette10',
-      },
-    };
-
-    var chart = new ApexCharts(
-      document.querySelector('#chartDemissao'),
-      options
-    );
-    chart.render();
-  }
-
-  renderChartEscolaridade() {
-    var options = {
+  renderChartEscolaridade(data: Record<string, number>) {
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+  
+    const options = {
       chart: {
         type: 'donut',
         height: 350,
         width: '100%',
       },
-      series: [44, 55, 13],
-      labels: ['Fundamental completo', 'Médio completo', 'Superior completo'],
+      series: values,
+      labels: labels,
       theme: {
         palette: 'palette8',
       },
@@ -215,11 +216,12 @@ export class PainelAdminComponent implements OnInit {
         },
       ],
     };
-
-    var chart = new ApexCharts(
+  
+    const chart = new ApexCharts(
       document.querySelector('#chartEscolaridade'),
       options
     );
     chart.render();
   }
+  
 }
