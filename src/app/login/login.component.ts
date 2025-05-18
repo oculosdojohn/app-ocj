@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    if (this.isLoading) return; // 🔒 impede chamadas múltiplas
+  
     this.isLoading = true;
     localStorage.clear();
     this.authService.encerrarSessao();
@@ -55,11 +57,10 @@ export class LoginComponent implements OnInit {
           foto: response.foto || '',
           cargo: response.cargo || '',
         };
-  
         localStorage.setItem('usuario', JSON.stringify(usuario));
         console.log('Permissão do usuário:', usuario.permissao);
   
-        this.isLoading = false; 
+        this.isLoading = false; // ✅ libera novamente
   
         switch (usuario.permissao) {
           case Permissao.ADMIN:
@@ -83,11 +84,12 @@ export class LoginComponent implements OnInit {
         }
       },
       (errorResponse) => {
-        this.isLoading = false; 
+        this.isLoading = false;
         this.errors = ['E-mail e/ou senha incorreto(s).'];
       }
     );
   }
+  
   
 
   login() {
