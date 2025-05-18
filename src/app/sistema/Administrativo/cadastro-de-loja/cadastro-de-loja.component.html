@@ -16,6 +16,16 @@
                 </div>
             </div>
 
+            <div class="form-group" *ngIf="isEditMode">
+                <label for="id_supervisor">Superior responsável</label>
+                <app-select-padrao
+                    label="Selecionar responsável"
+                    [options]="responsaveis"
+                    [(selectedValue)]="selectedResponsavel"
+                    formControlName="id_supervisor">
+                </app-select-padrao>
+            </div>
+
             <div class="divisao">
                 <p>Endereço</p>
                 <hr class="line">

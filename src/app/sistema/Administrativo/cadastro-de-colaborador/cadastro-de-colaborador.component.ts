@@ -134,6 +134,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedEstado: string = '';
   selectedCidade: string = '';
 
+  passwordVisible: { [key: string]: boolean } = {
+    password: false,
+    confirmPassword: false,
+  };
+
   constructor(
     private location: Location,
     private lojaService: LojaService,
@@ -161,10 +166,10 @@ export class CadastroDeColaboradorComponent implements OnInit {
       possuiFilhos: [''],
       quantidadeFilhos: [''],
       // documentos
-      cpf: ['', Validators.required],
-      rg: ['', Validators.required],
-      orgaoExpedidor: ['', Validators.required],
-      dataExpedicao: ['', Validators.required],
+      cpf: [''],
+      rg: [''],
+      orgaoExpedidor: [''],
+      dataExpedicao: [''],
       nomeMae: [''],
       nomePai: [''],
       cnh: [''],
@@ -182,7 +187,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       // contato
       telefoneUm: [''],
       telefoneDois: [''],
-      emailEmpresarial: ['', [Validators.email]],
+      emailEmpresarial: [''],
       instagram: [''],
       // endereco
       endereco: this.formBuilder.group({
@@ -359,6 +364,21 @@ export class CadastroDeColaboradorComponent implements OnInit {
     });
 
     if (this.isEditMode && this.colaboradorId) {
+      this.colaboradorService
+        .atualizarColaborador(Number(this.colaboradorId), formData)
+        .subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.successMessage = 'Usuário atualizado com sucesso!';
+            this.errorMessage = null;
+            this.router.navigate(['/usuario/buscar-colaboradores']);
+          },
+          (error) => {
+            this.isLoading = false;
+            this.errorMessage = error.message || 'Erro ao atualizar a Usuário.';
+            this.successMessage = null;
+          }
+        );
     } else {
       this.colaboradorService.cadastrarColaborador(formData).subscribe(
         (response) => {
@@ -547,7 +567,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
   }
 
   private registrarListenersDoFormulario(): void {
-    // Atualiza duração do contrato e término ao selecionar período de experiência
     this.colaboradorForm
       .get('periodoDeExperiencia')
       ?.valueChanges.subscribe((value) => {
@@ -558,9 +577,19 @@ export class CadastroDeColaboradorComponent implements OnInit {
         this.calcularDataTermino();
       });
 
-    // Atualiza data de término se mudar a data inicial
     this.colaboradorForm.get('dataDoContrato')?.valueChanges.subscribe(() => {
       this.calcularDataTermino();
     });
+  }
+
+  togglePasswordVisibility(field: string) {
+    this.passwordVisible[field] = !this.passwordVisible[field];
+    const passwordInput = document.querySelector(`input[name="${field}"]`);
+    if (passwordInput) {
+      passwordInput.setAttribute(
+        'type',
+        this.passwordVisible[field] ? 'text' : 'password'
+      );
+    }
   }
 }

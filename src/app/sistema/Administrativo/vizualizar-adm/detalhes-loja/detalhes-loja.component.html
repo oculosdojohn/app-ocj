@@ -64,15 +64,20 @@
     <div class="data-grid-trio">
         <div class="item-data">
             <div class="perfil">
-                <div class="avatar"></div>
-                <span>Everardo Costta</span>
+                 <div class="avatar" [ngStyle]="{'background-color': getRandomColor(loja.supervisor.username)}">
+                    <img [src]="loja.supervisor.foto?.documentoUrl" alt="Foto do supervisor" *ngIf="loja.supervisor.foto?.documentoUrl; else defaultAvatar" />
+                    <ng-template #defaultAvatar>
+                        <span>{{ getInitial(loja.supervisor.username) }}</span>
+                    </ng-template>
+                </div>
+                <span>{{ loja.supervisor.username || '-' }}</span>
             </div>
         </div>
         <div class="item-data">
-            <p>Gerente</p>
+            <p>{{ getDescricaoCargo(loja.supervisor.cargo) || '-' }}</p>
         </div>
         <div class="item-data">
-            <p>(00) 90000-0000</p>
+            <p>{{ loja.supervisor.telefoneUm || '-' }}</p>
         </div>
     </div>
 </div>

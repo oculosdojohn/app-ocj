@@ -18,36 +18,32 @@ export class ColaboradorService {
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);
     });
-  
+
     return this.http.post<any>(this.apiURL, formData).pipe(
       map((response) => response),
       catchError((error: HttpErrorResponse) => {
         console.error('Erro bruto recebido do servidor:', error);
-  
+
         let errorMessage = 'Erro ao salvar o usuário.';
-  
+
         if (error.error instanceof ErrorEvent) {
-          // Erros de rede ou client-side
           errorMessage = `Erro: ${error.error.message}`;
         } else {
-          // Erros retornados pelo backend (status 400, 409, etc)
           if (typeof error.error === 'string') {
-            errorMessage = error.error; // Se o backend envia apenas string
+            errorMessage = error.error;
           } else if (error.error?.message) {
-            errorMessage = error.error.message; // Se envia { message: 'mensagem' }
+            errorMessage = error.error.message;
           } else if (error.error?.errors) {
-            // Exemplo: { errors: { emailPessoal: "já cadastrado" } }
             const firstErrorKey = Object.keys(error.error.errors)[0];
             errorMessage = error.error.errors[firstErrorKey];
           }
         }
-  
+
         console.error('Mensagem de erro processada:', errorMessage);
         return throwError(() => new Error(errorMessage));
       })
     );
   }
-  
 
   getColaboradores(): Observable<Colaborador[]> {
     return this.http.get<Colaborador[]>(this.apiURL).pipe(
@@ -109,6 +105,90 @@ export class ColaboradorService {
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao buscar os usuários por cargos.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  atualizarColaborador(id: number, formData: FormData): Observable<any> {
+    const url = `${this.apiURL}/${id}`;
+    console.log('Dados enviados para o backend (editar):');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    return this.http.put<any>(url, formData).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erro bruto recebido do servidor:', error);
+
+        let errorMessage = 'Erro ao atualizar o usuário.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else {
+          if (typeof error.error === 'string') {
+            errorMessage = error.error;
+          } else if (error.error?.message) {
+            errorMessage = error.error.message;
+          } else if (error.error?.errors) {
+            const firstErrorKey = Object.keys(error.error.errors)[0];
+            errorMessage = error.error.errors[firstErrorKey];
+          }
+        }
+
+        console.error('Mensagem de erro processada:', errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  atualizarPerfilUsuario(id: number, formData: FormData): Observable<any> {
+    const url = `${this.apiURL}/perfil/${id}`;
+    console.log('Dados enviados para o backend (atualizar perfil):');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    return this.http.put<any>(url, formData).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erro bruto recebido do servidor:', error);
+
+        let errorMessage = 'Erro ao atualizar o perfil do usuário.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else {
+          if (typeof error.error === 'string') {
+            errorMessage = error.error;
+          } else if (error.error?.message) {
+            errorMessage = error.error.message;
+          } else if (error.error?.errors) {
+            const firstErrorKey = Object.keys(error.error.errors)[0];
+            errorMessage = error.error.errors[firstErrorKey];
+          }
+        }
+
+        console.error('Mensagem de erro processada:', errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getUsuarioPorToken(): Observable<Colaborador> {
+    const url = `${this.apiURL}/token`;
+    return this.http.get<Colaborador>(url).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao buscar o usuário pelo token.';
 
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;

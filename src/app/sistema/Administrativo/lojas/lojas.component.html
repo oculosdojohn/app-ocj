@@ -37,8 +37,13 @@
                     <td>{{ loja.endereco.rua }}, {{ loja.endereco.numero }} - {{ loja.endereco.bairro }}, {{ loja.endereco.cidade }} - {{ loja.endereco.estado }}, {{ loja.endereco.cep }}</td>
                     <td>
                         <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ loja.supervisor || '-' }}</span>
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(loja.supervisor.username)}">
+                                <img [src]="loja.supervisor.foto?.documentoUrl" alt="Foto do supervisor" *ngIf="loja.supervisor.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(loja.supervisor.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ loja.supervisor.username || '-' }}</span>
                         </div>
                     </td>
                     <td>{{ loja.quantidadeFuncionarios }}</td>

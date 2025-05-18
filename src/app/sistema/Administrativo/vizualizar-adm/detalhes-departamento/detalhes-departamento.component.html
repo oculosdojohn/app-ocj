@@ -17,26 +17,26 @@
     <div class="data-itens">
         <div class="item-data">
             <label>Descrição</label>
-            <p>{{ departamento.descricao }}</p>
+            <p>{{ departamento.descricao || '-' }}</p>
         </div>
         <div class="data-grid">
             <div class="item-data">
                 <label>Orçamento mensal</label>
-                <p>R$10000,00</p>
+                <p>R$ {{ departamento.orcamentoMensal || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Localização</label>
-                <p>{{ departamento.localizacao }}</p>
+                <p>{{ departamento.localizacao || '-' }}</p>
             </div>
         </div>
         <div class="data-grid">
             <div class="item-data">
                 <label>Telefone</label>
-                <p>{{ departamento.telefone }}</p>
+                <p>{{ departamento.telefone || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>E-mail</label>
-                <p>{{ departamento.email }}</p>
+                <p>{{ departamento.email || '-' }}</p>
             </div>
         </div>
     </div>
@@ -45,18 +45,25 @@
         <hr class="line">
     </div>
 
-    <div class="data-grid-trio">
-        <div class="item-data">
-            <div class="perfil">
-                <div class="avatar"></div>
-                <span>Everardo Costta</span>
+    <div class="container-scroll">
+        <div class="data-grid-trio" *ngFor="let responsavel of departamento.responsaveis">
+            <div class="item-data">
+                <div class="perfil">
+                    <div class="avatar" [ngStyle]="{'background-color': getRandomColor(responsavel.username)}">
+                        <img [src]="responsavel.foto?.documentoUrl" alt="Foto do responsavel" class="foto-responsavel" *ngIf="responsavel.foto?.documentoUrl; else defaultAvatar" />
+                        <ng-template #defaultAvatar>
+                            <span>{{ getInitial(responsavel.username) }}</span>
+                        </ng-template>
+                    </div>
+                    <span>{{ responsavel.username || '-' }}</span>
+                </div>
             </div>
-        </div>
-        <div class="item-data">
-            <p>Gerente</p>
-        </div>
-        <div class="item-data">
-            <p>(00) 90000-0000</p>
+            <div class="item-data">
+                <p>{{ responsavel.emailPessoal || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <p>{{ responsavel.telefoneUm || '-' }}</p>
+            </div>
         </div>
     </div>
 </div>
@@ -67,23 +74,34 @@
         <hr class="line">
     </div>
 
-    <div class="data-grid-trio" *ngFor="let colaborador of departamento.colaboradores">
-        <div class="item-data">
-            <div class="perfil">
-                <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
-                    <img [src]="colaborador.foto?.documentoUrl" alt="Foto do colaborador" class="foto-colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
-                    <ng-template #defaultAvatar>
-                        <span>{{ getInitial(colaborador.username) }}</span>
-                    </ng-template>
+    <div class="container-scroll">
+        <div class="data-grid-trio" *ngFor="let colaborador of colaboradoresPaginados">
+            <div class="item-data">
+                <div class="perfil">
+                    <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                        <img [src]="colaborador.foto?.documentoUrl" alt="Foto do colaborador" class="foto-colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+                        <ng-template #defaultAvatar>
+                            <span>{{ getInitial(colaborador.username) }}</span>
+                        </ng-template>
+                    </div>
+                    <span>{{ colaborador.username || '-' }}</span>
                 </div>
-                <span>{{ colaborador.username }}</span>
+            </div>
+            <div class="item-data">
+                <p>{{ getDescricaoCargo(colaborador.cargo) || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <p>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</p>
             </div>
         </div>
-        <div class="item-data">
-            <p>{{ getDescricaoCargo(colaborador.cargo) }}</p>
-        </div>
-        <div class="item-data">
-            <p>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</p>
-        </div>
     </div>
+    
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
 </div>

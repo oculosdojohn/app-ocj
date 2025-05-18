@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ThemeService } from '../../services/modo-escuro/theme.service';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -9,21 +10,33 @@ import { ThemeService } from '../../services/modo-escuro/theme.service';
 })
 export class MeuPerfilComponent implements OnInit {
   isEditing = false;
+  userId = 0;
   user = {
-    name: 'Johnatta',
-    loja: 'Loja de Russas',
-    emailEmpressarial: 'johnatta@gmail.com',
-    emailPessoal: 'johnatta2@gmail.com',
-    telefone1: '(00) 9 0000-0000',
-    telefone2: '(00) 9 0000-0000',
+    username: '',
+    loja: '',
+    emailEmpresarial: '',
+    emailPessoal: '',
+    telefoneUm: '',
+    telefoneDois: '',
   };
 
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  messageTimeout: any;
+
   defaultImageUrl = 'assets/imgs/default-profile.png';
+  selectedImageFile: File | null = null;
   selectedImageUrl: string | ArrayBuffer | null = null;
 
-  constructor(private location: Location, public themeService: ThemeService) {}
+  constructor(
+    private location: Location,
+    public themeService: ThemeService,
+    private colaboradorService: ColaboradorService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.carregarPerfilUsuario();
+  }
 
   toggleDarkMode() {
     this.themeService.toggleDarkMode();
@@ -37,8 +50,29 @@ export class MeuPerfilComponent implements OnInit {
     this.isEditing = true;
   }
 
-  saveChanges() {
-    this.isEditing = false;
+  carregarPerfilUsuario(): void {
+    this.colaboradorService.getUsuarioPorToken().subscribe({
+      next: (usuario) => {
+        console.log('Usuário retornado pelo token:', usuario);
+        this.userId = Number(usuario.id);
+        this.user = {
+          username: usuario.username || '',
+          loja: usuario.loja?.nome || '',
+          emailEmpresarial: usuario.emailEmpresarial || '',
+          emailPessoal: usuario.emailPessoal || '',
+          telefoneUm: usuario.telefoneUm || '',
+          telefoneDois: usuario.telefoneDois || '',
+        };
+        if (usuario.foto?.documentoUrl) {
+          this.selectedImageUrl = usuario.foto.documentoUrl;
+        } else {
+          this.selectedImageUrl = this.defaultImageUrl;
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao carregar perfil do usuário:', error);
+      },
+    });
   }
 
   cancelEdit() {
@@ -48,6 +82,7 @@ export class MeuPerfilComponent implements OnInit {
   onImageSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
+      this.selectedImageFile = file;
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {
@@ -56,5 +91,58 @@ export class MeuPerfilComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  saveChanges() {
+    this.clearMessage();
+
+    const formData = new FormData();
+    const perfil = {
+      username: this.user.username,
+      loja: this.user.loja,
+      emailEmpresarial: this.user.emailEmpresarial,
+      emailPessoal: this.user.emailPessoal,
+      telefoneUm: this.user.telefoneUm,
+      telefoneDois: this.user.telefoneDois,
+    };
+
+    formData.append('perfil', JSON.stringify(perfil));
+
+    if (this.selectedImageFile) {
+      formData.append('foto', this.selectedImageFile);
+    }
+    console.log('Enviando para atualizarPerfilUsuario:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    this.colaboradorService
+      .atualizarPerfilUsuario(this.userId, formData)
+      .subscribe({
+        next: (response) => {
+          this.isEditing = false;
+          this.showMessage('success', 'Perfil atualizado com sucesso!');
+        },
+        error: (error) => {
+          this.showMessage(
+            'error',
+            error.message || 'Erro ao atualizar o perfil.'
+          );
+          console.error('Erro ao atualizar perfil:', error);
+        },
+      });
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    if (type === 'error') this.errorMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = null;
+    this.errorMessage = null;
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }

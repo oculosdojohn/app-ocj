@@ -129,23 +129,31 @@
   gap: 15px;
 }
 
+.container-scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  width: 100%;
+  gap: 12px;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
     margin: 90px 20px 20px;
-    padding: 40px 56px;
+    padding: 40px;
   }
 
   .subMain-container {
     margin: 20px 20px 20px;
-    padding: 20px;
+    padding: 40px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .main-container {
     margin: 90px 20px 20px;
-    padding: 40px 48px;
+    padding: 40px;
   }
 
   .subMain-container {
@@ -172,14 +180,6 @@
     width: 100%;
     gap: 12px;
     padding-bottom: 16px;
-  }
-
-  .container-scroll {
-    display: flex;
-    flex-direction: column;
-    overflow-x: auto;
-    width: 100%;
-    gap: 12px;
   }
 
   .data-grid-trio > .item-data,

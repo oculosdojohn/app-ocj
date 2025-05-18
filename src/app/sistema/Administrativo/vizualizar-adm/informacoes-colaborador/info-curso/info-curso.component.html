@@ -1,0 +1,65 @@
+<div class="main-container">
+    <div class="cards-container">
+      <div class="card info-card">
+          <span>0</span>
+          <div class="categoria-card">
+              <img src="assets/icones/coin.svg" alt="Curso icone">
+              <p>Moedas</p>
+          </div>
+      </div>
+      <div class="card info-card">
+          <span>12</span>
+          <div class="categoria-card">
+              <div class="icone-card">
+                  <img src="assets/icones/dashboard/cursos.svg" alt="Curso icone">
+              </div>
+              <p>Aulas assistidas</p>
+          </div>
+      </div>
+      <div class="card info-card">
+          <span>3</span>
+          <div class="categoria-card">
+              <div class="icone-card">
+                  <img src="assets/icones/modulo.svg" alt="Curso icone">
+              </div>
+              <p>Módulos finalizados</p>
+          </div>
+      </div>
+    </div>
+
+    <div>
+        <div class="divisao">
+            <p>Cursos</p>
+            <hr class="line">
+        </div>
+
+        <div class="cursos">
+            <div class="curso-card" *ngFor="let curso of cursosPaginados" >
+                <div class="curso-infos">
+                    <div class="curso-image">
+                        <img [src]="curso.image" alt="Imagem do curso">
+                    </div>
+                    <div class="curso-detalhes">
+                        <span>{{ curso.description }}</span>
+                        <p>0/12</p>
+                    </div>
+                </div>
+                <div class="progresso-curso-container">
+                    <div class="progresso-curso-bar">
+                    <div class="progresso-curso-fill" [style.width.%]="curso.porcentagem"></div>
+                    </div>
+                    <span class="progresso-curso-porcentagem">{{ curso.porcentagem || 0 }}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div>
+</div>

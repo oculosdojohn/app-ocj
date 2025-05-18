@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Departamento } from '../../Administrativo/departamentos/departamento';
 import { DepartamentoService } from '../../../services/administrativo/departamento.service';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 
 @Component({
   selector: 'app-cadastro-de-departamento',
@@ -23,18 +24,7 @@ export class CadastroDeDepartamentoComponent implements OnInit {
   isEditMode = false;
   departamentoId: string | null = null;
 
-  valor: string[] = [
-    'Alice Santos',
-    'Bruno Oliveira',
-    'Carla Mendes',
-    'Diego Ferreira',
-    'Elisa Costa',
-    'Felipe Almeida',
-    'Gabriela Rocha',
-    'Henrique Souza',
-    'Isabela Martins',
-    'João Pereira',
-  ];
+  responsaveis: { value: string; description: string }[] = [];
   selectedResponsavel: string = '';
 
   constructor(
@@ -42,21 +32,23 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private departamentoService: DepartamentoService
+    private departamentoService: DepartamentoService,
+    private colaboradoresService: ColaboradorService
   ) {
     this.departamentoForm = this.formBuilder.group({
       nome: ['', Validators.required],
       descricao: [''],
-      responsaveis: [[]],
       orcamentoMensal: [''],
       telefone: [''],
       email: ['', Validators.email],
       localizacao: [''],
+      responsaveis: [[]],
     });
   }
 
   ngOnInit(): void {
     this.verificarModoEdicao();
+    this.carregarUsuarios();
   }
 
   goBack() {
@@ -69,11 +61,15 @@ export class CadastroDeDepartamentoComponent implements OnInit {
       return;
     }
 
+    const responsaveisSelecionados = Array.isArray(
+      this.departamentoForm.value.responsaveis
+    )
+      ? this.departamentoForm.value.responsaveis.map((r: any) => r.value)
+      : [];
+
     const departamento: Departamento = {
       ...this.departamentoForm.value,
-      responsaveis: Array.isArray(this.departamentoForm.value.responsaveis)
-        ? this.departamentoForm.value.responsaveis
-        : [],
+      responsaveis: responsaveisSelecionados,
     };
     console.log('Payload enviado:', departamento);
 
@@ -130,18 +126,47 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     this.departamentoId = this.route.snapshot.paramMap.get('id');
     if (this.departamentoId) {
       this.isEditMode = true;
+      this.carregarUsuarios();
       this.departamentoService
         .getDepartamentoById(Number(this.departamentoId))
         .subscribe(
           (departamento: Departamento) => {
             console.log('Dados de departamento recebidos:', departamento);
 
-            this.departamentoForm.patchValue(departamento);
+            const responsaveisSelecionados = (departamento.responsaveis || [])
+              .map((resp: any) =>
+                this.responsaveis.find((r) => r.value == resp.id)
+              )
+              .filter(Boolean);
+
+            this.departamentoForm.patchValue({
+              ...departamento,
+              responsaveis: responsaveisSelecionados,
+            });
           },
           (error) => {
             console.error('Erro ao carregar os dados de departamento', error);
           }
         );
     }
+  }
+
+  carregarUsuarios(): void {
+    this.colaboradoresService.getColaboradores().subscribe(
+      (usuarios) => {
+        this.responsaveis = usuarios.map((usuario) => ({
+          value: usuario.id,
+          description: usuario.username,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as usuarios:', error);
+      }
+    );
+  }
+
+  onResponsaveisChange(event: any) {
+    console.log('Responsáveis selecionados:', event);
+    this.departamentoForm.get('responsaveis')?.setValue(event);
   }
 }

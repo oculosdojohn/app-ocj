@@ -19,6 +19,7 @@ export class DetalhesColaboradorComponent implements OnInit {
     { name: 'Dados do colaborador', id: 'geral' },
     { name: 'Medicina', id: 'medicina' },
     { name: 'Registros', id: 'registro' },
+    { name: 'Feedback', id: 'feedback' },
     { name: 'Progresso no curso', id: 'curso' },
     { name: 'Observações', id: 'observacao' },
   ];

@@ -6,7 +6,7 @@
     </div>
     <div class="actions">
         <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
-            <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Responsável" class="foto-colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+            <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" class="foto-colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
             <ng-template #defaultAvatar>
                 <span>{{ getInitial(colaborador.username) }}</span>
             </ng-template>
@@ -15,7 +15,18 @@
             <h1>{{ colaborador.username }}</h1>
             <div class="loja">
                 <img src="assets/icones/location.svg" alt="marcador" />
-                <p>{{ colaborador.loja?.nome }}</p>
+                <div class="infos-conatiner">
+                    <p>
+                        {{ colaborador.loja?.nome || '-' }}
+                        <span *ngIf="colaborador.loja?.endereco?.cidade"> - {{ colaborador.loja?.endereco?.cidade }}</span>
+                    </p>
+                    <div class="status-container">
+                        <span class="status-dot" [ngClass]="{'ativo': colaborador.status === 'Ativo','inativo': colaborador.status !== 'Ativo'}"></span>
+                        <p [ngClass]="{'ativo': colaborador.status === 'Ativo','inativo': colaborador.status !== 'Ativo'}">
+                            {{ colaborador.status === 'Ativo' ? 'Ativo' : 'Inativo' }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -25,23 +36,336 @@
 <div class="subMain-container">
     <ng-container [ngSwitch]="selectedSectorId">
         <div *ngSwitchCase="'geral'">
-            <span>teste 01</span>
+
+            <div class="divisao">
+                <p>Dados Gerais</p>
+                <hr class="line">
+            </div>
+             <div class="data-itens">
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Data de nascimento</label>
+                        <p>{{ colaborador.dataNascimento ? (colaborador.dataNascimento | date:'dd/MM/yyyy') : '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Estado civil</label>
+                        <p>{{ colaborador.estadoCivil || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Gênero</label>
+                        <p>{{ colaborador.genero || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Raça/Etnia</label>
+                        <p>{{ colaborador.etnia || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Escolaridade</label>
+                        <p>{{ colaborador.escolaridade || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Curso</label>
+                        <p>{{ colaborador.curso || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Nacionalidade</label>
+                        <p>{{ colaborador.nacionalidade || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Naturalidade</label>
+                        <p>{{ colaborador.naturalidade || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Portador de deficiência?</label>
+                        <p>{{ colaborador.portadorDeficiencia || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Deficiência</label>
+                        <p>{{ colaborador.deficiencia || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Possui filhos?</label>
+                        <p>{{ colaborador.possuiFilhos || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Quantidade de filhos</label>
+                        <p>{{ colaborador.quantidadeFilhos || '-' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divisao">
+                <p>Documentos</p>
+                <hr class="line">
+            </div>
+            <div class="data-itens">
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>CPF</label>
+                        <p>{{ colaborador.cpf || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>RG</label>
+                        <p>{{ colaborador.rg || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Órgão Expedidor</label>
+                        <p>{{ colaborador.orgaoExpedidor || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Data de Expedição</label>
+                        <p>{{ colaborador.dataExpedicao ? (colaborador.dataExpedicao | date:'dd/MM/yyyy') : '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Nome da mãe</label>
+                        <p>{{ colaborador.nomeMae || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Nome do pai</label>
+                        <p>{{ colaborador.nomePai || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>CNH</label>
+                        <p>{{ colaborador.cnh || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Reservista</label>
+                        <p>{{ colaborador.reservista || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Título de Eleitor</label>
+                        <p>{{ colaborador.tituloDeEleitor || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Zona Eleitoral</label>
+                        <p>{{ colaborador.zonaEleitoral || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Seção Eleitoral</label>
+                        <p>{{ colaborador.secaoEleitoral || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>PIS</label>
+                        <p>{{ colaborador.pis || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>CTPS NUM</label>
+                        <p>{{ colaborador.ctpsNum || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>CTPS Série</label>
+                        <p>{{ colaborador.ctpsSerie || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Banco</label>
+                        <p>{{ colaborador.banco || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Agência</label>
+                        <p>{{ colaborador.agencia || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Conta corrente</label>
+                        <p>{{ colaborador.contaCorrente || '-' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divisao">
+                <p>Contato</p>
+                <hr class="line">
+            </div>
+            <div class="data-itens">
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Telefone 1</label>
+                        <p>{{ colaborador.telefoneUm || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Telefone 2</label>
+                        <p>{{ colaborador.telefoneDois || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>E-mail empresarial</label>
+                        <p>{{ colaborador.emailEmpresarial || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>E-mail pessoal</label>
+                        <p>{{ colaborador.emailPessoal || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Instagram</label>
+                        <p>{{ colaborador.instagram || '-' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divisao">
+                <p>Endereço</p>
+                <hr class="line">
+            </div>
+            <div class="data-itens">
+                 <div class="data-grid">
+                    <div class="item-data">
+                        <label>Estado</label>
+                        <p>{{ colaborador.endereco.estado || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Cidade</label>
+                        <p>{{ colaborador.endereco.cidade || '-' }}</p>
+                    </div>
+                </div>
+                 <div class="data-grid">
+                    <div class="item-data">
+                        <label>CEP</label>
+                        <p>{{ colaborador.endereco.cep || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Bairro</label>
+                        <p>{{ colaborador.endereco.bairro || '-' }}</p>
+                    </div>
+                </div>
+                 <div class="data-grid">
+                    <div class="item-data">
+                        <label>Rua</label>
+                        <p>{{ colaborador.endereco.rua || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Número</label>
+                        <p>{{ colaborador.endereco.numero || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Complemento</label>
+                        <p>{{ colaborador.endereco.complemento || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Logradouro</label>
+                        <p>{{ colaborador.endereco.logradouro || '-' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divisao">
+                <p>Dados contratuais</p>
+                <hr class="line">
+            </div>
+            <div class="data-itens">
+                 <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Loja</label>
+                        <p>{{ colaborador.loja?.nome || '-' }}
+                            <span *ngIf="colaborador.loja?.endereco?.cidade"> - {{ colaborador.loja?.endereco?.cidade }}</span>
+                        </p>
+                    </div>
+                    <div class="item-data">
+                        <label>Data de admissão</label>
+                        <p>{{ colaborador.dataAdmissao ? (colaborador.dataAdmissao | date:'dd/MM/yyyy') : '-' }}</p>
+                    </div>
+                </div>
+                 <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Departamento</label>
+                        <p>{{ colaborador.departamento?.nome || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Cargo</label>
+                        <p>{{ colaborador.cargo || '-' }}</p>
+                    </div>
+                </div>
+                 <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Tipo de contratação</label>
+                        <p>{{ colaborador.tipoDeContratacao || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Salário</label>
+                        <p>R$ {{ colaborador.salario || '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Período de experiência</label>
+                        <p>{{ colaborador.periodoDeExperiencia || '-' }}</p>
+                    </div>
+                </div>
+                 <div class="data-grid-trio">
+                    <div class="item-data">
+                        <label>Data do contrato</label>
+                        <p>{{ colaborador.dataDoContrato ? (colaborador.dataDoContrato | date:'dd/MM/yyyy') : '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Duração do contrato</label>
+                        <p>{{ colaborador.duracaoDoContrato || '-' }}</p>
+                    </div>
+                    <div class="item-data">
+                        <label>Data do término do contrato</label>
+                        <p>{{ colaborador.dataTerminoDoContrato ? (colaborador.dataTerminoDoContrato | date:'dd/MM/yyyy') : '-' }}</p>
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="item-data">
+                        <label>Superior responsável</label>
+                        <p>{{ colaborador.superiorResponsavel?.username || '-' }}</p>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
         <div *ngSwitchCase="'medicina'">
-            <span>teste 02</span>
+            <div class="image-center">
+                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
+            </div>
         </div>
 
         <div *ngSwitchCase="'registro'">
-            <span>teste 03</span>
+            <div class="image-center">
+                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
+            </div>
+        </div>
+
+        <div *ngSwitchCase="'feedback'">
+            <div class="image-center">
+                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
+            </div>
         </div>
     
         <div *ngSwitchCase="'curso'">
-            <span>teste 04</span>
+            <app-info-curso></app-info-curso>
         </div>
 
         <div *ngSwitchCase="'observacao'">
-            <span>teste 05</span>
+            <div class="image-center">
+                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
+            </div>
         </div>
       </ng-container>
 </div>

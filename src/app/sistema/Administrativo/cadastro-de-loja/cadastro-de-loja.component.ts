@@ -11,6 +11,7 @@ import { Loja } from '../../Administrativo/lojas/loja';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Endereco } from '../../Administrativo/lojas/endereco';
 import { Estado, EnderecoService } from '../../../services/endereco.service';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 
 @Component({
   selector: 'app-cadastro-de-loja',
@@ -27,8 +28,10 @@ export class CadastroDeLojaComponent implements OnInit {
 
   estados: { value: string; description: string }[] = [];
   cidades: { value: string; description: string }[] = [];
+  responsaveis: { value: string; description: string }[] = [];
   selectedEstado: string = '';
   selectedCidade: string = '';
+  selectedResponsavel: string = '';
 
   constructor(
     private location: Location,
@@ -36,7 +39,8 @@ export class CadastroDeLojaComponent implements OnInit {
     private lojaService: LojaService,
     private enderecoService: EnderecoService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private colaboradorService: ColaboradorService
   ) {
     this.lojaForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -50,22 +54,23 @@ export class CadastroDeLojaComponent implements OnInit {
         logradouro: [''],
         complemento: [''],
       }),
+      id_supervisor: [''],
     });
   }
 
   ngOnInit(): void {
     this.carregarEstadosECidades();
-    this.lojaForm.get('endereco.cidade')?.disable(); 
+    this.lojaForm.get('endereco.cidade')?.disable();
     this.onEstadoChange('');
     this.verificarModoEdicao();
   }
 
   onEstadoChange(nome: string): void {
     const cidadeControl = this.lojaForm.get('endereco.cidade');
-  
+
     console.log('onEstadoChange chamado com o estado:', nome);
     this.lojaForm.get('endereco.estado')?.setValue(nome);
-  
+
     if (!nome) {
       cidadeControl?.disable();
       this.enderecoService.getTodasCidades().subscribe((cidades) => {
@@ -88,7 +93,7 @@ export class CadastroDeLojaComponent implements OnInit {
         cidadeControl?.setValue(null);
       });
     }
-  }  
+  }
 
   onCidadeChange(nome: string): void {
     console.log('onCidadeChange chamado com a cidade:', nome);
@@ -167,22 +172,25 @@ export class CadastroDeLojaComponent implements OnInit {
       this.lojaService.getLojaById(Number(this.lojaId)).subscribe(
         (loja: Loja) => {
           console.log('Dados da loja recebidos:', loja);
-  
+
           const estado = loja.endereco.estado;
           const cidade = loja.endereco.cidade;
-  
+
           this.lojaForm.patchValue(loja);
           this.onEstadoChange(estado);
           this.selectedEstado = estado;
-  
-          this.enderecoService.getCidadesByEstado(estado).subscribe((cidades) => {
-            this.cidades = cidades.map((cidade) => ({
-              value: cidade.nome,
-              description: cidade.nome,
-            }));
-            this.selectedCidade = cidade;
-            this.lojaForm.get('endereco.cidade')?.setValue(cidade);
-          });
+          this.carregarUsuarios();
+
+          this.enderecoService
+            .getCidadesByEstado(estado)
+            .subscribe((cidades) => {
+              this.cidades = cidades.map((cidade) => ({
+                value: cidade.nome,
+                description: cidade.nome,
+              }));
+              this.selectedCidade = cidade;
+              this.lojaForm.get('endereco.cidade')?.setValue(cidade);
+            });
         },
         (error) => {
           console.error('Erro ao carregar os dados da loja:', error);
@@ -190,7 +198,6 @@ export class CadastroDeLojaComponent implements OnInit {
       );
     }
   }
-  
 
   private carregarEstadosECidades(): void {
     this.enderecoService.getEstados().subscribe((estados: Estado[]) => {
@@ -202,5 +209,19 @@ export class CadastroDeLojaComponent implements OnInit {
     });
 
     this.onEstadoChange('');
+  }
+
+  carregarUsuarios(): void {
+    this.colaboradorService.getColaboradores().subscribe(
+      (usuarios) => {
+        this.responsaveis = usuarios.map((usuario) => ({
+          value: usuario.id,
+          description: usuario.username,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as usuarios:', error);
+      }
+    );
   }
 }
