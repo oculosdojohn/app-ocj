@@ -30,7 +30,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing" class="profile-name">
-            <h4>{{ user.name }}</h4>
+            <h4>{{ user.username }}</h4>
             <span>{{ user.loja }}</span>
           </div>
       </div>
@@ -38,53 +38,55 @@
         <div class="container-duo">
             <div class="data-item">
                 <label class="label-item">E-mail pessoal:</label>
-                <span>{{ user.emailPessoal }}</span>
+                <span>{{ user.emailPessoal || '-' }}</span>
             </div>
             <div class="data-item">
                 <label class="label-item">E-mail empresarial:</label>
-                <span>{{ user.emailEmpressarial }}</span>
+                <span>{{ user.emailEmpresarial || '-' }}</span>
             </div>
         </div>
         <div class="container-duo">
             <div class="data-item">
                 <label class="label-item">Telefone 1:</label>
-                <span>{{ user.telefone1 }}</span>
+                <span>{{ user.telefoneUm || '-' }}</span>
             </div>
             <div class="data-item">
                 <label class="label-item">Telefone 2:</label>
-                <span>{{ user.telefone2 }}</span>
+                <span>{{ user.telefoneDois || '-' }}</span>
             </div>
         </div>
       </div>
-      <div class="data-profile-edit">
-        <div *ngIf="isEditing" class="form-group">
-            <div class="data-edit form-group">
-                <label for="name">Nome:</label>
-                <input [(ngModel)]="user.name" id="name" name="name" type="email" class="input-perfil">
-              </div>
+      <form class="data-profile-edit" *ngIf="isEditing" (ngSubmit)="saveChanges()" #perfilForm="ngForm">
+        <div class="form-group">
           <div class="data-edit form-group">
-            <label for="email1">E-mail pessoal:</label>
-            <input [(ngModel)]="user.emailPessoal" type="email" id="email1" name="email1" class="input-perfil">
+            <label for="username">Nome:</label>
+            <input [(ngModel)]="user.username" id="username" name="username" type="text" class="input-perfil">
           </div>
           <div class="data-edit form-group">
-            <label for="email2">E-mail empresarial:</label>
-            <input [(ngModel)]="user.emailEmpressarial" id="email2" name="email2" type="email" class="input-perfil">
+            <label for="emailPessoal">E-mail pessoal:</label>
+            <input [(ngModel)]="user.emailPessoal" type="email" id="emailPessoal" name="emailPessoal" class="input-perfil">
           </div>
-            <div class="data-edit form-group">
-                <label for="telefone1">Telefone 1:</label>
-                <input [(ngModel)]="user.telefone1" id="telefone1" name="telefone1" type="text" class="input-perfil">
-            </div>
-            <div class="data-edit form-group">
-                <label for="telefone2">Telefone 2:</label>
-                <input [(ngModel)]="user.telefone2" id="telefone2" name="telefone2" type="text" class="input-perfil">
-            </div>
+          <div class="data-edit form-group">
+            <label for="emailEmpresarial">E-mail empresarial:</label>
+            <input [(ngModel)]="user.emailEmpresarial" id="email2" name="emailEmpresarial" type="email" class="input-perfil">
+          </div>
+          <div class="data-edit form-group">
+            <label for="telefoneUm">Telefone 1:</label>
+            <input [(ngModel)]="user.telefoneUm" id="telefoneUm" name="telefoneUm" type="text" class="input-perfil">
+          </div>
+          <div class="data-edit form-group">
+            <label for="telefoneDois">Telefone 2:</label>
+            <input [(ngModel)]="user.telefoneDois" id="telefoneDois" name="telefoneDois" type="text" class="input-perfil">
+          </div>
         </div>
-      </div>
+        <div class="container-btn">
+          <button type="button" class="btn btn-line" (click)="cancelEdit()">Cancelar</button>
+          <button type="submit" class="btn btn-edit">Salvar</button>
+        </div>
+      </form>
     </div>
-    <div class="container-btn">
-      <button *ngIf="!isEditing" class="btn btn-edit" (click)="toggleEdit()">Editar Perfil</button>
-      <button *ngIf="!isEditing" class="btn btn-line">Alterar senha</button>
-      <button *ngIf="isEditing" class="btn btn-line" (click)="cancelEdit()">Cancelar</button>
-      <button *ngIf="isEditing" class="btn btn-edit" (click)="saveChanges()">Salvar</button>
+    <div class="container-btn" *ngIf="!isEditing">
+      <button class="btn btn-edit" (click)="toggleEdit()">Editar Perfil</button>
+      <button class="btn btn-line">Alterar senha</button>
     </div>
   </div>
