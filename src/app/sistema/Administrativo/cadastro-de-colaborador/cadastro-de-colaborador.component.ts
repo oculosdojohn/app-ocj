@@ -440,11 +440,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
 
             // Preenche os campos de seleção
             this.selectedCargo = colaborador.cargo;
-            this.selectedEstadoCivil = colaborador.estadoCivil;
-            this.selectedGenero = colaborador.genero;
-            this.selectedEtnia = colaborador.etnia;
-            this.selectedEscolaridade = colaborador.escolaridade;
-            this.selectedNacionalidade = colaborador.nacionalidade;
+            this.selectedEstadoCivil = colaborador.estadoCivil || '';
+            this.selectedGenero = colaborador.genero || '';
+            this.selectedEtnia = colaborador.etnia || '';
+            this.selectedEscolaridade = colaborador.escolaridade || '';
+            this.selectedNacionalidade = colaborador.nacionalidade || '';
             this.selectedPeriodoExperiencia = colaborador.periodoDeExperiencia;
             this.selectedTipoContratacao = colaborador.tipoDeContratacao;
             this.selectedFilhos = colaborador.possuiFilhos;
