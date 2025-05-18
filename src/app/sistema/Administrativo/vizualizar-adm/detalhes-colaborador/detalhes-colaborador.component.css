@@ -95,6 +95,44 @@
   padding: 0;
 }
 
+.infos-conatiner {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.status-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+p.ativo {
+  color: #008000;
+  font-weight: 500;
+}
+
+p.inativo {
+  color: #eb1010;
+  font-weight: 500;
+}
+
+.status-dot.ativo {
+  background: #008000;
+}
+
+.status-dot.inativo {
+  background: #eb1010;
+}
+
 /* Divisão */
 .divisao {
   width: 100%;
