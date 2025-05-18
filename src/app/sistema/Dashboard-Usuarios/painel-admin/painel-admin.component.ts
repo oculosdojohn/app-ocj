@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 import { Usuario } from 'src/app/login/usuario';
 import * as ApexCharts from 'apexcharts';
 import { GraficosService } from 'src/app/services/administrativo/graficos.service';
+import { Modulos } from '../../Servicos/cursos/enums/modulos';
 
 import {
   ApexAxisChartSeries,
@@ -41,6 +42,8 @@ export class PainelAdminComponent implements OnInit {
     author: '',
   };
 
+  quantidadeCursos: number = 0;
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -60,6 +63,8 @@ export class PainelAdminComponent implements OnInit {
     this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
       this.renderChartEscolaridade(data);
     });
+
+    this.quantidadeCursos = Object.keys(Modulos).length 
 
     this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
       this.renderChartGenero(data);
