@@ -47,8 +47,8 @@ export class CadastroDeDepartamentoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.verificarModoEdicao();
     this.carregarUsuarios();
+    this.verificarModoEdicao();
   }
 
   goBack() {
@@ -126,22 +126,21 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     this.departamentoId = this.route.snapshot.paramMap.get('id');
     if (this.departamentoId) {
       this.isEditMode = true;
-      this.carregarUsuarios();
       this.departamentoService
         .getDepartamentoById(Number(this.departamentoId))
         .subscribe(
           (departamento: Departamento) => {
-            console.log('Dados de departamento recebidos:', departamento);
+            this.carregarUsuarios(() => {
+              const responsaveisSelecionados = (departamento.responsaveis || [])
+                .map((resp: any) =>
+                  this.responsaveis.find((r) => r.value == resp.id)
+                )
+                .filter(Boolean);
 
-            const responsaveisSelecionados = (departamento.responsaveis || [])
-              .map((resp: any) =>
-                this.responsaveis.find((r) => r.value == resp.id)
-              )
-              .filter(Boolean);
-
-            this.departamentoForm.patchValue({
-              ...departamento,
-              responsaveis: responsaveisSelecionados,
+              this.departamentoForm.patchValue({
+                ...departamento,
+                responsaveis: responsaveisSelecionados,
+              });
             });
           },
           (error) => {
@@ -151,16 +150,18 @@ export class CadastroDeDepartamentoComponent implements OnInit {
     }
   }
 
-  carregarUsuarios(): void {
+  carregarUsuarios(callback?: () => void): void {
     this.colaboradoresService.getColaboradores().subscribe(
       (usuarios) => {
         this.responsaveis = usuarios.map((usuario) => ({
           value: usuario.id,
           description: usuario.username,
         }));
+        if (callback) callback();
       },
       (error) => {
         console.error('Erro ao carregar as usuarios:', error);
+        if (callback) callback();
       }
     );
   }
