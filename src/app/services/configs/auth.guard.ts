@@ -17,27 +17,28 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const usuario = this.authService.getUsuarioAutenticado();
-
-    if (usuario) {
-      const role = usuario.permissao; 
+    if (this.authService.isAuthenticated()) {
+      
+      const usuario = this.authService.getUsuarioAutenticado();
+      const role = usuario?.permissao;
       const permissoesRota = route.data['roles'] as string[] | undefined;
-
-      if (permissoesRota) {
-        if (permissoesRota.includes(role)) {
-          return true;
-        } else {
-          const dashboard = this.getDashboardByRole(role);
-          this.router.navigate([dashboard]);
-          return false;
-        }
+  
+      if (permissoesRota && role) {
+        if (permissoesRota.includes(role)) return true;
+        const dashboard = this.getDashboardByRole(role);
+        this.router.navigate([dashboard]);
+        return false;
       }
+  
       return true;
     }
-    
+
+    this.authService.encerrarSessao();
+    localStorage.clear(); 
     this.router.navigate(['/login']);
     return false;
   }
+  
 
   private getDashboardByRole(role: string): string {
     switch (role) {

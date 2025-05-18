@@ -128,6 +128,10 @@ export class PainelAdminComponent implements OnInit {
         height: 350,
         width: '100%',
       },
+      title: {
+        text: 'Colaboradores por Gênero',
+        align: 'center',
+      },
       series: values,
       labels: labels,
       theme: {
@@ -155,6 +159,7 @@ export class PainelAdminComponent implements OnInit {
     chart.render();
   }
   
+  
   renderChartPorLoja(data: Record<string, number>) {
     const labels = Object.keys(data);
     const values = Object.values(data);
@@ -164,6 +169,10 @@ export class PainelAdminComponent implements OnInit {
         type: 'bar',
         height: 350,
         width: '100%',
+      },
+      title: {
+        text: 'Colaboradores por Loja',
+        align: 'center',
       },
       series: [
         {
@@ -186,7 +195,6 @@ export class PainelAdminComponent implements OnInit {
     chart.render();
   }
   
-
   renderChartEscolaridade(data: Record<string, number>) {
     const labels = Object.keys(data);
     const values = Object.values(data);
@@ -196,6 +204,10 @@ export class PainelAdminComponent implements OnInit {
         type: 'donut',
         height: 350,
         width: '100%',
+      },
+      title: {
+        text: 'Colaboradores por Escolaridade',
+        align: 'center',
       },
       series: values,
       labels: labels,
@@ -223,5 +235,6 @@ export class PainelAdminComponent implements OnInit {
     );
     chart.render();
   }
+  
   
 }

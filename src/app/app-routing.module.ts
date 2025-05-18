@@ -10,14 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'esqueci-minha-senha', component: EsqueciSenhaComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  {
-    path: '',
-    component: LayoutComponent,
-    canActivate: [AuthGuard],         
-    children: [
-      { path: 'dashboard-admin', component: PainelAdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } }
-    ]
-  },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
