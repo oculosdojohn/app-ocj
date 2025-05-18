@@ -51,23 +51,23 @@ export class PainelAdminComponent implements OnInit {
     private usuarioService: AuthService,
     private graficosService: GraficosService
   ) {}
-  
+
   //teste
   ngOnInit(): void {
     this.getWeatherForCurrentLocation();
     this.motivationalMessage =
       this.motivationalMessagesService.getRandomMessage();
-      this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
-        this.renderChartEscolaridade(data);
-      });
-      
-      this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
-        this.renderChartGenero(data);
-      });
-      
-      this.graficosService.getColaboradoresPorLoja().subscribe((data) => {
-        this.renderChartPorLoja(data);
-      });
+    this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
+      this.renderChartEscolaridade(data);
+    });
+
+    this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
+      this.renderChartGenero(data);
+    });
+
+    this.graficosService.getColaboradoresPorLoja().subscribe((data) => {
+      this.renderChartPorLoja(data);
+    });
     this.usuarioService.obterPerfilUsuario().subscribe(
       (usuario) => {
         this.usuario = usuario;
@@ -121,7 +121,7 @@ export class PainelAdminComponent implements OnInit {
   renderChartGenero(data: Record<string, number>) {
     const labels = Object.keys(data);
     const values = Object.values(data);
-  
+
     const options = {
       chart: {
         type: 'pie',
@@ -151,19 +151,18 @@ export class PainelAdminComponent implements OnInit {
         },
       ],
     };
-  
+
     const chart = new ApexCharts(
       document.querySelector('#chartGenero'),
       options
     );
     chart.render();
   }
-  
-  
+
   renderChartPorLoja(data: Record<string, number>) {
     const labels = Object.keys(data);
     const values = Object.values(data);
-  
+
     const options = {
       chart: {
         type: 'bar',
@@ -187,18 +186,18 @@ export class PainelAdminComponent implements OnInit {
         palette: 'palette4',
       },
     };
-  
+
     const chart = new ApexCharts(
       document.querySelector('#chartColaboradoresPorLoja'),
       options
     );
     chart.render();
   }
-  
+
   renderChartEscolaridade(data: Record<string, number>) {
     const labels = Object.keys(data);
     const values = Object.values(data);
-  
+
     const options = {
       chart: {
         type: 'donut',
@@ -228,7 +227,7 @@ export class PainelAdminComponent implements OnInit {
         },
       ],
     };
-  
+
     const chart = new ApexCharts(
       document.querySelector('#chartEscolaridade'),
       options

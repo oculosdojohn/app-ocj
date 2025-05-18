@@ -60,23 +60,23 @@
         <div class="form-group">
           <div class="data-edit form-group">
             <label for="username">Nome:</label>
-            <input [(ngModel)]="user.username" id="username" name="username" type="text" class="input-perfil">
+            <input [(ngModel)]="user.username" id="username" name="username" type="text" class="input-perfil" placeholder="Insira seu nome">
           </div>
           <div class="data-edit form-group">
             <label for="emailPessoal">E-mail pessoal:</label>
-            <input [(ngModel)]="user.emailPessoal" type="email" id="emailPessoal" name="emailPessoal" class="input-perfil">
+            <input [(ngModel)]="user.emailPessoal" type="email" id="emailPessoal" name="emailPessoal" class="input-perfil" placeholder="Insira seu e-mail">
           </div>
           <div class="data-edit form-group">
             <label for="emailEmpresarial">E-mail empresarial:</label>
-            <input [(ngModel)]="user.emailEmpresarial" id="email2" name="emailEmpresarial" type="email" class="input-perfil">
+            <input [(ngModel)]="user.emailEmpresarial" id="email2" name="emailEmpresarial" type="email" class="input-perfil" placeholder="Insira seu e-mail">
           </div>
           <div class="data-edit form-group">
             <label for="telefoneUm">Telefone 1:</label>
-            <input [(ngModel)]="user.telefoneUm" id="telefoneUm" name="telefoneUm" type="text" class="input-perfil">
+            <input [(ngModel)]="user.telefoneUm" id="telefoneUm" name="telefoneUm" type="text" class="input-perfil" placeholder="(00) 00000-0000" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
           </div>
           <div class="data-edit form-group">
             <label for="telefoneDois">Telefone 2:</label>
-            <input [(ngModel)]="user.telefoneDois" id="telefoneDois" name="telefoneDois" type="text" class="input-perfil">
+            <input [(ngModel)]="user.telefoneDois" id="telefoneDois" name="telefoneDois" type="text" class="input-perfil" placeholder="(00) 00000-0000" mask="(00) 00000-0000" [dropSpecialCharacters]="false">
           </div>
         </div>
         <div class="container-btn">
