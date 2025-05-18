@@ -364,6 +364,21 @@ export class CadastroDeColaboradorComponent implements OnInit {
     });
 
     if (this.isEditMode && this.colaboradorId) {
+      this.colaboradorService
+        .atualizarColaborador(Number(this.colaboradorId), formData)
+        .subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.successMessage = 'Usuário atualizado com sucesso!';
+            this.errorMessage = null;
+            this.router.navigate(['/usuario/buscar-colaboradores']);
+          },
+          (error) => {
+            this.isLoading = false;
+            this.errorMessage = error.message || 'Erro ao atualizar a Usuário.';
+            this.successMessage = null;
+          }
+        );
     } else {
       this.colaboradorService.cadastrarColaborador(formData).subscribe(
         (response) => {
