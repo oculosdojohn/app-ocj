@@ -134,6 +134,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
   selectedEstado: string = '';
   selectedCidade: string = '';
 
+  passwordVisible: { [key: string]: boolean } = {
+    password: false,
+    confirmPassword: false,
+  };
+
   constructor(
     private location: Location,
     private lojaService: LojaService,
@@ -560,5 +565,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.colaboradorForm.get('dataDoContrato')?.valueChanges.subscribe(() => {
       this.calcularDataTermino();
     });
+  }
+
+  togglePasswordVisibility(field: string) {
+    this.passwordVisible[field] = !this.passwordVisible[field];
+    const passwordInput = document.querySelector(`input[name="${field}"]`);
+    if (passwordInput) {
+      passwordInput.setAttribute(
+        'type',
+        this.passwordVisible[field] ? 'text' : 'password'
+      );
+    }
   }
 }

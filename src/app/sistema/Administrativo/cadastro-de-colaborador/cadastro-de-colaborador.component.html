@@ -537,7 +537,13 @@
                         Senha
                         <span *ngIf="isRequired('password')" class="required-asterisk">*</span>
                     </label>
-                    <input type="password" id="password" name="password" formControlName="password" class="form-control" placeholder="Digite uma senha" required>
+                    <div class="input-group">
+                        <input [type]="passwordVisible['password'] ? 'text' : 'password'" id="password" name="password" formControlName="password" class="form-control" placeholder="Digite uma senha" required >
+                        <div class="input-icon" type="button" (click)="togglePasswordVisibility('password')">
+                            <img *ngIf="!passwordVisible['password']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                            <img *ngIf="passwordVisible['password']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
+                        </div>
+                    </div>
                     <div *ngIf="colaboradorForm.get('password')?.invalid && (colaboradorForm.get('password')?.touched || colaboradorForm.get('password')?.dirty)" class="error-obrigatorio">
                         O campo Senha é obrigatório.
                     </div>
@@ -548,7 +554,13 @@
                         Confirmar senha
                         <span *ngIf="isRequired('confirmPassword')" class="required-asterisk">*</span>
                     </label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirme a sua senha" required>
+                    <div class="input-group">
+                        <input [type]="passwordVisible['confirmPassword'] ? 'text' : 'password'" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirme a sua senha" required>
+                        <div class="input-icon" type="button" (click)="togglePasswordVisibility('confirmPassword')">
+                            <img *ngIf="!passwordVisible['confirmPassword']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                            <img *ngIf="passwordVisible['confirmPassword']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
+                        </div>
+                    </div>
                     <div *ngIf="colaboradorForm.get('confirmPassword')?.invalid && (colaboradorForm.get('confirmPassword')?.touched || colaboradorForm.get('confirmPassword')?.dirty)" class="error-obrigatorio">
                         O campo Confirmar senha é obrigatório.
                     </div>
@@ -572,3 +584,4 @@
         </div>
     </div>
 </div>
+

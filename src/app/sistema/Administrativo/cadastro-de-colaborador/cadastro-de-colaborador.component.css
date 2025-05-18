@@ -95,6 +95,23 @@ form {
   gap: 40px;
 }
 
+.input-group {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.input-icon img {
+  width: 18px;
+  height: 18px;
+}
+
 .container-btn {
   display: flex;
   justify-content: flex-end;
