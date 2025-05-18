@@ -180,6 +180,7 @@ export class CadastroDeLojaComponent implements OnInit {
           this.onEstadoChange(estado);
           this.selectedEstado = estado;
           this.carregarUsuarios();
+          this.tratarRetornoDTO(loja);
 
           this.enderecoService
             .getCidadesByEstado(estado)
@@ -223,5 +224,19 @@ export class CadastroDeLojaComponent implements OnInit {
         console.error('Erro ao carregar as usuarios:', error);
       }
     );
+  }
+
+  private tratarRetornoDTO(loja: Loja): void {
+    if (loja.supervisor && loja.supervisor.id) {
+      this.selectedResponsavel = loja.supervisor.id;
+      this.responsaveis = [
+        {
+          value: loja.supervisor.id,
+          description: loja.supervisor.username,
+        },
+        ...this.responsaveis.filter((r) => r.value !== loja.supervisor!.id),
+      ];
+      this.lojaForm.get('id_supervisor')?.setValue(loja.supervisor.id);
+    }
   }
 }

@@ -5,6 +5,7 @@ export class Loja {
   nome!: string;
   endereco!: Endereco;
   supervisor?: {
+    id: string;
     foto: { documentoUrl: string; id: number; name: string }; 
     username: string;
     cargo: string;
