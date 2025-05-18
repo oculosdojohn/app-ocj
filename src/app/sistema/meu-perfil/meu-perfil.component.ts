@@ -20,6 +20,10 @@ export class MeuPerfilComponent implements OnInit {
     telefoneDois: '',
   };
 
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  messageTimeout: any;
+
   defaultImageUrl = 'assets/imgs/default-profile.png';
   selectedImageFile: File | null = null;
   selectedImageUrl: string | ArrayBuffer | null = null;
@@ -90,6 +94,8 @@ export class MeuPerfilComponent implements OnInit {
   }
 
   saveChanges() {
+    this.clearMessage();
+
     const formData = new FormData();
     const perfil = {
       username: this.user.username,
@@ -115,11 +121,28 @@ export class MeuPerfilComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.isEditing = false;
-          console.log('Perfil atualizado com sucesso:', response);
+          this.showMessage('success', 'Perfil atualizado com sucesso!');
         },
         error: (error) => {
+          this.showMessage(
+            'error',
+            error.message || 'Erro ao atualizar o perfil.'
+          );
           console.error('Erro ao atualizar perfil:', error);
         },
       });
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    if (type === 'error') this.errorMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = null;
+    this.errorMessage = null;
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }

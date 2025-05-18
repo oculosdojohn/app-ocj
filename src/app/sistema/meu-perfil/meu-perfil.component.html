@@ -89,4 +89,15 @@
       <button class="btn btn-edit" (click)="toggleEdit()">Editar Perfil</button>
       <button class="btn btn-line">Alterar senha</button>
     </div>
+    <div class="mensg-repostas">
+      <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        <span>{{ errorMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar" [style.animation]="errorMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+      </div>
   </div>
