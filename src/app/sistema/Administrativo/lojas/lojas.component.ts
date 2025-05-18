@@ -51,7 +51,7 @@ export class LojasComponent implements OnInit {
 
   fetchLojas(): void {
     this.isLoading = true;
-  
+
     this.lojaService.getLojas().subscribe(
       (lojas: any[]) => {
         console.log('Lojas retornadas:', lojas);
@@ -66,7 +66,6 @@ export class LojasComponent implements OnInit {
       }
     );
   }
-  
 
   visualizarLoja(id: string): void {
     this.router.navigate(['/usuario/detalhes-loja', id]);
@@ -90,11 +89,11 @@ export class LojasComponent implements OnInit {
     }
   }
 
-  getInitial(name: string): string {
-    return name ? name.charAt(0).toUpperCase() : '?';
+  getInitial(name?: string): string {
+    return name && name.length > 0 ? name.charAt(0).toUpperCase() : '';
   }
 
-  getRandomColor(seed: string): string {
+  getRandomColor(seed?: string): string {
     const colors = [
       '#FFB3BA', // Rosa pastel
       '#FFDFBA', // Laranja pastel
@@ -102,7 +101,8 @@ export class LojasComponent implements OnInit {
       '#BAE1FF', // Azul pastel
       '#D5BAFF', // Roxo pastel
     ];
-    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    const index =
+      seed && seed.length > 0 ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
   }
 }
