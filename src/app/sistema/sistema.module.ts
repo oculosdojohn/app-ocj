@@ -39,6 +39,11 @@ import { BuscarAulasComponent } from './Servicos/buscar-aulas/buscar-aulas.compo
 import { DetalhesLojaComponent } from './Administrativo/vizualizar-adm/detalhes-loja/detalhes-loja.component';
 import { DetalhesDepartamentoComponent } from './Administrativo/vizualizar-adm/detalhes-departamento/detalhes-departamento.component';
 import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/detalhes-colaborador/detalhes-colaborador.component';
+import { InfoMedicinaComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-medicina/info-medicina.component';
+import { InfoRegistroComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-registro/info-registro.component';
+import { InfoFeedbackComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-feedback/info-feedback.component';
+import { InfoCursoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-curso/info-curso.component';
+import { InfoObservacaoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-observacao/info-observacao.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +79,12 @@ import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/de
     BuscarAulasComponent,
     DetalhesLojaComponent,
     DetalhesDepartamentoComponent,
-    DetalhesColaboradorComponent
+    DetalhesColaboradorComponent,
+    InfoMedicinaComponent,
+    InfoRegistroComponent,
+    InfoFeedbackComponent,
+    InfoCursoComponent,
+    InfoObservacaoComponent
   ],
   imports: [
     CommonModule,
@@ -84,6 +94,13 @@ import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/de
     SharedModule,
     NgApexchartsModule,
     NgxMaskModule.forRoot(),
-  ]
+  ],
+   exports: [
+    InfoMedicinaComponent,
+    InfoRegistroComponent,
+    InfoFeedbackComponent,
+    InfoCursoComponent,
+    InfoObservacaoComponent
+   ]
 })
 export class SistemaModule { }
