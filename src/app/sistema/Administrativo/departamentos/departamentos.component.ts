@@ -10,6 +10,7 @@ import { DepartamentoService } from '../../../services/administrativo/departamen
 })
 export class DepartamentosComponent implements OnInit {
   termoBusca: string = '';
+  isLoading = false;
 
   departamentos: Departamento[] = [];
 
@@ -52,6 +53,8 @@ export class DepartamentosComponent implements OnInit {
   }
 
   fetchDepartamentos(): void {
+    this.isLoading = true;
+  
     this.departamentoService.getDepartamentos().subscribe(
       (departamentos: any[]) => {
         console.log('departamentos retornadas:', departamentos);
@@ -60,12 +63,15 @@ export class DepartamentosComponent implements OnInit {
           this.departamentos.length / this.itensPorPagina
         );
         this.atualizarPaginacao();
+        this.isLoading = false;
       },
       (error) => {
         console.error('Erro ao carregar departamentos:', error);
+        this.isLoading = false;
       }
     );
   }
+  
 
   visualizarDepartamento(id: string): void {
     this.router.navigate(['/usuario/detalhes-departamento', id]);

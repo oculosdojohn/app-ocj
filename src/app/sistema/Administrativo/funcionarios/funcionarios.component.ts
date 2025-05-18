@@ -11,6 +11,7 @@ import { CargoDescricoes } from './enums/cargo-descricoes';
 })
 export class FuncionariosComponent implements OnInit {
   termoBusca: string = '';
+  isLoading = false;
 
   colaboradores: Colaborador[] = [];
 
@@ -60,6 +61,8 @@ export class FuncionariosComponent implements OnInit {
   }
 
   fetchColaboradores(): void {
+    this.isLoading = true;
+  
     this.colaboradorService.getColaboradores().subscribe(
       (colaboradores: any[]) => {
         console.log('usuários retornadas:', colaboradores);
@@ -68,12 +71,15 @@ export class FuncionariosComponent implements OnInit {
           this.colaboradores.length / this.itensPorPagina
         );
         this.atualizarPaginacao();
+        this.isLoading = false;
       },
       (error) => {
-        console.error('Erro ao carregar departamentos:', error);
+        console.error('Erro ao carregar colaboradores:', error);
+        this.isLoading = false;
       }
     );
   }
+  
 
   visualizarUsuario(id: string): void {
     this.router.navigate(['/usuario/detalhes-colaborador', id]);

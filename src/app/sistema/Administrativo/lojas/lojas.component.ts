@@ -11,6 +11,7 @@ import { LojaService } from '../../../services/administrativo/loja.service';
 })
 export class LojasComponent implements OnInit {
   termoBusca: string = '';
+  isLoading = false;
 
   lojas: Loja[] = [];
   itensPorPagina = 6;
@@ -49,18 +50,23 @@ export class LojasComponent implements OnInit {
   }
 
   fetchLojas(): void {
+    this.isLoading = true;
+  
     this.lojaService.getLojas().subscribe(
       (lojas: any[]) => {
         console.log('Lojas retornadas:', lojas);
         this.lojas = lojas;
         this.totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
         this.atualizarPaginacao();
+        this.isLoading = false;
       },
       (error) => {
         console.error('Erro ao carregar lojas:', error);
+        this.isLoading = false;
       }
     );
   }
+  
 
   visualizarLoja(id: string): void {
     this.router.navigate(['/usuario/detalhes-loja', id]);

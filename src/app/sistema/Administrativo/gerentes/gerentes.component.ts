@@ -12,6 +12,7 @@ import { ColaboradorService } from '../../../services/administrativo/colaborador
 })
 export class GerentesComponent implements OnInit {
   termoBusca: string = '';
+  isLoading = false;
 
   gerentes: Colaborador[] = [];
 
@@ -61,6 +62,8 @@ export class GerentesComponent implements OnInit {
   }
 
   fetchGerentes(): void {
+    this.isLoading = true;
+  
     this.colaboradorService
       .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL'])
       .subscribe(
@@ -71,12 +74,15 @@ export class GerentesComponent implements OnInit {
             this.gerentes.length / this.itensPorPagina
           );
           this.atualizarPaginacao();
+          this.isLoading = false;
         },
         (error) => {
           console.error('Erro ao carregar gerentes:', error);
+          this.isLoading = false;
         }
       );
   }
+  
 
   visualizarUsuario(id: string): void {
     this.router.navigate(['/usuario/detalhes-colaborador', id]);
