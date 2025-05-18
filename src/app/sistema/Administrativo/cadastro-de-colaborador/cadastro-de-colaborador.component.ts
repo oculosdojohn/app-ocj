@@ -151,6 +151,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
   ) {
     this.colaboradorForm = this.formBuilder.group({
       // geral
+      foto: [''],
       username: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       estadoCivil: [''],
@@ -182,6 +183,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       banco: [''],
       agencia: [''],
       contaCorrente: [''],
+      documentos: [[]],
       // contato
       telefoneUm: [''],
       telefoneDois: [''],
@@ -350,6 +352,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       etnia: !this.colaboradorForm.value.etnia ? null : this.colaboradorForm.value.etnia,
       escolaridade: !this.colaboradorForm.value.escolaridade ? null : this.colaboradorForm.value.escolaridade,
       nacionalidade: !this.colaboradorForm.value.nacionalidade ? null : this.colaboradorForm.value.nacionalidade,
+      tipoDeContratacao: !this.colaboradorForm.value.tipoDeContratacao ? null : this.colaboradorForm.value.tipoDeContratacao,
     };
 
     const formData = new FormData();
