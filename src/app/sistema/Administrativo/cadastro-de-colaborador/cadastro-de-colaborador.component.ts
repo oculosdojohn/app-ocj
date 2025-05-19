@@ -157,7 +157,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       estadoCivil: [''],
       genero: [''],
       etnia: [''],
-      escolaridade: ['', Validators.required],
+      escolaridade: [''],
       curso: [''],
       nacionalidade: [''],
       naturalidade: [''],
@@ -206,7 +206,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       dataAdmissao: ['', Validators.required],
       identificadorDepartamento: ['', Validators.required],
       cargo: ['', Validators.required],
-      tipoDeContratacao: ['', Validators.required],
+      tipoDeContratacao: [''],
       salario: [''],
       periodoDeExperiencia: ['', Validators.required],
       dataDoContrato: [''],
@@ -347,6 +347,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
     const colaborador: Colaborador = {
       ...this.colaboradorForm.value,
       endereco: endereco,
+      estadoCivil: !this.colaboradorForm.value.estadoCivil ? null : this.colaboradorForm.value.estadoCivil,
+      genero: !this.colaboradorForm.value.genero ? null : this.colaboradorForm.value.genero,
+      etnia: !this.colaboradorForm.value.etnia ? null : this.colaboradorForm.value.etnia,
+      escolaridade: !this.colaboradorForm.value.escolaridade ? null : this.colaboradorForm.value.escolaridade,
+      nacionalidade: !this.colaboradorForm.value.nacionalidade ? null : this.colaboradorForm.value.nacionalidade,
+      tipoDeContratacao: !this.colaboradorForm.value.tipoDeContratacao ? null : this.colaboradorForm.value.tipoDeContratacao,
     };
 
     const formData = new FormData();
@@ -440,11 +446,11 @@ export class CadastroDeColaboradorComponent implements OnInit {
 
             // Preenche os campos de seleção
             this.selectedCargo = colaborador.cargo;
-            this.selectedEstadoCivil = colaborador.estadoCivil;
-            this.selectedGenero = colaborador.genero;
-            this.selectedEtnia = colaborador.etnia;
-            this.selectedEscolaridade = colaborador.escolaridade;
-            this.selectedNacionalidade = colaborador.nacionalidade;
+            this.selectedEstadoCivil = colaborador.estadoCivil || '';
+            this.selectedGenero = colaborador.genero || '';
+            this.selectedEtnia = colaborador.etnia || '';
+            this.selectedEscolaridade = colaborador.escolaridade || '';
+            this.selectedNacionalidade = colaborador.nacionalidade || '';
             this.selectedPeriodoExperiencia = colaborador.periodoDeExperiencia;
             this.selectedTipoContratacao = colaborador.tipoDeContratacao;
             this.selectedFilhos = colaborador.possuiFilhos;

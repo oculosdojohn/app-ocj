@@ -297,7 +297,7 @@
                     </div>
                     <div class="item-data">
                         <label>Cargo</label>
-                        <p>{{ colaborador.cargo || '-' }}</p>
+                        <p>{{ getDescricaoCargo(colaborador.cargo) || '-' }}</p>
                     </div>
                 </div>
                  <div class="data-grid-trio">
@@ -337,7 +337,24 @@
                     </div>
                 </div>
             </div>
-            
+
+            <div class="divisao">
+                <p>Arquivos</p>
+                <hr class="line">
+                <div *ngIf="colaborador && colaborador.documentos && colaborador.documentos.length > 0; else noMaterialTemplate">
+                    <div class="list-group">
+                    <div class="list-group-item" *ngFor="let documento of colaborador?.documentos">
+                        <span>{{ formatFileName(documento.name) }}</span>
+                        <div>
+                        <button class="btn-vizualizar" (click)="viewPdf(documento.documentoUrl)">Visualizar</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <ng-template #noMaterialTemplate>
+                    <span>Nenhum arquivo adicionado</span>
+                </ng-template>
+            </div>
         </div>
 
         <div *ngSwitchCase="'medicina'">

@@ -174,12 +174,8 @@
                 <div class="form-group">
                     <label for="dataExpedicao">
                         Data de Expedição
-                        <span *ngIf="isRequired('dataExpedicao')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataExpedicao" name="dataExpedicao" formControlName="dataExpedicao" class="form-control" required>
-                    <div *ngIf="colaboradorForm.get('dataExpedicao')?.invalid && (colaboradorForm.get('dataExpedicao')?.touched || colaboradorForm.get('dataExpedicao')?.dirty)" class="error-obrigatorio">
-                        O campo Data de expedição é obrigatório.
-                    </div>
+                    <input type="date" id="dataExpedicao" name="dataExpedicao" formControlName="dataExpedicao" class="form-control" >
                 </div>
             </div>
 
@@ -436,7 +432,6 @@
                 <div class="form-group">
                     <label for="tipoDeContratacao">
                         Tipo de contratação
-                        <span *ngIf="isRequired('tipoDeContratacao')" class="required-asterisk">*</span>
                     </label>
                     <app-select-padrao
                       label="Selecionar tipo de contratação"
@@ -448,12 +443,8 @@
                 <div class="form-group">
                     <label for="salario">
                         Salário
-                        <span *ngIf="isRequired('salario')" class="required-asterisk">*</span>
                     </label>
-                    <input type="number" id="salario" name="salario" formControlName='salario' class="form-control" placeholder="Digite o salário" mask="separator.2" thousandSeparator="." decimalMarker="," [dropSpecialCharacters]="true" required>
-                    <div *ngIf="colaboradorForm.get('salario')?.invalid && (colaboradorForm.get('salario')?.touched || colaboradorForm.get('salario')?.dirty)" class="error-obrigatorio">
-                        O campo Salário é obrigatório.
-                    </div>
+                    <input type="number" id="salario" name="salario" formControlName='salario' class="form-control" placeholder="Digite o salário">
                 </div>
             </div>
 
@@ -578,25 +569,13 @@
             <div class="alerts-container alert-success" *ngIf="successMessage">
               {{ successMessage }}
             </div>
-            <div class=" alerts-container alert-danger" *ngIf="errorMessage">
-                {{ errorMessage }}
-            </div>
-        </div>
-
-        <div class="alerts">
-            <div class="alerts-container alert-success" *ngIf="successMessage">
-              {{ successMessage }}
-            </div>
             <div class="alerts-container alert-danger" *ngIf="errorMessage">
               {{ errorMessage }}
-            </div>
-          
-      
+            </div>       
             <div class="progress-bar-container" *ngIf="isLoading">
               <div class="progress-bar"></div>
             </div>
-          </div>
-          
+        </div>
     </div>
 </div>
 

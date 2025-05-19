@@ -82,4 +82,12 @@ export class DetalhesColaboradorComponent implements OnInit {
   onSectorChange(id: string) {
     this.selectedSectorId = id;
   }
+
+  viewPdf(url: string): void {
+    window.open(url, '_blank');
+  }
+
+  formatFileName(fileName: string): string {
+    return fileName.replace(/^\d+_/, '').replace(/_/g, ' ');
+  }
 }
