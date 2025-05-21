@@ -267,6 +267,9 @@ tr:hover {
   .btn-cadastrar {
     width: 100%;
   }
+  .breadcrumb {
+    width: 100%;
+  }
 }
 
 .progress-bar-container {
