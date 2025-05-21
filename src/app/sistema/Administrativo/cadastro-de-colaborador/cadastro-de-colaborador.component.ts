@@ -166,7 +166,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       possuiFilhos: [''],
       quantidadeFilhos: [''],
       // documentos
-      cpf: [''],
+      cpf: ['', [Validators.required, Validators.minLength(11)]],
       rg: [''],
       orgaoExpedidor: [''],
       dataExpedicao: [''],
@@ -203,12 +203,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
       }),
       // dados contrato
       identificadorLoja: ['', Validators.required],
-      dataAdmissao: ['', Validators.required],
+      dataAdmissao: [''],
       identificadorDepartamento: ['', Validators.required],
       cargo: ['', Validators.required],
       tipoDeContratacao: [''],
       salario: [''],
-      periodoDeExperiencia: ['', Validators.required],
+      periodoDeExperiencia: [''],
       dataDoContrato: [''],
       duracaoDoContrato: [''],
       dataTerminoDoContrato: [''],

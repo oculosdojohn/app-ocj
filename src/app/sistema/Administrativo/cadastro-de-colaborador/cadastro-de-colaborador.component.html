@@ -74,7 +74,6 @@
                 <div class="form-group">
                     <label for="escolaridade">
                         Escolaridade
-                        <span *ngIf="isRequired('escolaridade')" class="required-asterisk">*</span>
                     </label>
                     <app-select-padrao
                       label="Selecionar escolaridade"
@@ -152,8 +151,12 @@
             <div class="form-group">
                 <label for="cpf">
                     CPF
+                    <span *ngIf="isRequired('cpf')" class="required-asterisk">*</span>
                 </label>
-                <input type="text" id="cpf" name="cpf" formControlName="cpf" class="form-control" placeholder="000.000.000-00" mask="000.000.000-00" [dropSpecialCharacters]="false">
+                <input type="text" id="cpf" name="cpf" formControlName="cpf" class="form-control" placeholder="000.000.000-00" mask="000.000.000-00" [dropSpecialCharacters]="false" required>
+                <div *ngIf="colaboradorForm.get('cpf')?.invalid && (colaboradorForm.get('cpf')?.touched || colaboradorForm.get('cpf')?.dirty)" class="error-obrigatorio">
+                    O campo CPF é obrigatório.
+                </div>
             </div>
 
             <div class="input-duo">
@@ -391,12 +394,8 @@
                 <div class="form-group">
                     <label for="dataAdmissao">
                         Data de admissão
-                        <span *ngIf="isRequired('dataAdmissao')" class="required-asterisk">*</span>
                     </label>
-                    <input type="date" id="dataAdmissao" name="dataAdmissao" formControlName="dataAdmissao"  class="form-control" required>
-                </div>
-                <div *ngIf="colaboradorForm.get('dataAdmissao')?.invalid && (colaboradorForm.get('dataAdmissao')?.touched || colaboradorForm.get('dataAdmissao')?.dirty)" class="error-obrigatorio">
-                    O campo Data de admissão é obrigatório.
+                    <input type="date" id="dataAdmissao" name="dataAdmissao" formControlName="dataAdmissao"  class="form-control">
                 </div>
             </div>
 
@@ -451,7 +450,6 @@
             <div class="form-group">
                 <label for="periodoDeExperiencia">
                     Período de experiência
-                    <span *ngIf="isRequired('periodoDeExperiencia')" class="required-asterisk">*</span>
                 </label>
                 <app-select-padrao
                   label="Selecionar período de experiência"
