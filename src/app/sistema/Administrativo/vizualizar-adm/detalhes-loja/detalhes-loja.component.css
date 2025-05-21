@@ -86,7 +86,6 @@
 .data-grid-quad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding-bottom: 24px;
   gap: 8px;
 }
 
