@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Colaborador } from './colaborador';
 import { ColaboradorService } from '../../../services/administrativo/colaborador.service';
 import { CargoDescricoes } from './enums/cargo-descricoes';
+import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 
 @Component({
   selector: 'app-funcionarios',
@@ -19,10 +20,12 @@ export class FuncionariosComponent implements OnInit {
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.colaboradores.length / this.itensPorPagina);
   colaboradoresPaginados: Colaborador[] = [];
+  selectedUsuario: any = null;
 
   constructor(
     private router: Router,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private modalDeleteService: ModalDeleteService
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +65,7 @@ export class FuncionariosComponent implements OnInit {
 
   fetchColaboradores(): void {
     this.isLoading = true;
-  
+
     this.colaboradorService.getColaboradores().subscribe(
       (colaboradores: any[]) => {
         console.log('usuários retornadas:', colaboradores);
@@ -79,7 +82,6 @@ export class FuncionariosComponent implements OnInit {
       }
     );
   }
-  
 
   visualizarUsuario(id: string): void {
     this.router.navigate(['/usuario/detalhes-colaborador', id]);
@@ -90,17 +92,15 @@ export class FuncionariosComponent implements OnInit {
   }
 
   deleteUsuario(id: string): void {
-    if (confirm('Tem certeza que deseja deletar este usuário?')) {
-      this.colaboradorService.deleteColaboradorById(id).subscribe(
-        () => {
-          console.log('Usuário deletada com sucesso!');
-          this.fetchColaboradores();
-        },
-        (error) => {
-          console.error('Erro ao deletar a usuário:', error);
-        }
-      );
-    }
+    this.colaboradorService.deleteColaboradorById(id).subscribe(
+      () => {
+        console.log('Usuário deletada com sucesso!');
+        this.fetchColaboradores();
+      },
+      (error) => {
+        console.error('Erro ao deletar a usuário:', error);
+      }
+    );
   }
 
   getInitial(name: string): string {
@@ -117,5 +117,22 @@ export class FuncionariosComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  openModalDeletar(colaborador: any): void {
+    this.selectedUsuario = colaborador;
+
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Colaborador',
+        description: `Tem certeza que deseja excluir o(a) colaborador(a) <strong>${colaborador.username}</strong>?`,
+        item: colaborador,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.deleteUsuario(colaborador.id);
+      }
+    );
   }
 }
