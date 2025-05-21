@@ -330,9 +330,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const invalidFields = this.validarCamposObrigatorios();
     if (this.colaboradorForm.invalid) {
-      console.log('Estado do formulário:', this.colaboradorForm);
-      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
+      if (invalidFields.length > 0) {
+        this.errorMessage =
+          'Por favor, preencha o(s) campo(s) obrigatório(s): ' +
+          invalidFields.join(', ') +
+          '.';
+      } else {
+        this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
+      }
       return;
     }
 
@@ -347,13 +354,27 @@ export class CadastroDeColaboradorComponent implements OnInit {
     const colaborador: Colaborador = {
       ...this.colaboradorForm.value,
       endereco: endereco,
-      estadoCivil: !this.colaboradorForm.value.estadoCivil ? null : this.colaboradorForm.value.estadoCivil,
-      genero: !this.colaboradorForm.value.genero ? null : this.colaboradorForm.value.genero,
-      etnia: !this.colaboradorForm.value.etnia ? null : this.colaboradorForm.value.etnia,
-      escolaridade: !this.colaboradorForm.value.escolaridade ? null : this.colaboradorForm.value.escolaridade,
-      nacionalidade: !this.colaboradorForm.value.nacionalidade ? null : this.colaboradorForm.value.nacionalidade,
-      tipoDeContratacao: !this.colaboradorForm.value.tipoDeContratacao ? null : this.colaboradorForm.value.tipoDeContratacao,
-      periodoDeExperiencia: !this.colaboradorForm.value.periodoDeExperiencia ? null : this.colaboradorForm.value.periodoDeExperiencia,
+      estadoCivil: !this.colaboradorForm.value.estadoCivil
+        ? null
+        : this.colaboradorForm.value.estadoCivil,
+      genero: !this.colaboradorForm.value.genero
+        ? null
+        : this.colaboradorForm.value.genero,
+      etnia: !this.colaboradorForm.value.etnia
+        ? null
+        : this.colaboradorForm.value.etnia,
+      escolaridade: !this.colaboradorForm.value.escolaridade
+        ? null
+        : this.colaboradorForm.value.escolaridade,
+      nacionalidade: !this.colaboradorForm.value.nacionalidade
+        ? null
+        : this.colaboradorForm.value.nacionalidade,
+      tipoDeContratacao: !this.colaboradorForm.value.tipoDeContratacao
+        ? null
+        : this.colaboradorForm.value.tipoDeContratacao,
+      periodoDeExperiencia: !this.colaboradorForm.value.periodoDeExperiencia
+        ? null
+        : this.colaboradorForm.value.periodoDeExperiencia,
     };
 
     const formData = new FormData();
@@ -598,5 +619,47 @@ export class CadastroDeColaboradorComponent implements OnInit {
         this.passwordVisible[field] ? 'text' : 'password'
       );
     }
+  }
+
+  private validarCamposObrigatorios(): string[] {
+    const fieldNames: { [key: string]: string } = {
+      username: 'Nome completo',
+      dataNascimento: 'Data de nascimento',
+      cpf: 'CPF',
+      emailPessoal: 'E-mail pessoal',
+      password: 'Senha',
+      confirmPassword: 'Confirmar senha',
+      identificadorLoja: 'Loja',
+      identificadorDepartamento: 'Departamento',
+      cargo: 'Cargo',
+      periodoDeExperiencia: 'Período de experiência',
+      status: 'Status',
+    };
+    const invalidFields: string[] = Object.keys(this.colaboradorForm.controls)
+      .filter((key) => {
+        const control = this.colaboradorForm.get(key);
+        return (
+          control &&
+          control.invalid &&
+          control.errors &&
+          control.errors['required']
+        );
+      })
+      .map((key) => fieldNames[key] || key);
+    const enderecoGroup = this.colaboradorForm.get('endereco');
+    if (enderecoGroup && enderecoGroup.invalid) {
+      Object.keys((enderecoGroup as FormGroup).controls).forEach((key) => {
+        const control = enderecoGroup.get(key);
+        if (
+          control &&
+          control.invalid &&
+          control.errors &&
+          control.errors['required']
+        ) {
+          invalidFields.push(fieldNames[key] || key);
+        }
+      });
+    }
+    return invalidFields;
   }
 }
