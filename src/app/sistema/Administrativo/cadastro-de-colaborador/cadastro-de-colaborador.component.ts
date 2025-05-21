@@ -353,6 +353,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       escolaridade: !this.colaboradorForm.value.escolaridade ? null : this.colaboradorForm.value.escolaridade,
       nacionalidade: !this.colaboradorForm.value.nacionalidade ? null : this.colaboradorForm.value.nacionalidade,
       tipoDeContratacao: !this.colaboradorForm.value.tipoDeContratacao ? null : this.colaboradorForm.value.tipoDeContratacao,
+      periodoDeExperiencia: !this.colaboradorForm.value.periodoDeExperiencia ? null : this.colaboradorForm.value.periodoDeExperiencia,
     };
 
     const formData = new FormData();
