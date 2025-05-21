@@ -10,7 +10,7 @@
         <form (ngSubmit)="onSubmit()" [formGroup]="lojaForm">
             <div class="form-group">
                 <label for="nome">Nome<span *ngIf="isRequired('nome')" class="required-asterisk">*</span></label>
-                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome da loja" required>
+                <input type="text" id="nome" name="nome" formControlName="nome" class="form-control" placeholder="Digite o nome da loja" required maxlength="256">
                 <div *ngIf="lojaForm.get('nome')?.invalid && (lojaForm.get('nome')?.touched || lojaForm.get('nome')?.dirty)" class="error-obrigatorio">
                     O campo Nome é obrigatório.
                 </div>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <label for="bairro">Bairro<span *ngIf="isRequired('endereco.bairro')" class="required-asterisk">*</span></label>
-                        <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" required>
+                        <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" required maxlength="256">
                         <div *ngIf="lojaForm.get('endereco.bairro')?.invalid && (lojaForm.get('endereco.bairro')?.touched || lojaForm.get('endereco.bairro')?.dirty)" class="error-obrigatorio">
                             O campo Bairro é obrigatório.
                         </div>
@@ -76,14 +76,14 @@
                 <div class="input-duo">
                     <div class="form-group">
                         <label for="rua">Rua<span *ngIf="isRequired('endereco.rua')" class="required-asterisk">*</span></label>
-                        <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" required>
+                        <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" required maxlength="256">
                         <div *ngIf="lojaForm.get('endereco.rua')?.invalid && (lojaForm.get('endereco.rua')?.touched || lojaForm.get('endereco.rua')?.dirty)" class="error-obrigatorio">
                             O campo Rua é obrigatório.
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="numero">Número<span *ngIf="isRequired('endereco.numero')" class="required-asterisk">*</span></label>
-                        <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" required>
+                        <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" required maxlength="256">
                         <div *ngIf="lojaForm.get('endereco.numero')?.invalid && (lojaForm.get('endereco.numero')?.touched || lojaForm.get('endereco.numero')?.dirty)" class="error-obrigatorio">
                             O campo Número é obrigatório.
                         </div>
@@ -93,11 +93,11 @@
                 <div class="input-duo">
                     <div class="form-group">
                         <label for="complemento">Complemento</label>
-                        <input type="text" id="complemento" name="complemento" formControlName="complemento" class="form-control" placeholder="Digite um complemento">
+                        <input type="text" id="complemento" name="complemento" formControlName="complemento" class="form-control" placeholder="Digite um complemento" maxlength="256">
                     </div>
                     <div class="form-group">
                         <label for="logradouro">Logradouro</label>
-                        <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro">
+                        <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro" maxlength="256">
                     </div>
                 </div>
             </div>
