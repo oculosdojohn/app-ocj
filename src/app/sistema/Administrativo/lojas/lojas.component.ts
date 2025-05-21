@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Loja } from './loja';
 import { Endereco } from './endereco';
 import { LojaService } from '../../../services/administrativo/loja.service';
+import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 
 @Component({
   selector: 'app-lojas',
@@ -18,8 +19,13 @@ export class LojasComponent implements OnInit {
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
   lojasPaginados: Loja[] = [];
+  selectedLoja: any = null;
 
-  constructor(private router: Router, private lojaService: LojaService) {}
+  constructor(
+    private router: Router,
+    private lojaService: LojaService,
+    private modalDeleteService: ModalDeleteService
+  ) {}
 
   ngOnInit(): void {
     this.fetchLojas();
@@ -76,17 +82,15 @@ export class LojasComponent implements OnInit {
   }
 
   deleteLoja(id: string): void {
-    if (confirm('Tem certeza que deseja deletar esta loja?')) {
-      this.lojaService.deleteLojaById(id).subscribe(
-        () => {
-          console.log('Loja deletada com sucesso!');
-          this.fetchLojas();
-        },
-        (error) => {
-          console.error('Erro ao deletar a loja:', error);
-        }
-      );
-    }
+    this.lojaService.deleteLojaById(id).subscribe(
+      () => {
+        console.log('Loja deletada com sucesso!');
+        this.fetchLojas();
+      },
+      (error) => {
+        console.error('Erro ao deletar a loja:', error);
+      }
+    );
   }
 
   getInitial(name?: string): string {
@@ -104,5 +108,24 @@ export class LojasComponent implements OnInit {
     const index =
       seed && seed.length > 0 ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  openModalDeletar(loja: any): void {
+    this.selectedLoja = loja;
+
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Loja',
+        description: `Tem certeza que deseja excluir a loja <strong>${
+          loja.nome
+        } - ${loja.endereco?.cidade || '-'}</strong>?`,
+        item: loja,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.deleteLoja(loja.id);
+      }
+    );
   }
 }

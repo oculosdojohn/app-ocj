@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Departamento } from './departamento';
 import { DepartamentoService } from '../../../services/administrativo/departamento.service';
+import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 
 @Component({
   selector: 'app-departamentos',
@@ -18,10 +19,12 @@ export class DepartamentosComponent implements OnInit {
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.departamentos.length / this.itensPorPagina);
   departamentosPaginados: Departamento[] = [];
+  selectedDepartamento: any = null;
 
   constructor(
     private router: Router,
-    private departamentoService: DepartamentoService
+    private departamentoService: DepartamentoService,
+    private modalDeleteService: ModalDeleteService
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +57,7 @@ export class DepartamentosComponent implements OnInit {
 
   fetchDepartamentos(): void {
     this.isLoading = true;
-  
+
     this.departamentoService.getDepartamentos().subscribe(
       (departamentos: any[]) => {
         console.log('departamentos retornadas:', departamentos);
@@ -71,7 +74,6 @@ export class DepartamentosComponent implements OnInit {
       }
     );
   }
-  
 
   visualizarDepartamento(id: string): void {
     this.router.navigate(['/usuario/detalhes-departamento', id]);
@@ -82,17 +84,15 @@ export class DepartamentosComponent implements OnInit {
   }
 
   deleteDepartamento(id: string): void {
-    if (confirm('Tem certeza que deseja deletar este departamento?')) {
-      this.departamentoService.deleteDepartamentoById(id).subscribe(
-        () => {
-          console.log('Departamento deletada com sucesso!');
-          this.fetchDepartamentos();
-        },
-        (error) => {
-          console.error('Erro ao deletar a departamento:', error);
-        }
-      );
-    }
+    this.departamentoService.deleteDepartamentoById(id).subscribe(
+      () => {
+        console.log('Departamento deletado com sucesso!');
+        this.fetchDepartamentos();
+      },
+      (error) => {
+        console.error('Erro ao deletar a departamento:', error);
+      }
+    );
   }
 
   getInitial(name: string): string {
@@ -109,5 +109,22 @@ export class DepartamentosComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  openModalDeletar(departamento: any): void {
+    this.selectedDepartamento = departamento;
+
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Departamento',
+        description: `Tem certeza que deseja excluir o departamento <strong>${departamento.nome}</strong>?`,
+        item: departamento,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.deleteDepartamento(departamento.id);
+      }
+    );
   }
 }

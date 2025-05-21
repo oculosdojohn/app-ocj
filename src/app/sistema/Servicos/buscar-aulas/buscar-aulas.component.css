@@ -71,6 +71,14 @@
 .actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 16px;
+}
+
+.container-btn {
+  display: flex;
+  align-items: center;
   gap: 16px;
 }
 
@@ -259,8 +267,15 @@ tr:hover {
     margin: 90px 24px 24px;
   }
 
-  .select-container {
-    width: 250px;
+  .buscar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
   }
 }
 
@@ -270,12 +285,30 @@ tr:hover {
     padding: 16px;
   }
 
-  .back-title span {
-    font-size: 24px;
+  .buscar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .select-container {
+    width: 100%;
+  }
+  .btn-buscar {
+    width: 100%;
+  }
+  .btn-line {
+    width: 100%;
+  }
+  .breadcrumb {
+    width: 100%;
   }
 
-  .back-title img {
-    width: 22px;
-    height: auto;
+  .container-btn {
+    width: 100%;
   }
 }

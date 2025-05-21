@@ -11,6 +11,7 @@ import { InputVideoComponent } from './input-video/input-video.component';
 import { SearchComponent } from './search/search.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SectorNavigationComponent } from './sector-navigation/sector-navigation.component';
+import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 
 
 
@@ -25,7 +26,8 @@ import { SectorNavigationComponent } from './sector-navigation/sector-navigation
     InputVideoComponent,
     SearchComponent,
     PaginationComponent,
-    SectorNavigationComponent
+    SectorNavigationComponent,
+    ModalDeleteComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,8 @@ import { SectorNavigationComponent } from './sector-navigation/sector-navigation
     InputVideoComponent,
     SearchComponent,
     PaginationComponent,
-    SectorNavigationComponent
+    SectorNavigationComponent,
+    ModalDeleteComponent
   ]
 })
 export class SharedModule { }

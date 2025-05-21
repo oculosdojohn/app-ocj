@@ -4,6 +4,7 @@ import { Gerente } from './gerente';
 import { Colaborador } from '../funcionarios/colaborador';
 import { CargoDescricoes } from '../funcionarios/enums/cargo-descricoes';
 import { ColaboradorService } from '../../../services/administrativo/colaborador.service';
+import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 
 @Component({
   selector: 'app-gerentes',
@@ -20,10 +21,12 @@ export class GerentesComponent implements OnInit {
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.gerentes.length / this.itensPorPagina);
   gerentesPaginados: Colaborador[] = [];
+  selectedUsuario: any = null;
 
   constructor(
     private router: Router,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private modalDeleteService: ModalDeleteService
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +66,7 @@ export class GerentesComponent implements OnInit {
 
   fetchGerentes(): void {
     this.isLoading = true;
-  
+
     this.colaboradorService
       .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL'])
       .subscribe(
@@ -82,7 +85,6 @@ export class GerentesComponent implements OnInit {
         }
       );
   }
-  
 
   visualizarUsuario(id: string): void {
     this.router.navigate(['/usuario/detalhes-colaborador', id]);
@@ -93,17 +95,15 @@ export class GerentesComponent implements OnInit {
   }
 
   deleteUsuario(id: string): void {
-    if (confirm('Tem certeza que deseja deletar este usuário?')) {
-      this.colaboradorService.deleteColaboradorById(id).subscribe(
-        () => {
-          console.log('Usuário deletada com sucesso!');
-          this.fetchGerentes();
-        },
-        (error) => {
-          console.error('Erro ao deletar a usuário:', error);
-        }
-      );
-    }
+    this.colaboradorService.deleteColaboradorById(id).subscribe(
+      () => {
+        console.log('Usuário deletada com sucesso!');
+        this.fetchGerentes();
+      },
+      (error) => {
+        console.error('Erro ao deletar a usuário:', error);
+      }
+    );
   }
 
   getInitial(name: string): string {
@@ -120,5 +120,22 @@ export class GerentesComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  openModalDeletar(gerente: any): void {
+    this.selectedUsuario = gerente;
+
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Gerente',
+        description: `Tem certeza que deseja excluir o(a) colaborador(a) <strong>${gerente.username}</strong>?`,
+        item: gerente,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.deleteUsuario(gerente.id);
+      }
+    );
   }
 }

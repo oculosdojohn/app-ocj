@@ -5,6 +5,7 @@ import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Aula } from '../cursos/aulas';
 import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
+import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 
 @Component({
   selector: 'app-buscar-aulas',
@@ -18,6 +19,7 @@ export class BuscarAulasComponent implements OnInit {
   totalPaginas = Math.ceil(this.aulas.length / this.itensPorPagina);
   aulasPaginadas: Aula[] = [];
   buscaRealizada = false;
+  selectedAula: any = null;
 
   selectedModulo: string = '';
   modulos = Object.keys(Modulos).map((key) => ({
@@ -28,7 +30,8 @@ export class BuscarAulasComponent implements OnInit {
   constructor(
     private location: Location,
     private cursosService: CursosService,
-    private router: Router
+    private router: Router,
+    private modalDeleteService: ModalDeleteService
   ) {}
 
   ngOnInit(): void {}
@@ -83,26 +86,41 @@ export class BuscarAulasComponent implements OnInit {
   }
 
   deleteAula(id: string): void {
-    if (confirm('Tem certeza de que deseja deletar esta aula?')) {
-      this.cursosService.deletarAula(id).subscribe(
-        (response) => {
-          console.log('Aula deletada com sucesso:', response);
-          // Remover a aula deletada da lista
-          this.aulas = this.aulas.filter((aula) => aula.id !== id);
-          this.totalPaginas = Math.ceil(
-            this.aulas.length / this.itensPorPagina
-          );
-          this.atualizarPaginacao();
-        },
-        (error) => {
-          console.error('Erro ao deletar aula:', error);
-          alert('Erro ao deletar aula.');
-        }
-      );
-    }
+    this.cursosService.deletarAula(id).subscribe(
+      (response) => {
+        this.aulas = this.aulas.filter((aula) => aula.id !== id);
+        this.totalPaginas = Math.ceil(this.aulas.length / this.itensPorPagina);
+        this.atualizarPaginacao();
+      },
+      (error) => {
+        console.error('Erro ao deletar aula:', error);
+        alert('Erro ao deletar aula.');
+      }
+    );
   }
 
   editarAula(id: string): void {
     this.router.navigate(['/usuario/cadastro-de-aulas', id]);
+  }
+
+  openModalDeletar(aula: any): void {
+    this.selectedAula = aula;
+
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Aula',
+        description: `Tem certeza que deseja excluir a aula <strong>${
+          aula.titulo
+        }</strong> do módulo <strong>${
+          ModulosDescricao[aula.modulo as Modulos]
+        }</strong>?`,
+        item: aula,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.deleteAula(aula.id);
+      }
+    );
   }
 }
