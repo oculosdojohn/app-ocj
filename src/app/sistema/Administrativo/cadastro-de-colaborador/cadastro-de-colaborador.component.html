@@ -21,7 +21,7 @@
                     Nome completo
                     <span *ngIf="isRequired('username')" class="required-asterisk">*</span>
                 </label>
-                <input type="text" id="username" name="username" formControlName="username" class="form-control" placeholder="Digite o Nome completo" required maxlength="256">
+                <input type="text" id="username" name="username" formControlName="username" class="form-control" placeholder="Digite o Nome completo" required maxlength="250">
                 <div *ngIf="colaboradorForm.get('username')?.invalid && (colaboradorForm.get('username')?.touched || colaboradorForm.get('username')?.dirty)" class="error-obrigatorio">
                     O campo Nome completo é obrigatório.
                 </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso</label>
-                    <input type="text" id="curso" name="curso" formControlName="curso" class="form-control" placeholder="Digite seus cursos" maxlength="256">
+                    <input type="text" id="curso" name="curso" formControlName="curso" class="form-control" placeholder="Digite seus cursos" maxlength="250">
                 </div>
             </div>
 
@@ -101,7 +101,7 @@
 
                 <div class="form-group">
                     <label for="naturalidade">Naturalidade</label>
-                    <input type="text" id="naturalidade" name="naturalidade" formControlName="naturalidade" class="form-control" placeholder="Digite a naturalidade" maxlength="256">
+                    <input type="text" id="naturalidade" name="naturalidade" formControlName="naturalidade" class="form-control" placeholder="Digite a naturalidade" maxlength="250">
                 </div>
             </div>
 
@@ -119,7 +119,7 @@
 
                 <div class="form-group">
                     <label for="deficiencia">Qual deficiência?</label>
-                    <input type="text" id="deficiencia" name="deficiencia" formControlName="deficiencia" class="form-control" placeholder="Digite qual deficiência" maxlength="256" 
+                    <input type="text" id="deficiencia" name="deficiencia" formControlName="deficiencia" class="form-control" placeholder="Digite qual deficiência" maxlength="250" 
                     [disabled]="!colaboradorForm.get('descricaoDeficiencia')?.enabled" [ngClass]="{ 'disabled-cursor': !colaboradorForm.get('deficiencia')?.enabled }">
                 </div>
             </div>
@@ -171,7 +171,7 @@
                     <label for="orgaoExpedidor">
                         Órgão Expedidor
                     </label>
-                    <input type="text" id="orgaoExpedidor" name="orgaoExpedidor" formControlName="orgaoExpedidor" class="form-control" placeholder="Digite o órgão expedidor" maxlength="256">
+                    <input type="text" id="orgaoExpedidor" name="orgaoExpedidor" formControlName="orgaoExpedidor" class="form-control" placeholder="Digite o órgão expedidor" maxlength="250">
                 </div>
 
                 <div class="form-group">
@@ -185,12 +185,12 @@
             <div class="input-duo">
                 <div class="form-group">
                     <label for="nomeMae">Nome da mãe</label>
-                    <input type="text" id="nomeMae" name="nomeMae" formControlName="nomeMae" class="form-control" placeholder="Digite o nome da mãe" maxlength="256">
+                    <input type="text" id="nomeMae" name="nomeMae" formControlName="nomeMae" class="form-control" placeholder="Digite o nome da mãe" maxlength="250">
                 </div>
 
                 <div class="form-group">
                     <label for="nomePai">Nome do pai</label>
-                    <input type="text" id="nomePai" name="nomePai" formControlName="nomePai" class="form-control" placeholder="Digite o nome do pai" maxlength="256">
+                    <input type="text" id="nomePai" name="nomePai" formControlName="nomePai" class="form-control" placeholder="Digite o nome do pai" maxlength="250">
                 </div>
             </div>
 
@@ -202,41 +202,41 @@
 
                 <div class="form-group">
                     <label for="reservista">Reservista</label>
-                    <input type="text" id="reservista" name="reservista" formControlName="reservista" class="form-control" placeholder="Digite o número da reservista" maxlength="256">
+                    <input type="text" id="reservista" name="reservista" formControlName="reservista" class="form-control" placeholder="Digite o número da reservista" maxlength="250">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="tituloDeEleitor">Titulo de Eleitor</label>
-                    <input type="text" id="tituloDeEleitor" name="tituloDeEleitor" formControlName="tituloDeEleitor" class="form-control" placeholder="Digite o titulo de eleitor" maxlength="256">
+                    <input type="text" id="tituloDeEleitor" name="tituloDeEleitor" formControlName="tituloDeEleitor" class="form-control" placeholder="Digite o titulo de eleitor" maxlength="250">
                 </div>
 
                 <div class="form-group">
                     <label for="zonaEleitoral">Zona Eleitoral</label>
-                    <input type="text" id="zonaEleitoral" name="zonaEleitoral" formControlName="zonaEleitoral" class="form-control" placeholder="Digite a zona eleitoral" maxlength="256">
+                    <input type="text" id="zonaEleitoral" name="zonaEleitoral" formControlName="zonaEleitoral" class="form-control" placeholder="Digite a zona eleitoral" maxlength="250">
                 </div>
 
                 <div class="form-group">
                     <label for="secaoEleitoral">Seção Eleitoral</label>
-                    <input type="text" id="secaoEleitoral" name="secaoEleitoral" formControlName="secaoEleitoral" class="form-control" placeholder="Digite o número da seção" maxlength="256">
+                    <input type="text" id="secaoEleitoral" name="secaoEleitoral" formControlName="secaoEleitoral" class="form-control" placeholder="Digite o número da seção" maxlength="250">
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="pis">PIS</label>
-                    <input type="text" id="pis" name="pis" formControlName="pis" class="form-control" placeholder="Digite o PIS" maxlength="256">
+                    <input type="text" id="pis" name="pis" formControlName="pis" class="form-control" placeholder="Digite o PIS" maxlength="250">
                 </div>
 
                 <div class="form-group">
                     <label for="ctpsNum">CTPS NUM</label>
-                    <input type="text" id="ctpsNum" name="ctpsNum" formControlName="ctpsNum" class="form-control" placeholder="Digite o CTPS NUM" maxlength="256">
+                    <input type="text" id="ctpsNum" name="ctpsNum" formControlName="ctpsNum" class="form-control" placeholder="Digite o CTPS NUM" maxlength="250">
                 </div>
 
                 <div class="form-group">
                     <label for="ctpsSerie">CTPS Série</label>
-                    <input type="text" id="ctpsSerie" name="ctpsSerie" formControlName="ctpsSerie" class="form-control" placeholder="Digite o CTPS Série" maxlength="256">
+                    <input type="text" id="ctpsSerie" name="ctpsSerie" formControlName="ctpsSerie" class="form-control" placeholder="Digite o CTPS Série" maxlength="250">
                 </div>
             </div>
 
@@ -245,21 +245,21 @@
                     <label for="banco">
                         Banco
                     </label>
-                    <input type="text" id="banco" name="banco" formControlName="banco" class="form-control" placeholder="Digite o nome do banco" maxlength="256">
+                    <input type="text" id="banco" name="banco" formControlName="banco" class="form-control" placeholder="Digite o nome do banco" maxlength="250">
                 </div>
 
                 <div class="form-group">
                     <label for="agencia">
                         Agência
                     </label>
-                    <input type="text" id="agencia" name="agencia" formControlName="agencia" class="form-control" placeholder="Digite o número da agência" maxlength="256">
+                    <input type="text" id="agencia" name="agencia" formControlName="agencia" class="form-control" placeholder="Digite o número da agência" maxlength="250">
                 </div>
 
                 <div class="form-group">
                     <label for="contaCorrente">
                         Conta corrente
                     </label>
-                    <input type="text" id="contaCorrente" name="contaCorrente" formControlName="contaCorrente" class="form-control" placeholder="Digite o número da conta" maxlength="256">
+                    <input type="text" id="contaCorrente" name="contaCorrente" formControlName="contaCorrente" class="form-control" placeholder="Digite o número da conta" maxlength="250">
                 </div>
             </div>
 
@@ -297,7 +297,7 @@
 
             <div class="form-group">
                 <label for="instagram">Instagram</label>
-                <input type="text" id="instagram" name="instagram" formControlName="instagram" class="form-control" placeholder="Digite o instagram" maxlength="256">
+                <input type="text" id="instagram" name="instagram" formControlName="instagram" class="form-control" placeholder="Digite o instagram" maxlength="250">
             </div>
 
             <div class="divisao">
@@ -347,29 +347,29 @@
                     </div>
                     <div class="form-group">
                         <label for="bairro">Bairro</label>
-                        <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" maxlength="256">
+                        <input type="text" id="bairro" name="bairro" formControlName="bairro" class="form-control" placeholder="Digite o bairro" maxlength="250">
                     </div>
                 </div>
     
                 <div class="input-duo">
                     <div class="form-group">
                         <label for="rua">Rua</label>
-                        <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" maxlength="256">
+                        <input type="text" id="rua" name="rua" formControlName="rua" class="form-control" placeholder="Digite a rua" maxlength="250">
                     </div>
                     <div class="form-group">
                         <label for="numero">Número</label>
-                        <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" maxlength="256">
+                        <input type="text" id="numero" name="numero" formControlName="numero" class="form-control" placeholder="Digite o número" maxlength="250">
                     </div>
                 </div>
     
                 <div class="input-duo">
                     <div class="form-group">
                         <label for="complemento">Complemento</label>
-                        <input type="text" id="complemento" formControlName="complemento" name="complemento" class="form-control" placeholder="Digite um complemento" maxlength="256">
+                        <input type="text" id="complemento" formControlName="complemento" name="complemento" class="form-control" placeholder="Digite um complemento" maxlength="250">
                     </div>
                     <div class="form-group">
                         <label for="logradouro">Logradouro</label>
-                        <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro" maxlength="256">
+                        <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" class="form-control" placeholder="Digite o logradouro" maxlength="250">
                     </div>
                 </div>
             </div>
@@ -527,7 +527,7 @@
                         <span *ngIf="isRequired('password')" class="required-asterisk">*</span>
                     </label>
                     <div class="input-group">
-                        <input [type]="passwordVisible['password'] ? 'text' : 'password'" id="password" name="password" formControlName="password" class="form-control" placeholder="Digite uma senha" required maxlength="256">
+                        <input [type]="passwordVisible['password'] ? 'text' : 'password'" id="password" name="password" formControlName="password" class="form-control" placeholder="Digite uma senha" required maxlength="250">
                         <div class="input-icon" type="button" (click)="togglePasswordVisibility('password')">
                             <img *ngIf="!passwordVisible['password']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
                             <img *ngIf="passwordVisible['password']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
@@ -544,7 +544,7 @@
                         <span *ngIf="isRequired('confirmPassword')" class="required-asterisk">*</span>
                     </label>
                     <div class="input-group">
-                        <input [type]="passwordVisible['confirmPassword'] ? 'text' : 'password'" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirme a sua senha" required maxlength="256">
+                        <input [type]="passwordVisible['confirmPassword'] ? 'text' : 'password'" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="Confirme a sua senha" required maxlength="250">
                         <div class="input-icon" type="button" (click)="togglePasswordVisibility('confirmPassword')">
                             <img *ngIf="!passwordVisible['confirmPassword']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
                             <img *ngIf="passwordVisible['confirmPassword']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
