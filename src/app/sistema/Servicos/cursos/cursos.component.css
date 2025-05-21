@@ -42,6 +42,7 @@
 .breadcrumb {
   font-size: 1rem;
   color: #666261;
+  width: 50%;
   margin: 0;
 }
 
@@ -67,6 +68,8 @@
 .actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  width: 100%;
   gap: 16px;
 }
 
@@ -216,6 +219,16 @@
   .cursos {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .actions {
+    display: flex;
+    gap: 24px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -226,5 +239,28 @@
 
   .cursos {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .actions {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+  .search-container {
+    width: 100%;
+  }
+  .btn-cadastrar {
+    width: 100%;
+  }
+  .btn-line {
+    width: 100%;
+  }
+  .breadcrumb {
+    width: 100%;
   }
 }
