@@ -17,11 +17,13 @@
                   [(selectedValue)]="selectedModulo">
                 </app-select-padrao>
             </div>
-            <button class="btn-buscar" (click)="buscarAulas()">
-                <img src="assets/icones/lupa-white.svg" alt="Sem dados">
-                Buscar
-            </button>
-            <button class="btn-line" (click)="limparFiltro()">Limpar</button>
+            <div class="container-btn">
+                <button class="btn-buscar" (click)="buscarAulas()">
+                    <img src="assets/icones/lupa-white.svg" alt="Sem dados">
+                    Buscar
+                </button>
+                <button class="btn-line" (click)="limparFiltro()">Limpar</button>
+            </div>
         </div>
     </div>
 
