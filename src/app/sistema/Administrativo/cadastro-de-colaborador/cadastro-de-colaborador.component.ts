@@ -164,7 +164,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       portadorDeficiencia: [''],
       deficiencia: [''],
       possuiFilhos: [''],
-      quantidadeFilhos: [''],
+      quantidadeFilhos: [0, Validators.min(0)],
       // documentos
       cpf: ['', [Validators.required, Validators.minLength(11)]],
       rg: [''],
@@ -207,7 +207,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       identificadorDepartamento: ['', Validators.required],
       cargo: ['', Validators.required],
       tipoDeContratacao: [''],
-      salario: [''],
+      salario: [0, Validators.min(0)],
       periodoDeExperiencia: [''],
       dataDoContrato: [''],
       duracaoDoContrato: [''],
@@ -351,30 +351,25 @@ export class CadastroDeColaboradorComponent implements OnInit {
       ?.value as Endereco;
     console.log('Endereço:', endereco);
 
+    const camposOpcionais = [
+      'estadoCivil',
+      'genero',
+      'etnia',
+      'escolaridade',
+      'nacionalidade',
+      'tipoDeContratacao',
+      'periodoDeExperiencia',
+    ];
+
+    const enumsTratados = this.tratarCamposOpcionais(
+      this.colaboradorForm.value,
+      camposOpcionais
+    );
+
     const colaborador: Colaborador = {
       ...this.colaboradorForm.value,
+      ...enumsTratados,
       endereco: endereco,
-      estadoCivil: !this.colaboradorForm.value.estadoCivil
-        ? null
-        : this.colaboradorForm.value.estadoCivil,
-      genero: !this.colaboradorForm.value.genero
-        ? null
-        : this.colaboradorForm.value.genero,
-      etnia: !this.colaboradorForm.value.etnia
-        ? null
-        : this.colaboradorForm.value.etnia,
-      escolaridade: !this.colaboradorForm.value.escolaridade
-        ? null
-        : this.colaboradorForm.value.escolaridade,
-      nacionalidade: !this.colaboradorForm.value.nacionalidade
-        ? null
-        : this.colaboradorForm.value.nacionalidade,
-      tipoDeContratacao: !this.colaboradorForm.value.tipoDeContratacao
-        ? null
-        : this.colaboradorForm.value.tipoDeContratacao,
-      periodoDeExperiencia: !this.colaboradorForm.value.periodoDeExperiencia
-        ? null
-        : this.colaboradorForm.value.periodoDeExperiencia,
     };
 
     const formData = new FormData();
@@ -619,6 +614,14 @@ export class CadastroDeColaboradorComponent implements OnInit {
         this.passwordVisible[field] ? 'text' : 'password'
       );
     }
+  }
+
+  private tratarCamposOpcionais(formValue: any, campos: string[]): any {
+    const resultado: any = {};
+    campos.forEach((campo) => {
+      resultado[campo] = formValue[campo] ? formValue[campo] : null;
+    });
+    return resultado;
   }
 
   private validarCamposObrigatorios(): string[] {
