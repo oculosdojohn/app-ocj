@@ -169,3 +169,40 @@
   padding: 8px;
   gap: 15px;
 }
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+}
+
+@media (max-width: 767px) {
+  .cards-container {
+    flex-direction: column;
+  }
+
+  .curso-card {
+    flex-direction: column;
+  }
+
+  .curso-infos {
+    justify-content: flex-start;
+    align-items: baseline;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .curso-image img {
+    width: 200px;
+    height: 100%;
+  }
+
+  .progresso-curso-container {
+    width: 100%;
+  }
+
+  .progresso-curso-bar {
+    width: 100%;
+  }
+}

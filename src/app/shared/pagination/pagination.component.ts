@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.css']
+  styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent implements OnInit {
   @Input() paginaAtual: number = 1;
@@ -13,7 +13,7 @@ export class PaginationComponent implements OnInit {
 
   totalPaginas: number = 1;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.calcularTotalPaginas();
@@ -41,10 +41,37 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  mudarPagina(pagina: number) {
-    if (pagina !== this.paginaAtual) {
+  mudarPagina(pagina: number | string) {
+    if (typeof pagina === 'number' && pagina !== this.paginaAtual) {
       this.paginaAtual = pagina;
       this.paginaMudou.emit(this.paginaAtual);
     }
+  }
+
+  get paginasParaExibir(): (number | string)[] {
+    const paginas: (number | string)[] = [];
+    const total = this.totalPaginas;
+    const atual = this.paginaAtual;
+
+    if (total <= 6) {
+      for (let i = 1; i <= total; i++) {
+        paginas.push(i);
+      }
+      return paginas;
+    }
+    paginas.push(1, 2);
+
+    if (atual <= 4) {
+      paginas.push(3, 4, 5);
+      paginas.push('...');
+    } else if (atual >= total - 3) {
+      paginas.push('...');
+      paginas.push(total - 3, total - 2, total - 1, total);
+    } else {
+      paginas.push('...');
+      paginas.push(atual - 1, atual, atual + 1);
+      paginas.push('...');
+    }
+    return paginas.filter((v, i, a) => v !== '...' || a[i - 1] !== '...');
   }
 }

@@ -107,6 +107,9 @@
 .modal-conteudo span {
   font-size: 16px;
   margin: 16px;
+  word-break: break-word;
+  white-space: pre-line;
+  max-width: 100%;
 }
 
 .modal-icone {
