@@ -21,12 +21,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeInScale 0.3s forwards;
+  transition: background 0.2s, color 0.2s, transform 0.2s, opacity 0.2s;
+}
+
+@keyframes fadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .paginacao button.ativo {
   background: #d4eecc;
   color: #25470e;
   font-weight: 600;
+  transform: scale(1.08);
 }
 
 .paginacao button:disabled {
@@ -34,6 +46,20 @@
   cursor: not-allowed;
 }
 
-.paginacao button:not(:disabled):hover {
+.paginacao button:not(:disabled):hover:not(.ativo) {
   background: rgba(64, 255, 0, 0.2);
+  color: #25470e;
+  transform: scale(1.04);
+}
+
+.paginacao .ellipsis {
+  color: #888;
+  padding: 0 8px;
+  font-size: 1.2em;
+  background: transparent;
+  cursor: default;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  pointer-events: none;
 }
