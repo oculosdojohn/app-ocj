@@ -5,7 +5,6 @@
         <div class="motivational-message">
           <p>"{{ motivationalMessage.quote }}"</p>
           <span class="author">{{ motivationalMessage.author }}</span>
-          <!-- <p>Permissão: {{ cargoUsuario }}</p>-->
         </div>
       </div>
   
@@ -21,5 +20,19 @@
           <h6>Vento: {{ windSpeed }} m/s, {{ weatherDescription }}</h6>
         </div>
       </div>
+    </div>
+
+    <div class="graficos-container">
+        <div class="duo-graficos">
+          <div class="grafico" id="chartEscolaridade"></div>
+          <div class="grafico" id="chartGenero"></div> 
+        </div>
+        <div class="duo-graficos">
+          <div class="grafico" id="chartColaboradoresPorLoja"></div> 
+          <div class="grafico" id="chartOrcamentoDepartamento"></div>
+        </div>      
+        <div class="one-grafico">
+          <div class="grafico"></div>
+        </div>
     </div>
 </div>

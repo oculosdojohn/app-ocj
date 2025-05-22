@@ -19,6 +19,12 @@
     justify-content: space-between;
   }
   
+  .containers-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
   .welcome {
     display: flex;
     flex-direction: column;

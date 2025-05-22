@@ -81,6 +81,10 @@ export class PainelAdminComponent implements OnInit {
       },
       (error) => console.error('Erro ao obter perfil do usuário:', error)
     );
+    this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
+      this.renderChartOrcamentoDepartamento(data);
+    });
+    
   }
 
   getWeatherForRussas(): void {
@@ -122,6 +126,47 @@ export class PainelAdminComponent implements OnInit {
       this.cdr.detectChanges();
     }
   }
+
+  renderChartOrcamentoDepartamento(data: Record<string, number>) {
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+  
+    const options = {
+      chart: {
+        type: 'bar',
+        height: 350,
+        width: '100%',
+      },
+      title: {
+        text: 'Orçamento por Departamento',
+        align: 'center',
+      },
+      series: [
+        {
+          name: 'Orçamento (R$)',
+          data: values,
+        },
+      ],
+      xaxis: {
+        categories: labels,
+      },
+      tooltip: {
+        y: {
+          formatter: (val: number) => `R$ ${val.toLocaleString('pt-BR')}`,
+        },
+      },
+      theme: {
+        palette: 'palette5',
+      },
+    };
+  
+    const chart = new ApexCharts(
+      document.querySelector('#chartOrcamentoDepartamento'),
+      options
+    );
+    chart.render();
+  }
+  
 
   renderChartGenero(data: Record<string, number>) {
     const labels = Object.keys(data);

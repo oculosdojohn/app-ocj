@@ -33,6 +33,16 @@ export class GraficosService {
     );
   }
 
+  getOrcamentoPorDepartamento(): Observable<Record<string, number>> {
+    return this.http
+      .get<Record<string, number>>(`${this.apiURL}/orcamento-por-departamento`)
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('orçamento por departamento'))
+      );
+  }
+  
+
   private handleError(contexto: string) {
     return (error: HttpErrorResponse) => {
       let errorMessage = `Erro ao buscar dados de ${contexto}.`;
