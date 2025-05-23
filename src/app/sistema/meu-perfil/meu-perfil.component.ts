@@ -28,6 +28,8 @@ export class MeuPerfilComponent implements OnInit {
   selectedImageFile: File | null = null;
   selectedImageUrl: string | ArrayBuffer | null = null;
 
+  showChangePassword = false;
+
   constructor(
     private location: Location,
     public themeService: ThemeService,
@@ -144,5 +146,13 @@ export class MeuPerfilComponent implements OnInit {
     this.successMessage = null;
     this.errorMessage = null;
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  toggleChangePassword() {
+    this.showChangePassword = !this.showChangePassword;
+  }
+
+  changePassword() {
+    this.showChangePassword = false;
   }
 }
