@@ -35,7 +35,9 @@ export class AuthService {
   obterUsuarioAutenticadoDoBackend(): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiURL}/perfil`).pipe(
       map((usuario) => {
-        usuario.permissao = this.jwtHelper.decodeToken(this.obterToken() || '')?.role;
+        usuario.permissao = this.jwtHelper.decodeToken(
+          this.obterToken() || ''
+        )?.role;
         return usuario;
       })
     );
@@ -75,12 +77,24 @@ export class AuthService {
     return false;
   }
 
+  resetPassword(token: string, newPassword: string) {
+    const body = { newPassword: newPassword };
+
+    return this.http.post(
+      `${this.apiURL}/reset-password?token=${token}`,
+      body,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
   obterPerfilUsuario(): Observable<Usuario> {
     const token = this.obterToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-  
+
     return this.http.get<Usuario>(`${this.apiURL}/token`, { headers }).pipe(
       map((response) => {
         console.log('Resposta do endpoint /token:', response);
@@ -187,12 +201,12 @@ export class AuthService {
       .set('username', email)
       .set('password', password)
       .set('grant_type', 'password');
-  
+
     const headers = {
       Authorization: 'Basic ' + btoa(`${this.clientID}:${this.clientSecret}`),
       'Content-Type': 'application/x-www-form-urlencoded',
     };
-  
+
     console.log('Tentando autenticar usuário com email:', email); // Log do email enviado
     return this.http.post(this.tokenURL, params.toString(), { headers }).pipe(
       map((response: any) => {

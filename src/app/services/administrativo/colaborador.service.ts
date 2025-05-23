@@ -218,24 +218,6 @@ export class ColaboradorService {
     );
   }
 
-  resetarSenhaPorToken(token: string, novaSenha: string): Observable<any> {
-    const url = `${this.apiURL}/reset-password/${encodeURIComponent(token)}`;
-    const body = { newPassword: novaSenha };
-    return this.http.put(url, body).pipe(
-      map((response) => response),
-      catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'Erro ao redefinir a senha.';
-        if (error.error instanceof ErrorEvent) {
-          errorMessage = `Erro: ${error.error.message}`;
-        } else if (error.status) {
-          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
-        }
-        console.error(errorMessage);
-        return throwError(() => new Error(errorMessage));
-      })
-    );
-  }
-
   buscarUsuariosPorNome(nome: string): Observable<Colaborador[]> {
     const url = `${this.apiURL}/search/${encodeURIComponent(nome)}`;
     return this.http.get<Colaborador[]>(url).pipe(
