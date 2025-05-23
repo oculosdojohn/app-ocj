@@ -373,10 +373,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     };
 
     const formData = new FormData();
-    formData.append(
-      'usuarioDTO',
-      new Blob([JSON.stringify(colaborador)], { type: 'application/json' })
-    );
+      formData.append('usuarioDTO', JSON.stringify(colaborador));
 
     const foto = this.colaboradorForm.get('foto')?.value;
     if (foto) {
