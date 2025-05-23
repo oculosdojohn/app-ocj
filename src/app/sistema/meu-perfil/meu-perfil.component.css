@@ -121,6 +121,19 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+.image-container span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 500;
+}
+
 .profile-photo {
   width: 140px;
   height: 140px;
@@ -294,13 +307,13 @@ input:checked + .slider:before {
   overflow: hidden;
 }
 .alert-success {
-  background: #e8f9e6;
-  color: #267320;
+  background: #c8f8c2;
+  color: #40812D;
   border: 1px solid #bae2b6;
   font-weight: 500;
 }
 .alert-danger {
-  background: #fdeaea;
+  background: #f2c6c6;
   color: #a12c2a;
   border: 1px solid #f8b5bc;
   font-weight: 500;
@@ -322,7 +335,7 @@ input:checked + .slider:before {
   bottom: 0;
   height: 3px;
   width: 100%;
-  background: #267320;
+  background: #40812D;
   opacity: 0.5;
   pointer-events: none;
 }
@@ -370,11 +383,19 @@ input:checked + .slider:before {
 
   .container-btn {
     flex-direction: column;
-    padding: 0 16px;
+    padding: 0;
   }
 
   .container-duo {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .toggle-container {
+    flex-direction: column;
+  }
+
+  .container-perfil {
+    padding: 8px;
   }
 }

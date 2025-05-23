@@ -1,1 +1,57 @@
-<p>esqueci-senha works!</p>
+<main class="bg-login">
+  <div class="container-recuperar">
+    <div class="container-body">
+      <div class="card-form">
+        <div class="card-header">
+          <div class="img-logo">
+            <img
+              src="assets/imgs/logo-john.svg"
+              alt="Logo da OCJ"
+              class="d-inline-block align-text-top"
+            />
+          </div>
+        </div>
+
+        <div class="card-envio">
+          <div class="card-title">
+            <h1>Recuperar Senha</h1>
+            <p>
+              Por favor, digite o e-mail da sua conta. Enviaremos um e-mail com
+              instruções para você recuperar sua senha.
+            </p>
+          </div>
+          <form>
+            <div class="alerts">
+              <div class="alert alert-success" *ngIf="mensagemSucesso">
+                {{ mensagemSucesso }}
+              </div>
+
+              <div class="alert alert-danger" *ngFor="let erro of errors">
+                {{ erro }}
+              </div>
+            </div>
+
+            <div class="form-group input-container">
+              <label class="small mb-1">E-mail</label>
+              <input
+                type="email"
+                name="email"
+                autocomplete="off"
+                class="form-control"
+                placeholder="exemplo@gmail.com"
+                required
+              />
+            </div>
+
+            <div class="actions">
+              <button type="button" class="btn btn-back" (click)="goBack()">Voltar</button>
+              <button type="submit" class="btn btn-envio">Enviar</button>
+            </div>
+
+            <div class="card-footer"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
