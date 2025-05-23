@@ -14,23 +14,27 @@
 
         <div class="card-envio">
           <div class="card-title">
-            <h1>Recuperar Senha</h1>
-            <p>
+            <h1 *ngIf="!enviado">Recuperar Senha</h1>
+            <h1 *ngIf="enviado">E-mail enviado</h1>
+            <p *ngIf="!enviado">
               Por favor, digite o e-mail da sua conta. Enviaremos um e-mail com
               instruções para você recuperar sua senha.
             </p>
+            <p *ngIf="enviado">
+              Por favor, verifique o e-mail que enviamos para <b>{{ email }}</b>
+            </p>
           </div>
-          <form>
-            <div class="alerts">
-              <div class="alert alert-success" *ngIf="mensagemSucesso">
-                {{ mensagemSucesso }}
-              </div>
-
-              <div class="alert alert-danger" *ngFor="let erro of errors">
-                {{ erro }}
-              </div>
+          <div class="alerts">
+            <div class="alert alert-success" *ngIf="mensagemSucesso">
+              {{ mensagemSucesso }}
             </div>
 
+            <div class="alert alert-danger" *ngFor="let erro of errors">
+              {{ erro }}
+            </div>
+          </div>
+
+          <form (ngSubmit)="onSubmit()" *ngIf="!enviado">
             <div class="form-group input-container">
               <label class="small mb-1">E-mail</label>
               <input
@@ -39,17 +43,26 @@
                 autocomplete="off"
                 class="form-control"
                 placeholder="exemplo@gmail.com"
+                [(ngModel)]="email"
                 required
               />
             </div>
 
             <div class="actions">
-              <button type="button" class="btn btn-back" (click)="goBack()">Voltar</button>
+              <button type="button" class="btn btn-back" (click)="goBack()">
+                Voltar
+              </button>
               <button type="submit" class="btn btn-envio">Enviar</button>
             </div>
-
-            <div class="card-footer"></div>
           </form>
+
+          <div *ngIf="enviado" class="actions">
+            <button type="button" class="btn btn-envio" (click)="reenviar()">
+              Não recebeu o e-mail? Reenviar
+            </button>
+          </div>
+
+          <div class="card-footer"></div>
         </div>
       </div>
     </div>

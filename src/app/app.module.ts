@@ -21,8 +21,8 @@ import { SharedModule } from './shared/shared.module';
 import { AuthService } from './services/configs/auth.service';
 import { TokenInterceptor } from './services/configs/token.interceptor';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { EsqueciSenhaComponent } from './esqueci-senha/esqueci-senha.component';
-
+import { EsqueciSenhaComponent } from './recuperar-senha/esqueci-senha/esqueci-senha.component';
+import { ResetPasswordComponent } from './recuperar-senha/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { EsqueciSenhaComponent } from './esqueci-senha/esqueci-senha.component';
     LayoutComponent,
     ForbiddenComponent,
     EsqueciSenhaComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
