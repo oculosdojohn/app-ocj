@@ -75,7 +75,11 @@
                 </tr>
             </tbody>
         </table>
-    </div> 
+    </div>
+    <div *ngIf="mensagemBusca" class="alert alert-warning text-center">
+        {{ mensagemBusca }}
+    </div>
+    
     <div class="pagination">
         <app-pagination
         [paginaAtual]="paginaAtual"

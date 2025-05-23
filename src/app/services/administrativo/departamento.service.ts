@@ -66,7 +66,10 @@ export class DepartamentoService {
     );
   }
 
-  atualizarDepartamento(id: string, departamento: Departamento): Observable<Departamento> {
+  atualizarDepartamento(
+    id: string,
+    departamento: Departamento
+  ): Observable<Departamento> {
     const url = `${this.apiURL}/${id}`;
     return this.http.put<Departamento>(url, departamento).pipe(
       map((response) => response),
@@ -90,6 +93,23 @@ export class DepartamentoService {
       catchError((error) => {
         let errorMessage = 'Erro ao deletar a departamento.';
 
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  buscarDepartamentosPorNome(nome: string): Observable<Departamento[]> {
+    const url = `${this.apiURL}/search/${encodeURIComponent(nome)}`;
+    return this.http.get<Departamento[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar departamentos por nome.';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {

@@ -11,6 +11,7 @@ import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service'
 })
 export class DepartamentosComponent implements OnInit {
   termoBusca: string = '';
+  mensagemBusca: string = '';
   isLoading = false;
 
   departamentos: Departamento[] = [];
@@ -37,7 +38,35 @@ export class DepartamentosComponent implements OnInit {
   }
 
   onSearch(searchTerm: string) {
-    console.log('Search term:', searchTerm);
+    if (!searchTerm || searchTerm.trim() === '') {
+      this.mensagemBusca = '';
+      this.fetchDepartamentos();
+      return;
+    }
+    this.isLoading = true;
+    this.departamentoService.buscarDepartamentosPorNome(searchTerm).subscribe(
+      (departamentos: Departamento[]) => {
+        this.departamentos = departamentos;
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(
+          this.departamentos.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (!departamentos || departamentos.length === 0) {
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar departamentos:', error);
+        this.isLoading = false;
+        if (error.message && error.message.includes('404')) {
+          this.departamentos = [];
+          this.atualizarPaginacao();
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      }
+    );
   }
 
   atualizarPaginacao(): void {
