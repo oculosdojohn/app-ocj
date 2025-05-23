@@ -12,7 +12,7 @@ import { ResetPasswordComponent } from './recuperar-senha/reset-password/reset-p
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'esqueci-minha-senha', component: EsqueciSenhaComponent },
+  { path: 'recuperar-minha-senha', component: EsqueciSenhaComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
