@@ -24,7 +24,7 @@ export class MeuPerfilComponent implements OnInit {
   errorMessage: string | null = null;
   messageTimeout: any;
 
-  defaultImageUrl = 'assets/imgs/default-profile.png';
+  defaultImageUrl = '';
   selectedImageFile: File | null = null;
   selectedImageUrl: string | ArrayBuffer | null = null;
 
@@ -93,6 +93,22 @@ export class MeuPerfilComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  getInitial(name: string): string {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getRandomColor(seed: string): string {
+    const colors = [
+      '#FFB3BA', // Rosa pastel
+      '#FFDFBA', // Laranja pastel
+      '#BAFFC9', // Verde pastel
+      '#BAE1FF', // Azul pastel
+      '#D5BAFF', // Roxo pastel
+    ];
+    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    return colors[index];
   }
 
   saveChanges() {

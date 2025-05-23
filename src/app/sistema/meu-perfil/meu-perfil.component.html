@@ -22,7 +22,17 @@
       <div class="profile-attributes">
         <div class="container-photo">
           <div class="image-container" (click)="isEditing && fileInput.click()">
-            <img [src]="selectedImageUrl || defaultImageUrl" class="profile-photo" alt="Foto de perfil"/>
+            <ng-container *ngIf="selectedImageUrl && selectedImageUrl !== ''; else noPhoto">
+              <img [src]="selectedImageUrl" class="profile-photo" alt="Foto de perfil"/>
+            </ng-container>
+            <ng-template #noPhoto>
+              <div
+                class="profile-photo avatar-fallback"
+                [ngStyle]="{'background-color': getRandomColor(user.username)}"
+              >
+                <span>{{ getInitial(user.username) }}</span>
+              </div>
+            </ng-template>
             <input #fileInput type="file" accept="image/*" (change)="onImageSelected($event)" style="display: none;"/>
           </div>
           <div *ngIf="isEditing" class="edit-profile-photo">
