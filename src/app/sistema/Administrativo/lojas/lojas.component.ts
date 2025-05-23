@@ -12,6 +12,7 @@ import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service'
 })
 export class LojasComponent implements OnInit {
   termoBusca: string = '';
+  mensagemBusca: string = '';
   isLoading = false;
 
   lojas: Loja[] = [];
@@ -37,7 +38,33 @@ export class LojasComponent implements OnInit {
   }
 
   onSearch(searchTerm: string) {
-    console.log('Search term:', searchTerm);
+    if (!searchTerm || searchTerm.trim() === '') {
+      this.mensagemBusca = '';
+      this.fetchLojas();
+      return;
+    }
+    this.isLoading = true;
+    this.lojaService.buscarLojasPorNome(searchTerm).subscribe(
+      (lojas: Loja[]) => {
+        this.lojas = lojas;
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(this.lojas.length / this.itensPorPagina);
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (!lojas || lojas.length === 0) {
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar lojas:', error);
+        this.isLoading = false;
+        if (error.message && error.message.includes('404')) {
+          this.lojas = [];
+          this.atualizarPaginacao();
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      }
+    );
   }
 
   atualizarPaginacao(): void {

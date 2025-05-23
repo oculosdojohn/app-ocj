@@ -12,6 +12,7 @@ import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service'
 })
 export class FuncionariosComponent implements OnInit {
   termoBusca: string = '';
+  mensagemBusca: string = '';
   isLoading = false;
 
   colaboradores: Colaborador[] = [];
@@ -38,7 +39,35 @@ export class FuncionariosComponent implements OnInit {
   }
 
   onSearch(searchTerm: string) {
-    console.log('Search term:', searchTerm);
+    if (!searchTerm || searchTerm.trim() === '') {
+      this.mensagemBusca = '';
+      this.fetchColaboradores();
+      return;
+    }
+    this.isLoading = true;
+    this.colaboradorService.buscarUsuariosPorNome(searchTerm).subscribe(
+      (colaboradores: any[]) => {
+        this.colaboradores = colaboradores;
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(
+          this.colaboradores.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (!colaboradores || colaboradores.length === 0) {
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar colaboradores:', error);
+        this.isLoading = false;
+        if (error.message && error.message.includes('404')) {
+          this.colaboradores = [];
+          this.atualizarPaginacao();
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      }
+    );
   }
 
   atualizarPaginacao(): void {
