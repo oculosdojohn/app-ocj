@@ -232,6 +232,13 @@ export class CadastroDeColaboradorComponent implements OnInit {
     this.colaboradorForm.get('quantidadeFilhos')?.disable();
     this.colaboradorForm.get('deficiencia')?.disable();
     this.registrarListenersDoFormulario();
+
+    if (this.isEditMode) {
+      this.colaboradorForm.get('password')?.clearValidators();
+      this.colaboradorForm.get('password')?.updateValueAndValidity();
+      this.colaboradorForm.get('confirmPassword')?.clearValidators();
+      this.colaboradorForm.get('confirmPassword')?.updateValueAndValidity();
+    }
   }
 
   goBack() {
@@ -372,8 +379,18 @@ export class CadastroDeColaboradorComponent implements OnInit {
       endereco: endereco,
     };
 
+    if (this.isEditMode) {
+      colaborador.password = '';
+      colaborador.confirmPassword = '';
+    }
+
     const formData = new FormData();
+    if (this.isEditMode) {
+      const { password, confirmPassword, ...colaboradorSemSenha } = colaborador;
+      formData.append('perfil', JSON.stringify(colaboradorSemSenha));
+    } else {
       formData.append('usuarioDTO', JSON.stringify(colaborador));
+    }
 
     const foto = this.colaboradorForm.get('foto')?.value;
     if (foto) {
@@ -394,7 +411,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
             this.isLoading = false;
             this.successMessage = 'Usuário atualizado com sucesso!';
             this.errorMessage = null;
-            this.router.navigate(['/usuario/buscar-colaboradores']);
+            this.router.navigate(['/usuario/colaboradores-das-lojas']);
           },
           (error) => {
             this.isLoading = false;
@@ -442,7 +459,22 @@ export class CadastroDeColaboradorComponent implements OnInit {
               ...colaborador,
               endereco: colaborador.endereco || {},
               status: colaborador.status || 'Ativo',
+              identificadorLoja: colaborador.loja?.id || '',
+              identificadorDepartamento: colaborador.departamento?.id || '',
+              identificadorSuperiorResponsavel:
+                colaborador.superiorResponsavel?.id || '',
             });
+
+            this.onDependenciaChange(
+              'possuiFilhos',
+              'quantidadeFilhos',
+              colaborador.possuiFilhos
+            );
+            this.onDependenciaChange(
+              'portadorDeficiencia',
+              'deficiencia',
+              colaborador.portadorDeficiencia
+            );
 
             if (colaborador.foto && colaborador.foto.documentoUrl) {
               this.selectedFoto['foto'] = null;
@@ -450,7 +482,6 @@ export class CadastroDeColaboradorComponent implements OnInit {
               console.log('Foto do user carregada:', colaborador.foto);
             }
 
-            // Atualiza o FormControl 'documentos' com os documentos recebidos
             if (colaborador.documentos) {
               this.colaboradorForm
                 .get('documentos')
@@ -470,12 +501,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
             this.selectedNacionalidade = colaborador.nacionalidade || '';
             this.selectedPeriodoExperiencia = colaborador.periodoDeExperiencia;
             this.selectedTipoContratacao = colaborador.tipoDeContratacao;
-            this.selectedFilhos = colaborador.possuiFilhos;
-            this.selectedDeficiencia = colaborador.portadorDeficiencia;
             this.tratarRetornoDTO(colaborador);
-            this.selectedCidade = colaborador.endereco.cidade;
-            this.selectedEstado = colaborador.endereco.estado;
+            this.selectedEstado = colaborador.endereco?.estado || '';
+            this.selectedCidade = colaborador.endereco?.cidade || '';
             this.selectedPais = colaborador.endereco.pais;
+
+            this.preencherEstadoECidade(colaborador.endereco);
           },
           (error) => {
             console.error('Erro ao carregar os dados do usuário', error);
@@ -506,7 +537,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     }
 
     if (colaborador.superiorResponsavel) {
-      this.selectedDepartamento = colaborador.superiorResponsavel.id;
+      this.selectedResponsavel = colaborador.superiorResponsavel.id;
       this.responsaveis = [
         {
           value: colaborador.superiorResponsavel.id,
@@ -555,6 +586,29 @@ export class CadastroDeColaboradorComponent implements OnInit {
     } else {
       dependentControl?.disable();
       dependentControl?.setValue(null);
+    }
+  }
+
+  private preencherEstadoECidade(endereco: Endereco | undefined) {
+    this.selectedEstado = endereco?.estado || '';
+    this.selectedCidade = endereco?.cidade || '';
+    this.selectedPais = endereco?.pais || '';
+
+    if (this.selectedEstado) {
+      this.enderecoService
+        .getCidadesByEstado(this.selectedEstado)
+        .subscribe((cidades) => {
+          this.cidades = cidades.map((cidade) => ({
+            value: cidade.nome,
+            description: cidade.nome,
+          }));
+          this.colaboradorForm.get('endereco.cidade')?.enable();
+          if (this.selectedCidade) {
+            this.colaboradorForm
+              .get('endereco.cidade')
+              ?.setValue(this.selectedCidade);
+          }
+        });
     }
   }
 
@@ -638,8 +692,14 @@ export class CadastroDeColaboradorComponent implements OnInit {
       periodoDeExperiencia: 'Período de experiência',
       status: 'Status',
     };
+
+    const camposIgnorados = this.isEditMode
+      ? ['password', 'confirmPassword']
+      : [];
+
     const invalidFields: string[] = Object.keys(this.colaboradorForm.controls)
       .filter((key) => {
+        if (camposIgnorados.includes(key)) return false;
         const control = this.colaboradorForm.get(key);
         return (
           control &&
@@ -649,6 +709,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
         );
       })
       .map((key) => fieldNames[key] || key);
+
     const enderecoGroup = this.colaboradorForm.get('endereco');
     if (enderecoGroup && enderecoGroup.invalid) {
       Object.keys((enderecoGroup as FormGroup).controls).forEach((key) => {
