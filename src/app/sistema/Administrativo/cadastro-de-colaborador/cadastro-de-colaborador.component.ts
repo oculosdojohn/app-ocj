@@ -373,7 +373,10 @@ export class CadastroDeColaboradorComponent implements OnInit {
     };
 
     const formData = new FormData();
-    formData.append('usuarioDTO', JSON.stringify(colaborador));
+    formData.append(
+      'usuarioDTO',
+      new Blob([JSON.stringify(colaborador)], { type: 'application/json' })
+    );
 
     const foto = this.colaboradorForm.get('foto')?.value;
     if (foto) {
@@ -382,8 +385,8 @@ export class CadastroDeColaboradorComponent implements OnInit {
 
     // Adiciona os documentos ao FormData
     const documentos = this.colaboradorForm.get('documentos')?.value || [];
-    documentos.forEach((documento: File, index: number) => {
-      formData.append(`documentos[${index}]`, documento);
+    documentos.forEach((documento: File) => {
+      formData.append('documentos', documento);
     });
 
     if (this.isEditMode && this.colaboradorId) {
