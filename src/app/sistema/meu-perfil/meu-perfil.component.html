@@ -40,8 +40,8 @@
           </div>
         </div>
         <div *ngIf="!isEditing" class="profile-name">
-            <h4>{{ user.username }}</h4>
-            <span>{{ user.loja }}</span>
+            <h4>{{ user.username || '-' }}</h4>
+            <span>{{ user.loja || '-' }}</span>
           </div>
       </div>
       <div class="data-profile" *ngIf="!isEditing">
