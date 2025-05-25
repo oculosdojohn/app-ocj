@@ -47,9 +47,9 @@ export class ResetPasswordComponent implements OnInit {
         if (error.status === 400) {
           this.errors = ['E-mail não encontrado ou inválido.'];
         } else if (error.status === 500) {
-          this.errors = ['Erro ao recuperação senha.'];
+          this.errors = ['Erro ao atualiza senha.'];
         } else {
-          this.errors = ['Erro desconhecido na recuperação de senha.'];
+          this.errors = ['Erro desconhecido na atualização de senha.'];
         }
       }
     );

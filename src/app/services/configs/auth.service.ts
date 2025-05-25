@@ -79,9 +79,8 @@ export class AuthService {
 
   resetPassword(token: string, newPassword: string) {
     const body = { newPassword: newPassword };
-
-    return this.http.post(
-      `${this.apiURL}/reset-password?token=${token}`,
+    return this.http.put(
+      `${this.apiURL}/reset-password/${encodeURIComponent(token)}`,
       body,
       {
         headers: { 'Content-Type': 'application/json' },
