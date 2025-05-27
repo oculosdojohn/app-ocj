@@ -43,6 +43,10 @@ export class PainelAdminComponent implements OnInit {
   };
 
   quantidadeCursos: number = 0;
+  totalColaboradores: number = 0;
+  totalLojas: number = 0;
+  totalGestores: number = 0;
+
 
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
@@ -84,7 +88,17 @@ export class PainelAdminComponent implements OnInit {
     this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
       this.renderChartOrcamentoDepartamento(data);
     });
+    this.graficosService.getTotalColaboradores().subscribe((total) => {
+      this.totalColaboradores = total;
+    });
     
+    this.graficosService.getTotalLojas().subscribe((total) => {
+      this.totalLojas = total;
+    });
+    
+    this.graficosService.getTotalGestores().subscribe((total) => {
+      this.totalGestores = total;
+    });    
   }
 
   getWeatherForRussas(): void {

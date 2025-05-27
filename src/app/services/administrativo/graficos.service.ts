@@ -41,7 +41,27 @@ export class GraficosService {
         catchError(this.handleError('orçamento por departamento'))
       );
   }
+
+  getTotalColaboradores(): Observable<number> {
+    return this.http.get<number>(`${this.apiURL}/total-colaboradores`).pipe(
+      map((response) => response),
+      catchError(this.handleError('total de colaboradores'))
+    );
+  }
   
+  getTotalLojas(): Observable<number> {
+    return this.http.get<number>(`${this.apiURL}/total-lojas`).pipe(
+      map((response) => response),
+      catchError(this.handleError('total de lojas'))
+    );
+  }
+  
+  getTotalGestores(): Observable<number> {
+    return this.http.get<number>(`${this.apiURL}/total-gestores`).pipe(
+      map((response) => response),
+      catchError(this.handleError('total de gestores'))
+    );
+  }  
 
   private handleError(contexto: string) {
     return (error: HttpErrorResponse) => {
