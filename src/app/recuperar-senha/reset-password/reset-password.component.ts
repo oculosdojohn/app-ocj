@@ -14,6 +14,11 @@ export class ResetPasswordComponent implements OnInit {
   mensagemSucesso: string = '';
   errors: string[] = [];
 
+  passwordVisible: { [key: string]: boolean } = {
+    password: false,
+    confirmPassword: false,
+  };
+
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -37,10 +42,11 @@ export class ResetPasswordComponent implements OnInit {
 
     this.authService.resetPassword(this.token, this.newPassword).subscribe(
       (response: any) => {
-        this.mensagemSucesso = response.message;
+        this.mensagemSucesso =
+          response?.message || 'Senha redefinida com sucesso!';
         this.confirmPassword = '';
         this.newPassword = '';
-        setTimeout(() => this.router.navigate(['/login']), 3000);
+        setTimeout(() => this.router.navigate(['/login']), 2000);
       },
       (error) => {
         console.log(error);
@@ -53,5 +59,16 @@ export class ResetPasswordComponent implements OnInit {
         }
       }
     );
+  }
+
+  togglePasswordVisibility(field: string) {
+    this.passwordVisible[field] = !this.passwordVisible[field];
+    const passwordInput = document.querySelector(`input[name="${field}"]`);
+    if (passwordInput) {
+      passwordInput.setAttribute(
+        'type',
+        this.passwordVisible[field] ? 'text' : 'password'
+      );
+    }
   }
 }

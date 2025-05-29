@@ -14,6 +14,8 @@ import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service'
 export class GerentesComponent implements OnInit {
   termoBusca: string = '';
   isLoading = false;
+  successMessage: string = '';
+  messageTimeout: any;
 
   gerentes: Colaborador[] = [];
 
@@ -30,8 +32,9 @@ export class GerentesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.atualizarPaginacao();
+    this.exibirMensagemDeSucesso();
     this.fetchGerentes();
+    this.atualizarPaginacao();
   }
 
   cadastrarGerente(): void {
@@ -68,7 +71,7 @@ export class GerentesComponent implements OnInit {
     this.isLoading = true;
 
     this.colaboradorService
-      .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL'])
+      .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL', 'SUPERVISOR'])
       .subscribe(
         (colaboradores: Colaborador[]) => {
           console.log('Usuários retornados:', colaboradores);
@@ -91,7 +94,9 @@ export class GerentesComponent implements OnInit {
   }
 
   editarUsuario(id: string): void {
-    this.router.navigate(['/usuario/cadastro-de-colaborador', id]);
+    this.router.navigate(['/usuario/cadastro-de-colaborador', id], {
+      state: { rotaRetorno: '/usuario/gerentes-lojas' },
+    });
   }
 
   deleteUsuario(id: string): void {
@@ -137,5 +142,25 @@ export class GerentesComponent implements OnInit {
         this.deleteUsuario(gerente.id);
       }
     );
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }

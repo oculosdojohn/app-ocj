@@ -117,8 +117,27 @@ export class ColaboradorService {
     );
   }
 
+  getUsuariosPorCargoNotIn(cargos: string[]): Observable<Colaborador[]> {
+    const url = `${this.apiURL}/cargos/not-in`;
+    const params = { cargo: cargos };
+    return this.http.get<Colaborador[]>(url, { params }).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage =
+          'Erro ao buscar usuários que não possuem os cargos informados.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
   atualizarColaborador(id: number, formData: FormData): Observable<any> {
-    const url = `${this.apiURL}/usuarios/${id}/gestao-perfil`;
+    const url = `${this.apiURL}/perfil/${id}/gestao-perfil`;
     console.log('Dados enviados para o backend (editar):');
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);

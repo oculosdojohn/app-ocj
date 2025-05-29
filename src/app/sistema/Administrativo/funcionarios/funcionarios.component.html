@@ -17,6 +17,12 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
     <div class="progress-bar-container" *ngIf="isLoading">
         <div class="progress-bar"></div>
     </div>
@@ -76,8 +82,21 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="mensagemBusca" class="alert alert-warning text-center">
-        {{ mensagemBusca }}
+
+     <div *ngIf="colaboradoresPaginados.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semColaboradores">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semColaboradores>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há usuários cadastrados.</p>
+            </div>
+        </ng-template>
     </div>
     
     <div class="pagination">

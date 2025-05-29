@@ -8,4 +8,5 @@ export const CargoDescricoes: Record<Cargo, string> = {
   [Cargo.SUPERVISOR]: 'Supervisor',
   [Cargo.VENDEDOR]: 'Vendedor',
   [Cargo.COLABORADOR]: 'Colaborador',
+  [Cargo.FINANCEIRO]: 'Financeiro',
 };

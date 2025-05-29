@@ -131,7 +131,9 @@ export class CadastroDeLojaComponent implements OnInit {
           this.isLoading = false;
           this.successMessage = 'Loja atualizada com sucesso!';
           this.errorMessage = null;
-          this.router.navigate(['/usuario/lojas-john']);
+          this.router.navigate(['/usuario/lojas-john'], {
+            state: { successMessage: 'Loja atualizada com sucesso!' },
+          });
         },
         (error) => {
           this.isLoading = false;
