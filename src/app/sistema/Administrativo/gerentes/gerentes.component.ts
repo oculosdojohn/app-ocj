@@ -68,7 +68,7 @@ export class GerentesComponent implements OnInit {
     this.isLoading = true;
 
     this.colaboradorService
-      .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL'])
+      .getUsuariosPorCargo(['GERENTE', 'GERENTE_GERAL', 'SUPERVISOR'])
       .subscribe(
         (colaboradores: Colaborador[]) => {
           console.log('Usuários retornados:', colaboradores);
