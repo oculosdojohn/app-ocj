@@ -163,6 +163,8 @@ export class CadastroDeDepartamentoComponent implements OnInit {
                 ...departamento,
                 responsaveis: responsaveisSelecionados,
               });
+
+              this.tratarRetornoDTO(departamento);
             });
           },
           (error) => {
