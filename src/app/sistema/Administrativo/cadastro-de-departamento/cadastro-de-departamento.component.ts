@@ -85,7 +85,9 @@ export class CadastroDeDepartamentoComponent implements OnInit {
             this.isLoading = false;
             this.successMessage = 'Departamento atualizado com sucesso!';
             this.errorMessage = null;
-            this.router.navigate(['/usuario/departamentos-da-empresa']);
+            this.router.navigate(['/usuario/departamentos-da-empresa'], {
+              state: { successMessage: 'Departamento atualizado com sucesso!' },
+            });
           },
           (error) => {
             this.isLoading = false;
