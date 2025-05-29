@@ -14,6 +14,11 @@ export class ResetPasswordComponent implements OnInit {
   mensagemSucesso: string = '';
   errors: string[] = [];
 
+  passwordVisible: { [key: string]: boolean } = {
+    password: false,
+    confirmPassword: false,
+  };
+
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -53,5 +58,16 @@ export class ResetPasswordComponent implements OnInit {
         }
       }
     );
+  }
+
+  togglePasswordVisibility(field: string) {
+    this.passwordVisible[field] = !this.passwordVisible[field];
+    const passwordInput = document.querySelector(`input[name="${field}"]`);
+    if (passwordInput) {
+      passwordInput.setAttribute(
+        'type',
+        this.passwordVisible[field] ? 'text' : 'password'
+      );
+    }
   }
 }
