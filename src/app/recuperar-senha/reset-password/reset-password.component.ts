@@ -42,10 +42,11 @@ export class ResetPasswordComponent implements OnInit {
 
     this.authService.resetPassword(this.token, this.newPassword).subscribe(
       (response: any) => {
-        this.mensagemSucesso = response.message;
+        this.mensagemSucesso =
+          response?.message || 'Senha redefinida com sucesso!';
         this.confirmPassword = '';
         this.newPassword = '';
-        setTimeout(() => this.router.navigate(['/login']), 3000);
+        setTimeout(() => this.router.navigate(['/login']), 2000);
       },
       (error) => {
         console.log(error);
