@@ -95,9 +95,9 @@ export class FuncionariosComponent implements OnInit {
   fetchColaboradores(): void {
     this.isLoading = true;
 
-    this.colaboradorService.getColaboradores().subscribe(
+    this.colaboradorService.getUsuariosPorCargoNotIn(['ADMIN']).subscribe(
       (colaboradores: any[]) => {
-        console.log('usuários retornadas:', colaboradores);
+        console.log('usuários retornados:', colaboradores);
         this.colaboradores = colaboradores;
         this.totalPaginas = Math.ceil(
           this.colaboradores.length / this.itensPorPagina
