@@ -14,6 +14,8 @@ export class FuncionariosComponent implements OnInit {
   termoBusca: string = '';
   mensagemBusca: string = '';
   isLoading = false;
+  successMessage: string = '';
+  messageTimeout: any;
 
   colaboradores: Colaborador[] = [];
 
@@ -30,6 +32,7 @@ export class FuncionariosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.exibirMensagemDeSucesso();
     this.fetchColaboradores();
     this.atualizarPaginacao();
   }
@@ -163,5 +166,25 @@ export class FuncionariosComponent implements OnInit {
         this.deleteUsuario(colaborador.id);
       }
     );
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }

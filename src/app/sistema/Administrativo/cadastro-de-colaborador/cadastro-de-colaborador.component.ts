@@ -138,6 +138,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
     password: false,
     confirmPassword: false,
   };
+  rotaRetorno: string = '/usuario/colaboradores-das-lojas';
 
   constructor(
     private location: Location,
@@ -238,6 +239,16 @@ export class CadastroDeColaboradorComponent implements OnInit {
       this.colaboradorForm.get('password')?.updateValueAndValidity();
       this.colaboradorForm.get('confirmPassword')?.clearValidators();
       this.colaboradorForm.get('confirmPassword')?.updateValueAndValidity();
+    }
+
+    const state = window.history.state as { rotaRetorno?: string };
+    if (state && state.rotaRetorno) {
+      this.rotaRetorno = state.rotaRetorno;
+    } else {
+      this.route.queryParams.subscribe((params) => {
+        this.rotaRetorno =
+          params['rotaRetorno'] || '/usuario/colaboradores-das-lojas';
+      });
     }
   }
 
@@ -411,7 +422,9 @@ export class CadastroDeColaboradorComponent implements OnInit {
             this.isLoading = false;
             this.successMessage = 'Usuário atualizado com sucesso!';
             this.errorMessage = null;
-            this.router.navigate(['/usuario/colaboradores-das-lojas']);
+            this.router.navigate([this.rotaRetorno], {
+              state: { successMessage: 'Usuário atualizado com sucesso!' },
+            });
           },
           (error) => {
             this.isLoading = false;
