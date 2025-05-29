@@ -10,6 +10,7 @@ import {
 import { Departamento } from '../../Administrativo/departamentos/departamento';
 import { DepartamentoService } from '../../../services/administrativo/departamento.service';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { LojaService } from 'src/app/services/administrativo/loja.service';
 
 @Component({
   selector: 'app-cadastro-de-departamento',
@@ -27,13 +28,17 @@ export class CadastroDeDepartamentoComponent implements OnInit {
   responsaveis: { value: string; description: string }[] = [];
   selectedResponsavel: string = '';
 
+  lojas: { value: string; description: string }[] = [];
+  selectedLoja: string = '';
+
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private departamentoService: DepartamentoService,
-    private colaboradoresService: ColaboradorService
+    private colaboradoresService: ColaboradorService,
+    private lojaService: LojaService
   ) {
     this.departamentoForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -48,11 +53,26 @@ export class CadastroDeDepartamentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarUsuarios();
+    this.carregarLojas();
     this.verificarModoEdicao();
   }
 
   goBack() {
     this.location.back();
+  }
+
+  carregarLojas(): void {
+    this.lojaService.getLojas().subscribe(
+      (lojas) => {
+        this.lojas = lojas.map((loja) => ({
+          value: loja.id,
+          description: `${loja.nome} - ${loja.endereco.cidade}`,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as lojas:', error);
+      }
+    );
   }
 
   onSubmit(): void {
@@ -171,5 +191,17 @@ export class CadastroDeDepartamentoComponent implements OnInit {
   onResponsaveisChange(event: any) {
     console.log('Responsáveis selecionados:', event);
     this.departamentoForm.get('responsaveis')?.setValue(event);
+  }
+
+  private tratarRetornoDTO(departamento: Departamento): void {
+    if (departamento.loja) {
+      this.selectedLoja = departamento.loja.id;
+      this.lojas = [
+        {
+          value: departamento.loja.id,
+          description: `${departamento.loja.nome} - ${departamento.loja.endereco?.cidade}`,
+        },
+      ];
+    }
   }
 }

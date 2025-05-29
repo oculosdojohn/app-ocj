@@ -18,10 +18,12 @@
             </div>
 
             <div class="form-group">
-                <label for="loja">Loja<span class="required-asterisk">*</span></label>
+                <label for="identificadorLoja">Loja<span class="required-asterisk">*</span></label>
                 <app-select-padrao
                     label="Selecione a loja"
-                    formControlName="loja">
+                    [options]="lojas"
+                    [(selectedValue)]="selectedLoja"
+                    formControlName="identificadorLoja">
                 </app-select-padrao>
             </div>
 
