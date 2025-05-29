@@ -77,8 +77,21 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="mensagemBusca" class="alert alert-warning text-center">
-        {{ mensagemBusca }}
+
+    <div *ngIf="departamentosPaginados.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semDepartamentos">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semDepartamentos>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há departamentos cadastrados.</p>
+            </div>
+        </ng-template>
     </div>
      
     <div class="pagination">

@@ -74,9 +74,23 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="mensagemBusca" class="alert alert-warning text-center">
-        {{ mensagemBusca }}
+ 
+    <div *ngIf="lojasPaginados.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semLojas">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semLojas>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há lojas cadastradas.</p>
+            </div>
+        </ng-template>
     </div>
+
     <div class="pagination">
         <app-pagination
         [paginaAtual]="paginaAtual"
