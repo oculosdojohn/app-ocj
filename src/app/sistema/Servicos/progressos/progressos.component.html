@@ -1,1 +1,97 @@
-<p>progressos works!</p>
+<div class="main-container">
+    <div class="banner">
+        <h1>Progressos</h1>
+        <p>Um espaço onde você pode acompanhar o progresso de todos os Colaboradores.</p>
+    </div>
+  
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight">Progressos</span>
+        </div>
+
+        <div class="actions">
+            <div class="search-container">
+                <app-search (searchChange)="onSearch($event)"></app-search>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Loja</th>
+                    <th>Cargo</th>
+                    <th>Status</th>
+                    <th>Departamento</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let colaborador of colaboradoresPaginados">
+                    <td>
+                        <div class="perfil">
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                                <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(colaborador.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ colaborador.username }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="perfil">
+                            <span>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</span>
+                        </div>
+                    </td>
+                    <td>{{ getDescricaoCargo(colaborador.cargo) }}</td>
+                    <td>
+                        <span [class.ativo]="colaborador.status === 'Ativo'"
+                              [class.inativo]="colaborador.status === 'Inativo'">
+                            {{ colaborador.status }}
+                        </span>
+                    </td>
+                    <td>{{ colaborador.departamento?.nome }}</td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarUsuario(colaborador.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+     <div *ngIf="colaboradoresPaginados.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semColaboradores">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semColaboradores>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há usuários cadastrados.</p>
+            </div>
+        </ng-template>
+    </div>
+    
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
+</div>
