@@ -40,6 +40,9 @@ import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/de
 import { DetalhesDepartamentoComponent } from './Administrativo/vizualizar-adm/detalhes-departamento/detalhes-departamento.component';
 import { AdmissoesComponent } from './RH/admissoes/admissoes.component';
 import { DemissoesComponent } from './RH/demissoes/demissoes.component';
+import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato.component';
+import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
+import { ProgressosComponent } from './Servicos/progressos/progressos.component';
 
 const routes: Routes = [
   {
@@ -83,7 +86,8 @@ const routes: Routes = [
       { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
       { path: 'cadastro-de-procedimentos-medicos/:id', component: CadastroDeProcedimentosMedicoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
       { path: 'admissoes', component: AdmissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
-      { path: 'demissoes', component: DemissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },   
+      { path: 'demissoes', component: DemissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
+      { path: 'renovar-contrato', component: RenovarContratoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },  
 
       // Serviços
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
@@ -92,6 +96,9 @@ const routes: Routes = [
       { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'cadastro-lojinha-produto/:id', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'financeiro', component: FinanceiroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'progressos', component: ProgressosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },
