@@ -114,6 +114,12 @@
                     </div>
                     <div class="sub-menu-item" *ngIf="isRHMenuOpen">
                       <div>
+                        <a mat-list-item routerLink="/usuario/admissoes-e-demissoes" [ngClass]="{'active-link': isActive('/usuario/admissoes-e-demissoes')}">
+                            <img src="assets/icones/entrada-e-saida.svg" alt="Ícone de Aula" class="icon">
+                          <span>Admissões e Demissões</span>
+                        </a>
+                      </div>
+                      <div>
                         <a mat-list-item routerLink="/usuario/saude-ocupacional" [ngClass]="{'active-link': isActive('/usuario/saude-ocupacional')}">
                             <img src="assets/icones/heart.svg" alt="Ícone de Aula" class="icon">
                           <span>Saúde Ocupacional</span>
