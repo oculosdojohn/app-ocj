@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdmissaoDemissao } from './admissao-demissao';
+import { AdmissaoDemissao } from './admissoes';
 import { CargoDescricoes } from '../../Administrativo/funcionarios/enums/cargo-descricoes';
 
 @Component({
-  selector: 'app-admissoes-demissoes',
-  templateUrl: './admissoes-demissoes.component.html',
-  styleUrls: ['./admissoes-demissoes.component.css'],
+  selector: 'app-admissoes',
+  templateUrl: './admissoes.component.html',
+  styleUrls: ['./admissoes.component.css'],
 })
-export class AdmissoesDemissoesComponent implements OnInit {
+export class AdmissoesComponent implements OnInit {
   termoBusca: string = '';
 
   admissoesDemissoes: AdmissaoDemissao[] = [];

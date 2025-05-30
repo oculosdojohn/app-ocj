@@ -38,7 +38,8 @@ import { BuscarAulasComponent } from './Servicos/buscar-aulas/buscar-aulas.compo
 import { DetalhesLojaComponent } from './Administrativo/vizualizar-adm/detalhes-loja/detalhes-loja.component';
 import { DetalhesColaboradorComponent } from './Administrativo/vizualizar-adm/detalhes-colaborador/detalhes-colaborador.component';
 import { DetalhesDepartamentoComponent } from './Administrativo/vizualizar-adm/detalhes-departamento/detalhes-departamento.component';
-import { AdmissoesDemissoesComponent } from './RH/admissoes-demissoes/admissoes-demissoes.component';
+import { AdmissoesComponent } from './RH/admissoes/admissoes.component';
+import { DemissoesComponent } from './RH/demissoes/demissoes.component';
 
 const routes: Routes = [
   {
@@ -81,7 +82,8 @@ const routes: Routes = [
       { path: 'cadastro-de-registro/:id', component: CadastroDeRegistroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
       { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
       { path: 'cadastro-de-procedimentos-medicos/:id', component: CadastroDeProcedimentosMedicoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
-      { path: 'admissoes-e-demissoes', component: AdmissoesDemissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },    
+      { path: 'admissoes', component: AdmissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
+      { path: 'demissoes', component: DemissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },   
 
       // Serviços
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },

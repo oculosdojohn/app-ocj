@@ -44,7 +44,10 @@ import { InfoRegistroComponent } from './Administrativo/vizualizar-adm/informaco
 import { InfoFeedbackComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-feedback/info-feedback.component';
 import { InfoCursoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-curso/info-curso.component';
 import { InfoObservacaoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-observacao/info-observacao.component';
-import { AdmissoesDemissoesComponent } from './RH/admissoes-demissoes/admissoes-demissoes.component';
+import { AdmissoesComponent } from './RH/admissoes/admissoes.component';
+import { DemissoesComponent } from './RH/demissoes/demissoes.component';
+import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato.component';
+import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +89,10 @@ import { AdmissoesDemissoesComponent } from './RH/admissoes-demissoes/admissoes-
     InfoFeedbackComponent,
     InfoCursoComponent,
     InfoObservacaoComponent,
-    AdmissoesDemissoesComponent
+    AdmissoesComponent,
+    DemissoesComponent,
+    RenovarContratoComponent,
+    FinanceiroComponent,
   ],
   imports: [
     CommonModule,
@@ -97,12 +103,12 @@ import { AdmissoesDemissoesComponent } from './RH/admissoes-demissoes/admissoes-
     NgApexchartsModule,
     NgxMaskModule.forRoot(),
   ],
-   exports: [
+  exports: [
     InfoMedicinaComponent,
     InfoRegistroComponent,
     InfoFeedbackComponent,
     InfoCursoComponent,
-    InfoObservacaoComponent
-   ]
+    InfoObservacaoComponent,
+  ],
 })
-export class SistemaModule { }
+export class SistemaModule {}
