@@ -19,6 +19,34 @@
   overflow: hidden;
 }
 
+/* back */
+.back-title {
+  display: flex;
+  align-items: center;
+}
+
+.back-title span {
+  font-size: 24px;
+  font-weight: 600;
+  color: #008000;
+  margin-left: 12px;
+}
+
+.back-title img {
+  width: 20px;
+  height: auto;
+  color: #008000;
+  margin: 0;
+  cursor: pointer;
+}
+
+.back-title img:hover {
+  transform: scale(1.5);
+  background: #dfdfdf;
+  border-radius: 50%;
+  padding: 4px;
+}
+
 /* Breadcrumb e buscar */
 .breadcrumb-container {
   display: flex;
