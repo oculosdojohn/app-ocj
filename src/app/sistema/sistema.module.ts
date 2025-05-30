@@ -48,6 +48,7 @@ import { AdmissoesComponent } from './RH/admissoes/admissoes.component';
 import { DemissoesComponent } from './RH/demissoes/demissoes.component';
 import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato.component';
 import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
+import { ProgressosComponent } from './Servicos/progressos/progressos.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component'
     DemissoesComponent,
     RenovarContratoComponent,
     FinanceiroComponent,
+    ProgressosComponent,
   ],
   imports: [
     CommonModule,
