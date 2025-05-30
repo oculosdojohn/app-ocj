@@ -1,4 +1,4 @@
-export class Admissao {
+export class Demissao {
   id?: number;
   foto?: { documentoUrl: string; id: number; name: string } | null;
   colaborador!: string;

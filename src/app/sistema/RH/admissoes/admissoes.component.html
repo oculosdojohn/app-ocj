@@ -1,12 +1,12 @@
 <div class="main-container">
     <div class="banner">
-        <h1>Admissões e Demissões</h1>
-        <p>Organize admissões, demissões e registros contratuais com eficiência.</p>
+        <h1>Admissões</h1>
+        <p>Organize admissões e registros contratuais com eficiência.</p>
     </div>
   
     <div class="breadcrumb-container">
         <div class="breadcrumb">
-            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight">Admissões e Demissões</span>
+            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight">Admissões</span>
         </div>
         <div class="actions">
             <div class="search-container">
@@ -28,29 +28,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let admissaoDemissao of admissoesDemissoesPaginados">
+                <tr *ngFor="let admissao of admissoesPaginados">
                     <td>
                         <div class="perfil">
-                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(admissaoDemissao.colaborador)}">
-                                <img [src]="admissaoDemissao.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="admissaoDemissao.foto?.documentoUrl; else defaultAvatar" />
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(admissao.colaborador)}">
+                                <img [src]="admissao.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="admissao.foto?.documentoUrl; else defaultAvatar" />
                                 <ng-template #defaultAvatar>
-                                    <span>{{ getInitial(admissaoDemissao.colaborador) }}</span>
+                                    <span>{{ getInitial(admissao.colaborador) }}</span>
                                 </ng-template>
                             </div>
-                            <span>{{ admissaoDemissao.colaborador }}</span>
+                            <span>{{ admissao.colaborador }}</span>
                         </div>
                     </td>
-                    <td>{{ admissaoDemissao.loja }}</td>
+                    <td>{{ admissao.loja }}</td>
                     <td>
                         <div class="perfil">
-                            <span>{{ admissaoDemissao.departamento }}</span>
+                            <span>{{ admissao.departamento }}</span>
                         </div>
                     </td>
-                    <td>{{ admissaoDemissao.cargo }}</td>
+                    <td>{{ admissao.cargo }}</td>
                     <td>
-                        <span [class.ativo]="admissaoDemissao.status === 'Ativo'"
-                              [class.inativo]="admissaoDemissao.status === 'Inativo'">
-                            {{ admissaoDemissao.status }}
+                        <span [class.ativo]="admissao.status === 'Ativo'"
+                              [class.inativo]="admissao.status === 'Inativo'">
+                            {{ admissao.status }}
                         </span>
                     </td>
                     <td>

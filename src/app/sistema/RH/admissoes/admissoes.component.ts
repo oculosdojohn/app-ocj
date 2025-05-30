@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdmissaoDemissao } from './admissoes';
+import { Admissao } from './admissoes';
 import { CargoDescricoes } from '../../Administrativo/funcionarios/enums/cargo-descricoes';
 
 @Component({
@@ -11,25 +11,26 @@ import { CargoDescricoes } from '../../Administrativo/funcionarios/enums/cargo-d
 export class AdmissoesComponent implements OnInit {
   termoBusca: string = '';
 
-  admissoesDemissoes: AdmissaoDemissao[] = [];
+  admissoes: Admissao[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(
-    this.admissoesDemissoes.length / this.itensPorPagina
+    this.admissoes.length / this.itensPorPagina
   );
-  admissoesDemissoesPaginados: AdmissaoDemissao[] = [];
+
+  admissoesPaginados: Admissao[] = [];
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.admissoesDemissoes = [
+    this.admissoes = [
       {
         colaborador: 'Maria Silva',
         loja: 'Óculos do John - Russas',
         departamento: 'Financeiro',
         cargo: 'Vendedor',
-        status: 'Ativo',
+        status: 'Inativo',
       },
       {
         colaborador: 'João Souza',
@@ -49,14 +50,14 @@ export class AdmissoesComponent implements OnInit {
   atualizarPaginacao(): void {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
     const fim = inicio + this.itensPorPagina;
-    this.admissoesDemissoesPaginados = this.admissoesDemissoes.slice(
+    this.admissoesPaginados = this.admissoes.slice(
       inicio,
       fim
     );
   }
 
   get totalItens() {
-    return this.admissoesDemissoes.length;
+    return this.admissoes.length;
   }
 
   onPaginaMudou(novaPagina: number) {
