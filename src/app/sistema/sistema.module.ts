@@ -49,6 +49,7 @@ import { DemissoesComponent } from './RH/demissoes/demissoes.component';
 import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato.component';
 import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
 import { ProgressosComponent } from './Servicos/progressos/progressos.component';
+import { DetalhesProgressoComponent } from './Servicos/visualizar-servicos/detalhes-progresso/detalhes-progresso.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { ProgressosComponent } from './Servicos/progressos/progressos.component'
     RenovarContratoComponent,
     FinanceiroComponent,
     ProgressosComponent,
+    DetalhesProgressoComponent,
   ],
   imports: [
     CommonModule,
