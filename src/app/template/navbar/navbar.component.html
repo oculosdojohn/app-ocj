@@ -126,6 +126,12 @@
                         </a>
                       </div>
                       <div>
+                        <a mat-list-item routerLink="/usuario/renovar-contrato" [ngClass]="{'active-link': isActive('/usuario/renovar-contrato')}">
+                            <img src="assets/icones/entrada-e-saida.svg" alt="Ícone de Aula" class="icon">
+                          <span>Renovar Contrato</span>
+                        </a>
+                      </div>
+                      <div>
                         <a mat-list-item routerLink="/usuario/saude-ocupacional" [ngClass]="{'active-link': isActive('/usuario/saude-ocupacional')}">
                             <img src="assets/icones/heart.svg" alt="Ícone de Aula" class="icon">
                           <span>Saúde Ocupacional</span>
@@ -176,6 +182,14 @@
             <a mat-list-item routerLink="/usuario/lojinha-do-john" [ngClass]="{'active-link': isActive('/usuario/lojinha-do-john')}" >
                 <img src="assets/icones/sstore.svg" alt="Ícone de Meus Filtros" class="icon">
                 <span class="ml-2">Lojinha</span>
+            </a>
+            <a mat-list-item routerLink="/usuario/progressos" [ngClass]="{'active-link': isActive('/usuario/progressos')}" >
+                <img src="assets/icones/sstore.svg" alt="Ícone de Meus Filtros" class="icon">
+                <span class="ml-2">Progresos</span>
+            </a>
+            <a mat-list-item routerLink="/usuario/financeiro" [ngClass]="{'active-link': isActive('/usuario/financeiro')}" >
+                <img src="assets/icones/sstore.svg" alt="Ícone de Meus Filtros" class="icon">
+                <span class="ml-2">Financeiro</span>
             </a>
         
 
