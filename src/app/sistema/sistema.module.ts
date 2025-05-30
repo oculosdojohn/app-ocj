@@ -44,6 +44,7 @@ import { InfoRegistroComponent } from './Administrativo/vizualizar-adm/informaco
 import { InfoFeedbackComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-feedback/info-feedback.component';
 import { InfoCursoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-curso/info-curso.component';
 import { InfoObservacaoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-observacao/info-observacao.component';
+import { AdmissoesDemissoesComponent } from './RH/admissoes-demissoes/admissoes-demissoes.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { InfoObservacaoComponent } from './Administrativo/vizualizar-adm/informa
     InfoRegistroComponent,
     InfoFeedbackComponent,
     InfoCursoComponent,
-    InfoObservacaoComponent
+    InfoObservacaoComponent,
+    AdmissoesDemissoesComponent
   ],
   imports: [
     CommonModule,
