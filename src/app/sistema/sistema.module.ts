@@ -44,6 +44,12 @@ import { InfoRegistroComponent } from './Administrativo/vizualizar-adm/informaco
 import { InfoFeedbackComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-feedback/info-feedback.component';
 import { InfoCursoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-curso/info-curso.component';
 import { InfoObservacaoComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-observacao/info-observacao.component';
+import { AdmissoesComponent } from './RH/admissoes/admissoes.component';
+import { DemissoesComponent } from './RH/demissoes/demissoes.component';
+import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato.component';
+import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
+import { ProgressosComponent } from './Servicos/progressos/progressos.component';
+import { DetalhesProgressoComponent } from './Servicos/visualizar-servicos/detalhes-progresso/detalhes-progresso.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +90,13 @@ import { InfoObservacaoComponent } from './Administrativo/vizualizar-adm/informa
     InfoRegistroComponent,
     InfoFeedbackComponent,
     InfoCursoComponent,
-    InfoObservacaoComponent
+    InfoObservacaoComponent,
+    AdmissoesComponent,
+    DemissoesComponent,
+    RenovarContratoComponent,
+    FinanceiroComponent,
+    ProgressosComponent,
+    DetalhesProgressoComponent,
   ],
   imports: [
     CommonModule,
@@ -95,12 +107,12 @@ import { InfoObservacaoComponent } from './Administrativo/vizualizar-adm/informa
     NgApexchartsModule,
     NgxMaskModule.forRoot(),
   ],
-   exports: [
+  exports: [
     InfoMedicinaComponent,
     InfoRegistroComponent,
     InfoFeedbackComponent,
     InfoCursoComponent,
-    InfoObservacaoComponent
-   ]
+    InfoObservacaoComponent,
+  ],
 })
-export class SistemaModule { }
+export class SistemaModule {}
