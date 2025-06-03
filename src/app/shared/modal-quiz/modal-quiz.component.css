@@ -93,15 +93,45 @@
   padding: 32px 24px;
   background: #ffffff;
   border-radius: 16px;
-  text-align: center;
+  text-align: flex-start;
   display: flex;
   flex-direction: column;
 }
 
+.modal-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
 .modal-conteudo h2 {
   font-size: 24px;
-  color: var(--lm-text);
+  color: #163f23;
   margin: 0;
+}
+
+.modal-titulo img {
+  width: 40px;
+  height: 40px;
+}
+
+.modal-divider {
+  margin: 16px 0 12px 0;
+  border: none;
+  border-top: 1.5px solid #dbdbdb;
+}
+
+.enunciado p {
+  font-size: 14px;
+  margin: 0;
+  color: #163f23;
+}
+
+.modal-conteudo h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #cb4417;
 }
 
 .modal-conteudo span {
@@ -110,24 +140,6 @@
   word-break: break-word;
   white-space: pre-line;
   max-width: 100%;
-}
-
-.modal-icone {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.modal-icone img {
-  width: 48px;
-  height: 48px;
-}
-
-.modal-divider {
-  margin: 16px 0 12px 0;
-  border: none;
-  border-top: 1.5px solid #eee;
 }
 
 .modal-descricao {
@@ -165,13 +177,13 @@
 
 .modal-botoes {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   gap: 16px;
   margin-top: 24px;
 }
 
-.btn-acao.delete {
+.btn-acao.next {
   border: none;
   background: none;
   cursor: pointer;
@@ -181,15 +193,16 @@
   justify-content: center;
   gap: 5px;
   padding: 10px 18px;
-  background: var(--danger);
+  background: #0071B9;
   color: #ffffff;
+  width: 100%;
 }
 
-.btn-acao.delete:hover {
-  background: var(--danger-hover);
+.btn-acao.next:hover {
+  background: #008adf;
 }
 
-.btn-acao.cancelar {
+.btn-acao.previous {
   border: none;
   background: none;
   cursor: pointer;
@@ -199,12 +212,14 @@
   justify-content: center;
   gap: 5px;
   padding: 10px 18px;
-  border: #7f7f7f solid 1px;
-  color: #7f7f7f;
+  border: #008adf 1px solid;
+  color: #008adf;
+  width: 100%;
 }
 
-.btn-acao.cancelar:hover {
-  background: #d5d5d5;
+.btn-acao.previous:hover {
+  background: #005a91;
+  color: #ffffff;
 }
 
 .btn-alternativa.selected {

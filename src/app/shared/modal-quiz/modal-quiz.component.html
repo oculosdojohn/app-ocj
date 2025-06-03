@@ -16,20 +16,21 @@
                 </button>
               </div>
 
-              <div class="modal-icone">
+              <div class="modal-titulo">
                 <img src="assets/icones/atencao.svg" alt="Atenção" />
+                <h2>{{ title }}</h2>
               </div>
-
-              <h2>{{ title }}</h2>
               <hr class="modal-divider" />
 
               <div *ngIf="questions.length">
-                <p class="text-sm text-gray-500">
-                  Pergunta {{ currentIndex + 1 }} de {{ questions.length }}
-                </p>
-                <h3 class="text-lg font-semibold mt-2">
-                  {{ questions[currentIndex].enunciado }}
-                </h3>
+                <div class="enunciado">
+                  <p class="text-sm text-gray-500">
+                  Pergunta {{ currentIndex + 1 }}/{{ questions.length }}
+                  </p>
+                  <h3 class="text-lg font-semibold mt-2">
+                    {{ questions[currentIndex].enunciado }}
+                  </h3>
+                </div>
 
                 <ul class="mt-4 space-y-2">
                   <li
@@ -51,18 +52,18 @@
 
               <div class="modal-botoes">
                 <button
-                  class="btn-acao next"
-                  (click)="next()"
-                  [disabled]="currentIndex === questions.length - 1"
-                >
-                  Próximo
-                </button>
-                <button
                   class="btn-acao previous"
                   (click)="previous()"
                   [disabled]="currentIndex === 0"
                 >
                   Anterior
+                </button>
+                <button
+                  class="btn-acao next"
+                  (click)="next()"
+                  [disabled]="currentIndex === questions.length - 1"
+                >
+                  Próximo
                 </button>
               </div>
             </div>
