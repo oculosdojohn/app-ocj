@@ -36,6 +36,10 @@ export class ModalQuizComponent {
     this.selectedAnswers[this.currentIndex] = val;
   }
 
+  get podeFinalizar(): boolean {
+    return this.selectedAnswers.some((a) => !!a);
+  }
+
   selectAnswer(letter: string): void {
     this.selectedAnswers[this.currentIndex] = letter;
   }

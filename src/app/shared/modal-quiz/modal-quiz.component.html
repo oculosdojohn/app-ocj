@@ -75,7 +75,7 @@
                 <button
                   class="btn-acao finish"
                   *ngIf="currentIndex === questions.length - 1"
-                  [disabled]="!selectedAnswers[currentIndex]"
+                  [disabled]="!podeFinalizar"
                   (click)="finalizarQuiz()"
                 >
                   Finalizar
