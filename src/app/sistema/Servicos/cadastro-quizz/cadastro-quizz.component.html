@@ -1,1 +1,28 @@
-<p>cadastro-quizz works!</p>
+<div class="main-container">
+    <div class="back-title">
+        <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
+        <span> {{ isEditMode ? 'Editar quizz' : 'Cadastrar quizz' }}</span>
+    </div>
+  
+    <div class="forms-container">
+        <form (ngSubmit)="onSubmit()" [formGroup]="cadastroQuizz">
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="valor">Valor em moedas</label>
+                    <input type="text" id="valor" name="valor" class="form-control" placeholder="Digite o valor" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="enunciado">Enunciado</label>
+                <input type="text" id="enunciado" name="enunciado" class="form-control" placeholder="Digite o nome" required>
+            </div>
+
+            <div class="container-btn">
+                <button type="submit" class="btn-cadastrar">
+                    {{ isEditMode ? 'Atualizar quizz' : 'Cadastrar quizz' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
