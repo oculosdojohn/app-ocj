@@ -110,10 +110,37 @@ export class ModuloCursoComponent implements OnInit {
         {
           enunciado: 'Qual a cor do céu?',
           alternativas: ['Azul', 'Verde', 'Vermelho', 'Amarelo'],
+          resposta: 'A',
         },
         {
           enunciado: 'Quanto é 2 + 2?',
           alternativas: ['3', '4', '5', '6'],
+          resposta: 'B',
+        },
+        {
+          enunciado: 'Qual o maior planeta do sistema solar?',
+          alternativas: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
+          resposta: 'C',
+        },
+        {
+          enunciado: 'Quem escreveu "Dom Casmurro"?',
+          alternativas: [
+            'Machado de Assis',
+            'José de Alencar',
+            'Carlos Drummond',
+            'Clarice Lispector',
+          ],
+          resposta: 'A',
+        },
+        {
+          enunciado: 'Qual é o símbolo químico da água?',
+          alternativas: ['O2', 'H2O', 'CO2', 'NaCl'],
+          resposta: 'B',
+        },
+        {
+          enunciado: 'Em que continente fica o Egito?',
+          alternativas: ['Ásia', 'Europa', 'África', 'América'],
+          resposta: 'C',
         },
       ],
       size: 'md',
