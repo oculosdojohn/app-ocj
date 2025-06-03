@@ -12,6 +12,7 @@ import { SearchComponent } from './search/search.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SectorNavigationComponent } from './sector-navigation/sector-navigation.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
+import { StarsComponent } from './stars/stars.component';
 
 
 
@@ -27,7 +28,8 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     SearchComponent,
     PaginationComponent,
     SectorNavigationComponent,
-    ModalDeleteComponent
+    ModalDeleteComponent,
+    StarsComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     SearchComponent,
     PaginationComponent,
     SectorNavigationComponent,
-    ModalDeleteComponent
+    ModalDeleteComponent,
+    StarsComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,23 @@
+.stars {
+  display: flex;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.star {
+  font-size: 32px;
+  color: #ccc;
+  font-style: normal;
+  border-radius: 4px;
+  padding: 2px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.star.filled {
+  color: #ffbf23;
+}
+
+.star:hover {
+  color: #ffbf23;
+}

@@ -19,6 +19,7 @@ export class ModuloCursoComponent implements OnInit {
   videoAtual: Aula | null = null;
   videoAtualIndex: number = 0;
   videosAssistidos: boolean[] = [];
+  userRating: number = 0;
 
   constructor(
     private route: ActivatedRoute, 
