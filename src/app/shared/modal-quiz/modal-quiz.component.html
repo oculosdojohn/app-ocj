@@ -68,7 +68,6 @@
                 <button
                   class="btn-acao next"
                   *ngIf="currentIndex < questions.length - 1"
-                  [disabled]="!selectedAnswers[currentIndex]"
                   (click)="next()"
                 >
                   Próximo
