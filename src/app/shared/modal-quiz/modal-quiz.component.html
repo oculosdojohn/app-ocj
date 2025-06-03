@@ -45,10 +45,12 @@
                         type="radio"
                         name="alternativa"
                         [value]="getLetter(i)"
-                        [(ngModel)]="selectedAnswer"
+                        [(ngModel)]="selectedAnswers[currentIndex]"
+                        (change)="selectAnswer(getLetter(i))"
                       />
                       <span>
-                        <strong>{{ getLetter(i) | lowercase }})</strong> {{ alt }}
+                        <strong>{{ getLetter(i) | lowercase }})</strong>
+                        {{ alt }}
                       </span>
                     </label>
                   </div>
@@ -65,10 +67,29 @@
                 </button>
                 <button
                   class="btn-acao next"
+                  *ngIf="currentIndex < questions.length - 1"
+                  [disabled]="!selectedAnswers[currentIndex]"
                   (click)="next()"
-                  [disabled]="currentIndex === questions.length - 1"
                 >
                   Próximo
+                </button>
+                <button
+                  class="btn-acao finish"
+                  *ngIf="currentIndex === questions.length - 1"
+                  [disabled]="!selectedAnswers[currentIndex]"
+                  (click)="finalizarQuiz()"
+                >
+                  Finalizar
+                </button>
+              </div>
+
+              <div *ngIf="showResult" class="resultado-quiz">
+                <h3>Resultado</h3>
+                <p>
+                  Você acertou {{ score }} de {{ questions.length }} questões!
+                </p>
+                <button class="btn-acao" (click)="onModalClose()">
+                  Fechar
                 </button>
               </div>
             </div>

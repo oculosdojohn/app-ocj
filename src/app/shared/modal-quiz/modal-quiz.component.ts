@@ -7,41 +7,63 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ModalQuizComponent {
   @Input() title: string = 'Quizz';
-  @Input() questions: { enunciado: string; alternativas: string[] }[] = [];
+  @Input() questions: {
+    enunciado: string;
+    alternativas: string[];
+    resposta?: string;
+  }[] = [];
   @Input() item: any;
   @Input() size: string = 'xl:max-w-7xl';
   @Output() closeModal = new EventEmitter<void>();
 
   currentIndex: number = 0;
-  selectedAnswer: string | null = null;
+  selectedAnswers: (string | null)[] = [];
+  showResult = false;
+  score = 0;
 
   onModalClose() {
     this.closeModal.emit();
   }
 
-  get currentQuestion() {
-    return this.questions[this.currentIndex];
+  getLetter(index: number): string {
+    return String.fromCharCode(65 + index);
   }
 
-  getLetter(index: number): string {
-    return String.fromCharCode(65 + index); // 65 = 'A'
+  get selectedAnswer(): string | null {
+    return this.selectedAnswers[this.currentIndex] || null;
+  }
+  set selectedAnswer(val: string | null) {
+    this.selectedAnswers[this.currentIndex] = val;
+  }
+
+  selectAnswer(letter: string): void {
+    this.selectedAnswers[this.currentIndex] = letter;
   }
 
   next(): void {
     if (this.currentIndex < this.questions.length - 1) {
       this.currentIndex++;
-      this.selectedAnswer = null;
     }
   }
 
   previous(): void {
     if (this.currentIndex > 0) {
       this.currentIndex--;
-      this.selectedAnswer = null;
     }
   }
 
-  selectAnswer(letter: string): void {
-    this.selectedAnswer = letter;
+  finalizarQuiz(): void {
+    let acertos = 0;
+    this.questions.forEach((q, i) => {
+      if (
+        this.selectedAnswers[i] &&
+        q.resposta &&
+        this.selectedAnswers[i] === q.resposta
+      ) {
+        acertos++;
+      }
+    });
+    this.score = acertos;
+    this.showResult = true;
   }
 }
