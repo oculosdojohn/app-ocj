@@ -5,6 +5,7 @@ import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Aula } from '../cursos/aulas';
 import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
+import { ModalQuizzService } from 'src/app/services/modal/modal-quizz.service';
 
 @Component({
   selector: 'app-modulo-curso',
@@ -22,9 +23,10 @@ export class ModuloCursoComponent implements OnInit {
   userRating: number = 0;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private location: Location,
-    private cursosService: CursosService
+    private cursosService: CursosService,
+    private modalQuizzService: ModalQuizzService
   ) {}
 
   ngOnInit(): void {
@@ -99,5 +101,22 @@ export class ModuloCursoComponent implements OnInit {
         this.aulas = [];
       }
     );
+  }
+
+  abrirModalQuiz(): void {
+    this.modalQuizzService.openModal({
+      title: 'Quiz da Aula',
+      questions: [
+        {
+          enunciado: 'Qual a cor do céu?',
+          alternativas: ['Azul', 'Verde', 'Vermelho', 'Amarelo'],
+        },
+        {
+          enunciado: 'Quanto é 2 + 2?',
+          alternativas: ['3', '4', '5', '6'],
+        },
+      ],
+      size: 'md',
+    });
   }
 }
