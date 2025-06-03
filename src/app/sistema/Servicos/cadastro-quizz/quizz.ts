@@ -5,5 +5,5 @@ export class Quizz {
   dataCadastro!: string;
   modulo!: Modulos;
   enunciado!: string;
-  qtdMoedas!: string;
+  qtdMoedas!: number;
 }

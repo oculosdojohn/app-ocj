@@ -8,8 +8,17 @@
         <form (ngSubmit)="onSubmit()" [formGroup]="cadastroQuizz">
             <div class="input-duo">
                 <div class="form-group">
+                    <label for="modulo">Módulo da aula</label>
+                    <app-select-padrao
+                      label="Selecione um módulo"
+                      [customStyles]="{'background': '#FFFFFF'}"
+                      [options]="modulo"
+                      [(selectedValue)]="selectedModulo">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
                     <label for="valor">Valor em moedas</label>
-                    <input type="text" id="valor" name="valor" class="form-control" placeholder="Digite o valor" required>
+                    <input type="number" id="valor" name="valor" class="form-control" placeholder="Digite o valor" required>
                 </div>
             </div>
 

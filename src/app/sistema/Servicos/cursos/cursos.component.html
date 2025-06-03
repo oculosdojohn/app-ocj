@@ -8,10 +8,10 @@
         <div class="breadcrumb">
           <a>Home &gt; </a> <span class="breadcrumb-highlight"> Cursos</span>
         </div>
-        <div class="actions"
-        *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
-        <button class="btn-line" (click)="buscarAulas()">Buscar aulas</button>
-        <button class="btn-cadastrar" (click)="cadastrarAula()">Cadastrar Aula</button>
+        <div class="actions" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
+            <button class="btn-cadastrar" (click)="cadastrarQuizz()">Cadastrar Quizz [TESTE]</button>
+            <button class="btn-line" (click)="buscarAulas()">Buscar aulas</button>
+            <button class="btn-cadastrar" (click)="cadastrarAula()">Cadastrar Aula</button>
         </div>
     </div>
       
