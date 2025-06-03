@@ -50,6 +50,7 @@ import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato
 import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
 import { ProgressosComponent } from './Servicos/progressos/progressos.component';
 import { DetalhesProgressoComponent } from './Servicos/visualizar-servicos/detalhes-progresso/detalhes-progresso.component';
+import { CadastroQuizzComponent } from './Servicos/cadastro-quizz/cadastro-quizz.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { DetalhesProgressoComponent } from './Servicos/visualizar-servicos/detal
     FinanceiroComponent,
     ProgressosComponent,
     DetalhesProgressoComponent,
+    CadastroQuizzComponent,
   ],
   imports: [
     CommonModule,

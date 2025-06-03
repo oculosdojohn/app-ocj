@@ -44,6 +44,7 @@ import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato
 import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
 import { ProgressosComponent } from './Servicos/progressos/progressos.component';
 import { DetalhesProgressoComponent } from './Servicos/visualizar-servicos/detalhes-progresso/detalhes-progresso.component';
+import { CadastroQuizzComponent } from './Servicos/cadastro-quizz/cadastro-quizz.component';
 
 const routes: Routes = [
   {
@@ -100,6 +101,8 @@ const routes: Routes = [
       { path: 'financeiro', component: FinanceiroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'progressos', component: ProgressosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'detalhes-progresso/:id', component: DetalhesProgressoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-quizz', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-quizz/:id', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },
