@@ -19,6 +19,7 @@ export class ModalQuizComponent {
   currentIndex: number = 0;
   selectedAnswers: (string | null)[] = [];
   showResult = false;
+  quizFinalizado = false;
   score = 0;
 
   onModalClose() {
@@ -57,6 +58,7 @@ export class ModalQuizComponent {
   }
 
   finalizarQuiz(): void {
+    if (this.quizFinalizado) return; // impede múltiplos envios
     let acertos = 0;
     this.questions.forEach((q, i) => {
       if (
@@ -69,5 +71,6 @@ export class ModalQuizComponent {
     });
     this.score = acertos;
     this.showResult = true;
+    this.quizFinalizado = true;
   }
 }

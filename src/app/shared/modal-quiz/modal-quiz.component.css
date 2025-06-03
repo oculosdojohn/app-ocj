@@ -285,3 +285,13 @@
 input[type="radio"] {
   accent-color: #0071b9;
 }
+
+.alternativa-container.correta {
+  border-color: #2ecc40;
+  background: #e8fbe8;
+}
+
+.alternativa-container.errada {
+  border-color: #ff4136;
+  background: #ffeaea;
+}

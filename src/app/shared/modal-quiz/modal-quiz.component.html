@@ -40,13 +40,25 @@
                     "
                     class="alternativa-item"
                   >
-                    <label class="alternativa-container">
+                    <label
+                      class="alternativa-container"
+                      [ngClass]="{
+                        correta:
+                          showResult &&
+                          getLetter(i) === questions[currentIndex].resposta,
+                        errada:
+                          showResult &&
+                          selectedAnswers[currentIndex] === getLetter(i) &&
+                          getLetter(i) !== questions[currentIndex].resposta
+                      }"
+                    >
                       <input
                         type="radio"
                         name="alternativa"
                         [value]="getLetter(i)"
                         [(ngModel)]="selectedAnswers[currentIndex]"
                         (change)="selectAnswer(getLetter(i))"
+                        [disabled]="showResult"
                       />
                       <span>
                         <strong>{{ getLetter(i) | lowercase }})</strong>
@@ -75,7 +87,7 @@
                 <button
                   class="btn-acao finish"
                   *ngIf="currentIndex === questions.length - 1"
-                  [disabled]="!podeFinalizar"
+                  [disabled]="!podeFinalizar || quizFinalizado"
                   (click)="finalizarQuiz()"
                 >
                   Finalizar
