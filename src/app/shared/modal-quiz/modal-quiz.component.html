@@ -25,29 +25,34 @@
               <div *ngIf="questions.length">
                 <div class="enunciado">
                   <p class="text-sm text-gray-500">
-                  Pergunta {{ currentIndex + 1 }}/{{ questions.length }}
+                    Pergunta {{ currentIndex + 1 }}/{{ questions.length }}
                   </p>
                   <h3 class="text-lg font-semibold mt-2">
                     {{ questions[currentIndex].enunciado }}
                   </h3>
                 </div>
 
-                <ul class="mt-4 space-y-2">
-                  <li
+                <div class="alternativas-flex">
+                  <div
                     *ngFor="
                       let alt of questions[currentIndex].alternativas;
                       let i = index
                     "
+                    class="alternativa-item"
                   >
-                    <button
-                      class="btn-alternativa"
-                      (click)="selectAnswer(getLetter(i))"
-                      [class.selected]="selectedAnswer === getLetter(i)"
-                    >
-                      <strong>{{ getLetter(i) }}.</strong> {{ alt }}
-                    </button>
-                  </li>
-                </ul>
+                    <label class="alternativa-container">
+                      <input
+                        type="radio"
+                        name="alternativa"
+                        [value]="getLetter(i)"
+                        [(ngModel)]="selectedAnswer"
+                      />
+                      <span>
+                        <strong>{{ getLetter(i) | lowercase }})</strong> {{ alt }}
+                      </span>
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <div class="modal-botoes">
