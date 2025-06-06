@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
 import { ColaboradorService } from '../../../services/administrativo/colaborador.service';
 import { CargoDescricoes } from '../../Administrativo/funcionarios/enums/cargo-descricoes';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { Permissao } from 'src/app/login/permissao';
 
 @Component({
   selector: 'app-progressos',
@@ -22,14 +24,22 @@ export class ProgressosComponent implements OnInit {
   colaboradoresPaginados: Colaborador[] = [];
   selectedUsuario: any = null;
 
+  public Permissao = Permissao;
+  public cargoUsuario!: Permissao;
+
   constructor(
     private router: Router,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.fetchColaboradores();
     this.atualizarPaginacao();
+    // já busca o perfil e define o cargo
+    this.authService.obterPerfilUsuario().subscribe((usuario) => {
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
+    });
   }
 
   onSearch(searchTerm: string) {
@@ -124,5 +134,17 @@ export class ProgressosComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  get rotaDashboard(): string {
+    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
+    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
+    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
+    if (
+      this.cargoUsuario === Permissao.COLABORADOR ||
+      this.cargoUsuario === Permissao.VENDEDOR
+    )
+      return '/dashboard-colaborador';
+    return '/login';
   }
 }

@@ -10,14 +10,26 @@ import { AuthService } from 'src/app/services/configs/auth.service';
   styleUrls: ['./forum-noticias.component.css'],
 })
 export class ForumNoticiasComponent implements OnInit {
-   termoBusca: string = '';
-  
-    noticias: Noticia[] = [
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'},
-        { titulo: 'Lorem Ipsum is simply', data: '22/12/2024 às 12:30', destinatario: 'Óculos do John de Russas'}
+  termoBusca: string = '';
+
+  noticias: Noticia[] = [
+    {
+      titulo: 'Lorem Ipsum is simply',
+      data: '22/12/2024 às 12:30',
+      destinatario: 'Óculos do John de Russas',
+    },
+    {
+      titulo: 'Lorem Ipsum is simply',
+      data: '22/12/2024 às 12:30',
+      destinatario: 'Óculos do John de Russas',
+    },
+    {
+      titulo: 'Lorem Ipsum is simply',
+      data: '22/12/2024 às 12:30',
+      destinatario: 'Óculos do John de Russas',
+    },
   ];
-      
+
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.noticias.length / this.itensPorPagina);
@@ -26,14 +38,11 @@ export class ForumNoticiasComponent implements OnInit {
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService      
-  ) { }
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.atualizarPaginacao();
-    this.authService.obterPerfilUsuario().subscribe(usuario => {
+    this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
   }
@@ -59,5 +68,17 @@ export class ForumNoticiasComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  get rotaDashboard(): string {
+    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
+    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
+    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
+    if (
+      this.cargoUsuario === Permissao.COLABORADOR ||
+      this.cargoUsuario === Permissao.VENDEDOR
+    )
+      return '/dashboard-colaborador';
+    return '/login';
   }
 }

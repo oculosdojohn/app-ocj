@@ -4,6 +4,8 @@ import { Colaborador } from './colaborador';
 import { ColaboradorService } from '../../../services/administrativo/colaborador.service';
 import { CargoDescricoes } from './enums/cargo-descricoes';
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { Permissao } from 'src/app/login/permissao';
 
 @Component({
   selector: 'app-funcionarios',
@@ -25,16 +27,24 @@ export class FuncionariosComponent implements OnInit {
   colaboradoresPaginados: Colaborador[] = [];
   selectedUsuario: any = null;
 
+  public Permissao = Permissao;
+  public cargoUsuario!: Permissao;
+
   constructor(
     private router: Router,
     private colaboradorService: ColaboradorService,
-    private modalDeleteService: ModalDeleteService
+    private modalDeleteService: ModalDeleteService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.exibirMensagemDeSucesso();
     this.fetchColaboradores();
     this.atualizarPaginacao();
+    // já busca o perfil e define o cargo
+    this.authService.obterPerfilUsuario().subscribe((usuario) => {
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
+    });
   }
 
   cadastrarColaborador(): void {
@@ -186,5 +196,17 @@ export class FuncionariosComponent implements OnInit {
   clearMessage() {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  get rotaDashboard(): string {
+    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
+    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
+    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
+    if (
+      this.cargoUsuario === Permissao.COLABORADOR ||
+      this.cargoUsuario === Permissao.VENDEDOR
+    )
+      return '/dashboard-colaborador';
+    return '/login';
   }
 }
