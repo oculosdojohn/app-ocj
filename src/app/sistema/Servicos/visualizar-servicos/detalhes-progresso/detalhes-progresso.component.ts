@@ -14,7 +14,10 @@ export class DetalhesProgressoComponent implements OnInit {
   colaborador!: Colaborador;
   selectedSectorId = 'curso';
 
-  setores = [{ name: 'Progresso no curso', id: 'curso' }];
+  setores = [
+    { name: 'Progresso no curso', id: 'curso' },
+    { name: 'Desempenho no quiz', id: 'quiz' },
+  ];
 
   selectedDepartamento: any;
   selectedCargo: any;
