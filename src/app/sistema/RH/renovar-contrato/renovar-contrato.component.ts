@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Renovacao } from './renovacao';
 import { CargoDescricoes } from '../../Administrativo/funcionarios/enums/cargo-descricoes';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { Permissao } from 'src/app/login/permissao';
 
 @Component({
   selector: 'app-renovar-contrato',
@@ -10,16 +12,22 @@ import { CargoDescricoes } from '../../Administrativo/funcionarios/enums/cargo-d
 })
 export class RenovarContratoComponent implements OnInit {
   termoBusca: string = '';
+  mensagemBusca: string = '';
+  isLoading = false;
+  successMessage: string = '';
+  messageTimeout: any;
 
   renovacoes: Renovacao[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.renovacoes.length / this.itensPorPagina);
-
   renovacoesPaginados: Renovacao[] = [];
 
-  constructor(private router: Router) {}
+  public Permissao = Permissao;
+  public cargoUsuario!: Permissao;
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.renovacoes = [
@@ -39,6 +47,10 @@ export class RenovarContratoComponent implements OnInit {
       },
     ];
     this.atualizarPaginacao();
+    // já busca o perfil e define o cargo
+    this.authService.obterPerfilUsuario().subscribe((usuario) => {
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
+    });
   }
 
   onSearch(searchTerm: string) {
@@ -81,5 +93,17 @@ export class RenovarContratoComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  get rotaDashboard(): string {
+    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
+    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
+    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
+    if (
+      this.cargoUsuario === Permissao.COLABORADOR ||
+      this.cargoUsuario === Permissao.VENDEDOR
+    )
+      return '/dashboard-colaborador';
+    return '/login';
   }
 }
