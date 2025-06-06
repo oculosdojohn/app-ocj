@@ -14,8 +14,12 @@ import { SectorNavigationComponent } from './sector-navigation/sector-navigation
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { StarsComponent } from './stars/stars.component';
 import { ModalQuizComponent } from './modal-quiz/modal-quiz.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
-
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { ModalQuizComponent } from './modal-quiz/modal-quiz.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [
     SelectPadraoComponent,

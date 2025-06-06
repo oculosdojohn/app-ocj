@@ -32,7 +32,8 @@
               "node_modules/apexcharts/dist/apexcharts.min.js"
             ],
             "allowedCommonJsDependencies": [
-              "apexcharts"
+              "apexcharts",
+              "lottie-web"
             ]
           },
           "configurations": {
