@@ -54,9 +54,7 @@
             </div>
         </form>
 
-        <div *ngIf="isLoading" class="overlay-loading">
-            <div class="spinner"></div>
-        </div>
+        <app-loading *ngIf="isLoading"></app-loading>
           
         <div class="alerts">
             <div class="alerts-container alert-success" *ngIf="successMessage">

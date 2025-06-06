@@ -16,6 +16,7 @@ import { StarsComponent } from './stars/stars.component';
 import { ModalQuizComponent } from './modal-quiz/modal-quiz.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { LoadingComponent } from './loading/loading.component';
 
 export function playerFactory() {
   return player;
@@ -35,7 +36,8 @@ export function playerFactory() {
     SectorNavigationComponent,
     ModalDeleteComponent,
     StarsComponent,
-    ModalQuizComponent
+    ModalQuizComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ export function playerFactory() {
     ModalDeleteComponent,
     StarsComponent,
     ModalQuizComponent,
+    LoadingComponent,
   ]
 })
 export class SharedModule { }
