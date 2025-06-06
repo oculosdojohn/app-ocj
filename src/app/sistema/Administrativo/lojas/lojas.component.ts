@@ -112,10 +112,17 @@ export class LojasComponent implements OnInit {
   }
 
   deleteLoja(id: string): void {
+    const lojaRemovida = this.lojas.find((e) => e.id === id);
     this.lojaService.deleteLojaById(id).subscribe(
       () => {
         console.log('Loja deletada com sucesso!');
         this.fetchLojas();
+        this.showMessage(
+          'success',
+          `Loja "${lojaRemovida?.nome || ''} - ${
+            lojaRemovida?.endereco?.cidade || '-'
+          }" deletada com sucesso!`
+        );
       },
       (error) => {
         console.error('Erro ao deletar a loja:', error);
