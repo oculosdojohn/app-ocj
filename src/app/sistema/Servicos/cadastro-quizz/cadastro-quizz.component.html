@@ -18,13 +18,13 @@
                 </div>
                 <div class="form-group">
                     <label for="valor">Valor em moedas</label>
-                    <input type="number" id="valor" name="valor" class="form-control" placeholder="Digite o valor" required>
+                    <input type="number" id="valor" name="valor" class="form-control" placeholder="Digite o valor" maxlength="250" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="enunciado">Enunciado</label>
-                <textarea type="text" id="enunciado" name="enunciado" class="form-control" placeholder="Digite o nome" required></textarea>
+                <textarea type="text" id="enunciado" name="enunciado" class="form-control" placeholder="Digite o nome" rows="3" maxlength="2000" required></textarea>
             </div>
 
             <div class="form-group">
@@ -34,15 +34,16 @@
                     type="radio"
                     name="resposta"
                     [value]="letra"
-                    [(ngModel)]="respostaCorreta"
+                    formControlName="resposta"
                     required
                     />
                     <input
                     type="text"
                     class="form-control"
-                    [placeholder]="'Alternativa ' + letra"
-                    [(ngModel)]="alternativas[i]"
+                    placeholder="Digite a alternativa {{letra}}"
+                    formControlName="alternativa{{letra}}"
                     name="alternativa{{letra}}"
+                    maxlength="250"
                     required
                     />
                 </div>

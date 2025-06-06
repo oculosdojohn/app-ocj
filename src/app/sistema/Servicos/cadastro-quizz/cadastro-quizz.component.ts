@@ -40,6 +40,11 @@ export class CadastroQuizzComponent implements OnInit {
       enunciado: ['', Validators.required],
       modulo: ['', Validators.required],
       qtdMoedas: ['', Validators.required],
+      resposta: ['', Validators.required],
+      alternativaA: ['', Validators.required],
+      alternativaB: ['', Validators.required],
+      alternativaC: ['', Validators.required],
+      alternativaD: ['', Validators.required],
     });
   }
 
