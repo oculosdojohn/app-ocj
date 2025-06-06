@@ -120,9 +120,12 @@ export class CadastroDeDepartamentoComponent implements OnInit {
       this.departamentoService.cadastrarDepartamento(departamento).subscribe(
         (response) => {
           this.isLoading = false;
-          this.successMessage = 'Departamento cadastrada com sucesso!';
+          this.successMessage = 'Departamento cadastrado com sucesso!';
           this.errorMessage = null;
           this.departamentoForm.reset();
+          this.router.navigate(['/usuario/departamentos-da-empresa'], {
+              state: { successMessage: 'Departamento cadastrado com sucesso!' },
+            });
         },
         (error) => {
           this.isLoading = false;
