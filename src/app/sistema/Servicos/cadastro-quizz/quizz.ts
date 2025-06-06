@@ -6,4 +6,9 @@ export class Quizz {
   modulo!: Modulos;
   enunciado!: string;
   qtdMoedas!: number;
+  resposta!: string;
+  alternativaA!: string;
+  alternativaB!: string;
+  alternativaC!: string;
+  alternativaD!: string;
 }
