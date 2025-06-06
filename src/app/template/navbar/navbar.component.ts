@@ -18,8 +18,7 @@ export class NavbarComponent implements OnInit {
   permissaoUsuario: string = '';
 
   public Permissao = Permissao; // Expor para o HTML
-  cargoUsuario!: Permissao;     // Receberá 'ROLE_ADMIN', etc.
-
+  cargoUsuario!: Permissao; // Receberá 'ROLE_ADMIN', etc.
 
   nomeUsuario: string = '';
   fotoUsuario: string = '';
@@ -52,18 +51,23 @@ export class NavbarComponent implements OnInit {
   isAdmin(): boolean {
     return this.cargoUsuario === 'ROLE_ADMIN';
   }
-  
+
   isColaborador(): boolean {
-    return this.cargoUsuario === 'ROLE_COLABORADOR' || this.cargoUsuario === 'ROLE_VENDEDOR';
+    return (
+      this.cargoUsuario === 'ROLE_COLABORADOR' ||
+      this.cargoUsuario === 'ROLE_VENDEDOR'
+    );
   }
-  
+
   isGerente(): boolean {
-    return ['ROLE_GERENTE', 'SUPERVISOR', 'GERENTE_GERAL'].includes(this.cargoUsuario);
+    return ['ROLE_GERENTE', 'SUPERVISOR', 'GERENTE_GERAL'].includes(
+      this.cargoUsuario
+    );
   }
-  
+
   isRH(): boolean {
     return this.cargoUsuario === 'ROLE_RH';
-  }  
+  }
 
   logout() {
     this.router.navigate(['/login']);
@@ -101,6 +105,10 @@ export class NavbarComponent implements OnInit {
 
   verPerfil(): void {
     this.router.navigate(['/usuario/meu-perfil']);
+  }
+
+  verMeusProdutos(): void {
+    this.router.navigate(['/usuario/meus-produtos']);
   }
 
   toggleGeralMenu() {

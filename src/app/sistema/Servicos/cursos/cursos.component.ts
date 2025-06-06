@@ -71,12 +71,16 @@ export class CursosComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-de-aulas']);
   }
 
-  cadastrarQuizz(): void {
+  cadastrarQuiz(): void {
     this.router.navigate(['/usuario/cadastro-quizz']);
   }
 
   buscarAulas(): void {
     this.router.navigate(['/usuario/buscar-aulas']);
+  }
+
+  buscarQuiz(): void {
+    this.router.navigate(['/usuario/buscar-quizzes']);
   }
 
   get modulosPaginados() {

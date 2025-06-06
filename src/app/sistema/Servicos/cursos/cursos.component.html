@@ -9,8 +9,8 @@
           <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Cursos</span>
         </div>
         <div class="actions" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
-            <button class="btn-line" (click)="buscarAulas()">Buscar quizzes</button>
-            <button class="btn-cadastrar" (click)="cadastrarQuizz()">Cadastrar Quiz</button>
+            <button class="btn-line" (click)="buscarQuiz()">Buscar quizzes</button>
+            <button class="btn-cadastrar" (click)="cadastrarQuiz()">Cadastrar Quiz</button>
             <button class="btn-line" (click)="buscarAulas()">Buscar aulas</button>
             <button class="btn-cadastrar" (click)="cadastrarAula()">Cadastrar Aula</button>
         </div>

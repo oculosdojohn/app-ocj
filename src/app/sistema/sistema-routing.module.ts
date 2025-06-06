@@ -115,6 +115,7 @@ const routes: Routes = [
       { path: 'lojinha-do-john', component: LojinhaComponent },
       { path: 'curso/:modulo', component: ModuloCursoComponent },
       { path: 'buscar-aulas', component: BuscarAulasComponent },
+      { path: 'meus-produtos', component: MeusProdutosComponent},
     ]
   }
 ];
