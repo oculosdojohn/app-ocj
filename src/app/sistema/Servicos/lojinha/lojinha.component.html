@@ -16,7 +16,30 @@
       </button>
     </div>
 
-    <div class="image-center">
-        <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
+    <div class="produtos">
+        <div class="produto-card" *ngFor="let produto of produtosPaginados" >
+            <div class="produto-image">
+                <img [src]="produto.foto?.documentoUrl" alt="Imagem do Produto">
+            </div>
+            <h3>{{ produto.nome }}</h3>
+            <div class="details">
+                <div class="value-coin">
+                    <span>
+                        <img src="assets/icones/coin.svg" alt="Moeda">
+                        {{ produto.qtdMoedas }} Moedas
+                    </span>
+                </div>
+            </div>        
+            <button class="access-btn">Resgatar Produto</button>
+        </div>
     </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
 </div>
