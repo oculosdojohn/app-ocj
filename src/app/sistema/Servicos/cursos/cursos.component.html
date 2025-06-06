@@ -6,7 +6,7 @@
   
     <div class="breadcrumb-container">
         <div class="breadcrumb">
-          <a>Home &gt; </a> <span class="breadcrumb-highlight"> Cursos</span>
+          <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Cursos</span>
         </div>
         <div class="actions" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
             <button class="btn-line" (click)="buscarAulas()">Buscar quizzes</button>
