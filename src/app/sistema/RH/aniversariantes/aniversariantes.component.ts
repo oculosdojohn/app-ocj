@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Meses } from '../ferias/Meses';
 import { MesesDescricoes } from '../ferias/MesesDescricoes';
 import { Aniversario } from './aniversario';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { Permissao } from 'src/app/login/permissao';
 
 @Component({
   selector: 'app-aniversariantes',
@@ -11,17 +13,12 @@ import { Aniversario } from './aniversario';
 })
 export class AniversariantesComponent implements OnInit {
   selectedMes: string = '';
+  mensagemBusca: string = '';
+  isLoading = false;
+  successMessage: string = '';
+  messageTimeout: any;
 
-  aniversarios: Aniversario[] = [
-      { data: '22/01/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'},
-      { data: '22/02/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'},
-      { data: '22/02/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'},
-      { data: '22/01/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'},
-      { data: '22/07/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'},
-      { data: '22/01/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'},
-      { data: '22/01/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'},
-      { data: '22/01/1999', colaborador: 'Everardo Costta', loja: 'Óculos do John LTDA', departamento: 'Marketing'}
-  ];
+  aniversarios: Aniversario[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
@@ -34,16 +31,23 @@ export class AniversariantesComponent implements OnInit {
     description: MesesDescricoes[Meses[key as keyof typeof Meses]],
   }));
 
-  constructor(private router: Router) {}
+  public Permissao = Permissao;
+  public cargoUsuario!: Permissao;
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.filtrarPorMes();
+    // já busca o perfil e define o cargo
+    this.authService.obterPerfilUsuario().subscribe((usuario) => {
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
+    });
   }
 
   filtrarPorMes(): void {
     console.log('Mês selecionado:', this.selectedMes);
     if (this.selectedMes) {
-      this.aniversariosFiltrados = this.aniversarios.filter(aniversario => {
+      this.aniversariosFiltrados = this.aniversarios.filter((aniversario) => {
         const mes = aniversario.data.split('/')[1];
         return mes === this.selectedMes;
       });
@@ -68,5 +72,17 @@ export class AniversariantesComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  get rotaDashboard(): string {
+    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
+    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
+    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
+    if (
+      this.cargoUsuario === Permissao.COLABORADOR ||
+      this.cargoUsuario === Permissao.VENDEDOR
+    )
+      return '/dashboard-colaborador';
+    return '/login';
   }
 }
