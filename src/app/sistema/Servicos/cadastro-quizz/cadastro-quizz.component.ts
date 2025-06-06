@@ -13,6 +13,9 @@ import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 })
 export class CadastroQuizzComponent implements OnInit {
   selectedModulo: string = '';
+  letras: string[] = ['A', 'B', 'C', 'D'];
+  alternativas: string[] = ['', '', '', ''];
+  respostaCorreta: string = '';
 
   modulo = Object.keys(Modulos).map((key) => ({
     value: Modulos[key as keyof typeof Modulos],
@@ -51,6 +54,12 @@ export class CadastroQuizzComponent implements OnInit {
     this.isLoading = true;
     this.successMessage = null;
     this.errorMessage = null;
+
+    const quizz = {
+      ...this.cadastroQuizz.value,
+      alternativas: this.alternativas,
+      resposta: this.respostaCorreta,
+    };
 
     if (this.isEditMode && this.quizzId) {
     } else {

@@ -27,6 +27,27 @@
                 <textarea type="text" id="enunciado" name="enunciado" class="form-control" placeholder="Digite o nome" required></textarea>
             </div>
 
+            <div class="form-group">
+                <label>Alternativas</label>
+                <div *ngFor="let letra of letras; let i = index" class="alternativa-cadastro">
+                    <input
+                    type="radio"
+                    name="resposta"
+                    [value]="letra"
+                    [(ngModel)]="respostaCorreta"
+                    required
+                    />
+                    <input
+                    type="text"
+                    class="form-control"
+                    [placeholder]="'Alternativa ' + letra"
+                    [(ngModel)]="alternativas[i]"
+                    name="alternativa{{letra}}"
+                    required
+                    />
+                </div>
+            </div>
+
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
                     {{ isEditMode ? 'Atualizar quizz' : 'Cadastrar quizz' }}

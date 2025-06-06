@@ -141,6 +141,47 @@ form {
   gap: 8px;
 }
 
+/* Alternativas em linha, alinhadas e com espaçamento */
+.alternativa-cadastro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* Radio button maior e destacado */
+.alternativa-cadastro input[type="radio"] {
+  accent-color: #3681b0;
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+/* Input de texto das alternativas */
+.alternativa-cadastro input[type="text"].form-control {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #bfc9d9;
+  background: #ffffff;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+.alternativa-cadastro input[type="text"].form-control:focus {
+  border-color: #3681b0;
+  outline: none;
+  background: #fff;
+}
+
+/* Espaço entre o label "Alternativas" e os campos */
+.form-group > label {
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 500;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {
