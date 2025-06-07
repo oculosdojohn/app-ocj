@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Quizz } from './quizz';
+import { Quiz } from '../cursos/quiz';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 

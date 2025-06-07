@@ -1,6 +1,6 @@
-import { Modulos } from '../cursos/enums/modulos';
+import { Modulos } from './enums/modulos';
 
-export class Quizz {
+export class Quiz {
   id!: string;
   dataCadastro!: string;
   modulo!: Modulos;

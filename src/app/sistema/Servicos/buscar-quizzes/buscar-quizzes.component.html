@@ -1,1 +1,87 @@
-<p>buscar-quizzes works!</p>
+<div class="main-container">
+    <div class="banner">
+        <h1>Buscar quizzes</h1>
+        <p>Encontre e gerencie as questões dos quizzes por módulos, podendo editar ou excluir conforme necessário.</p>
+    </div>
+
+    <div class="buscar-container">
+        <div class="breadcrumb">
+            <a (click)="goBack()">Cursos &gt; </a> <span class="breadcrumb-highlight"> Buscar quizzes</span>
+          </div>
+        <div class="actions">
+            <div class="select-container">
+                <app-select-padrao
+                  label="Selecione um módulo"
+                  [customStyles]="{'background': '#FFFFFF'}"
+                  [options]="modulos"
+                  [(selectedValue)]="selectedModulo">
+                </app-select-padrao>
+            </div>
+            <div class="container-btn">
+                <button class="btn-buscar" (click)="buscarQuizzes()">
+                    <img src="assets/icones/lupa-white.svg" alt="Sem dados">
+                    Buscar
+                </button>
+                <button class="btn-line" (click)="limparFiltro()">Limpar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabela-container" [ngClass]="{'tabela-container': true, 'no-data': quizzesPaginados.length === 0}">
+        <table *ngIf="quizzesPaginados.length > 0; else noDataTemplate">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Enunciado</th>
+                    <th>Data do Cadastro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let quiz of quizzesPaginados">
+                    <td>
+                        <div class="perfil">
+                            <span>{{ quiz.id }}</span>
+                        </div>
+                    </td>
+                    <td>{{ quiz.enunciado }}</td>
+                    <td>
+                        <span>{{ quiz.dataCadastro }}</span>
+                    </td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn-acao edit" (click)="editarQuiz(quiz.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(quiz)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #noDataTemplate>
+            <div *ngIf="buscaRealizada; else noModuloSelected">
+                <div class="no-data-message">
+                    <img src="assets/imgs/empty-images/no-search.svg" alt="Sem dados">
+                    <p>Nenhuma questão encontrada para o módulo selecionado.</p>
+                </div>
+            </div>
+            <ng-template #noModuloSelected>
+                <div class="no-data-message">
+                    <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+                    <p>Selecione um modulo para buscar as questões.</p>
+                </div>
+            </ng-template>
+        </ng-template>
+    </div> 
+    <div class="pagination" *ngIf="quizzesPaginados.length > 0;">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
+</div>
