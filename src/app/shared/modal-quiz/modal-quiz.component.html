@@ -1,0 +1,112 @@
+<div class="modal-geral" role="dialog" [attr.aria-labelledby]="title">
+  <div class="modal-bg" (click)="onModalClose()"></div>
+  <div class="modal-wrapper">
+    <div class="modal-container">
+      <div class="modal-box" [ngClass]="size">
+        <div class="bg-white pb-4 sm:p-6 sm:pb-4 custom-pad">
+          <ng-container>
+            <div class="modal-conteudo">
+              <div class="container-btn-quiz">
+                <button
+                  class="modal-close-btn"
+                  (click)="onModalClose()"
+                  aria-label="Fechar"
+                >
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-titulo">
+                <img src="assets/icones/cursos/quizz-icon.svg" alt="Atenção" />
+                <h2>{{ title }}</h2>
+              </div>
+              <hr class="modal-divider" />
+
+              <div *ngIf="questions.length">
+                <div class="enunciado">
+                  <p class="text-sm text-gray-500">
+                    Pergunta {{ currentIndex + 1 }}/{{ questions.length }}
+                  </p>
+                  <h3 class="text-lg font-semibold mt-2">
+                    {{ questions[currentIndex].enunciado }}
+                  </h3>
+                </div>
+
+                <div class="alternativas-flex">
+                  <div
+                    *ngFor="
+                      let alt of questions[currentIndex].alternativas;
+                      let i = index
+                    "
+                    class="alternativa-item"
+                  >
+                    <label
+                      class="alternativa-container"
+                      [ngClass]="{
+                        correta:
+                          showResult &&
+                          getLetter(i) === questions[currentIndex].resposta,
+                        errada:
+                          showResult &&
+                          selectedAnswers[currentIndex] === getLetter(i) &&
+                          getLetter(i) !== questions[currentIndex].resposta
+                      }"
+                    >
+                      <input
+                        type="radio"
+                        name="alternativa"
+                        [value]="getLetter(i)"
+                        [(ngModel)]="selectedAnswers[currentIndex]"
+                        (change)="selectAnswer(getLetter(i))"
+                        [disabled]="showResult"
+                      />
+                      <span>
+                        <strong>{{ getLetter(i) | lowercase }})</strong>
+                        {{ alt }}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-botoes">
+                <button
+                  class="btn-acao previous"
+                  (click)="previous()"
+                  [disabled]="currentIndex === 0"
+                >
+                  Anterior
+                </button>
+                <button
+                  class="btn-acao next"
+                  *ngIf="currentIndex < questions.length - 1"
+                  (click)="next()"
+                >
+                  Próximo
+                </button>
+                <button
+                  class="btn-acao finish"
+                  *ngIf="currentIndex === questions.length - 1"
+                  [disabled]="!podeFinalizar || quizFinalizado"
+                  (click)="finalizarQuiz()"
+                >
+                  Finalizar
+                </button>
+              </div>
+
+              <div *ngIf="showResult" class="resultado-quiz">
+                <h3>Resultado</h3>
+                <p>
+                  Você acertou {{ score }} de {{ questions.length }} questões!
+                </p>
+                <button class="btn-acao" (click)="onModalClose()">
+                  Fechar
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -44,6 +44,10 @@ import { RenovarContratoComponent } from './RH/renovar-contrato/renovar-contrato
 import { FinanceiroComponent } from './Servicos/financeiro/financeiro.component';
 import { ProgressosComponent } from './Servicos/progressos/progressos.component';
 import { DetalhesProgressoComponent } from './Servicos/visualizar-servicos/detalhes-progresso/detalhes-progresso.component';
+import { CadastroQuizzComponent } from './Servicos/cadastro-quizz/cadastro-quizz.component';
+import { BuscarQuizzesComponent } from './Servicos/buscar-quizzes/buscar-quizzes.component';
+import { DetalhesProdutosComponent } from './Servicos/visualizar-servicos/detalhes-produtos/detalhes-produtos.component';
+import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produtos/meus-produtos.component';
 
 const routes: Routes = [
   {
@@ -100,6 +104,9 @@ const routes: Routes = [
       { path: 'financeiro', component: FinanceiroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'progressos', component: ProgressosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'detalhes-progresso/:id', component: DetalhesProgressoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-quizz', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-quizz/:id', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'buscar-quizzes', component: BuscarQuizzesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },
@@ -108,6 +115,7 @@ const routes: Routes = [
       { path: 'lojinha-do-john', component: LojinhaComponent },
       { path: 'curso/:modulo', component: ModuloCursoComponent },
       { path: 'buscar-aulas', component: BuscarAulasComponent },
+      { path: 'meus-produtos', component: MeusProdutosComponent},
     ]
   }
 ];

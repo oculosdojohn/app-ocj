@@ -23,6 +23,12 @@ import { TokenInterceptor } from './services/configs/token.interceptor';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { EsqueciSenhaComponent } from './recuperar-senha/esqueci-senha/esqueci-senha.component';
 import { ResetPasswordComponent } from './recuperar-senha/reset-password/reset-password.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -49,6 +55,7 @@ import { ResetPasswordComponent } from './recuperar-senha/reset-password/reset-p
     MatIconModule,
     MatButtonModule,
     SharedModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [
     AuthService,

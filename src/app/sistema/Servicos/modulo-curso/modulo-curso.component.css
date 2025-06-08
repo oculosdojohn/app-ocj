@@ -70,8 +70,8 @@
 .info-aula h3 {
   font-size: 24px;
   font-weight: 500;
-  color: #CB4417;
-  margin: 0 0 8px;
+  color: #cb4417;
+  margin: 0;
 }
 
 .info-aula p {
@@ -88,7 +88,7 @@
 .arquivos-aula h4 {
   font-size: 18px;
   font-weight: 600;
-  color: #4D4A49;
+  color: #4d4a49;
   margin: 0;
 }
 
@@ -117,7 +117,7 @@
 
 .value-coin span {
   font-size: 18px;
-  color: #CB4417;
+  color: #cb4417;
   font-weight: 500;
   margin: 0;
 }
@@ -170,7 +170,7 @@
 .btn-vizualizar {
   padding: 8px 16px;
   border: none;
-  background-color: #163F23;
+  background-color: #163f23;
   color: #ffffff;
   border-radius: 4px;
   display: flex;
@@ -185,6 +185,13 @@
 
 .btn-vizualizar i {
   margin-right: 8px;
+}
+
+.titulo-stars {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
 }
 
 @media screen and (max-width: 768px) {

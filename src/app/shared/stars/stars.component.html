@@ -1,0 +1,12 @@
+<div class="stars">
+  <ng-container *ngFor="let star of stars; let i = index">
+    <span
+      class="star"
+      [class.filled]="i < (hoveredIndex >= 0 ? hoveredIndex + 1 : rating)"
+      (click)="setRating(i + 1)"
+      (mouseenter)="setHover(i)"
+      (mouseleave)="clearHover()">
+      ★
+    </span>
+  </ng-container>
+</div>

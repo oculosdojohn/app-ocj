@@ -148,6 +148,9 @@ export class CadastroDeLojaComponent implements OnInit {
           this.successMessage = 'Loja cadastrada com sucesso!';
           this.errorMessage = null;
           this.lojaForm.reset();
+          this.router.navigate(['/usuario/lojas-john'], {
+            state: { successMessage: 'Loja cadastrada com sucesso!' },
+          });
         },
         (error) => {
           this.isLoading = false;

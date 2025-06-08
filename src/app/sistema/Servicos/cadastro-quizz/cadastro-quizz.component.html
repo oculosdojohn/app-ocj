@@ -1,0 +1,59 @@
+<div class="main-container">
+    <div class="back-title">
+        <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
+        <span> {{ isEditMode ? 'Editar quizz' : 'Cadastrar quizz' }}</span>
+    </div>
+  
+    <div class="forms-container">
+        <form (ngSubmit)="onSubmit()" [formGroup]="cadastroQuizz">
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="modulo">Módulo da aula</label>
+                    <app-select-padrao
+                      label="Selecione um módulo"
+                      [customStyles]="{'background': '#FFFFFF'}"
+                      [options]="modulo"
+                      [(selectedValue)]="selectedModulo">
+                    </app-select-padrao>
+                </div>
+                <div class="form-group">
+                    <label for="valor">Valor em moedas</label>
+                    <input type="number" id="valor" name="valor" class="form-control" placeholder="Digite o valor" maxlength="250" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="enunciado">Enunciado</label>
+                <textarea type="text" id="enunciado" name="enunciado" class="form-control" placeholder="Digite o nome" rows="3" maxlength="2000" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Alternativas</label>
+                <div *ngFor="let letra of letras; let i = index" class="alternativa-cadastro">
+                    <input
+                    type="radio"
+                    name="resposta"
+                    [value]="letra"
+                    formControlName="resposta"
+                    required
+                    />
+                    <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Digite a alternativa {{letra}}"
+                    formControlName="alternativa{{letra}}"
+                    name="alternativa{{letra}}"
+                    maxlength="250"
+                    required
+                    />
+                </div>
+            </div>
+
+            <div class="container-btn">
+                <button type="submit" class="btn-cadastrar">
+                    {{ isEditMode ? 'Atualizar quizz' : 'Cadastrar quizz' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

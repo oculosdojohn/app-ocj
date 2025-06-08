@@ -1,5 +1,6 @@
 import { Component, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { ModalDeleteService } from './services/modal/modal-delete.service';
+import { ModalQuizzService } from './services/modal/modal-quizz.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,11 @@ export class AppComponent {
 
   constructor(
     private modalService: ModalDeleteService,
+    private modalQuizService: ModalQuizzService
   ) {}
 
   ngAfterViewInit(): void {
     this.modalService.registerOutlet(this.modalOutlet);
+    this.modalQuizService.registerOutlet(this.modalOutlet);
   }
 }

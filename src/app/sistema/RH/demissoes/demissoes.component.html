@@ -6,7 +6,7 @@
   
     <div class="breadcrumb-container">
         <div class="breadcrumb">
-            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight">Demissões</span>
+            <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight">Demissões</span>
         </div>
         <div class="actions">
             <div class="search-container">
@@ -55,21 +55,32 @@
                     </td>
                     <td>
                         <div class="acoes">
-                            <button class="btn-acao visualizar">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                            </button>
-                            <button class="btn-acao edit">
-                                <img src="assets/icones/Edit.png" alt="Editar">
-                            </button>
-                            <button class="btn-acao delete">
-                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            <button class="btn-acao demitir">
+                                Demitir
                             </button>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div> 
+    </div>
+    
+    <div *ngIf="demissoesPaginados.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semDemissoes">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semDemissoes>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há demissões cadastradas.</p>
+            </div>
+        </ng-template>
+    </div>
+
     <div class="pagination">
         <app-pagination
         [paginaAtual]="paginaAtual"

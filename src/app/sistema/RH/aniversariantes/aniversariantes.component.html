@@ -6,7 +6,7 @@
   
     <div class="breadcrumb-container">
         <div class="breadcrumb">
-            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight"> Aniversariantes</span>
+            <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Aniversariantes</span>
         </div>
         <div class="actions">
             <div class="select-container">
@@ -56,6 +56,23 @@
             </tbody>
         </table>
     </div>
+
+    <div *ngIf="aniversariosPaginados.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semAniversarios">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semAniversarios>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há aniversariantes disponiveis.</p>
+            </div>
+        </ng-template>
+    </div>
+
     <div class="pagination">
         <app-pagination
             [paginaAtual]="paginaAtual"

@@ -4,6 +4,8 @@ import { Loja } from './loja';
 import { Endereco } from './endereco';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { Permissao } from 'src/app/login/permissao';
 
 @Component({
   selector: 'app-lojas',
@@ -24,16 +26,24 @@ export class LojasComponent implements OnInit {
   lojasPaginados: Loja[] = [];
   selectedLoja: any = null;
 
+  public Permissao = Permissao;
+  public cargoUsuario!: Permissao;
+
   constructor(
     private router: Router,
     private lojaService: LojaService,
-    private modalDeleteService: ModalDeleteService
+    private modalDeleteService: ModalDeleteService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.exibirMensagemDeSucesso();
     this.fetchLojas();
     this.atualizarPaginacao();
+    // já busca o perfil e define o cargo
+    this.authService.obterPerfilUsuario().subscribe((usuario) => {
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
+    });
   }
 
   cadastrarLoja(): void {
@@ -112,10 +122,17 @@ export class LojasComponent implements OnInit {
   }
 
   deleteLoja(id: string): void {
+    const lojaRemovida = this.lojas.find((e) => e.id === id);
     this.lojaService.deleteLojaById(id).subscribe(
       () => {
         console.log('Loja deletada com sucesso!');
         this.fetchLojas();
+        this.showMessage(
+          'success',
+          `Loja "${lojaRemovida?.nome || ''} - ${
+            lojaRemovida?.endereco?.cidade || '-'
+          }" deletada com sucesso!`
+        );
       },
       (error) => {
         console.error('Erro ao deletar a loja:', error);
@@ -177,5 +194,17 @@ export class LojasComponent implements OnInit {
   clearMessage() {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  get rotaDashboard(): string {
+    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
+    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
+    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
+    if (
+      this.cargoUsuario === Permissao.COLABORADOR ||
+      this.cargoUsuario === Permissao.VENDEDOR
+    )
+      return '/dashboard-colaborador';
+    return '/login';
   }
 }

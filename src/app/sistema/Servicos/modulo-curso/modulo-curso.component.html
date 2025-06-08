@@ -29,13 +29,17 @@
 
         <div class="info-aula">
           <div *ngIf="aulas.length > 0">
-            <h3>{{ videoAtual?.titulo }}</h3>
+            <div class="titulo-stars">
+              <h3>{{ videoAtual?.titulo }}</h3>
+              <app-stars [(rating)]="userRating"></app-stars>
+            </div>
             <p>{{ videoAtual?.descricao }}</p>
             <div class="value-coin">
               <img src="assets/icones/coin.svg" alt="Moeda">
               <span>{{ videoAtual?.qtdMoedas }} moedas</span>
             </div>
         </div>
+        <button class="btn-quiz-teste" (click)="abrirModalQuiz()">Abrir Quiz (Teste)</button>
         <div class="arquivos-aula">
           <h4>Material da Aula</h4>
           <hr>

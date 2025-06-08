@@ -12,8 +12,15 @@ import { SearchComponent } from './search/search.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SectorNavigationComponent } from './sector-navigation/sector-navigation.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
+import { StarsComponent } from './stars/stars.component';
+import { ModalQuizComponent } from './modal-quiz/modal-quiz.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+import { LoadingComponent } from './loading/loading.component';
 
-
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -27,11 +34,15 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     SearchComponent,
     PaginationComponent,
     SectorNavigationComponent,
-    ModalDeleteComponent
+    ModalDeleteComponent,
+    StarsComponent,
+    ModalQuizComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [
     SelectPadraoComponent,
@@ -44,7 +55,10 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     SearchComponent,
     PaginationComponent,
     SectorNavigationComponent,
-    ModalDeleteComponent
+    ModalDeleteComponent,
+    StarsComponent,
+    ModalQuizComponent,
+    LoadingComponent,
   ]
 })
 export class SharedModule { }

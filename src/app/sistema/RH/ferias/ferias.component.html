@@ -6,7 +6,7 @@
   
     <div class="breadcrumb-container">
         <div class="breadcrumb">
-            <a href="#">Home &gt; </a> <span class="breadcrumb-highlight">Férias</span>
+            <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight">Férias</span>
         </div>
         <div class="actions">
             <div class="select-container">
@@ -24,7 +24,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Funcionário</th>
+                    <th>Colaborador</th>
                     <th>Mês</th>
                     <th>Início</th>
                     <th>Fim</th>
@@ -69,6 +69,23 @@
             </tbody>
         </table>
     </div>
+
+    <div *ngIf="feriasPaginadas.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semFerias">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semFerias>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há férias cadastradas.</p>
+            </div>
+        </ng-template>
+    </div>
+
     <div class="pagination">
         <app-pagination
             [paginaAtual]="paginaAtual"

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Medicina } from './medicina';
+import { AuthService } from 'src/app/services/configs/auth.service';
+import { Permissao } from 'src/app/login/permissao';
 
 @Component({
   selector: 'app-medicina',
@@ -9,27 +11,29 @@ import { Medicina } from './medicina';
 })
 export class MedicinaComponent implements OnInit {
   termoBusca: string = '';
+  mensagemBusca: string = '';
+  isLoading = false;
+  successMessage: string = '';
+  messageTimeout: any;
 
-  medicinas: Medicina[] = [
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'},
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'},
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'},
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'},
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'},
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'},
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'},
-      { colaborador: 'Everardo Costta', tipo: 'Atestado médico', CID: 'R11 - Náuseas e Vômitos', data: '22/01/2025', numeroDias: '2'}
-  ];
-    
+  medicinas: Medicina[] = [];
+
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.medicinas.length / this.itensPorPagina);
   medicinasPaginados: Medicina[] = [];
 
-  constructor(private router: Router) {}
+  public Permissao = Permissao;
+  public cargoUsuario!: Permissao;
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.atualizarPaginacao();
+    // já busca o perfil e define o cargo
+    this.authService.obterPerfilUsuario().subscribe((usuario) => {
+      this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
+    });
   }
 
   cadastrarExame(): void {
@@ -53,5 +57,17 @@ export class MedicinaComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  get rotaDashboard(): string {
+    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
+    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
+    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
+    if (
+      this.cargoUsuario === Permissao.COLABORADOR ||
+      this.cargoUsuario === Permissao.VENDEDOR
+    )
+      return '/dashboard-colaborador';
+    return '/login';
   }
 }

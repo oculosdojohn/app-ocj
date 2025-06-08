@@ -436,9 +436,12 @@ export class CadastroDeColaboradorComponent implements OnInit {
       this.colaboradorService.cadastrarColaborador(formData).subscribe(
         (response) => {
           this.isLoading = false;
-          this.successMessage = 'Usuário cadastrada com sucesso!';
+          this.successMessage = 'Usuário cadastrado com sucesso!';
           this.errorMessage = null;
-          // this.colaboradorForm.reset();
+          this.colaboradorForm.reset();
+          this.router.navigate([this.rotaRetorno], {
+              state: { successMessage: 'Usuário cadastrado com sucesso!' },
+            });
         },
         (error) => {
           this.isLoading = false;
