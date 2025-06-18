@@ -80,6 +80,10 @@ export class CadastroQuizzComponent implements OnInit {
       alternativas,
     };
 
+    this.isLoading = true;
+    this.successMessage = null;
+    this.errorMessage = null;
+
     if (this.isEditMode && this.quizzId) {
       this.quizService.atualizarQuiz(this.quizzId, quizzDTO).subscribe(
         (response) => {
