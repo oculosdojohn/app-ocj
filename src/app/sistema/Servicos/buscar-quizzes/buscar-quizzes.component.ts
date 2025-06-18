@@ -5,6 +5,7 @@ import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Quiz } from '../cursos/quiz';
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
+import { QuizService } from 'src/app/services/funcionalidades/quiz.service';
 
 @Component({
   selector: 'app-buscar-quizzes',
@@ -29,7 +30,8 @@ export class BuscarQuizzesComponent implements OnInit {
   constructor(
     private location: Location,
     private router: Router,
-    private modalDeleteService: ModalDeleteService
+    private modalDeleteService: ModalDeleteService,
+    private quizService: QuizService
   ) {}
 
   ngOnInit(): void {}
@@ -55,25 +57,25 @@ export class BuscarQuizzesComponent implements OnInit {
 
   buscarQuizzes(): void {
     this.buscaRealizada = true;
-    // if (this.selectedModulo) {
-    //   this.cursosService.obterAulasPorModulo(this.selectedModulo).subscribe(
-    //     (quizzes: Quiz[]) => {
-    //       this.quizzes = quizzes;
-    //       this.totalPaginas = Math.ceil(
-    //         this.quizzes.length / this.itensPorPagina
-    //       );
-    //       this.atualizarPaginacao();
-    //     },
-    //     (error) => {
-    //       console.error('Erro ao buscar aulas:', error);
-    //       this.quizzes = [];
-    //       this.totalPaginas = 0;
-    //     }
-    //   );
-    // } else {
-    //   this.quizzes = [];
-    //   this.totalPaginas = 0;
-    // }
+    if (this.selectedModulo) {
+      this.quizService.obterQuizPorModulo(this.selectedModulo).subscribe(
+        (quizzes: Quiz[]) => {
+          this.quizzes = quizzes;
+          this.totalPaginas = Math.ceil(
+            this.quizzes.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+        },
+        (error) => {
+          console.error('Erro ao buscar aulas:', error);
+          this.quizzes = [];
+          this.totalPaginas = 0;
+        }
+      );
+    } else {
+      this.quizzes = [];
+      this.totalPaginas = 0;
+    }
   }
 
   limparFiltro(): void {
@@ -84,21 +86,23 @@ export class BuscarQuizzesComponent implements OnInit {
   }
 
   deleteQuiz(id: string): void {
-    // this.cursosService.deletarAula(id).subscribe(
-    //   (response) => {
-    //     this.aulas = this.aulas.filter((aula) => aula.id !== id);
-    //     this.totalPaginas = Math.ceil(this.aulas.length / this.itensPorPagina);
-    //     this.atualizarPaginacao();
-    //   },
-    //   (error) => {
-    //     console.error('Erro ao deletar aula:', error);
-    //     alert('Erro ao deletar aula.');
-    //   }
-    // );
+    this.quizService.deleteQuizById(id).subscribe(
+      (response) => {
+        this.quizzes = this.quizzes.filter((quiz) => quiz.id !== id);
+        this.totalPaginas = Math.ceil(
+          this.quizzes.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+      },
+      (error) => {
+        console.error('Erro ao deletar quiz:', error);
+        alert('Erro ao deletar quiz.');
+      }
+    );
   }
 
   editarQuiz(id: string): void {
-    this.router.navigate(['/usuario/cadastro-de-aulas', id]);
+    this.router.navigate(['/usuario/cadastro-quizz', id]);
   }
 
   openModalDeletar(quiz: any): void {
@@ -106,8 +110,8 @@ export class BuscarQuizzesComponent implements OnInit {
 
     this.modalDeleteService.openModal(
       {
-        title: 'Remoção de Aula',
-        description: `Tem certeza que deseja excluir a questão <strong>${
+        title: 'Remoção de Quiz',
+        description: `Tem certeza que deseja excluir o quiz <strong>${
           quiz.id
         }</strong> do módulo <strong>${
           ModulosDescricao[quiz.modulo as Modulos]
