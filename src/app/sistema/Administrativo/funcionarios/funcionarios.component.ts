@@ -203,8 +203,11 @@ export class FuncionariosComponent implements OnInit {
     if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
     if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
     if (
-      this.cargoUsuario === Permissao.COLABORADOR ||
-      this.cargoUsuario === Permissao.VENDEDOR
+      this.cargoUsuario === Permissao.CONSULTOR_VENDAS ||
+      this.cargoUsuario === Permissao.VENDEDOR ||
+      this.cargoUsuario === Permissao.FINANCEIRO ||
+      this.cargoUsuario === Permissao.COBRADOR ||
+      this.cargoUsuario === Permissao.ESTAGIARIO
     )
       return '/dashboard-colaborador';
     return '/login';
