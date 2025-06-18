@@ -15,12 +15,14 @@ export class ModalQuizComponent {
   @Input() item: any;
   @Input() size: string = 'xl:max-w-7xl';
   @Output() closeModal = new EventEmitter<void>();
+  @Input() moedas: number[] = [];
 
   currentIndex: number = 0;
   selectedAnswers: (string | null)[] = [];
   showResult = false;
   quizFinalizado = false;
   score = 0;
+  totalMoedas: number = 0;
 
   onModalClose() {
     this.closeModal.emit();
@@ -60,6 +62,7 @@ export class ModalQuizComponent {
   finalizarQuiz(): void {
     if (this.quizFinalizado) return; // impede múltiplos envios
     let acertos = 0;
+    let total = 0;
     this.questions.forEach((q, i) => {
       if (
         this.selectedAnswers[i] &&
@@ -67,9 +70,11 @@ export class ModalQuizComponent {
         this.selectedAnswers[i] === q.resposta
       ) {
         acertos++;
+        total += this.moedas[i] || 0;
       }
     });
     this.score = acertos;
+    this.totalMoedas = total;
     this.showResult = true;
     this.quizFinalizado = true;
   }

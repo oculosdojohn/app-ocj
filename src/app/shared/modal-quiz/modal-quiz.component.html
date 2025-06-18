@@ -95,12 +95,18 @@
               </div>
 
               <div *ngIf="showResult" class="resultado-quiz">
-                <h3>Resultado</h3>
-                <p>
-                  Você acertou {{ score }} de {{ questions.length }} questões!
-                </p>
-                <button class="btn-acao" (click)="onModalClose()">
-                  Fechar
+                <div>
+                  <h4>Resultado</h4>
+                  <p>
+                    Você acertou {{ score }} de {{ questions.length }} questões!
+                  </p>
+                </div>
+                <div class="quiz-reward" *ngIf="questions && questions.length">
+                  <img src="assets/icones/coin.svg" alt="Moeda" class="moeda-icon" />
+                  <span>{{ totalMoedas }}</span>
+                </div>
+                <button class="btn-acao resgatar" (click)="onModalClose()">
+                  Resgatar moedas
                 </button>
               </div>
             </div>

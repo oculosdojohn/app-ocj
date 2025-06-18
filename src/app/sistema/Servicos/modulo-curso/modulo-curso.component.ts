@@ -117,8 +117,10 @@ export class ModuloCursoComponent implements OnInit {
             resposta: quiz.alternativas.find((a) => a.respostaCerta)
               ?.alternativa,
           }));
+          const moedas = quizzes.map(q => q.valorMoedas || 0);
           this.modalQuizzService.openModal({
             questions,
+            moedas,
             size: 'md',
           });
         } else {
