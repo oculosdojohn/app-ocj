@@ -48,6 +48,10 @@ export class AuthGuard implements CanActivate {
         return '/usuario/dashboard-rh';
       case 'ROLE_COLABORADOR':
       case 'ROLE_VENDEDOR':
+      case 'ROLE_CONSULTOR_VENDAS':
+      case 'ROLE_FINANCEIRO':
+      case 'ROLE_COBRADOR':
+      case 'ROLE_ESTAGIARIO':
         return '/usuario/dashboard-colaborador';
       case 'ROLE_GERENTE':
       case 'GERENTE_GERAL':
