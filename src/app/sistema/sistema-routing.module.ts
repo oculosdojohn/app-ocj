@@ -57,7 +57,7 @@ const routes: Routes = [
     children: [
       // telas de dashboard por perfil
       { path: 'dashboard-admin', component: PainelAdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] } },
-      { path: 'dashboard-colaborador', component: PainelColaboradorComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_COLABORADOR', 'ROLE_VENDEDOR'] } },
+      { path: 'dashboard-colaborador', component: PainelColaboradorComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_CONSULTOR_VENDAS', 'ROLE_VENDEDOR', 'ROLE_COBRADOR', 'ROLE_FINANCEIRO', 'ROLE_ESTAGIARIO'] } },
       { path: 'dashboard-gerente', component: PainelGerenteComponent ,canActivate: [AuthGuard], data: { roles: ['GERENTE_GERAL', 'ROLE_GERENTE',  'SUPERVISOR'] } },
       { path: 'dashboard-rh', component: PainelRhComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RH'] } },
       { path: 'meu-perfil', component: MeuPerfilComponent },
