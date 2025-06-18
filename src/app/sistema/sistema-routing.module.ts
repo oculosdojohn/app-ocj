@@ -107,6 +107,7 @@ const routes: Routes = [
       { path: 'cadastro-quizz', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'cadastro-quizz/:id', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'buscar-quizzes', component: BuscarQuizzesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'detalhes-produto/:id', component: DetalhesProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },

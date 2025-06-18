@@ -30,7 +30,7 @@ export class LojinhaComponent implements OnInit {
       qtdEstoque: 10,
     }),
     Object.assign(new Produto(), {
-      id: '1',
+      id: '2',
       dataCadastro: '2024-06-01',
       foto: {
         documentoUrl: 'assets/imgs/bg-login.png',
@@ -42,7 +42,7 @@ export class LojinhaComponent implements OnInit {
       qtdEstoque: 10,
     }),
     Object.assign(new Produto(), {
-      id: '1',
+      id: '3',
       dataCadastro: '2024-06-01',
       foto: {
         documentoUrl: 'assets/imgs/bg-login.png',
@@ -76,7 +76,11 @@ export class LojinhaComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-lojinha-produtos']);
   }
 
-   onSearch(searchTerm: string) {}
+  detalhesProduto(id: string): void {
+    this.router.navigate(['/usuario/detalhes-produto', id]);
+  }
+
+  onSearch(searchTerm: string) {}
 
   atualizarPaginacao(): void {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;

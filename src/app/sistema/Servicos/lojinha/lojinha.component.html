@@ -37,7 +37,7 @@
             </div>        
             <div>
                 <button class="resgate-btn">Resgatar Produto</button>
-                <button class="accesso-btn" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
+                <button class="accesso-btn" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH" (click)="detalhesProduto(produto.id)">
                     Acessar Produto
                 </button>
             </div>
