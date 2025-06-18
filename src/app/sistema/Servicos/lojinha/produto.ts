@@ -5,6 +5,11 @@ export class Produto {
   nome!: string;
   qtdMoedas!: number;
   qtdEstoque!: number;
+  colaboradores?: {
+    username: string;
+    foto: { documentoUrl: string; id: number; name: string };
+    dataResgateProduto?: string;
+  }[];
 
   toJson?(): string {
     return JSON.stringify({
