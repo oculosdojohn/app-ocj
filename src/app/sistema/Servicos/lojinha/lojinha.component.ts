@@ -10,6 +10,7 @@ import { Produto } from './produto';
   styleUrls: ['./lojinha.component.css'],
 })
 export class LojinhaComponent implements OnInit {
+  termoBusca: string = '';
   mensagemBusca: string = '';
   isLoading = false;
   successMessage: string = '';
@@ -74,6 +75,8 @@ export class LojinhaComponent implements OnInit {
   cadastrarProduto(): void {
     this.router.navigate(['/usuario/cadastro-lojinha-produtos']);
   }
+
+   onSearch(searchTerm: string) {}
 
   atualizarPaginacao(): void {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;

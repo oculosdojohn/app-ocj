@@ -8,12 +8,17 @@
         <div class="breadcrumb">
             <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Lojinha do John</span>
         </div>
-        <button
-        class="btn-cadastrar"
-        *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
-        (click)="cadastrarProduto()">
-        Cadastrar Produto
-      </button>
+        <div class="actions">
+            <div class="search-container">
+                <app-search (searchChange)="onSearch($event)"></app-search>
+            </div>
+            <button
+                class="btn-cadastrar"
+                *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
+                (click)="cadastrarProduto()">
+                Cadastrar Produto
+            </button>
+        </div>
     </div>
 
     <div class="produtos">
@@ -30,7 +35,12 @@
                     </span>
                 </div>
             </div>        
-            <button class="access-btn">Resgatar Produto</button>
+            <div>
+                <button class="resgate-btn">Resgatar Produto</button>
+                <button class="accesso-btn" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
+                    Acessar Produto
+                </button>
+            </div>
         </div>
     </div>
 
