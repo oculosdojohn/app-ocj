@@ -21,6 +21,16 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
     <div class="produtos">
         <div class="produto-card" *ngFor="let produto of produtosPaginados" >
             <div class="produto-image">

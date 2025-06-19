@@ -34,6 +34,7 @@ export class LojinhaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.exibirMensagemDeSucesso();
     this.atualizarPaginacao();
     this.fetchProdutos();
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
@@ -84,6 +85,26 @@ export class LojinhaComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 
   get rotaDashboard(): string {
