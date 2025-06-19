@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" *ngIf="produto">
     <div class="breadcrumb-container">
         <div class="back-title">
             <img src="assets/icones/arrow-left-green.svg" alt="Back" class="back-icon" (click)="goBack()">
@@ -10,7 +10,7 @@
         <p>{{ produto.valor }}</p>
     </div>
 </div>
-<div class="subMain-container">
+<div class="subMain-container" *ngIf="produto">
     <div class="divisao">
         <p>Dados gerais</p>
         <hr class="line">

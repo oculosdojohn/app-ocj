@@ -24,7 +24,10 @@ export class DetalhesProdutosComponent implements OnInit {
     private lojinhaService: LojinhaService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.carregarProduto();
+    this.atualizarPaginacao();
+  }
 
   goBack() {
     this.location.back();
@@ -48,10 +51,10 @@ export class DetalhesProdutosComponent implements OnInit {
   carregarProduto(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
-      this.lojinhaService.getProdutoById(id).subscribe(
+      this.lojinhaService.getProdutoComHistorico(id).subscribe(
         (response) => {
-          this.produto = response;
-          this.colaboradores = this.produto.colaboradores || [];
+          this.produto = response.produto;
+          this.colaboradores = response.resgates || [];
           this.paginaAtual = 1;
           this.atualizarPaginacao();
           console.log('Dados do produto carregados:', this.produto);

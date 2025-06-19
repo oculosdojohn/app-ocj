@@ -96,4 +96,22 @@ export class LojinhaService {
       })
     );
   }
+
+  getProdutoComHistorico(id: number): Observable<any> {
+    const url = `${this.apiURL}/produto/${id}/historico`;
+    return this.http.get<any>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar o produto com histórico.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
