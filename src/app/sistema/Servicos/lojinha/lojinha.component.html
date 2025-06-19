@@ -34,7 +34,7 @@
     <div class="produtos">
         <div class="produto-card" *ngFor="let produto of produtosPaginados" >
             <div class="produto-image">
-                <img [src]="produto.foto?.documentoUrl" alt="Imagem do Produto">
+                <img [src]="produto.foto?.documentoUrl || 'assets/imgs/defaut-img-produto.png'" alt="Imagem do Produto">
             </div>
             <h3>{{ produto.nome }}</h3>
             <div class="details">

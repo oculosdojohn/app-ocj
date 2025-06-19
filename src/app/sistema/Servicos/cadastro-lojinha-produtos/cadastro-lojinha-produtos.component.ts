@@ -32,6 +32,7 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     private router: Router
   ) {
     this.produtoForm = this.formBuilder.group({
+      foto: [''],
       nome: ['', Validators.required],
       valor: [],
       qtdEstoque: [],
@@ -73,6 +74,10 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('dados', JSON.stringify(produto));
+
+    if (this.selectedImages['photo']) {
+      formData.append('foto', this.selectedImages['photo']);
+    }
 
     if (this.isEditMode && this.produtoId) {
     } else {

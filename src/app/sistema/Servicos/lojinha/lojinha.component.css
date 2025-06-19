@@ -151,7 +151,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(60%);
+  filter: brightness(95%);
+  image-rendering: auto;
 }
 
 .details {
