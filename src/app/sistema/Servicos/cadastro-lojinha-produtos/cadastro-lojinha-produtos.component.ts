@@ -33,6 +33,8 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
   ) {
     this.produtoForm = this.formBuilder.group({
       nome: ['', Validators.required],
+      valor: [],
+      qtdEstoque: [],
     });
   }
 
