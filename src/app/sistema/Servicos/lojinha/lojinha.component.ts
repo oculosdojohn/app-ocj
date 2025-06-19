@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { Produto } from './produto';
+import { LojinhaService } from 'src/app/services/funcionalidades/lojinha.service';
 
 @Component({
   selector: 'app-lojinha',
@@ -16,44 +17,7 @@ export class LojinhaComponent implements OnInit {
   successMessage: string = '';
   messageTimeout: any;
 
-  produtos: Produto[] = [
-    Object.assign(new Produto(), {
-      id: '1',
-      dataCadastro: '2024-06-01',
-      foto: {
-        documentoUrl: 'assets/imgs/bg-login.png',
-        id: 1,
-        name: 'Caneca',
-      },
-      nome: 'Caneca Personalizada',
-      qtdMoedas: 30,
-      qtdEstoque: 10,
-    }),
-    Object.assign(new Produto(), {
-      id: '2',
-      dataCadastro: '2024-06-01',
-      foto: {
-        documentoUrl: 'assets/imgs/bg-login.png',
-        id: 1,
-        name: 'Caneca',
-      },
-      nome: 'Caneca Personalizada',
-      qtdMoedas: 300,
-      qtdEstoque: 10,
-    }),
-    Object.assign(new Produto(), {
-      id: '3',
-      dataCadastro: '2024-06-01',
-      foto: {
-        documentoUrl: 'assets/imgs/bg-login.png',
-        id: 1,
-        name: 'Caneca',
-      },
-      nome: 'Caneca Personalizada',
-      qtdMoedas: 100,
-      qtdEstoque: 10,
-    }),
-  ];
+  produtos: Produto[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
@@ -63,10 +27,15 @@ export class LojinhaComponent implements OnInit {
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private lojinhaService: LojinhaService
+  ) {}
 
   ngOnInit(): void {
     this.atualizarPaginacao();
+    this.fetchProdutos();
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
@@ -81,6 +50,26 @@ export class LojinhaComponent implements OnInit {
   }
 
   onSearch(searchTerm: string) {}
+
+  fetchProdutos(): void {
+    this.isLoading = true;
+
+    this.lojinhaService.getProdutos().subscribe(
+      (produtos: any[]) => {
+        console.log('Produtos retornadas:', produtos);
+        this.produtos = produtos;
+        this.totalPaginas = Math.ceil(
+          this.produtos.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Erro ao carregar produtos:', error);
+        this.isLoading = false;
+      }
+    );
+  }
 
   atualizarPaginacao(): void {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
