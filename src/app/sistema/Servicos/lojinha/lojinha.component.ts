@@ -52,6 +52,22 @@ export class LojinhaComponent implements OnInit {
 
   onSearch(searchTerm: string) {}
 
+  resgatarProduto(produtoId: any): void {
+    const id = Number(produtoId);
+    this.isLoading = true;
+    this.lojinhaService.resgatarProduto(id).subscribe({
+      next: (res) => {
+        this.showMessage('success', 'Produto resgatado com sucesso!');
+        this.fetchProdutos();
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.showMessage('error', err.message || 'Erro ao resgatar produto.');
+        this.isLoading = false;
+      },
+    });
+  }
+
   fetchProdutos(): void {
     this.isLoading = true;
 
