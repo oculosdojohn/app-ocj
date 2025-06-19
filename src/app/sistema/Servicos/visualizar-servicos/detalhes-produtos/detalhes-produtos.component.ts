@@ -53,6 +53,7 @@ export class DetalhesProdutosComponent implements OnInit {
     if (id) {
       this.lojinhaService.getProdutoComHistorico(id).subscribe(
         (response) => {
+          console.log('Dados do produto recebidos:', response);
           this.produto = response.produto;
           this.colaboradores = (response.resgates || []).map(
             (resgate: any) => ({
@@ -62,6 +63,7 @@ export class DetalhesProdutosComponent implements OnInit {
               dataEntrega: resgate.dataEntrega || '-',
             })
           );
+          console.log('Colaboradores recebidos:', this.colaboradores);
           this.paginaAtual = 1;
           this.atualizarPaginacao();
           console.log('Dados do produto carregados:', this.produto);

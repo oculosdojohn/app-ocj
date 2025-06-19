@@ -52,10 +52,10 @@
                 </div>
             </div>
             <div class="item-data">
-                <p>{{ colaborador.dataResgate || '-' }}</p>
+                <p>{{ colaborador.dataResgate ? (colaborador.dataResgate | date:"dd/MM/yyyy 'às' HH:mm") : '-' }}</p>
             </div>
             <div class="item-data">
-                <p>{{ colaborador.dataEntrega || '-' }}</p>
+                <p>{{ colaborador.dataEntrega ? (colaborador.dataEntrega | date:"dd/MM/yyyy 'às' HH:mm") : '-' }}</p>
             </div>
         </div>
     </div>
