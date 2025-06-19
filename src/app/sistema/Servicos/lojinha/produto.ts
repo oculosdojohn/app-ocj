@@ -3,7 +3,7 @@ export class Produto {
   dataCadastro!: string;
   foto!: { documentoUrl: string; id: number; name: string } | null;
   nome!: string;
-  qtdMoedas!: number;
+  valor!: number;
   qtdEstoque!: number;
   colaboradores?: {
     username: string;
@@ -13,11 +13,9 @@ export class Produto {
 
   toJson?(): string {
     return JSON.stringify({
-      id: this.id,
-      dataCadastro: this.dataCadastro,
       foto: this.foto,
       nome: this.nome,
-      qtdMoedas: this.qtdMoedas,
+      valor: this.valor,
       qtdEstoque: this.qtdEstoque,
     });
   }
