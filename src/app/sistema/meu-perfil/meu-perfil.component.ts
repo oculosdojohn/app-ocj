@@ -29,6 +29,11 @@ export class MeuPerfilComponent implements OnInit {
   selectedImageUrl: string | ArrayBuffer | null = null;
 
   showChangePassword = false;
+  showForgotPassword: boolean = false;
+  passwordVisible: { [key: string]: boolean } = {
+    password: false,
+    confirmPassword: false,
+  };
 
   constructor(
     private location: Location,
@@ -170,5 +175,16 @@ export class MeuPerfilComponent implements OnInit {
 
   changePassword() {
     this.showChangePassword = false;
+  }
+
+  togglePasswordVisibility(field: string) {
+    this.passwordVisible[field] = !this.passwordVisible[field];
+    const passwordInput = document.querySelector(`input[name="${field}"]`);
+    if (passwordInput) {
+      passwordInput.setAttribute(
+        'type',
+        this.passwordVisible[field] ? 'text' : 'password'
+      );
+    }
   }
 }

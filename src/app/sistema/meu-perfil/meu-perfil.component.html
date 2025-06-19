@@ -112,19 +112,31 @@
       </div>
 
       <!-- Formulário de alteração de senha -->
-      <div class="change-password-form" *ngIf="showChangePassword">
+      <div class="change-password-form form-group" *ngIf="showChangePassword">
         <form (ngSubmit)="changePassword()" #changePasswordForm="ngForm">
-          <div class="form-group">
-            <label for="currentPassword">Senha atual</label>
-            <input type="password" id="currentPassword" name="currentPassword" class="input-perfil" placeholder="Insira sua senha atual" required>
+          <div class="input-senha">
+            <label for="oldPassword">Senha atual</label>
+            <input [type]="passwordVisible['oldPassword'] ? 'text' : 'password'" id="oldPassword" name="oldPassword" class="input-perfil" placeholder="Insira sua senha atual" required>
+            <div class="input-icon" type="button" (click)="togglePasswordVisibility('oldPassword')">
+                <img *ngIf="!passwordVisible['oldPassword']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                <img *ngIf="passwordVisible['oldPassword']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
+            </div>
           </div>
-          <div class="form-group">
+          <div class="input-senha">
             <label for="newPassword">Nova senha</label>
-            <input type="password" id="newPassword" name="newPassword" class="input-perfil" placeholder="Insira sua nova senha" required>
+            <input [type]="passwordVisible['newPassword'] ? 'text' : 'password'" id="newPassword" name="newPassword" class="input-perfil" placeholder="Insira sua nova senha" required>
+            <div class="input-icon" type="button" (click)="togglePasswordVisibility('newPassword')">
+                <img *ngIf="!passwordVisible['newPassword']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                <img *ngIf="passwordVisible['newPassword']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
+            </div>
           </div>
-          <div class="form-group">
+          <div class="input-senha">
             <label for="confirmPassword">Confirmar nova senha</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" class="input-perfil" placeholder="Confirme sua nova senha" required>
+            <input [type]="passwordVisible['confirmPassword'] ? 'text' : 'password'" id="confirmPassword" name="confirmPassword" class="input-perfil" placeholder="Confirme sua nova senha" required>
+            <div class="input-icon" type="button" (click)="togglePasswordVisibility('confirmPassword')">
+                <img *ngIf="!passwordVisible['confirmPassword']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
+                <img *ngIf="passwordVisible['confirmPassword']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>
+            </div>
           </div>
           <div class="container-btn">
             <button type="button" class="btn btn-line" (click)="toggleChangePassword()">Cancelar</button>
