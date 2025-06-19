@@ -86,6 +86,44 @@
   max-width: 100%;
 }
 
+/* info produto */
+.produto-header-info {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.produto-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #f5f5f5;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #e0e0e0;
+}
+
+/* moedas */
+.value-coin {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.value-coin img {
+  width: 24px;
+  height: auto;
+}
+
+.value-coin span {
+  font-size: 20px;
+  color: #CB471E;
+  font-weight: 500;
+  margin: 0;
+}
+
 /* Divisão */
 .divisao {
   width: 100%;

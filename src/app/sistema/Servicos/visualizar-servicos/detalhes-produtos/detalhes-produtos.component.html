@@ -5,9 +5,19 @@
             <span>Detalhes do produto</span>
         </div>
     </div>
-    <div class="actions">
-        <h1>{{ produto.nome }}</h1>
-        <p>{{ produto.valor }}</p>
+    <div class="produto-header-info">
+        <div>
+            <img class="produto-img" [src]="produto.foto?.documentoUrl || 'assets/imgs/defaut-img-produto.png'" alt="Foto do produto"/>
+        </div>
+        <div class="actions">
+            <h1>{{ produto.nome }}</h1>
+            <div class="value-coin">
+                <span>
+                    <img src="assets/icones/coin.svg" alt="Moeda">
+                    {{ produto.valor }} Moedas
+                </span>
+            </div>
+        </div>
     </div>
 </div>
 <div class="subMain-container" *ngIf="produto">
@@ -42,7 +52,10 @@
                 </div>
             </div>
             <div class="item-data">
-                <p>{{ colaborador.dataResgateProduto || '-' }}</p>
+                <p>{{ colaborador.dataResgate || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <p>{{ colaborador.dataEntrega || '-' }}</p>
             </div>
         </div>
     </div>

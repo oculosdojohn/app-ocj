@@ -54,7 +54,14 @@ export class DetalhesProdutosComponent implements OnInit {
       this.lojinhaService.getProdutoComHistorico(id).subscribe(
         (response) => {
           this.produto = response.produto;
-          this.colaboradores = response.resgates || [];
+          this.colaboradores = (response.resgates || []).map(
+            (resgate: any) => ({
+              username: resgate.usuario?.username || '-',
+              foto: resgate.usuario?.foto || null,
+              dataResgate: resgate.dataResgate || '-',
+              dataEntrega: resgate.dataEntrega || '-',
+            })
+          );
           this.paginaAtual = 1;
           this.atualizarPaginacao();
           console.log('Dados do produto carregados:', this.produto);
