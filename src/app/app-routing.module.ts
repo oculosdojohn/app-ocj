@@ -30,7 +30,7 @@ const routes: Routes = [
         path: 'dashboard-colaborador',
         component: PainelColaboradorComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['ROLE_COLABORADOR', 'ROLE_VENDEDOR'] }
+        data: { roles: ['ROLE_CONSULTOR_VENDAS', 'ROLE_VENDEDOR', 'ROLE_COBRADOR', 'ROLE_FINANCEIRO', 'ROLE_ESTAGIARIO'] }
       },
       {
         path: 'dashboard-gerente',

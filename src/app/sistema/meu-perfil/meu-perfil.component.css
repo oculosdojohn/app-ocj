@@ -289,6 +289,25 @@ input:checked + .slider:before {
   font-size: 14px;
 }
 
+.input-senha {
+  position: relative;
+  padding-bottom: 16px;
+  border-radius: 8px;
+}
+
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: 52%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.input-icon img {
+  width: 20px;
+  height: 20px;
+}
+
 /* Alert styles */
 .mensg-repostas {
   display: flex;
@@ -308,7 +327,7 @@ input:checked + .slider:before {
 }
 .alert-success {
   background: #c8f8c2;
-  color: #40812D;
+  color: #40812d;
   border: 1px solid #bae2b6;
   font-weight: 500;
 }
@@ -335,7 +354,7 @@ input:checked + .slider:before {
   bottom: 0;
   height: 3px;
   width: 100%;
-  background: #40812D;
+  background: #40812d;
   opacity: 0.5;
   pointer-events: none;
 }

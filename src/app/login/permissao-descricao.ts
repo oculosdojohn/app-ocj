@@ -7,5 +7,8 @@ export const PermissaoDescricoes: Record<Permissao, string> = {
     [Permissao.GERENTE]: 'Gerente',
     [Permissao.SUPERVISOR]: 'Supervisor',
     [Permissao.VENDEDOR]: 'Vendedor',
-    [Permissao.COLABORADOR]: 'Colaborador'
+    [Permissao.CONSULTOR_VENDAS]: 'Consultor de Vendas',
+    [Permissao.FINANCEIRO]: 'Financeiro',
+    [Permissao.COBRADOR]: 'Cobrador',
+    [Permissao.ESTAGIARIO]: 'Estagiário',
 };

@@ -71,7 +71,10 @@ export class LoginComponent implements OnInit {
             break;
           case Permissao.SUPERVISOR:
           case Permissao.VENDEDOR:
-          case Permissao.COLABORADOR:
+          case Permissao.CONSULTOR_VENDAS:
+          case Permissao.FINANCEIRO:
+          case Permissao.COBRADOR:
+          case Permissao.ESTAGIARIO:
             this.router.navigate(['/usuario/dashboard-colaborador']);
             break;
           default:

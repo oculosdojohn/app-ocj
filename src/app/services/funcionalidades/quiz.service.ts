@@ -1,55 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Produto } from 'src/app/sistema/Servicos/lojinha/produto';
+import { Quiz } from 'src/app/sistema/Servicos/cursos/quiz';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LojinhaService {
-  apiURL: string = environment.apiURLBase + '/api/lojinha';
+export class QuizService {
+  apiURL: string = environment.apiURLBase + '/api/quizz';
 
   constructor(private http: HttpClient) {}
 
-  cadastrarProduto(formData: FormData): Observable<any> {
-    console.log('Dados enviados para o backend:');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
-
-    return this.http.post<any>(this.apiURL, formData).pipe(
-      map((response) => response),
-      catchError((error: HttpErrorResponse) => {
-        console.error('Erro bruto recebido do servidor:', error);
-
-        let errorMessage = 'Erro ao salvar o produto.';
-
-        if (error.error instanceof ErrorEvent) {
-          errorMessage = `Erro: ${error.error.message}`;
-        } else {
-          if (typeof error.error === 'string') {
-            errorMessage = error.error;
-          } else if (error.error?.message) {
-            errorMessage = error.error.message;
-          } else if (error.error?.errors) {
-            const firstErrorKey = Object.keys(error.error.errors)[0];
-            errorMessage = error.error.errors[firstErrorKey];
-          }
-        }
-
-        console.error('Mensagem de erro processada:', errorMessage);
-        return throwError(() => new Error(errorMessage));
-      })
-    );
-  }
-
-  getProdutos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(this.apiURL).pipe(
+  cadastrarQuiz(quiz: Quiz): Observable<Quiz> {
+    console.log('Dados enviados para o backend:', quiz);
+    return this.http.post<Quiz>(this.apiURL, quiz).pipe(
       map((response) => response),
       catchError((error) => {
-        let errorMessage = 'Erro ao buscar os produtos.';
+        let errorMessage = 'Erro ao salvar o quiz.';
 
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
@@ -62,12 +31,12 @@ export class LojinhaService {
     );
   }
 
-  getProdutoById(id: number): Observable<Produto> {
+  getQuizById(id: number): Observable<Quiz> {
     const url = `${this.apiURL}/${id}`;
-    return this.http.get<Produto>(url).pipe(
+    return this.http.get<Quiz>(url).pipe(
       map((response) => response),
       catchError((error) => {
-        let errorMessage = 'Erro ao buscar o produto.';
+        let errorMessage = 'Erro ao buscar o quiz.';
 
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
@@ -80,11 +49,29 @@ export class LojinhaService {
     );
   }
 
-  deleteProdutoById(id: string): Observable<void> {
+  atualizarQuiz(id: string, quiz: Quiz): Observable<Quiz> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.put<Quiz>(url, quiz).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao atualizar o quiz.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  deleteQuizById(id: string): Observable<void> {
     const url = `${this.apiURL}/${id}`;
     return this.http.delete<void>(url).pipe(
       catchError((error) => {
-        let errorMessage = 'Erro ao deletar a produto.';
+        let errorMessage = 'Erro ao deletar o quiz.';
 
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
@@ -97,30 +84,13 @@ export class LojinhaService {
     );
   }
 
-  getProdutoComHistorico(id: number): Observable<any> {
-    const url = `${this.apiURL}/produto/${id}/historico`;
-    return this.http.get<any>(url).pipe(
+  obterQuizPorModulo(modulo: string): Observable<Quiz[]> {
+    const url = `${this.apiURL}/modulo/${modulo}`;
+    return this.http.get<Quiz[]>(url).pipe(
       map((response) => response),
       catchError((error) => {
-        let errorMessage = 'Erro ao buscar o produto com histórico.';
+        let errorMessage = 'Erro ao obter os quizzes.';
 
-        if (error.error instanceof ErrorEvent) {
-          errorMessage = `Erro: ${error.error.message}`;
-        } else if (error.status) {
-          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
-        }
-        console.error(errorMessage);
-        return throwError(() => new Error(errorMessage));
-      })
-    );
-  }
-
-  resgatarProduto(produtoId: number): Observable<any> {
-    const url = `${this.apiURL}/produto/${produtoId}/resgate`;
-    return this.http.post<any>(url, {}).pipe(
-      map((response) => response),
-      catchError((error) => {
-        let errorMessage = 'Erro ao resgatar o produto.';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {

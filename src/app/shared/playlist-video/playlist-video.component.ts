@@ -13,6 +13,7 @@ export class PlaylistVideoComponent implements OnInit {
   @Input() videoAtualIndex: number = 0;
   @Output() aulaSelecionada = new EventEmitter<{ aula: Aula; index: number }>();
   @Input() videosAssistidos: boolean[] = [];
+  @Output() quizClicked = new EventEmitter<void>();
 
   playlistAberta: boolean = true;
   isModalOpen = false;
@@ -49,5 +50,9 @@ export class PlaylistVideoComponent implements OnInit {
 
   onVideoLoaded(url: string): void {
     console.log('Vídeo carregado:', url);
+  }
+
+  abrirQuiz() {
+    this.quizClicked.emit();
   }
 }

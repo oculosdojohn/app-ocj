@@ -6,6 +6,7 @@ import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Aula } from '../cursos/aulas';
 import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
 import { ModalQuizzService } from 'src/app/services/modal/modal-quizz.service';
+import { QuizService } from 'src/app/services/funcionalidades/quiz.service';
 
 @Component({
   selector: 'app-modulo-curso',
@@ -26,7 +27,8 @@ export class ModuloCursoComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private cursosService: CursosService,
-    private modalQuizzService: ModalQuizzService
+    private modalQuizzService: ModalQuizzService,
+    private quizService: QuizService
   ) {}
 
   ngOnInit(): void {
@@ -104,46 +106,31 @@ export class ModuloCursoComponent implements OnInit {
   }
 
   abrirModalQuiz(): void {
-    this.modalQuizzService.openModal({
-      title: 'Quiz da Aula',
-      questions: [
-        {
-          enunciado: 'Qual a cor do céu?',
-          alternativas: ['Azul', 'Verde', 'Vermelho', 'Amarelo'],
-          resposta: 'A',
-        },
-        {
-          enunciado: 'Quanto é 2 + 2?',
-          alternativas: ['3', '4', '5', '6'],
-          resposta: 'B',
-        },
-        {
-          enunciado: 'Qual o maior planeta do sistema solar?',
-          alternativas: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
-          resposta: 'C',
-        },
-        {
-          enunciado: 'Quem escreveu "Dom Casmurro"?',
-          alternativas: [
-            'Machado de Assis',
-            'José de Alencar',
-            'Carlos Drummond',
-            'Clarice Lispector',
-          ],
-          resposta: 'A',
-        },
-        {
-          enunciado: 'Qual é o símbolo químico da água?',
-          alternativas: ['O2', 'H2O', 'CO2', 'NaCl'],
-          resposta: 'B',
-        },
-        {
-          enunciado: 'Em que continente fica o Egito?',
-          alternativas: ['Ásia', 'Europa', 'África', 'América'],
-          resposta: 'C',
-        },
-      ],
-      size: 'md',
+    this.quizService.obterQuizPorModulo(this.modulo!).subscribe({
+      next: (quizzes) => {
+        if (quizzes && quizzes.length > 0) {
+          const quiz = quizzes[0];
+          console.log(quiz.alternativas);
+          const questions = quizzes.map((quiz) => ({
+            enunciado: quiz.enunciado,
+            alternativas: quiz.alternativas.map((a) => a.descricao),
+            resposta: quiz.alternativas.find((a) => a.respostaCerta)
+              ?.alternativa,
+          }));
+          const moedas = quizzes.map(q => q.valorMoedas || 0);
+          this.modalQuizzService.openModal({
+            questions,
+            moedas,
+            size: 'md',
+          });
+        } else {
+          this.modalQuizzService.openModal({ questions: [] });
+        }
+      },
+      error: (err) => {
+        this.modalQuizzService.openModal({ questions: [] });
+        console.error('Erro ao buscar quizzes do módulo:', err);
+      },
     });
   }
 }

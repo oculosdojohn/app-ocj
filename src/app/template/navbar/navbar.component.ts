@@ -54,8 +54,11 @@ export class NavbarComponent implements OnInit {
 
   isColaborador(): boolean {
     return (
-      this.cargoUsuario === 'ROLE_COLABORADOR' ||
-      this.cargoUsuario === 'ROLE_VENDEDOR'
+      this.cargoUsuario === Permissao.CONSULTOR_VENDAS ||
+      this.cargoUsuario === Permissao.VENDEDOR ||
+      this.cargoUsuario === Permissao.FINANCEIRO ||
+      this.cargoUsuario === Permissao.COBRADOR ||
+      this.cargoUsuario === Permissao.ESTAGIARIO
     );
   }
 

@@ -13,18 +13,19 @@
                       label="Selecione um módulo"
                       [customStyles]="{'background': '#FFFFFF'}"
                       [options]="modulo"
-                      [(selectedValue)]="selectedModulo">
+                      [(selectedValue)]="selectedModulo"
+                      formControlName="modulo">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
-                    <label for="valor">Valor em moedas</label>
-                    <input type="number" id="valor" name="valor" class="form-control" placeholder="Digite o valor" maxlength="250" required>
+                    <label for="valorMoedas">Valor em moedas</label>
+                    <input type="number" id="valorMoedas" name="valorMoedas" formControlName="valorMoedas" class="form-control" placeholder="Digite o valor" maxlength="250" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="enunciado">Enunciado</label>
-                <textarea type="text" id="enunciado" name="enunciado" class="form-control" placeholder="Digite o nome" rows="3" maxlength="2000" required></textarea>
+                <textarea type="text" id="enunciado" name="enunciado" formControlName="enunciado" class="form-control" placeholder="Digite o nome" rows="3" maxlength="2000" required></textarea>
             </div>
 
             <div class="form-group">
@@ -56,4 +57,15 @@
             </div>
         </form>
     </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
+    
+    <app-loading *ngIf="isLoading"></app-loading>
 </div>

@@ -8,29 +8,49 @@
         <div class="breadcrumb">
             <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Lojinha do John</span>
         </div>
-        <button
-        class="btn-cadastrar"
-        *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
-        (click)="cadastrarProduto()">
-        Cadastrar Produto
-      </button>
+        <div class="actions">
+            <div class="search-container">
+                <app-search (searchChange)="onSearch($event)"></app-search>
+            </div>
+            <button
+                class="btn-cadastrar"
+                *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
+                (click)="cadastrarProduto()">
+                Cadastrar Produto
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
     </div>
 
     <div class="produtos">
         <div class="produto-card" *ngFor="let produto of produtosPaginados" >
             <div class="produto-image">
-                <img [src]="produto.foto?.documentoUrl" alt="Imagem do Produto">
+                <img [src]="produto.foto?.documentoUrl || 'assets/imgs/defaut-img-produto.png'" alt="Imagem do Produto">
             </div>
             <h3>{{ produto.nome }}</h3>
             <div class="details">
                 <div class="value-coin">
                     <span>
                         <img src="assets/icones/coin.svg" alt="Moeda">
-                        {{ produto.qtdMoedas }} Moedas
+                        {{ produto.valor }} Moedas
                     </span>
                 </div>
             </div>        
-            <button class="access-btn">Resgatar Produto</button>
+            <div>
+                <button class="resgate-btn" (click)="resgatarProduto(produto.id)">Resgatar Produto</button>
+                <button class="accesso-btn" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH" (click)="detalhesProduto(produto.id)">
+                    Acessar Produto
+                </button>
+            </div>
         </div>
     </div>
 

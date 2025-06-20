@@ -1,1 +1,71 @@
-<p>detalhes-produtos works!</p>
+<div class="main-container" *ngIf="produto">
+    <div class="breadcrumb-container">
+        <div class="back-title">
+            <img src="assets/icones/arrow-left-green.svg" alt="Back" class="back-icon" (click)="goBack()">
+            <span>Detalhes do produto</span>
+        </div>
+    </div>
+    <div class="produto-header-info">
+        <div>
+            <img class="produto-img" [src]="produto.foto?.documentoUrl || 'assets/imgs/defaut-img-produto.png'" alt="Foto do produto"/>
+        </div>
+        <div class="actions">
+            <h1>{{ produto.nome }}</h1>
+            <div class="value-coin">
+                <span>
+                    <img src="assets/icones/coin.svg" alt="Moeda">
+                    {{ produto.valor }} Moedas
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="subMain-container" *ngIf="produto">
+    <div class="divisao">
+        <p>Dados gerais</p>
+        <hr class="line">
+    </div>
+
+    <div class="data-itens">
+        <div class="item-data">
+            <label>Quantidade em estoque</label>
+            <p>{{ produto.qtdEstoque || '-' }}</p>
+        </div>
+    </div>
+
+    <div class="divisao">
+        <p>Funcionários que compraram</p>
+        <hr class="line">
+    </div>
+
+    <div class="container-scroll">
+        <div class="data-grid-quad" *ngFor="let colaborador of colaboradoresPaginados">
+            <div class="item-data">
+                <div class="perfil">
+                    <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                        <img [src]="colaborador.foto?.documentoUrl" alt="Foto do colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+                        <ng-template #defaultAvatar>
+                            <span>{{ getInitial(colaborador.username) }}</span>
+                        </ng-template>
+                    </div>
+                    <span>{{ colaborador.username || '-' }}</span>
+                </div>
+            </div>
+            <div class="item-data">
+                <p>{{ colaborador.dataResgate ? (colaborador.dataResgate | date:"dd/MM/yyyy 'às' HH:mm") : '-' }}</p>
+            </div>
+            <div class="item-data">
+                <p>{{ colaborador.dataEntrega ? (colaborador.dataEntrega | date:"dd/MM/yyyy 'às' HH:mm") : '-' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
+</div>

@@ -43,6 +43,7 @@
   font-size: 1rem;
   color: #666261;
   margin: 0;
+  width: 100%;
 }
 
 .breadcrumb a {
@@ -61,6 +62,19 @@
   color: #008000;
   font-size: 16px;
   font-weight: 600;
+}
+
+/* buscar e button */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 16px;
+}
+
+.search-container {
+  width: 400px;
 }
 
 /* button */
@@ -137,7 +151,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(60%);
+  filter: brightness(95%);
+  image-rendering: auto;
 }
 
 .details {
@@ -173,7 +188,7 @@
 }
 
 /* botão */
-.access-btn {
+.resgate-btn {
   display: block;
   width: calc(100% - 30px);
   margin: 15px auto;
@@ -187,8 +202,27 @@
   cursor: pointer;
 }
 
-.access-btn:hover {
+.resgate-btn:hover {
   background-color: #0056b3;
+}
+
+.accesso-btn {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 15px auto;
+  padding: 10px;
+  border: 1px solid #007bff;
+  color: #007bff;
+  background: none;
+  text-align: center;
+  border-radius: 24px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.accesso-btn:hover {
+  border: 1px solid #0056b3;
+  background: #0057b317;
 }
 
 /* Paginação */
@@ -216,6 +250,18 @@
   .produtos {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -224,7 +270,89 @@
     padding: 20px;
   }
 
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+  .search-container {
+    width: 100%;
+  }
+  .btn-cadastrar {
+    width: 100%;
+  }
+  .breadcrumb {
+    width: 100%;
+  }
+
   .produtos {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  margin-top: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background-color: #007bff;
+  animation: progress-animation 2s infinite linear;
+}
+
+@keyframes progress-animation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.progress-bar-sucess {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: #40812d;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes progressBarAnim {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
   }
 }

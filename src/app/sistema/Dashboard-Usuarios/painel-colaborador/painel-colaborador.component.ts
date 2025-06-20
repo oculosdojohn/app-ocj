@@ -27,7 +27,7 @@ export class PainelColaboradorComponent implements OnInit {
       private apiService: ServicesApisService,
       private motivationalMessagesService: MotivationalMessagesService,
       private cdr: ChangeDetectorRef,
-      private usuarioService: AuthService   // já existia, só renomeei pra ficar claro
+      private usuarioService: AuthService
     ) {}
   
     ngOnInit(): void {

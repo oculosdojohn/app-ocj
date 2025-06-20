@@ -17,6 +17,14 @@
                 <img src="assets/icones/cursos/correto-line.svg" class="check-icon" *ngIf="!videosAssistidos[i]">
                 <img src="assets/icones/cursos/correto-fill.svg" class="check-icon" *ngIf="videosAssistidos[i]">
             </div>
+
+            <div class="aula-card quiz-card">
+                <div class="titulo-quiz">
+                    <img src="assets/icones/cursos/quizz-icon.svg" alt="Quiz" />
+                    <h4>Quiz</h4>
+                </div>
+                <button class="btn-acessar" (click)="abrirQuiz()">Acessar Quiz</button>
+            </div>
         </div>
     </div>
 </div>

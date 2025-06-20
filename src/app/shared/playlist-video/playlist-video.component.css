@@ -31,7 +31,7 @@
   font-size: 24px;
   font-weight: 400;
   margin: 0;
-  color: #CB4417;
+  color: #cb4417;
 }
 
 .playlist-title span {
@@ -130,6 +130,58 @@
 
 .toggle-button .arrow-down {
   transform: rotate(0deg);
+}
+
+/* Estilo para o card do quiz */
+.quiz-card {
+  background: #f7fafc;
+  border-radius: 8px;
+  margin-top: 18px;
+  padding: 18px 14px 14px 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  justify-content: space-between;
+  transition: box-shadow 0.2s;
+}
+
+.titulo-quiz {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.quiz-card h4 {
+  margin: 0;
+  color: #163f23;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.quiz-card p {
+  margin: 0 0 14px 0;
+  color: #444;
+  font-size: 0.98rem;
+}
+
+.quiz-card .btn-acessar {
+  background: #0071b9;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(44, 187, 99, 0.08);
+}
+
+.quiz-card .btn-acessar:hover {
+  background: #008adf;
 }
 
 @media screen and (max-width: 920px) {

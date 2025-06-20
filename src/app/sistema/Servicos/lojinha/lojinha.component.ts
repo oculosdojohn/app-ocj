@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { Produto } from './produto';
+import { LojinhaService } from 'src/app/services/funcionalidades/lojinha.service';
 
 @Component({
   selector: 'app-lojinha',
@@ -10,49 +11,13 @@ import { Produto } from './produto';
   styleUrls: ['./lojinha.component.css'],
 })
 export class LojinhaComponent implements OnInit {
+  termoBusca: string = '';
   mensagemBusca: string = '';
   isLoading = false;
   successMessage: string = '';
   messageTimeout: any;
 
-  produtos: Produto[] = [
-    Object.assign(new Produto(), {
-      id: '1',
-      dataCadastro: '2024-06-01',
-      foto: {
-        documentoUrl: 'assets/imgs/bg-login.png',
-        id: 1,
-        name: 'Caneca',
-      },
-      nome: 'Caneca Personalizada',
-      qtdMoedas: 30,
-      qtdEstoque: 10,
-    }),
-    Object.assign(new Produto(), {
-      id: '1',
-      dataCadastro: '2024-06-01',
-      foto: {
-        documentoUrl: 'assets/imgs/bg-login.png',
-        id: 1,
-        name: 'Caneca',
-      },
-      nome: 'Caneca Personalizada',
-      qtdMoedas: 300,
-      qtdEstoque: 10,
-    }),
-    Object.assign(new Produto(), {
-      id: '1',
-      dataCadastro: '2024-06-01',
-      foto: {
-        documentoUrl: 'assets/imgs/bg-login.png',
-        id: 1,
-        name: 'Caneca',
-      },
-      nome: 'Caneca Personalizada',
-      qtdMoedas: 100,
-      qtdEstoque: 10,
-    }),
-  ];
+  produtos: Produto[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
@@ -62,10 +27,16 @@ export class LojinhaComponent implements OnInit {
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private lojinhaService: LojinhaService
+  ) {}
 
   ngOnInit(): void {
+    this.exibirMensagemDeSucesso();
     this.atualizarPaginacao();
+    this.fetchProdutos();
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
@@ -73,6 +44,48 @@ export class LojinhaComponent implements OnInit {
 
   cadastrarProduto(): void {
     this.router.navigate(['/usuario/cadastro-lojinha-produtos']);
+  }
+
+  detalhesProduto(id: string): void {
+    this.router.navigate(['/usuario/detalhes-produto', id]);
+  }
+
+  onSearch(searchTerm: string) {}
+
+  resgatarProduto(produtoId: any): void {
+    const id = Number(produtoId);
+    this.isLoading = true;
+    this.lojinhaService.resgatarProduto(id).subscribe({
+      next: (res) => {
+        this.showMessage('success', 'Produto resgatado com sucesso!');
+        this.fetchProdutos();
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.showMessage('error', err.message || 'Erro ao resgatar produto.');
+        this.isLoading = false;
+      },
+    });
+  }
+
+  fetchProdutos(): void {
+    this.isLoading = true;
+
+    this.lojinhaService.getProdutos().subscribe(
+      (produtos: any[]) => {
+        console.log('Produtos retornadas:', produtos);
+        this.produtos = produtos;
+        this.totalPaginas = Math.ceil(
+          this.produtos.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Erro ao carregar produtos:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   atualizarPaginacao(): void {
@@ -90,13 +103,36 @@ export class LojinhaComponent implements OnInit {
     this.atualizarPaginacao();
   }
 
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
   get rotaDashboard(): string {
     if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
     if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
     if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
     if (
-      this.cargoUsuario === Permissao.COLABORADOR ||
-      this.cargoUsuario === Permissao.VENDEDOR
+      this.cargoUsuario === Permissao.CONSULTOR_VENDAS ||
+      this.cargoUsuario === Permissao.VENDEDOR ||
+      this.cargoUsuario === Permissao.FINANCEIRO ||
+      this.cargoUsuario === Permissao.COBRADOR ||
+      this.cargoUsuario === Permissao.ESTAGIARIO
     )
       return '/dashboard-colaborador';
     return '/login';

@@ -39,7 +39,6 @@
               <span>{{ videoAtual?.qtdMoedas }} moedas</span>
             </div>
         </div>
-        <button class="btn-quiz-teste" (click)="abrirModalQuiz()">Abrir Quiz (Teste)</button>
         <div class="arquivos-aula">
           <h4>Material da Aula</h4>
           <hr>
@@ -65,7 +64,8 @@
         [titulo]="descricao"
         [videoAtualIndex]="videoAtualIndex"
         [videosAssistidos]="videosAssistidos"
-        (aulaSelecionada)="reproduzirVideo($event.aula, $event.index)">
+        (aulaSelecionada)="reproduzirVideo($event.aula, $event.index)"
+        (quizClicked)="abrirModalQuiz()">
       </app-playlist-video>
     </div>
   </div>

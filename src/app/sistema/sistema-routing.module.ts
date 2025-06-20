@@ -57,7 +57,7 @@ const routes: Routes = [
     children: [
       // telas de dashboard por perfil
       { path: 'dashboard-admin', component: PainelAdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] } },
-      { path: 'dashboard-colaborador', component: PainelColaboradorComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_COLABORADOR', 'ROLE_VENDEDOR'] } },
+      { path: 'dashboard-colaborador', component: PainelColaboradorComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_CONSULTOR_VENDAS', 'ROLE_VENDEDOR', 'ROLE_COBRADOR', 'ROLE_FINANCEIRO', 'ROLE_ESTAGIARIO'] } },
       { path: 'dashboard-gerente', component: PainelGerenteComponent ,canActivate: [AuthGuard], data: { roles: ['GERENTE_GERAL', 'ROLE_GERENTE',  'SUPERVISOR'] } },
       { path: 'dashboard-rh', component: PainelRhComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RH'] } },
       { path: 'meu-perfil', component: MeuPerfilComponent },
@@ -107,6 +107,7 @@ const routes: Routes = [
       { path: 'cadastro-quizz', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'cadastro-quizz/:id', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'buscar-quizzes', component: BuscarQuizzesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'detalhes-produto/:id', component: DetalhesProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },
