@@ -68,7 +68,22 @@ export class ModuloCursoComponent implements OnInit {
   }
 
   marcarComoAssistido(index: number): void {
+    if (this.videosAssistidos[index]) return;
+
+    const aula = this.aulas[index];
+    if (!aula) return;
+
     this.videosAssistidos[index] = true;
+
+    // Converta para number aqui
+    this.cursosService.aulaVisualizada(Number(aula.id), aula.modulo).subscribe({
+      next: () => {
+        console.log(`Aula ${aula.id} marcada como assistida no backend.`);
+      },
+      error: (err) => {
+        console.error('Erro ao marcar aula como assistida:', err);
+      },
+    });
   }
 
   onVideoEnded(): void {
@@ -92,6 +107,7 @@ export class ModuloCursoComponent implements OnInit {
       (aulas: Aula[]) => {
         console.log('Aulas recebidas:', aulas);
         this.aulas = aulas;
+        this.videosAssistidos = aulas.map(aula => !!aula.visualizado);
         if (this.aulas.length > 0) {
           this.videoAtual = this.aulas[0];
           this.videoAtualIndex = 0;
@@ -101,6 +117,7 @@ export class ModuloCursoComponent implements OnInit {
       (error) => {
         console.error('Erro ao buscar aulas:', error);
         this.aulas = [];
+        this.videosAssistidos = [];
       }
     );
   }
@@ -117,7 +134,7 @@ export class ModuloCursoComponent implements OnInit {
             resposta: quiz.alternativas.find((a) => a.respostaCerta)
               ?.alternativa,
           }));
-          const moedas = quizzes.map(q => q.valorMoedas || 0);
+          const moedas = quizzes.map((q) => q.valorMoedas || 0);
           this.modalQuizzService.openModal({
             questions,
             moedas,

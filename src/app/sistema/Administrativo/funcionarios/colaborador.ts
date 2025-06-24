@@ -59,6 +59,7 @@ export class Colaborador {
   emailPessoal!: string;
   password!: string;
   confirmPassword!: string;
+  qtdMoedas!: number;
 
   toJson(): string {
     return JSON.stringify({

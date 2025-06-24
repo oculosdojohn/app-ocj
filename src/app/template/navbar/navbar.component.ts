@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
 
   nomeUsuario: string = '';
   fotoUsuario: string = '';
+  qtdMoedas: number = 0;
 
   isGeralMenuOpen = false;
   isRHMenuOpen = false;
@@ -40,6 +41,7 @@ export class NavbarComponent implements OnInit {
         this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
         this.permissaoUsuario = PermissaoDescricoes[this.cargoUsuario];
         this.fotoUsuario = usuario.foto?.documentoUrl || '';
+        this.qtdMoedas = usuario.qtdMoedas || 0;
         console.log('Permissão atribuída (cargoUsuario):', this.cargoUsuario);
       },
       (error) => {
