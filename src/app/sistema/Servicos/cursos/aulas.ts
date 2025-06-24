@@ -9,6 +9,7 @@ export class Aula {
   qtdMoedas!: string;
   video!: { documentoUrl: string; id: number };
   arquivos!: { documentoUrl: string; id: number; name: string }[];
+  visualizado!: boolean;
 
   toJson(): string {
     return JSON.stringify({
