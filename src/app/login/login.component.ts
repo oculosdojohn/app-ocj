@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
             response.authorities.length > 0 ? response.authorities[0] : null,
           foto: response.foto || '',
           cargo: response.cargo || '',
+          qtdMoedas: response.qtdMoedas || 0,
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
          // Adicione o console log aqui

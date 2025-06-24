@@ -8,5 +8,6 @@ export class Usuario {
   confirmPassword!: string;
   emailPessoal!: string;
   permissao!: Permissao;
-  cargo!: string; 
+  cargo!: string;
+  qtdMoedas!: number; 
 }
