@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Colaborador } from 'src/app/sistema/Administrativo/funcionarios/colaborador';
+
+const valorInicial = 0;
 
 @Injectable({
   providedIn: 'root',
@@ -252,5 +254,12 @@ export class ColaboradorService {
         return throwError(() => new Error(errorMessage));
       })
     );
+  }
+
+  private moedasSubject = new BehaviorSubject<number>(valorInicial);
+  moedas$ = this.moedasSubject.asObservable();
+
+  atualizarMoedas(novoValor: number) {
+    this.moedasSubject.next(novoValor);
   }
 }

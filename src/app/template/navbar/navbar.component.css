@@ -37,6 +37,15 @@
   color: #ffffff;
 }
 
+.qtd-moedas span {
+  transition: color 0.2s, font-size 0.2s;
+}
+
+.qtd-moedas span.animando {
+  color: #F15723;
+  font-size: 18px;
+}
+
 .mat-drawer-content {
   background: #e3e3e3;
 }
@@ -381,7 +390,7 @@ a.active-link span {
     display: none;
   }
 
-  .navbar-brand  {
+  .navbar-brand {
     display: none;
   }
 

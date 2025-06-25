@@ -131,4 +131,23 @@ export class LojinhaService {
       })
     );
   }
+
+  marcarEntrega(id: number, confirmacao: 'SIM' | 'NAO'): Observable<string> {
+    const url = `${this.apiURL}/resgate/${id}`;
+    return this.http
+      .put<{ dataEntrega: string }>(url, { confirmacao })
+      .pipe(
+        map((response) => response.dataEntrega),
+        catchError((error) => {
+          let errorMessage = 'Erro ao marcar como entregue.';
+          if (error.error instanceof ErrorEvent) {
+            errorMessage = `Erro: ${error.error.message}`;
+          } else if (error.status) {
+            errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+          }
+          console.error(errorMessage);
+          return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
 }
