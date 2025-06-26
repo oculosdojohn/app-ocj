@@ -42,12 +42,12 @@
 }
 
 .qtd-moedas span.animando {
-  color: #f15723;
+  /* color: #f15723; */
   font-size: 17px;
 }
 
 .qtd-moedas span.diminuindo {
-  color: #2196f3;
+  /* color: #2196f3; */
   font-size: 15px;
 }
 
