@@ -162,15 +162,34 @@ export class NavbarComponent implements OnInit {
     let passoAtual = 0;
     const easeOutQuad = (t: number) => t * (2 - t);
 
+    const isAumentando = valorFinal > valorAtual;
+
+    const spanElement = document.querySelector('.qtd-moedas span');
+    if (spanElement) {
+      spanElement.classList.remove('aumentando', 'diminuindo');
+      if (isAumentando) {
+        spanElement.classList.add('aumentando');
+      } else {
+        spanElement.classList.add('diminuindo');
+      }
+    }
+
     const animar = () => {
       passoAtual++;
-      this.valorAnimadoMoedas = Math.round(
-        valorAtual + incremento * passoAtual
-      );
+      const progresso = passoAtual / passos;
+      const valorInterpolado =
+        valorAtual + (valorFinal - valorAtual) * easeOutQuad(progresso);
+      this.valorAnimadoMoedas = Math.round(valorInterpolado);
+
       if (passoAtual < passos) {
         this.animacaoTimeout = setTimeout(animar, duracao / passos);
       } else {
         this.valorAnimadoMoedas = valorFinal;
+        if (spanElement) {
+          setTimeout(() => {
+            spanElement.classList.remove('aumentando', 'diminuindo');
+          }, 300);
+        }
       }
     };
     animar();

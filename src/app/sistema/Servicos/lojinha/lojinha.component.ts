@@ -4,6 +4,8 @@ import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { Produto } from './produto';
 import { LojinhaService } from 'src/app/services/funcionalidades/lojinha.service';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lojinha',
@@ -30,7 +32,8 @@ export class LojinhaComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private lojinhaService: LojinhaService
+    private lojinhaService: LojinhaService,
+    private colaboradorService: ColaboradorService
   ) {}
 
   ngOnInit(): void {
@@ -54,10 +57,18 @@ export class LojinhaComponent implements OnInit {
 
   resgatarProduto(produtoId: any): void {
     const id = Number(produtoId);
+    const produto = this.produtos.find((p) => Number(p.id) === id);
+    
+    if (!produto) return;
+    
     this.isLoading = true;
     this.lojinhaService.resgatarProduto(id).subscribe({
       next: (res) => {
         this.showMessage('success', 'Produto resgatado com sucesso!');
+        const moedasGastas = produto.valor;
+        this.colaboradorService.moedas$.pipe(take(1)).subscribe((moedasAtuais) => {
+          this.colaboradorService.atualizarMoedas(moedasAtuais - moedasGastas);
+        });
         this.fetchProdutos();
         this.isLoading = false;
       },
