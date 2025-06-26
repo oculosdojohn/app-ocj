@@ -186,11 +186,11 @@
                 <img src="assets/icones/sstore.svg" alt="Ícone de Meus Filtros" class="icon">
                 <span class="ml-2">Lojinha</span>
             </a>
-            <a mat-list-item routerLink="/usuario/progressos" [ngClass]="{'active-link': isActive('/usuario/progressos')}" >
+            <a mat-list-item routerLink="/usuario/progressos" [ngClass]="{'active-link': isActive('/usuario/progressos')}" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
                 <img src="assets/icones/progresso.svg" alt="Ícone de Meus Filtros" class="icon">
                 <span class="ml-2">Progresos</span>
             </a>
-            <a mat-list-item routerLink="/usuario/financeiro" [ngClass]="{'active-link': isActive('/usuario/financeiro')}" >
+            <a mat-list-item routerLink="/usuario/financeiro" [ngClass]="{'active-link': isActive('/usuario/financeiro')}" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.FINANCEIRO">
                 <img src="assets/icones/powerBI.svg" alt="Ícone de Meus Filtros" class="icon">
                 <span class="ml-2">Financeiro</span>
             </a>
