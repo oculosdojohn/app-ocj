@@ -88,22 +88,24 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     }
 
     if (this.isEditMode && this.produtoId) {
-      this.lojinhaService.editarProduto(Number(this.produtoId), formData).subscribe(
-        (response) => {
-          this.isLoading = false;
-          this.successMessage = 'Produto atualizado com sucesso!';
-          this.errorMessage = null;
-          this.produtoForm.reset();
-          this.router.navigate(['/usuario/lojinha-do-john'], {
-            state: { successMessage: 'Produto atualizado com sucesso!' },
-          });
-        },
-        (error) => {
-          this.isLoading = false;
-          this.errorMessage = error.message || 'Erro ao atualizar o produto.';
-          this.successMessage = null;
-        }
-      );
+      this.lojinhaService
+        .editarProduto(Number(this.produtoId), formData)
+        .subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.successMessage = 'Produto atualizado com sucesso!';
+            this.errorMessage = null;
+            this.produtoForm.reset();
+            this.router.navigate(['/usuario/lojinha-do-john'], {
+              state: { successMessage: 'Produto atualizado com sucesso!' },
+            });
+          },
+          (error) => {
+            this.isLoading = false;
+            this.errorMessage = error.message || 'Erro ao atualizar o produto.';
+            this.successMessage = null;
+          }
+        );
     } else {
       this.lojinhaService.cadastrarProduto(formData).subscribe(
         (response) => {
