@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LojinhaService } from 'src/app/services/funcionalidades/lojinha.service';
 import { Produto } from '../../lojinha/produto';
 import { Router } from '@angular/router';
+import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 
 @Component({
   selector: 'app-detalhes-produtos',
@@ -12,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class DetalhesProdutosComponent implements OnInit {
   produto!: Produto;
+  successMessage: string = '';
+  messageTimeout: any;
 
   colaboradores: any[] = [];
   itensPorPagina = 8;
@@ -23,7 +26,8 @@ export class DetalhesProdutosComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private lojinhaService: LojinhaService,
-    private router: Router
+    private router: Router,
+    private modalDeleteService: ModalDeleteService
   ) {}
 
   ngOnInit(): void {
@@ -137,24 +141,57 @@ export class DetalhesProdutosComponent implements OnInit {
     this.router.navigate(['/usuario/cadastro-lojinha-produtos', id]);
   }
 
+  excluirProduto(id: string): void {
+    const produtoRemovido = this.produto; // Como estamos na página de detalhes, já temos o produto
+
+    this.lojinhaService.deleteProdutoById(id).subscribe({
+      next: () => {
+        console.log('Produto deletado com sucesso!');
+        this.showMessage(
+          'success',
+          `Produto "${produtoRemovido?.nome || ''}" deletado com sucesso!`
+        );
+        this.location.back(); // Volta para a página anterior após exclusão
+      },
+      error: (err) => {
+        console.error('Erro ao deletar o produto:', err);
+        this.showMessage('error', 'Erro ao deletar produto. Tente novamente.');
+      },
+    });
+  }
+
   openModalDeletar(produto: Produto): void {
-    if (
-      confirm(`Tem certeza que deseja excluir o produto "${produto.nome}"?`)
-    ) {
-      this.excluirProduto(produto.id);
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Produto',
+        description: `Tem certeza que deseja excluir o produto <strong>${produto.nome}</strong>?`,
+        item: produto,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.excluirProduto(produto.id);
+      }
+    );
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
     }
   }
 
-  excluirProduto(id: string): void {
-    this.lojinhaService.deleteProdutoById(id).subscribe({
-      next: () => {
-        alert('Produto excluído com sucesso!');
-        this.location.back();
-      },
-      error: (err) => {
-        console.error('Erro ao excluir produto:', err);
-        alert('Erro ao excluir produto. Tente novamente.');
-      },
-    });
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }
