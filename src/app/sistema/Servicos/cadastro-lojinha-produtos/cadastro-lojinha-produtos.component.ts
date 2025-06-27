@@ -39,7 +39,10 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.produtoForm.get('foto')?.setValue(this.selectedImages['photo']);
+    this.verificarModoEdicao();
+  }
 
   goBack() {
     this.location.back();
@@ -109,7 +112,30 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     return false;
   }
 
-  private verificarModoEdicao(): void {}
+  private verificarModoEdicao(): void {
+    this.produtoId = this.route.snapshot.paramMap.get('id');
+    if (this.produtoId) {
+      this.isEditMode = true;
+      this.lojinhaService.getProdutoById(Number(this.produtoId)).subscribe(
+        (produto: Produto) => {
+          console.log('Dados do produto recebidos:', produto);
+          this.produtoForm.patchValue({
+            nome: produto.nome,
+            valor: produto.valor,
+            qtdEstoque: produto.qtdEstoque,
+          });
+
+          if (produto.foto && produto.foto.documentoUrl) {
+            console.log('Foto existente:', produto.foto.documentoUrl);
+          }
+        },
+        (error) => {
+          console.error('Erro ao carregar os dados do produto:', error);
+          this.errorMessage = 'Erro ao carregar os dados do produto.';
+        }
+      );
+    }
+  }
 
   private validarCamposObrigatorios(): string[] {
     const fieldNames: { [key: string]: string } = {
