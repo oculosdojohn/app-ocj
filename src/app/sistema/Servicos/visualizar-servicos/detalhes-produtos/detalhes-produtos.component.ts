@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LojinhaService } from 'src/app/services/funcionalidades/lojinha.service';
 import { Produto } from '../../lojinha/produto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalhes-produtos',
@@ -21,7 +22,8 @@ export class DetalhesProdutosComponent implements OnInit {
   constructor(
     private location: Location,
     private route: ActivatedRoute,
-    private lojinhaService: LojinhaService
+    private lojinhaService: LojinhaService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,10 +59,18 @@ export class DetalhesProdutosComponent implements OnInit {
           this.produto = response.produto;
           this.colaboradores = (response.resgates || []).map(
             (resgate: any) => ({
+              id: resgate.id,
               username: resgate.usuario?.username || '-',
               foto: resgate.usuario?.foto || null,
               dataResgate: resgate.dataResgate || '-',
               dataEntrega: resgate.dataEntrega || '-',
+              entrege:
+                typeof resgate.entrege === 'boolean'
+                  ? resgate.entrege
+                    ? 'SIM'
+                    : 'NAO'
+                  : resgate.entrege || 'NAO',
+              entregando: false,
             })
           );
           console.log('Colaboradores recebidos:', this.colaboradores);
@@ -89,5 +99,62 @@ export class DetalhesProdutosComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  marcarComoEntregue(colaborador: any): void {
+    if (!colaborador.id) return;
+    colaborador.entregando = true;
+    this.lojinhaService.marcarEntrega(colaborador.id, true).subscribe({
+      next: (dataEntrega) => {
+        colaborador.dataEntrega = dataEntrega;
+        colaborador.entrege = 'SIM';
+        colaborador.entregando = false;
+      },
+      error: () => {
+        colaborador.entregando = false;
+      },
+    });
+  }
+
+  onToggleEntregue(event: Event, colaborador: any): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    console.log('Checkbox checked:', checked);
+    colaborador.entregando = true;
+
+    this.lojinhaService.marcarEntrega(colaborador.id, checked).subscribe({
+      next: (dataEntrega) => {
+        colaborador.entrege = checked ? 'SIM' : 'NAO';
+        colaborador.dataEntrega = checked && dataEntrega ? dataEntrega : '';
+        colaborador.entregando = false;
+      },
+      error: () => {
+        colaborador.entregando = false;
+      },
+    });
+  }
+
+  editarProduto(id: string): void {
+    this.router.navigate(['/usuario/cadastro-lojinha-produtos', id]);
+  }
+
+  openModalDeletar(produto: Produto): void {
+    if (
+      confirm(`Tem certeza que deseja excluir o produto "${produto.nome}"?`)
+    ) {
+      this.excluirProduto(produto.id);
+    }
+  }
+
+  excluirProduto(id: string): void {
+    this.lojinhaService.deleteProdutoById(id).subscribe({
+      next: () => {
+        alert('Produto excluído com sucesso!');
+        this.location.back();
+      },
+      error: (err) => {
+        console.error('Erro ao excluir produto:', err);
+        alert('Erro ao excluir produto. Tente novamente.');
+      },
+    });
   }
 }

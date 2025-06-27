@@ -1,5 +1,3 @@
-import { Escolha } from "../../Administrativo/funcionarios/enums/escolha";
-
 export class Produto {
   id!: string;
   dataCadastro!: string;
@@ -13,7 +11,7 @@ export class Produto {
     foto: { documentoUrl: string; id: number; name: string };
     dataResgate?: string;
     dataEntrega?: string;
-    entrege?: Escolha;
+    entrege?: boolean;
   }[];
 
   toJson?(): string {

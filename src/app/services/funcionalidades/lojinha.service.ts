@@ -132,10 +132,11 @@ export class LojinhaService {
     );
   }
 
-  marcarEntrega(id: number, confirmacao: 'SIM' | 'NAO'): Observable<string> {
+  marcarEntrega(id: number, confirmacao: boolean): Observable<string> {
     const url = `${this.apiURL}/resgate/${id}`;
+
     return this.http
-      .put<{ dataEntrega: string }>(url, { confirmacao })
+      .put<{ dataEntrega: string }>(url, confirmacao)
       .pipe(
         map((response) => response.dataEntrega),
         catchError((error) => {
