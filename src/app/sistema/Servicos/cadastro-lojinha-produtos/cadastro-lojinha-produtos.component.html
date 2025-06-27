@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar produto</span>
+        <span>{{ isEditMode ? 'Editar produto' : 'Cadastrar produto' }}</span>
     </div>
   
     <div class="forms-container">
@@ -30,7 +30,7 @@
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar produto
+                    {{ isEditMode ? 'Atualizar produto' : 'Cadastrar produto' }}
                 </button>
             </div>
         </form>
