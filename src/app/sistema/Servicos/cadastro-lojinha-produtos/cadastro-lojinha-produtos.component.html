@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label for="foto">Foto do produto</label>
-                <app-input-img label="Clique ou arraste a foto para fazer upload" inputId="foto" (imageSelected)="onImageSelected($event, 'photo')"></app-input-img>
+                <app-input-img label="Clique ou arraste a foto para fazer upload" inputId="foto" (imageSelected)="onImageSelected($event, 'foto')" [fotoPreview]="fotoPreview"></app-input-img>
             </div>
 
             <div class="container-btn">

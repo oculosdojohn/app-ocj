@@ -24,6 +24,10 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
   isEditMode = false;
   produtoId: string | null = null;
 
+  foto: File | null = null;
+  selectedFoto: { [key: string]: File | null } = {};
+  fotoPreview: string | ArrayBuffer | null = null;
+
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -40,7 +44,6 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.produtoForm.get('foto')?.setValue(this.selectedImages['photo']);
     this.verificarModoEdicao();
   }
 
@@ -50,6 +53,7 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
 
   onImageSelected(image: File | null, tipo: string) {
     this.selectedImages[tipo] = image;
+    this.produtoForm.get(tipo)?.setValue(image);
     console.log(`Imagem de ${tipo} selecionada:`, image);
   }
 
@@ -78,11 +82,28 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     const formData = new FormData();
     formData.append('dados', JSON.stringify(produto));
 
-    if (this.selectedImages['photo']) {
-      formData.append('foto', this.selectedImages['photo']);
+    const foto = this.produtoForm.get('foto')?.value;
+    if (foto) {
+      formData.append('foto', foto);
     }
 
     if (this.isEditMode && this.produtoId) {
+      this.lojinhaService.editarProduto(Number(this.produtoId), formData).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Produto atualizado com sucesso!';
+          this.errorMessage = null;
+          this.produtoForm.reset();
+          this.router.navigate(['/usuario/lojinha-do-john'], {
+            state: { successMessage: 'Produto atualizado com sucesso!' },
+          });
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message || 'Erro ao atualizar o produto.';
+          this.successMessage = null;
+        }
+      );
     } else {
       this.lojinhaService.cadastrarProduto(formData).subscribe(
         (response) => {
@@ -126,7 +147,9 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
           });
 
           if (produto.foto && produto.foto.documentoUrl) {
-            console.log('Foto existente:', produto.foto.documentoUrl);
+            this.selectedFoto['foto'] = null;
+            this.fotoPreview = produto.foto.documentoUrl;
+            console.log('Foto do user carregada:', produto.foto);
           }
         },
         (error) => {

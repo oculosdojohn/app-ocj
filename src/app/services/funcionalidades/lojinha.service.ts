@@ -80,6 +80,40 @@ export class LojinhaService {
     );
   }
 
+  editarProduto(id: number, formData: FormData): Observable<any> {
+    console.log('Dados enviados para edição do produto:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    const url = `${this.apiURL}/${id}`;
+
+    return this.http.put<any>(url, formData).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erro bruto recebido do servidor:', error);
+
+        let errorMessage = 'Erro ao editar o produto.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else {
+          if (typeof error.error === 'string') {
+            errorMessage = error.error;
+          } else if (error.error?.message) {
+            errorMessage = error.error.message;
+          } else if (error.error?.errors) {
+            const firstErrorKey = Object.keys(error.error.errors)[0];
+            errorMessage = error.error.errors[firstErrorKey];
+          }
+        }
+
+        console.error('Mensagem de erro processada:', errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
   deleteProdutoById(id: string): Observable<void> {
     const url = `${this.apiURL}/${id}`;
     return this.http.delete<void>(url).pipe(
@@ -135,20 +169,18 @@ export class LojinhaService {
   marcarEntrega(id: number, confirmacao: boolean): Observable<string> {
     const url = `${this.apiURL}/resgate/${id}`;
 
-    return this.http
-      .put<{ dataEntrega: string }>(url, confirmacao)
-      .pipe(
-        map((response) => response.dataEntrega),
-        catchError((error) => {
-          let errorMessage = 'Erro ao marcar como entregue.';
-          if (error.error instanceof ErrorEvent) {
-            errorMessage = `Erro: ${error.error.message}`;
-          } else if (error.status) {
-            errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
-          }
-          console.error(errorMessage);
-          return throwError(() => new Error(errorMessage));
-        })
-      );
+    return this.http.put<{ dataEntrega: string }>(url, confirmacao).pipe(
+      map((response) => response.dataEntrega),
+      catchError((error) => {
+        let errorMessage = 'Erro ao marcar como entregue.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
   }
 }
