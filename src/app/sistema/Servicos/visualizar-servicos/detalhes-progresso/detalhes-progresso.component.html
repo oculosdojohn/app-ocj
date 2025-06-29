@@ -5,7 +5,7 @@
             <span>Progresso do colaborador</span>
         </div>
     </div>
-    <div class="actions">
+    <div class="actions" *ngIf="colaborador">
         <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
             <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" class="foto-colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
             <ng-template #defaultAvatar>
@@ -34,10 +34,10 @@
     <app-sector-navigation [sectors]="setores" (sectorChange)="onSectorChange($event)"></app-sector-navigation>
 </div>
 
-<div class="subMain-container">
+<div class="subMain-container" *ngIf="colaborador">
     <ng-container [ngSwitch]="selectedSectorId">
         <div *ngSwitchCase="'curso'">
-            <app-info-curso></app-info-curso>
+            <app-info-curso [colaboradorId]="+colaborador.id"></app-info-curso>
         </div>
 
         <div *ngSwitchCase="'quiz'">

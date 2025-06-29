@@ -1,14 +1,14 @@
 <div class="main-container">
     <div class="cards-container">
       <div class="card info-card">
-          <span>0</span>
+          <span>{{ totalMoedas }}</span>
           <div class="categoria-card">
               <img src="assets/icones/coin.svg" alt="Curso icone">
               <p>Moedas</p>
           </div>
       </div>
       <div class="card info-card">
-          <span>12</span>
+          <span>{{ aulasAssistidas }}</span>
           <div class="categoria-card">
               <div class="icone-card">
                   <img src="assets/icones/dashboard/cursos.svg" alt="Curso icone">
@@ -17,7 +17,7 @@
           </div>
       </div>
       <div class="card info-card">
-          <span>3</span>
+          <span>{{ modulosFinalizados }}</span>
           <div class="categoria-card">
               <div class="icone-card">
                   <img src="assets/icones/modulo.svg" alt="Curso icone">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="curso-detalhes">
                         <span>{{ curso.description }}</span>
-                        <p>0/12</p>
+                        <p>{{ curso.aulasAssistidas }}/{{ curso.totalAulas }}</p>
                     </div>
                 </div>
                 <div class="progresso-curso-container">
