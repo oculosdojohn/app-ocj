@@ -167,7 +167,7 @@
   font-size: 0.98rem;
 }
 
-.quiz-card .btn-acessar {
+.quiz-card .btn-acessar.disponivel {
   background: #0071b9;
   color: #fff;
   border: none;
@@ -182,6 +182,21 @@
 
 .quiz-card .btn-acessar:hover {
   background: #008adf;
+}
+
+.btn-acessar.bloqueado {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(44, 187, 99, 0.08);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 920px) {

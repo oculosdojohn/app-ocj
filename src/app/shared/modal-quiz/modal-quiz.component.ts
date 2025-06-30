@@ -77,7 +77,6 @@ export class ModalQuizComponent {
 
     this.enviandoRespostas = true;
 
-    // Prepara as respostas para envio
     const respostasDTO: RespostasQuizDTO = {
       respostas: this.questions.map((question, index) => ({
         letraAlternativa: this.selectedAnswers[index] || '',
@@ -140,6 +139,10 @@ export class ModalQuizComponent {
     });
 
     this.moedasColetadas = true;
+
+    if (this.item?.onQuizCompleted) {
+      this.item.onQuizCompleted();
+    }
 
     setTimeout(() => {
       this.onModalClose();

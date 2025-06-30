@@ -18,12 +18,19 @@
                 <img src="assets/icones/cursos/correto-fill.svg" class="check-icon" *ngIf="videosAssistidos[i]">
             </div>
 
-            <div class="aula-card quiz-card">
+            <div class="aula-card quiz-card" [ngClass]="statusQuiz">
                 <div class="titulo-quiz">
                     <img src="assets/icones/cursos/quizz-icon.svg" alt="Quiz" />
                     <h4>Quiz</h4>
                 </div>
-                <button class="btn-acessar" (click)="abrirQuiz()">Acessar Quiz</button>
+                <button class="btn-acessar" (click)="abrirQuiz()" *ngIf="statusQuiz === 'disponivel' && mostrarBotaoQuiz" [disabled]="!podeAbrirQuiz" [ngClass]="statusQuiz">
+                    Acessar Quiz
+                </button>
+                <div *ngIf="statusQuiz === 'concluido'" class="quiz-finalizado">
+                    <span>
+                        Concluido
+                    </span>
+                </div>
             </div>
         </div>
     </div>

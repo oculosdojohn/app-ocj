@@ -15,6 +15,11 @@ export class PlaylistVideoComponent implements OnInit {
   @Input() videosAssistidos: boolean[] = [];
   @Output() quizClicked = new EventEmitter<void>();
 
+  @Input() podeAbrirQuiz: boolean = false;
+  @Input() mostrarBotaoQuiz: boolean = false;
+  @Input() statusQuiz: string = 'bloqueado';
+  @Input() mensagemQuiz: string = '';
+
   playlistAberta: boolean = true;
   isModalOpen = false;
 
@@ -48,11 +53,11 @@ export class PlaylistVideoComponent implements OnInit {
     }
   }
 
-  onVideoLoaded(url: string): void {
-    console.log('Vídeo carregado:', url);
-  }
+  onVideoLoaded(url: string): void {}
 
   abrirQuiz() {
-    this.quizClicked.emit();
+    if (this.podeAbrirQuiz && this.podeAbrirQuiz) {
+      this.quizClicked.emit();
+    }
   }
 }
