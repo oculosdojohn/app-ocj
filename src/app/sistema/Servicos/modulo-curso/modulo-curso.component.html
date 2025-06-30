@@ -65,7 +65,10 @@
         [videoAtualIndex]="videoAtualIndex"
         [videosAssistidos]="videosAssistidos"
         (aulaSelecionada)="reproduzirVideo($event.aula, $event.index)"
-        (quizClicked)="abrirModalQuiz()">
+        (quizClicked)="abrirModalQuiz()"
+        [podeAbrirQuiz]="podeAbrirQuiz"
+        [statusQuiz]="statusQuiz"
+        [mostrarBotaoQuiz]="mostrarBotaoQuiz">
       </app-playlist-video>
     </div>
   </div>

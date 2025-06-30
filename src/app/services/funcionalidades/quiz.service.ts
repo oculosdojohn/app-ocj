@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Quiz } from 'src/app/sistema/Servicos/cursos/quiz';
+import { Quiz, RespostasQuizDTO } from 'src/app/sistema/Servicos/cursos/quiz';
+import { Modulos } from 'src/app/sistema/Servicos/cursos/enums/modulos';
 
 @Injectable({
   providedIn: 'root',
@@ -95,6 +96,54 @@ export class QuizService {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {
           errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  registrarRespostas(dto: RespostasQuizDTO): Observable<any> {
+    console.log('Respostas enviadas para o backend:', dto);
+    const url = `${this.apiURL}/respostas`;
+
+    return this.http.post<any>(url, dto).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao registrar as respostas do quiz.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  listarRespostasPorUsuarioEModulo(
+    usuarioId: number,
+    modulo: Modulos
+  ): Observable<any> {
+    const url = `${this.apiURL}/respostas/usuario/${usuarioId}/modulo`;
+
+    const params = new HttpParams().set('modulo', modulo);
+
+    return this.http.get<any>(url, { params }).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar respostas do usuário por módulo.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
         }
         console.error(errorMessage);
         return throwError(() => new Error(errorMessage));

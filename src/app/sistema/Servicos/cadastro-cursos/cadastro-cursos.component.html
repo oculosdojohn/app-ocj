@@ -53,16 +53,16 @@
                 </button>
             </div>
         </form>
+    </div>
 
-        <app-loading *ngIf="isLoading"></app-loading>
-          
-        <div class="alerts">
-            <div class="alerts-container alert-success" *ngIf="successMessage">
-              {{ successMessage }}
-            </div>
-            <div class=" alerts-container alert-danger" *ngIf="errorMessage">
-                {{ errorMessage }}
-            </div>
+     <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+            {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
         </div>
     </div>
+
+    <app-loading *ngIf="isLoading"></app-loading>
 </div>

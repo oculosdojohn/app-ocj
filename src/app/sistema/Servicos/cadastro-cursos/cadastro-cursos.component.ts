@@ -107,13 +107,11 @@ export class CadastroCursosComponent implements OnInit {
           this.successMessage = 'Aula atualizada com sucesso!';
           this.errorMessage = null;
           this.router.navigate(['/usuario/buscar-aulas']);
-          console.debug('Aula atualizada com sucesso:', response);
         },
         (error) => {
           this.isLoading = false;
           this.errorMessage = 'Erro ao atualizar aula.';
           this.successMessage = null;
-          this.cadastroAula.reset();
           console.error('Erro ao atualizar aula:', error);
         }
       );
@@ -124,7 +122,9 @@ export class CadastroCursosComponent implements OnInit {
           this.successMessage = 'Aula cadastrada com sucesso!';
           this.errorMessage = null;
           this.cadastroAula.reset();
-          console.debug('Aula cadastrada com sucesso:', response);
+          this.router.navigate(['/usuario/cursos-disponiveis'], {
+            state: { successMessage: 'Aula cadastrada com sucesso!' },
+          });
         },
         (error) => {
           this.isLoading = false;

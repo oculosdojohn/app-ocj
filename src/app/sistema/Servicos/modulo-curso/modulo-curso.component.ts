@@ -8,6 +8,7 @@ import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
 import { ModalQuizzService } from 'src/app/services/modal/modal-quizz.service';
 import { QuizService } from 'src/app/services/funcionalidades/quiz.service';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { AuthService } from 'src/app/services/configs/auth.service';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -25,13 +26,17 @@ export class ModuloCursoComponent implements OnInit {
   videosAssistidos: boolean[] = [];
   userRating: number = 0;
 
+  quizJaRespondido: boolean = false;
+  verificandoQuiz: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private cursosService: CursosService,
     private modalQuizzService: ModalQuizzService,
     private quizService: QuizService,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +52,11 @@ export class ModuloCursoComponent implements OnInit {
         this.modulo = Modulos[moduloObj as keyof typeof Modulos];
         this.descricao = ModulosDescricao[this.modulo];
         this.buscarAulas(this.modulo);
+        this.verificarSeQuizJaFoiRespondido();
+
+        setTimeout(() => {
+          this.verificarSeQuizJaFoiRespondido();
+        }, 500);
       }
     });
   }
@@ -62,6 +72,45 @@ export class ModuloCursoComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  get todasAulasAssistidas(): boolean {
+    return (
+      this.aulas.length > 0 &&
+      this.videosAssistidos.every((assistido) => assistido)
+    );
+  }
+
+  get mostrarBotaoQuiz(): boolean {
+    return this.todasAulasAssistidas && !this.quizJaRespondido;
+  }
+
+  get podeAbrirQuiz(): boolean {
+    return (
+      this.todasAulasAssistidas &&
+      !this.quizJaRespondido &&
+      !this.verificandoQuiz
+    );
+  }
+
+  get statusQuiz(): string {
+    if (this.verificandoQuiz) return 'verificando';
+    if (!this.todasAulasAssistidas) return 'bloqueado';
+    if (this.quizJaRespondido) return 'concluido';
+    return 'disponivel';
+  }
+
+  get mensagemQuiz(): string {
+    if (this.verificandoQuiz) return 'Verificando status do quiz...';
+    if (!this.todasAulasAssistidas) {
+      const restantes = this.videosAssistidos.filter((v) => !v).length;
+      return `Assista ${restantes} aula${restantes > 1 ? 's' : ''} restante${
+        restantes > 1 ? 's' : ''
+      } para liberar o quiz`;
+    }
+    if (this.quizJaRespondido)
+      return 'Parabéns! Você já completou este quiz e coletou as moedas.';
+    return 'Quiz disponível! Clique para começar.';
   }
 
   reproduzirVideo(aula: Aula, index: number): void {
@@ -133,12 +182,25 @@ export class ModuloCursoComponent implements OnInit {
   }
 
   abrirModalQuiz(): void {
+    if (!this.podeAbrirQuiz) {
+      if (!this.todasAulasAssistidas) {
+        alert('Você precisa assistir todas as aulas antes de fazer o quiz!');
+        return;
+      }
+      if (this.quizJaRespondido) {
+        alert('Você já realizou este quiz!');
+        return;
+      }
+      return;
+    }
+
     this.quizService.obterQuizPorModulo(this.modulo!).subscribe({
       next: (quizzes) => {
         if (quizzes && quizzes.length > 0) {
           const quiz = quizzes[0];
           console.log(quiz.alternativas);
           const questions = quizzes.map((quiz) => ({
+            id: quiz.id,
             enunciado: quiz.enunciado,
             alternativas: quiz.alternativas.map((a) => a.descricao),
             resposta: quiz.alternativas.find((a) => a.respostaCerta)
@@ -157,6 +219,63 @@ export class ModuloCursoComponent implements OnInit {
       error: (err) => {
         this.modalQuizzService.openModal({ questions: [] });
         console.error('Erro ao buscar quizzes do módulo:', err);
+      },
+    });
+  }
+
+  private verificarSeQuizJaFoiRespondido(): void {
+    if (!this.modulo) {
+      console.log('Módulo não definido');
+      return;
+    }
+
+    this.verificandoQuiz = true;
+
+    console.log('🔍 Verificando quiz para módulo:', this.modulo);
+
+    this.authService.obterPerfilUsuario().subscribe({
+      next: (usuario) => {
+        console.log('Perfil do usuário obtido:', usuario);
+        console.log('ID do usuário:', usuario.id);
+
+        const usuarioId = Number(usuario.id);
+
+        if (!usuarioId || isNaN(usuarioId)) {
+          console.error('ID do usuário inválido:', usuario.id);
+          this.verificandoQuiz = false;
+          this.quizJaRespondido = false;
+          return;
+        }
+
+        this.quizService
+          .listarRespostasPorUsuarioEModulo(usuarioId, this.modulo!)
+          .subscribe({
+            next: (respostas) => {
+              console.log('📋 Respostas do quiz:', {
+                respostas: respostas,
+                quantidade: respostas?.length || 0,
+                usuarioId: usuarioId,
+                modulo: this.modulo,
+              });
+
+              this.quizJaRespondido =
+                respostas && Array.isArray(respostas) && respostas.length > 0;
+              this.verificandoQuiz = false;
+            },
+            error: (err) => {
+              console.log(
+                'Erro ao verificar quiz (provavelmente não respondido):'
+              );
+
+              this.quizJaRespondido = false;
+              this.verificandoQuiz = false;
+            },
+          });
+      },
+      error: (err) => {
+        console.error('Erro ao obter perfil do usuário:', err);
+        this.verificandoQuiz = false;
+        this.quizJaRespondido = false;
       },
     });
   }

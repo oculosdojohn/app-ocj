@@ -69,7 +69,7 @@
                 </div>
               </div>
 
-              <div class="modal-botoes">
+              <div class="modal-botoes" *ngIf="questions.length">
                 <button
                   class="btn-acao previous"
                   (click)="previous()"
@@ -87,7 +87,7 @@
                 <button
                   class="btn-acao finish"
                   *ngIf="currentIndex === questions.length - 1"
-                  [disabled]="!podeFinalizar || quizFinalizado"
+                  [disabled]="!podeFinalizar || quizFinalizado || enviandoRespostas"
                   (click)="finalizarQuiz()"
                 >
                   Finalizar
@@ -105,8 +105,19 @@
                   <img src="assets/icones/coin.svg" alt="Moeda" class="moeda-icon" />
                   <span>{{ totalMoedas }}</span>
                 </div>
-                <button class="btn-acao resgatar" (click)="onModalClose()">
+                <button class="btn-acao resgatar" *ngIf="podeColetarMoedas && !moedasColetadas" (click)="coletarMoedas()" (click)="onModalClose()">
                   Resgatar moedas
+                </button>
+                <button class="btn-acao resgatar" *ngIf="moedasColetadas" disabled>
+                    ✓ Moedas coletadas
+                </button>
+              </div>
+
+              <!-- Estado vazio -->
+              <div *ngIf="!questions.length" class="quiz-vazio">
+                <p>Nenhum quiz disponível para este módulo.</p>
+                <button class="btn-acao fechar" (click)="onModalClose()">
+                  Fechar
                 </button>
               </div>
             </div>

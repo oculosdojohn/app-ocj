@@ -6,6 +6,15 @@ interface Alternativas {
   descricao: string;
 }
 
+interface Resposta {
+  letraAlternativa: string;
+  quizzId: number;
+}
+
+export interface RespostasQuizDTO {
+  respostas: Resposta[];
+}
+
 export class Quiz {
   id!: string;
   dataCadastro?: string;
@@ -13,4 +22,5 @@ export class Quiz {
   valorMoedas!: number;
   enunciado!: string;
   alternativas!: Alternativas[];
+  respostas?: Resposta[];
 }
