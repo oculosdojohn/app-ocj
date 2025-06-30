@@ -122,7 +122,9 @@ export class CadastroCursosComponent implements OnInit {
           this.successMessage = 'Aula cadastrada com sucesso!';
           this.errorMessage = null;
           this.cadastroAula.reset();
-          this.router.navigate(['/usuario/cursos-disponiveis']);
+          this.router.navigate(['/usuario/cursos-disponiveis'], {
+            state: { successMessage: 'Aula cadastrada com sucesso!' },
+          });
         },
         (error) => {
           this.isLoading = false;

@@ -53,8 +53,6 @@
                 </button>
             </div>
         </form>
-
-        <app-loading *ngIf="isLoading"></app-loading>
     </div>
 
      <div class="alerts">
@@ -65,4 +63,6 @@
             {{ errorMessage }}
         </div>
     </div>
+
+    <app-loading *ngIf="isLoading"></app-loading>
 </div>
