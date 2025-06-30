@@ -31,6 +31,7 @@
             <thead>
                 <tr>
                     <th>Departamento</th>
+                    <th>Loja</th>
                     <th>Responsáveis</th>
                     <th>N° de funcionários</th>
                     <th>Ações</th>
@@ -42,6 +43,12 @@
                         <div class="perfil">
                             <span>{{ departamento.nome }}</span>
                         </div>
+                    </td>
+                    <td>
+                        <span>
+                            {{ departamento.loja?.nome || '-' }}
+                            <span *ngIf="departamento.loja?.endereco?.cidade"> - {{ departamento.loja?.endereco?.cidade }}</span>
+                        </span>
                     </td>
                     <td>
                         <div class="perfil" *ngIf="departamento.responsaveis && departamento.responsaveis.length > 0">

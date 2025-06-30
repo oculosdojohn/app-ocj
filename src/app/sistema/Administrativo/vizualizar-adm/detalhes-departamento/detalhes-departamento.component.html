@@ -16,9 +16,18 @@
         <hr class="line">
     </div>
     <div class="data-itens">
-        <div class="item-data">
-            <label>Descrição</label>
-            <p>{{ departamento.descricao || '-' }}</p>
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Loja</label>
+                <p>
+                    {{ departamento.loja?.nome || '-' }}
+                    <span *ngIf="departamento.loja?.endereco?.cidade"> - {{ departamento.loja?.endereco?.cidade }}</span>
+                </p>
+            </div>
+            <div class="item-data">
+                <label>Descrição</label>
+                <p>{{ departamento.descricao || '-' }}</p>
+            </div>
         </div>
         <div class="data-grid">
             <div class="item-data">

@@ -17,7 +17,7 @@ export class Departamento {
   email!: string;
   localizacao!: string;
   loja!: { id: string; nome: string; endereco: { cidade: string } } | null;
-  identificadorLoja!: string;
+  lojaId!: string;
   colaboradores!:
     | {
         id: string;
