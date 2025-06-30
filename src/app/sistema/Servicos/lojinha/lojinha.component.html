@@ -54,6 +54,22 @@
         </div>
     </div>
 
+    <div *ngIf="produtosPaginados.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semProdutos">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semProdutos>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há produtos cadastrados.</p>
+            </div>
+        </ng-template>
+    </div>
+
     <div class="pagination">
         <app-pagination
         [paginaAtual]="paginaAtual"

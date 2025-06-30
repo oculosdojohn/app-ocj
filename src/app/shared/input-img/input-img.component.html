@@ -6,6 +6,9 @@
       <div class="foto-preview" id="fotoPreview">
         <ng-container *ngIf="fotoPreview">
           <img *ngIf="isPreviewImage(fotoPreview)" [src]="fotoPreview" alt="Image Preview" />
+          <button type="button" class="remove-btn" (click)="removeFile($event)" title="Remover imagem">
+            <span>&times;</span>
+          </button>
         </ng-container>
         <span *ngIf="!fotoPreview" class="upload-placeholder">
           <img src="assets/icones/image.svg" style="width: 40px; opacity: 0.5;" class="upload-icon">

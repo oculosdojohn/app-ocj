@@ -53,22 +53,54 @@ export class LojinhaComponent implements OnInit {
     this.router.navigate(['/usuario/detalhes-produto', id]);
   }
 
-  onSearch(searchTerm: string) {}
+  onSearch(searchTerm: string) {
+    if (!searchTerm || searchTerm.trim() === '') {
+      this.mensagemBusca = '';
+      this.fetchProdutos();
+      return;
+    }
+    this.isLoading = true;
+    this.lojinhaService.buscarProdutosPorNome(searchTerm).subscribe(
+      (produtos: Produto[]) => {
+        this.produtos = produtos;
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(this.produtos.length / this.itensPorPagina);
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (!produtos || produtos.length === 0) {
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar produtos:', error);
+        this.isLoading = false;
+        if (error.message && error.message.includes('404')) {
+          this.produtos = [];
+          this.atualizarPaginacao();
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      }
+    );
+  }
 
   resgatarProduto(produtoId: any): void {
     const id = Number(produtoId);
     const produto = this.produtos.find((p) => Number(p.id) === id);
-    
+
     if (!produto) return;
-    
+
     this.isLoading = true;
     this.lojinhaService.resgatarProduto(id).subscribe({
       next: (res) => {
         this.showMessage('success', 'Produto resgatado com sucesso!');
         const moedasGastas = produto.valor;
-        this.colaboradorService.moedas$.pipe(take(1)).subscribe((moedasAtuais) => {
-          this.colaboradorService.atualizarMoedas(moedasAtuais - moedasGastas);
-        });
+        this.colaboradorService.moedas$
+          .pipe(take(1))
+          .subscribe((moedasAtuais) => {
+            this.colaboradorService.atualizarMoedas(
+              moedasAtuais - moedasGastas
+            );
+          });
         this.fetchProdutos();
         this.isLoading = false;
       },

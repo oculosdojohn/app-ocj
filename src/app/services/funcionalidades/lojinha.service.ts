@@ -183,4 +183,25 @@ export class LojinhaService {
       })
     );
   }
+
+  buscarProdutosPorNome(name: string): Observable<Produto[]> {
+    const url = `${this.apiURL}/produto/${encodeURIComponent(name)}`;
+
+    return this.http.get<Produto[]>(url).pipe(
+      map((response) => {
+        console.log('Produtos encontrados:', response);
+        return response;
+      }),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar produtos por nome.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
