@@ -100,7 +100,7 @@ const routes: Routes = [
       { path: 'cadastro-noticia', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-lojinha-produto/:id', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-lojinha-produtos/:id', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'financeiro', component: FinanceiroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'progressos', component: ProgressosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
       { path: 'detalhes-progresso/:id', component: DetalhesProgressoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Colaborador } from 'src/app/sistema/Administrativo/funcionarios/colaborador';
+
+const valorInicial = 0;
 
 @Injectable({
   providedIn: 'root',
@@ -253,4 +255,29 @@ export class ColaboradorService {
       })
     );
   }
+
+  private moedasSubject = new BehaviorSubject<number>(valorInicial);
+  moedas$ = this.moedasSubject.asObservable();
+
+  atualizarMoedas(novoValor: number) {
+    this.moedasSubject.next(novoValor);
+  }
+
+  getDesempenhoCursos(id: number): Observable<any> {
+  const url = `${this.apiURL}/${id}/desempenho-cursos`;
+  return this.http.get<any>(url).pipe(
+    map((response) => response),
+    catchError((error: HttpErrorResponse) => {
+      let errorMessage = 'Erro ao buscar o desempenho do usuário nos cursos.';
+      
+      if (error.error instanceof ErrorEvent) {
+        errorMessage = `Erro: ${error.error.message}`;
+      } else if (error.status) {
+        errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+      }
+      console.error(errorMessage);
+      return throwError(() => new Error(errorMessage));
+    })
+  );
+}
 }

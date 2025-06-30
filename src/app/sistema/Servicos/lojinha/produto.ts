@@ -6,10 +6,12 @@ export class Produto {
   valor!: number;
   qtdEstoque!: number;
   usuario?: {
+    id: string;
     username: string;
     foto: { documentoUrl: string; id: number; name: string };
     dataResgate?: string;
     dataEntrega?: string;
+    entrege?: boolean;
   }[];
 
   toJson?(): string {

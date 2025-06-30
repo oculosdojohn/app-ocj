@@ -24,6 +24,10 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
   isEditMode = false;
   produtoId: string | null = null;
 
+  foto: File | null = null;
+  selectedFoto: { [key: string]: File | null } = {};
+  fotoPreview: string | ArrayBuffer | null = null;
+
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
@@ -39,7 +43,9 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.verificarModoEdicao();
+  }
 
   goBack() {
     this.location.back();
@@ -47,6 +53,7 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
 
   onImageSelected(image: File | null, tipo: string) {
     this.selectedImages[tipo] = image;
+    this.produtoForm.get(tipo)?.setValue(image);
     console.log(`Imagem de ${tipo} selecionada:`, image);
   }
 
@@ -75,11 +82,30 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     const formData = new FormData();
     formData.append('dados', JSON.stringify(produto));
 
-    if (this.selectedImages['photo']) {
-      formData.append('foto', this.selectedImages['photo']);
+    const foto = this.produtoForm.get('foto')?.value;
+    if (foto) {
+      formData.append('foto', foto);
     }
 
     if (this.isEditMode && this.produtoId) {
+      this.lojinhaService
+        .editarProduto(Number(this.produtoId), formData)
+        .subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.successMessage = 'Produto atualizado com sucesso!';
+            this.errorMessage = null;
+            this.produtoForm.reset();
+            this.router.navigate(['/usuario/lojinha-do-john'], {
+              state: { successMessage: 'Produto atualizado com sucesso!' },
+            });
+          },
+          (error) => {
+            this.isLoading = false;
+            this.errorMessage = error.message || 'Erro ao atualizar o produto.';
+            this.successMessage = null;
+          }
+        );
     } else {
       this.lojinhaService.cadastrarProduto(formData).subscribe(
         (response) => {
@@ -109,7 +135,32 @@ export class CadastroLojinhaProdutosComponent implements OnInit {
     return false;
   }
 
-  private verificarModoEdicao(): void {}
+  private verificarModoEdicao(): void {
+    this.produtoId = this.route.snapshot.paramMap.get('id');
+    if (this.produtoId) {
+      this.isEditMode = true;
+      this.lojinhaService.getProdutoById(Number(this.produtoId)).subscribe(
+        (produto: Produto) => {
+          console.log('Dados do produto recebidos:', produto);
+          this.produtoForm.patchValue({
+            nome: produto.nome,
+            valor: produto.valor,
+            qtdEstoque: produto.qtdEstoque,
+          });
+
+          if (produto.foto && produto.foto.documentoUrl) {
+            this.selectedFoto['foto'] = null;
+            this.fotoPreview = produto.foto.documentoUrl;
+            console.log('Foto do user carregada:', produto.foto);
+          }
+        },
+        (error) => {
+          console.error('Erro ao carregar os dados do produto:', error);
+          this.errorMessage = 'Erro ao carregar os dados do produto.';
+        }
+      );
+    }
+  }
 
   private validarCamposObrigatorios(): string[] {
     const fieldNames: { [key: string]: string } = {

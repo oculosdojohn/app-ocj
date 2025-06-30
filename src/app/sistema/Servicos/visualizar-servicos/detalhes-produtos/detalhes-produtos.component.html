@@ -10,12 +10,24 @@
             <img class="produto-img" [src]="produto.foto?.documentoUrl || 'assets/imgs/defaut-img-produto.png'" alt="Foto do produto"/>
         </div>
         <div class="actions">
-            <h1>{{ produto.nome }}</h1>
-            <div class="value-coin">
-                <span>
-                    <img src="assets/icones/coin.svg" alt="Moeda">
-                    {{ produto.valor }} Moedas
-                </span>
+            <div>
+                <h1>{{ produto.nome }}</h1>
+                <div class="value-coin">
+                    <span>
+                        <img src="assets/icones/coin.svg" alt="Moeda">
+                        {{ produto.valor }} Moedas
+                    </span>
+                </div>
+            </div>
+            <div class="container-btn">
+                <button class="btn-acao edit" (click)="editarProduto(produto.id)">
+                    <img src="assets/icones/Edit.png" alt="Editar">
+                    Editar
+                </button>
+                <button class="btn-acao delete" (click)="openModalDeletar(produto)">
+                    <img src="assets/icones/Delete.png" alt="Excluir">
+                    Deletar
+                </button>
             </div>
         </div>
     </div>
@@ -29,7 +41,7 @@
     <div class="data-itens">
         <div class="item-data">
             <label>Quantidade em estoque</label>
-            <p>{{ produto.qtdEstoque || '-' }}</p>
+            <p>{{ produto.qtdEstoque !== null && produto.qtdEstoque !== undefined ? produto.qtdEstoque : '-' }}</p>
         </div>
     </div>
 
@@ -55,7 +67,20 @@
                 <p>{{ colaborador.dataResgate ? (colaborador.dataResgate | date:"dd/MM/yyyy 'às' HH:mm") : '-' }}</p>
             </div>
             <div class="item-data">
-                <p>{{ colaborador.dataEntrega ? (colaborador.dataEntrega | date:"dd/MM/yyyy 'às' HH:mm") : '-' }}</p>
+                <p>{{ colaborador.dataEntrega && colaborador.dataEntrega !== '' ? (colaborador.dataEntrega | date:"dd/MM/yyyy 'às' HH:mm") : '-' }}</p>
+            </div>
+            <div class="item-data">
+                <div class="toggle-container">
+                    <span>{{ colaborador.entrege === 'SIM' ? 'Entregue' : 'Não entregue' }}</span>
+                    <label class="switch">
+                        <input
+                        type="checkbox"
+                        [checked]="colaborador.entrege === 'SIM'"
+                        (change)="onToggleEntregue($event, colaborador)"
+                        />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 import { CargoDescricoes } from 'src/app/sistema/Administrativo/funcionarios/enums/cargo-descricoes';
 import { Permissao } from 'src/app/login/permissao';
 import { PermissaoDescricoes } from 'src/app/login/permissao-descricao';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,6 +24,8 @@ export class NavbarComponent implements OnInit {
   nomeUsuario: string = '';
   fotoUsuario: string = '';
   qtdMoedas: number = 0;
+  valorAnimadoMoedas: number = 0;
+  private animacaoTimeout: any;
 
   isGeralMenuOpen = false;
   isRHMenuOpen = false;
@@ -31,7 +34,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private colaboradorService: ColaboradorService
   ) {}
 
   ngOnInit() {
@@ -42,12 +46,19 @@ export class NavbarComponent implements OnInit {
         this.permissaoUsuario = PermissaoDescricoes[this.cargoUsuario];
         this.fotoUsuario = usuario.foto?.documentoUrl || '';
         this.qtdMoedas = usuario.qtdMoedas || 0;
+        this.valorAnimadoMoedas = this.qtdMoedas;
+        this.colaboradorService.atualizarMoedas(this.qtdMoedas);
         console.log('Permissão atribuída (cargoUsuario):', this.cargoUsuario);
       },
       (error) => {
         console.error('Erro ao obter perfil do usuário:', error);
       }
     );
+
+    this.colaboradorService.moedas$.subscribe((valor) => {
+      this.animarMoedas(this.valorAnimadoMoedas, valor);
+      this.qtdMoedas = valor;
+    });
   }
 
   isAdmin(): boolean {
@@ -138,5 +149,49 @@ export class NavbarComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  // Função de animação
+  animarMoedas(valorAtual: number, valorFinal: number) {
+    if (this.animacaoTimeout) {
+      clearTimeout(this.animacaoTimeout);
+    }
+    const duracao = 1000;
+    const passos = 40;
+    const incremento = (valorFinal - valorAtual) / passos;
+    let passoAtual = 0;
+    const easeOutQuad = (t: number) => t * (2 - t);
+
+    const isAumentando = valorFinal > valorAtual;
+
+    const spanElement = document.querySelector('.qtd-moedas span');
+    if (spanElement) {
+      spanElement.classList.remove('aumentando', 'diminuindo');
+      if (isAumentando) {
+        spanElement.classList.add('aumentando');
+      } else {
+        spanElement.classList.add('diminuindo');
+      }
+    }
+
+    const animar = () => {
+      passoAtual++;
+      const progresso = passoAtual / passos;
+      const valorInterpolado =
+        valorAtual + (valorFinal - valorAtual) * easeOutQuad(progresso);
+      this.valorAnimadoMoedas = Math.round(valorInterpolado);
+
+      if (passoAtual < passos) {
+        this.animacaoTimeout = setTimeout(animar, duracao / passos);
+      } else {
+        this.valorAnimadoMoedas = valorFinal;
+        if (spanElement) {
+          setTimeout(() => {
+            spanElement.classList.remove('aumentando', 'diminuindo');
+          }, 300);
+        }
+      }
+    };
+    animar();
   }
 }

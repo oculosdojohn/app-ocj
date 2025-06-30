@@ -7,6 +7,8 @@ import { Aula } from '../cursos/aulas';
 import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
 import { ModalQuizzService } from 'src/app/services/modal/modal-quizz.service';
 import { QuizService } from 'src/app/services/funcionalidades/quiz.service';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-modulo-curso',
@@ -28,7 +30,8 @@ export class ModuloCursoComponent implements OnInit {
     private location: Location,
     private cursosService: CursosService,
     private modalQuizzService: ModalQuizzService,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private colaboradorService: ColaboradorService
   ) {}
 
   ngOnInit(): void {
@@ -74,11 +77,18 @@ export class ModuloCursoComponent implements OnInit {
     if (!aula) return;
 
     this.videosAssistidos[index] = true;
-
-    // Converta para number aqui
     this.cursosService.aulaVisualizada(Number(aula.id), aula.modulo).subscribe({
       next: () => {
         console.log(`Aula ${aula.id} marcada como assistida no backend.`);
+        const moedasGanhas = Number(aula.qtdMoedas) || 0;
+        let qtdMoedas = Number(localStorage.getItem('qtdMoedas')) || 0;
+        this.colaboradorService.moedas$
+          .pipe(take(1))
+          .subscribe((qtdMoedasAtual) => {
+            this.colaboradorService.atualizarMoedas(
+              qtdMoedasAtual + moedasGanhas
+            );
+          });
       },
       error: (err) => {
         console.error('Erro ao marcar aula como assistida:', err);
@@ -107,7 +117,7 @@ export class ModuloCursoComponent implements OnInit {
       (aulas: Aula[]) => {
         console.log('Aulas recebidas:', aulas);
         this.aulas = aulas;
-        this.videosAssistidos = aulas.map(aula => !!aula.visualizado);
+        this.videosAssistidos = aulas.map((aula) => !!aula.visualizado);
         if (this.aulas.length > 0) {
           this.videoAtual = this.aulas[0];
           this.videoAtualIndex = 0;
