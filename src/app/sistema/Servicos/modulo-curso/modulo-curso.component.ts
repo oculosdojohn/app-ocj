@@ -139,6 +139,7 @@ export class ModuloCursoComponent implements OnInit {
           const quiz = quizzes[0];
           console.log(quiz.alternativas);
           const questions = quizzes.map((quiz) => ({
+            id: quiz.id,
             enunciado: quiz.enunciado,
             alternativas: quiz.alternativas.map((a) => a.descricao),
             resposta: quiz.alternativas.find((a) => a.respostaCerta)
