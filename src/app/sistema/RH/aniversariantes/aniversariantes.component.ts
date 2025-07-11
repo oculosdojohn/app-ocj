@@ -207,9 +207,17 @@ export class AniversariantesComponent implements OnInit {
         { align: 'center' }
       );
 
-      const nomeArquivo = `aniversariantes_${this.selectedMes || 'todos'}_${
-        new Date().toISOString().split('T')[0]
-      }.pdf`;
+      const hoje = new Date();
+      const dataFormatada =
+        String(hoje.getDate()).padStart(2, '0') +
+        '-' +
+        String(hoje.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        hoje.getFullYear();
+
+      const nomeArquivo = `aniversariantes_${
+        this.selectedMes || 'todos'
+      }_${dataFormatada}.pdf`;
       doc.save(nomeArquivo);
       // this.showSuccessMessage('Relatório exportado com sucesso!');
     } catch (error) {
