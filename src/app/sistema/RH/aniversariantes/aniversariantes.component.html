@@ -19,8 +19,12 @@
                 </app-select-padrao>
             </div>
 
-            <button class="btn-export">Exportar</button>
+            <button class="btn-export" (click)="openModalExportacao()">Exportar</button>
         </div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
     </div>
 
     <div class="tabela-container">
@@ -28,36 +32,41 @@
             <thead>
                 <tr>
                     <th>Data de nascimento</th>
-                    <th>Funcionário</th>
+                    <th>Colaborador</th>
                     <th>Loja</th>
                     <th>Departamento</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let aniversario of aniversariosPaginados">
+                <tr *ngFor="let colaborador of colaboradoresPaginados">
                     <td>
                         <div class="perfil">
-                            <span>{{ aniversario.data }}</span>
+                            <span>{{ colaborador.dataNascimento | date:"dd/MM/yyyy" }}</span>
                         </div>
                     </td>
                     <td>
                         <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ aniversario.colaborador }}</span>
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                                <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(colaborador.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ colaborador.username }}</span>
                         </div>
                     </td>
                     <td>
                         <div class="perfil">
-                            <span>{{ aniversario.loja }}</span>
+                            <span>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</span>
                         </div>
                     </td>
-                    <td>{{ aniversario.departamento }}</td>
+                    <td>{{ colaborador.departamento?.nome }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div *ngIf="aniversariosPaginados.length === 0">
+    <div *ngIf="colaboradoresPaginados.length === 0">
         <ng-container *ngIf="mensagemBusca; else semAniversarios">
             <div>
             <div class="alert alert-warning text-center">

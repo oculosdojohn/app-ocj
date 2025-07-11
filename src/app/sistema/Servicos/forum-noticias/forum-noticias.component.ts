@@ -11,24 +11,12 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 })
 export class ForumNoticiasComponent implements OnInit {
   termoBusca: string = '';
+  mensagemBusca: string = '';
+  isLoading = false;
+  successMessage: string = '';
+  messageTimeout: any;
 
-  noticias: Noticia[] = [
-    {
-      titulo: 'Lorem Ipsum is simply',
-      data: '22/12/2024 às 12:30',
-      destinatario: 'Óculos do John de Russas',
-    },
-    {
-      titulo: 'Lorem Ipsum is simply',
-      data: '22/12/2024 às 12:30',
-      destinatario: 'Óculos do John de Russas',
-    },
-    {
-      titulo: 'Lorem Ipsum is simply',
-      data: '22/12/2024 às 12:30',
-      destinatario: 'Óculos do John de Russas',
-    },
-  ];
+  noticias: Noticia[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;

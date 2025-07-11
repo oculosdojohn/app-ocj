@@ -23,7 +23,6 @@
         </div>
     </div>
 
-    <!--
     <div class="tabela-container">
         <table>
             <thead>
@@ -46,20 +45,39 @@
                         <span>{{ noticia.destinatario }}</span>
                     </td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar" >
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div> 
+    </div>
+    
+    <div *ngIf="noticiasPaginadas.length === 0">
+        <ng-container *ngIf="mensagemBusca; else semNoticias">
+            <div>
+            <div class="alert alert-warning text-center">
+                {{ mensagemBusca }}
+            </div>
+            </div>
+        </ng-container>
+        <ng-template #semNoticias>
+            <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há notícias cadastradas.</p>
+            </div>
+        </ng-template>
+    </div>
+
     <div class="pagination">
         <app-pagination
         [paginaAtual]="paginaAtual"
@@ -68,9 +86,4 @@
         (paginaMudou)="onPaginaMudou($event)">
         </app-pagination>
     </div> 
-    -->
-
-    <div class="image-center">
-        <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
-    </div>
 </div>

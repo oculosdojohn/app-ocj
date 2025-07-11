@@ -5,6 +5,11 @@ import { MesesDescricoes } from '../ferias/MesesDescricoes';
 import { Aniversario } from './aniversario';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
+import { ModalPadraoService } from 'src/app/services/modal/modal-padrao.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-aniversariantes',
@@ -18,13 +23,13 @@ export class AniversariantesComponent implements OnInit {
   successMessage: string = '';
   messageTimeout: any;
 
-  aniversarios: Aniversario[] = [];
+  colaboradores: Colaborador[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
-  totalPaginas = Math.ceil(this.aniversarios.length / this.itensPorPagina);
-  aniversariosPaginados: Aniversario[] = [];
-  aniversariosFiltrados: Aniversario[] = [];
+  totalPaginas = Math.ceil(this.colaboradores.length / this.itensPorPagina);
+  colaboradoresPaginados: Colaborador[] = [];
+  aniversariosFiltrados: Colaborador[] = [];
 
   meses = Object.keys(Meses).map((key) => ({
     value: Meses[key as keyof typeof Meses],
@@ -34,11 +39,17 @@ export class AniversariantesComponent implements OnInit {
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private colaboradorService: ColaboradorService,
+    private modalPadraoService: ModalPadraoService
+  ) {}
 
   ngOnInit(): void {
     this.filtrarPorMes();
-    // já busca o perfil e define o cargo
+    this.fetchColaboradores();
+
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
@@ -47,12 +58,12 @@ export class AniversariantesComponent implements OnInit {
   filtrarPorMes(): void {
     console.log('Mês selecionado:', this.selectedMes);
     if (this.selectedMes) {
-      this.aniversariosFiltrados = this.aniversarios.filter((aniversario) => {
-        const mes = aniversario.data.split('/')[1];
+      this.aniversariosFiltrados = this.colaboradores.filter((colaborador) => {
+        const mes = colaborador.dataNascimento.split('/')[1];
         return mes === this.selectedMes;
       });
     } else {
-      this.aniversariosFiltrados = [...this.aniversarios];
+      this.aniversariosFiltrados = [...this.colaboradores];
     }
     console.log('Aniversários filtrados:', this.aniversariosFiltrados);
     this.atualizarPaginacao();
@@ -61,17 +72,52 @@ export class AniversariantesComponent implements OnInit {
   atualizarPaginacao(): void {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
     const fim = inicio + this.itensPorPagina;
-    this.aniversariosPaginados = this.aniversariosFiltrados.slice(inicio, fim);
-    console.log('Aniversários paginados:', this.aniversariosPaginados);
+    this.colaboradoresPaginados = this.colaboradores.slice(inicio, fim);
   }
 
   get totalItens() {
-    return this.aniversariosFiltrados.length;
+    return this.colaboradores.length;
   }
 
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  fetchColaboradores(): void {
+    this.isLoading = true;
+
+    this.colaboradorService.getUsuariosPorCargoNotIn(['ADMIN']).subscribe(
+      (colaboradores: any[]) => {
+        console.log('usuários retornados:', colaboradores);
+        this.colaboradores = colaboradores;
+        this.totalPaginas = Math.ceil(
+          this.colaboradores.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Erro ao carregar colaboradores:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  getInitial(name: string): string {
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+
+  getRandomColor(seed: string): string {
+    const colors = [
+      '#FFB3BA', // Rosa pastel
+      '#FFDFBA', // Laranja pastel
+      '#BAFFC9', // Verde pastel
+      '#BAE1FF', // Azul pastel
+      '#D5BAFF', // Roxo pastel
+    ];
+    const index = seed ? seed.charCodeAt(0) % colors.length : 0;
+    return colors[index];
   }
 
   get rotaDashboard(): string {
@@ -87,5 +133,111 @@ export class AniversariantesComponent implements OnInit {
     )
       return '/dashboard-colaborador';
     return '/login';
+  }
+
+  exportarTabelaPDF(): void {
+    try {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+
+      const titulo = 'Relatório de Aniversariantes';
+      const dataAtual = `Exportado em: ${new Date().toLocaleDateString()}`;
+
+      doc.setFontSize(14);
+      doc.text(titulo, 14, 20);
+
+      doc.setFontSize(10);
+      doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
+
+      const colunas = [
+        'Data de nascimento',
+        'Colaborador',
+        'Loja',
+        'Departamento',
+      ];
+      const dados = this.colaboradoresPaginados.map((colab) => [
+        new Date(colab.dataNascimento).toLocaleDateString(),
+        colab.username,
+        `${colab.loja?.nome ?? ''} - ${colab.loja?.endereco?.cidade ?? ''}`,
+        colab.departamento?.nome ?? '',
+      ]);
+
+      autoTable(doc, {
+        head: [colunas],
+        body: dados,
+        startY: 30,
+        styles: {
+          fontSize: 10,
+          cellPadding: 4,
+          halign: 'left',
+          valign: 'middle',
+          lineWidth: 0.5,
+          lineColor: [200, 200, 200],
+        },
+        headStyles: {
+          fillColor: [0, 128, 41],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          lineWidth: 0,
+        },
+        alternateRowStyles: {
+          fillColor: [245, 245, 245],
+        },
+        didDrawCell: function (data) {
+          const radius = 2;
+          const { cell } = data;
+          if (data.section === 'body' || data.section === 'head') {
+            cell.styles.cellPadding = {
+              top: 3,
+              right: 4,
+              bottom: 3,
+              left: 4,
+            };
+          }
+        },
+      });
+
+      // Rodapé
+      const pageHeight = doc.internal.pageSize.height;
+      doc.setFontSize(9);
+      doc.text(
+        '© 2025 Óculos do John. Todos os direitos reservados.',
+        pageWidth / 2,
+        pageHeight - 10,
+        { align: 'center' }
+      );
+
+      const hoje = new Date();
+      const dataFormatada =
+        String(hoje.getDate()).padStart(2, '0') +
+        '-' +
+        String(hoje.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        hoje.getFullYear();
+
+      const nomeArquivo = `aniversariantes_${
+        this.selectedMes || 'todos'
+      }_${dataFormatada}.pdf`;
+      doc.save(nomeArquivo);
+      // this.showSuccessMessage('Relatório exportado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao exportar PDF:', error);
+      alert('Erro ao exportar o relatório. Tente novamente.');
+    }
+  }
+
+  openModalExportacao(): void {
+    this.modalPadraoService.openModal(
+      {
+        title: 'Relatório de Aniversariantes',
+        description: `Tem certeza que deseja exportar o relatório de aniversariantes em PDF?`,
+        item: null,
+        deletarTextoBotao: 'Exportar PDF',
+        size: 'md',
+      },
+      () => {
+        this.exportarTabelaPDF();
+      }
+    );
   }
 }
