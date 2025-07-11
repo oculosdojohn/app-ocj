@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-aniversariantes',
@@ -45,7 +47,7 @@ export class AniversariantesComponent implements OnInit {
   ngOnInit(): void {
     this.filtrarPorMes();
     this.fetchColaboradores();
-    // já busca o perfil e define o cargo
+    
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
@@ -129,5 +131,84 @@ export class AniversariantesComponent implements OnInit {
     )
       return '/dashboard-colaborador';
     return '/login';
+  }
+
+  exportarTabelaPDF(): void {
+    const confirmar = window.confirm(
+      'Deseja exportar a tabela de colaboradores em PDF?'
+    );
+    if (!confirmar) return;
+
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+
+    const titulo = 'Relatório de Aniversariantes';
+    const dataAtual = `Exportado em: ${new Date().toLocaleDateString()}`;
+
+    doc.setFontSize(14);
+    doc.text(titulo, 14, 20);
+
+    doc.setFontSize(10);
+    doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
+
+    const colunas = [
+      'Data de nascimento',
+      'Colaborador',
+      'Loja',
+      'Departamento',
+    ];
+    const dados = this.colaboradoresPaginados.map((colab) => [
+      new Date(colab.dataNascimento).toLocaleDateString(),
+      colab.username,
+      `${colab.loja?.nome ?? ''} - ${colab.loja?.endereco?.cidade ?? ''}`,
+      colab.departamento?.nome ?? '',
+    ]);
+
+    autoTable(doc, {
+      head: [colunas],
+      body: dados,
+      startY: 30,
+      styles: {
+        fontSize: 10,
+        cellPadding: 4,
+        halign: 'left',
+        valign: 'middle',
+        lineWidth: 0.5,
+        lineColor: [200, 200, 200],
+      },
+      headStyles: {
+        fillColor: [0, 128, 41],
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        lineWidth: 0,
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245],
+      },
+      didDrawCell: function (data) {
+        const radius = 2;
+        const { cell } = data;
+        if (data.section === 'body' || data.section === 'head') {
+          cell.styles.cellPadding = {
+            top: 3,
+            right: 4,
+            bottom: 3,
+            left: 4,
+          };
+        }
+      },
+    });
+
+    // Rodapé
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFontSize(9);
+    doc.text(
+      '© 2025 Óculos do John. Todos os direitos reservados.',
+      pageWidth / 2,
+      pageHeight - 10,
+      { align: 'center' }
+    );
+
+    doc.save('relatorio-colaboradores.pdf');
   }
 }

@@ -26,6 +26,8 @@
     "@popperjs/core": "^2.10.2",
     "apexcharts": "^3.36.0",
     "bootstrap": "^5.2.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "lottie-web": "^5.13.0",
     "ng-apexcharts": "^1.7.4",
     "ngx-lottie": "^8.3.0",
