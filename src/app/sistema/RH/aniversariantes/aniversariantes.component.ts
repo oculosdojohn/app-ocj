@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
+import { ModalPadraoService } from 'src/app/services/modal/modal-padrao.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -41,13 +42,14 @@ export class AniversariantesComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private modalPadraoService: ModalPadraoService
   ) {}
 
   ngOnInit(): void {
     this.filtrarPorMes();
     this.fetchColaboradores();
-    
+
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
@@ -134,81 +136,100 @@ export class AniversariantesComponent implements OnInit {
   }
 
   exportarTabelaPDF(): void {
-    const confirmar = window.confirm(
-      'Deseja exportar a tabela de colaboradores em PDF?'
+    try {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+
+      const titulo = 'Relatório de Aniversariantes';
+      const dataAtual = `Exportado em: ${new Date().toLocaleDateString()}`;
+
+      doc.setFontSize(14);
+      doc.text(titulo, 14, 20);
+
+      doc.setFontSize(10);
+      doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
+
+      const colunas = [
+        'Data de nascimento',
+        'Colaborador',
+        'Loja',
+        'Departamento',
+      ];
+      const dados = this.colaboradoresPaginados.map((colab) => [
+        new Date(colab.dataNascimento).toLocaleDateString(),
+        colab.username,
+        `${colab.loja?.nome ?? ''} - ${colab.loja?.endereco?.cidade ?? ''}`,
+        colab.departamento?.nome ?? '',
+      ]);
+
+      autoTable(doc, {
+        head: [colunas],
+        body: dados,
+        startY: 30,
+        styles: {
+          fontSize: 10,
+          cellPadding: 4,
+          halign: 'left',
+          valign: 'middle',
+          lineWidth: 0.5,
+          lineColor: [200, 200, 200],
+        },
+        headStyles: {
+          fillColor: [0, 128, 41],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          lineWidth: 0,
+        },
+        alternateRowStyles: {
+          fillColor: [245, 245, 245],
+        },
+        didDrawCell: function (data) {
+          const radius = 2;
+          const { cell } = data;
+          if (data.section === 'body' || data.section === 'head') {
+            cell.styles.cellPadding = {
+              top: 3,
+              right: 4,
+              bottom: 3,
+              left: 4,
+            };
+          }
+        },
+      });
+
+      // Rodapé
+      const pageHeight = doc.internal.pageSize.height;
+      doc.setFontSize(9);
+      doc.text(
+        '© 2025 Óculos do John. Todos os direitos reservados.',
+        pageWidth / 2,
+        pageHeight - 10,
+        { align: 'center' }
+      );
+
+      const nomeArquivo = `aniversariantes_${this.selectedMes || 'todos'}_${
+        new Date().toISOString().split('T')[0]
+      }.pdf`;
+      doc.save(nomeArquivo);
+      // this.showSuccessMessage('Relatório exportado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao exportar PDF:', error);
+      alert('Erro ao exportar o relatório. Tente novamente.');
+    }
+  }
+
+  openModalExportacao(): void {
+    this.modalPadraoService.openModal(
+      {
+        title: 'Relatório de Aniversariantes',
+        description: `Tem certeza que deseja exportar o relatório de aniversariantes em PDF?`,
+        item: null,
+        deletarTextoBotao: 'Exportar PDF',
+        size: 'md',
+      },
+      () => {
+        this.exportarTabelaPDF();
+      }
     );
-    if (!confirmar) return;
-
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-
-    const titulo = 'Relatório de Aniversariantes';
-    const dataAtual = `Exportado em: ${new Date().toLocaleDateString()}`;
-
-    doc.setFontSize(14);
-    doc.text(titulo, 14, 20);
-
-    doc.setFontSize(10);
-    doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
-
-    const colunas = [
-      'Data de nascimento',
-      'Colaborador',
-      'Loja',
-      'Departamento',
-    ];
-    const dados = this.colaboradoresPaginados.map((colab) => [
-      new Date(colab.dataNascimento).toLocaleDateString(),
-      colab.username,
-      `${colab.loja?.nome ?? ''} - ${colab.loja?.endereco?.cidade ?? ''}`,
-      colab.departamento?.nome ?? '',
-    ]);
-
-    autoTable(doc, {
-      head: [colunas],
-      body: dados,
-      startY: 30,
-      styles: {
-        fontSize: 10,
-        cellPadding: 4,
-        halign: 'left',
-        valign: 'middle',
-        lineWidth: 0.5,
-        lineColor: [200, 200, 200],
-      },
-      headStyles: {
-        fillColor: [0, 128, 41],
-        textColor: [255, 255, 255],
-        fontStyle: 'bold',
-        lineWidth: 0,
-      },
-      alternateRowStyles: {
-        fillColor: [245, 245, 245],
-      },
-      didDrawCell: function (data) {
-        const radius = 2;
-        const { cell } = data;
-        if (data.section === 'body' || data.section === 'head') {
-          cell.styles.cellPadding = {
-            top: 3,
-            right: 4,
-            bottom: 3,
-            left: 4,
-          };
-        }
-      },
-    });
-
-    // Rodapé
-    const pageHeight = doc.internal.pageSize.height;
-    doc.setFontSize(9);
-    doc.text(
-      '© 2025 Óculos do John. Todos os direitos reservados.',
-      pageWidth / 2,
-      pageHeight - 10,
-      { align: 'center' }
-    );
-
-    doc.save('relatorio-colaboradores.pdf');
   }
 }
