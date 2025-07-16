@@ -90,9 +90,9 @@ const routes: Routes = [
       { path: 'cadastro-de-registro/:id', component: CadastroDeRegistroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-procedimentos-medicos', component: CadastroDeProcedimentosMedicoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-procedimentos-medicos/:id', component: CadastroDeProcedimentosMedicoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
-      { path: 'admissoes', component: AdmissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
-      { path: 'demissoes', component: DemissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },
-      { path: 'renovar-contrato', component: RenovarContratoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },  
+      { path: 'admissoes', component: AdmissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
+      { path: 'demissoes', component: DemissoesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
+      { path: 'renovar-contrato', component: RenovarContratoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },  
 
       // Serviços
       { path: 'cadastro-de-aulas', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
