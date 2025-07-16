@@ -1,5 +1,6 @@
 export enum Cargo {
   ADMIN = 'ADMIN',
+  DIRETOR = 'DIRETOR',
   RH = 'RH',
   GERENTE_GERAL = 'GERENTE_GERAL',
   GERENTE = 'GERENTE',

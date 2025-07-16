@@ -11,7 +11,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form #loginForm="ngForm" (submit)="onSubmit()">
+                                <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
                                     <div class="alerts">
                                         <div class="alert alert-success" *ngIf="mensagemSucesso">
                                           {{ mensagemSucesso }}
@@ -30,7 +30,14 @@
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label class="small mb-1" style="font-size: 1.2em;">Senha</label>
                                         <div class="input-group">
-                                            <input [type]="passwordVisible['password'] ? 'text' : 'password'" type="password" name="password" [(ngModel)]="password"  class="form-control py-2 responsive-input" placeholder="Informe a sua senha" required />
+                                            <input
+                                            [type]="passwordVisible['password'] ? 'text' : 'password'"
+                                            name="password"
+                                            [(ngModel)]="password"
+                                            class="form-control py-2 responsive-input"
+                                            placeholder="Informe a sua senha"
+                                            required
+                                            />
                                             <div class="input-icon" type="button" (click)="togglePasswordVisibility('password')">
                                                 <img *ngIf="!passwordVisible['password']" src="assets/icones/eye-open.svg" alt="Mostrar senha" class="toggle-password"/>
                                                 <img *ngIf="passwordVisible['password']" src="assets/icones/eye-closed.svg" alt="Mostrar senha" class="toggle-password"/>

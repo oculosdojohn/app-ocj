@@ -1,5 +1,6 @@
 export enum Permissao {
   ADMIN = 'ROLE_ADMIN',
+  DIRETOR = 'ROLE_DIRETOR',
   RH = 'ROLE_RH',
   GERENTE_GERAL = 'ROLE_GERENTE_GERAL',
   GERENTE = 'ROLE_GERENTE',

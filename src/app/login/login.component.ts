@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   mensagemSucesso!: string;
   errors!: String[];
   usuario: any;
+  
 
   showForgotPassword: boolean = false;
   passwordVisible: { [key: string]: boolean } = {
@@ -50,27 +51,30 @@ export class LoginComponent implements OnInit {
           emailPessoal: response.emailPessoal || '',
           confirmPassword: '',
           permissao:
-            response.authorities.length > 0 ? response.authorities[0] : null,
+          response.authorities.length > 0
+            ? (typeof response.authorities[0] === 'string'
+                ? response.authorities[0]
+                : response.authorities[0].authority)
+            : null,
           foto: response.foto || '',
           cargo: response.cargo || '',
           qtdMoedas: response.qtdMoedas || 0,
         };
         localStorage.setItem('usuario', JSON.stringify(usuario));
-         // Adicione o console log aqui
-         console.log('Permissão do usuário:', usuario.permissao);
-
+         // console.log('Permissão do usuário:', usuario.permissao);
         switch (usuario.permissao) {
           case Permissao.ADMIN:
-            this.router.navigate(['/usuario/dashboard-admin']);
+          case Permissao.DIRETOR:
+            this.router.navigate(['/usuario/dashboard-administracao']);
             break;
           case Permissao.RH:
             this.router.navigate(['/usuario/dashboard-rh']);
             break;
           case Permissao.GERENTE_GERAL:
-          case Permissao.GERENTE:
-            this.router.navigate(['/usuario/dashboard-gerente']);
-            break;
           case Permissao.SUPERVISOR:
+          case Permissao.GERENTE:
+          this.router.navigate(['/usuario/dashboard-gerentes']);
+          break;
           case Permissao.VENDEDOR:
           case Permissao.CONSULTOR_VENDAS:
           case Permissao.FINANCEIRO:

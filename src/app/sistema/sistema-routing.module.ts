@@ -56,9 +56,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],  
     children: [
       // telas de dashboard por perfil
-      { path: 'dashboard-admin', component: PainelAdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] } },
+      { path: 'dashboard-administracao', component: PainelAdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN','ROLE_DIRETOR'] } },
       { path: 'dashboard-colaborador', component: PainelColaboradorComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_CONSULTOR_VENDAS', 'ROLE_VENDEDOR', 'ROLE_COBRADOR', 'ROLE_FINANCEIRO', 'ROLE_ESTAGIARIO'] } },
-      { path: 'dashboard-gerente', component: PainelGerenteComponent ,canActivate: [AuthGuard], data: { roles: ['GERENTE_GERAL', 'ROLE_GERENTE',  'SUPERVISOR'] } },
+      { path: 'dashboard-gerente', component: PainelGerenteComponent ,canActivate: [AuthGuard], data: {   roles: ['ROLE_GERENTE_GERAL','ROLE_GERENTE', 'ROLE_SUPERVISOR']} },
       { path: 'dashboard-rh', component: PainelRhComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RH'] } },
       { path: 'meu-perfil', component: MeuPerfilComponent },
 
@@ -95,19 +95,19 @@ const routes: Routes = [
       { path: 'renovar-contrato', component: RenovarContratoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] } },  
 
       // Serviços
-      { path: 'cadastro-de-aulas', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-de-aulas/:id', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-noticia', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-lojinha-produtos/:id', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'financeiro', component: FinanceiroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'progressos', component: ProgressosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'detalhes-progresso/:id', component: DetalhesProgressoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-quizz', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'cadastro-quizz/:id', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'buscar-quizzes', component: BuscarQuizzesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
-      { path: 'detalhes-produto/:id', component: DetalhesProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH'] }  },
+      { path: 'cadastro-de-aulas', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'cadastro-de-aulas/:id', component: CadastroCursosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'cadastro-noticia', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'cadastro-noticia/:id', component: CadastroNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'cadastro-lojinha-produtos', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'cadastro-lojinha-produtos/:id', component: CadastroLojinhaProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'financeiro', component: FinanceiroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'progressos', component: ProgressosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'detalhes-progresso/:id', component: DetalhesProgressoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'cadastro-quizz', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'cadastro-quizz/:id', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'buscar-quizzes', component: BuscarQuizzesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'detalhes-produto/:id', component: DetalhesProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },

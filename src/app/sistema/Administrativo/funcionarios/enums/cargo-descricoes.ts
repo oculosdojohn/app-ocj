@@ -1,7 +1,8 @@
 import { Cargo } from './cargo';
 
 export const CargoDescricoes: Record<Cargo, string> = {
-  [Cargo.ADMIN]: 'Administrador',
+  [Cargo.ADMIN]: 'Diretor Geral (Admin)',
+  [Cargo.DIRETOR]: 'Diretor',
   [Cargo.RH]: 'Recursos Humanos',
   [Cargo.GERENTE_GERAL]: 'Gerente Geral',
   [Cargo.GERENTE]: 'Gerente',
