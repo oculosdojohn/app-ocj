@@ -14,7 +14,7 @@
             </div>
             <button
                 class="btn-cadastrar"
-                *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH"
+                *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR"
                 (click)="cadastrarProduto()">
                 Cadastrar Produto
             </button>
@@ -47,7 +47,7 @@
             </div>        
             <div>
                 <button class="resgate-btn" (click)="resgatarProduto(produto.id)">Resgatar Produto</button>
-                <button class="accesso-btn" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH" (click)="detalhesProduto(produto.id)">
+                <button class="accesso-btn" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR" (click)="detalhesProduto(produto.id)">
                     Acessar Produto
                 </button>
             </div>
