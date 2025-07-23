@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Noticia, NoticiaResponse } from 'src/app/sistema/Servicos/forum-noticias/noticia';
+import { Noticia } from 'src/app/sistema/Servicos/forum-noticias/noticia';
 
 @Injectable({
   providedIn: 'root',
@@ -45,8 +45,8 @@ export class NoticiasService {
     );
   }
 
-  getNoticias(): Observable<NoticiaResponse[]> {
-    return this.http.get<NoticiaResponse[]>(this.apiURL).pipe(
+  getNoticias(): Observable<Noticia[]> {
+    return this.http.get<Noticia[]>(this.apiURL).pipe(
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao buscar as notícias.';
@@ -62,9 +62,9 @@ export class NoticiasService {
     );
   }
 
-  getNoticiaById(id: number): Observable<NoticiaResponse> {
+  getNoticiaById(id: number): Observable<Noticia> {
     const url = `${this.apiURL}/${id}`;
-    return this.http.get<NoticiaResponse>(url).pipe(
+    return this.http.get<Noticia>(url).pipe(
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao buscar a notícia.';

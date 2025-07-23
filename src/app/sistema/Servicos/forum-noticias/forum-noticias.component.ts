@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Noticia, NoticiaResponse } from './noticia';
+import { Noticia } from './noticia';
 import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { NoticiasService } from 'src/app/services/funcionalidades/noticias.service';
@@ -17,12 +17,12 @@ export class ForumNoticiasComponent implements OnInit {
   successMessage: string = '';
   messageTimeout: any;
 
-  noticias: NoticiaResponse[] = [];
+  noticias: Noticia[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.noticias.length / this.itensPorPagina);
-  noticiasPaginadas: NoticiaResponse[] = [];
+  noticiasPaginadas: Noticia[] = [];
 
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
@@ -82,6 +82,17 @@ export class ForumNoticiasComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  visualizarNoticia(id: string): void {
+    console.log('Visualizando notícia com ID:', id);
+    this.router.navigate(['/usuario/detalhes-noticia', id]);
+    console.log('Navegando para detalhes da notícia com ID:', id);
+  }
+
+  editarNoticia(id: string): void {
+    console.log('Editando notícia com ID:', id);
+    this.router.navigate(['/usuario/cadastro-noticia', id]);
   }
 
   get rotaDashboard(): string {

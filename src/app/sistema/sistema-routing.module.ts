@@ -48,6 +48,7 @@ import { CadastroQuizzComponent } from './Servicos/cadastro-quizz/cadastro-quizz
 import { BuscarQuizzesComponent } from './Servicos/buscar-quizzes/buscar-quizzes.component';
 import { DetalhesProdutosComponent } from './Servicos/visualizar-servicos/detalhes-produtos/detalhes-produtos.component';
 import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produtos/meus-produtos.component';
+import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhes-noticia/detalhes-noticia.component';
 
 const routes: Routes = [
   {
@@ -117,6 +118,7 @@ const routes: Routes = [
       { path: 'curso/:modulo', component: ModuloCursoComponent },
       { path: 'buscar-aulas', component: BuscarAulasComponent },
       { path: 'meus-produtos', component: MeusProdutosComponent},
+      { path: 'detalhes-noticia/:id', component: DetalhesNoticiaComponent},
     ]
   }
 ];
