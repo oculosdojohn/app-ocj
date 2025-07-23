@@ -9,7 +9,7 @@
     
     <label [for]="inputId">
       <div class="midia-preview" id="midiaPreview">
-        <!-- ✅ Preview de Imagem -->
+        <!-- Preview de Imagem -->
         <ng-container *ngIf="midiaPreview && isPreviewImage(midiaPreview)">
           <img [src]="midiaPreview" alt="Image Preview" class="preview-image" />
           <button type="button" class="remove-btn" (click)="removeFile($event)" title="Remover arquivo">
@@ -22,7 +22,7 @@
           </div>
         </ng-container>
 
-        <!-- ✅ Preview de Vídeo -->
+        <!-- Preview de Vídeo -->
         <ng-container *ngIf="midiaPreview && isPreviewVideo(midiaPreview)">
           <video [src]="midiaPreview" alt="Video Preview" controls class="preview-video"></video>
           <button type="button" class="remove-btn" (click)="removeFile($event)" title="Remover arquivo">
@@ -35,7 +35,7 @@
           </div>
         </ng-container>
 
-        <!-- ✅ Placeholder quando não há arquivo -->
+        <!-- Placeholder quando não há arquivo -->
         <div *ngIf="!midiaPreview" class="upload-placeholder">
           <div class="upload-icons">
             <img src="assets/icones/image.svg" class="upload-icon">

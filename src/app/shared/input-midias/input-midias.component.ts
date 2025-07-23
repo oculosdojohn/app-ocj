@@ -39,7 +39,6 @@ export class InputMidiasComponent implements OnInit {
   }
 
   processFile(file: File, inputElement: HTMLInputElement): void {
-    // ✅ Validar tipo de arquivo
     if (!this.isValidFileType(file)) {
       alert(
         'Tipo de arquivo não suportado. Use apenas imagens (JPG, PNG, GIF) ou vídeos (MP4, AVI, MOV).'
@@ -59,7 +58,6 @@ export class InputMidiasComponent implements OnInit {
 
     reader.readAsDataURL(file);
 
-    // ✅ Atualizar o input file
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(file);
     inputElement.files = dataTransfer.files;
@@ -69,7 +67,6 @@ export class InputMidiasComponent implements OnInit {
     event.preventDefault();
   }
 
-  // ✅ Verificar se é imagem
   isPreviewImage(preview: string | ArrayBuffer): boolean {
     return (
       typeof preview === 'string' &&
@@ -77,7 +74,6 @@ export class InputMidiasComponent implements OnInit {
     );
   }
 
-  // ✅ Verificar se é vídeo
   isPreviewVideo(preview: string | ArrayBuffer): boolean {
     return (
       typeof preview === 'string' &&
@@ -85,7 +81,6 @@ export class InputMidiasComponent implements OnInit {
     );
   }
 
-  // ✅ Validar tipo de arquivo
   private isValidFileType(file: File): boolean {
     const validImageTypes = [
       'image/jpeg',
@@ -107,17 +102,14 @@ export class InputMidiasComponent implements OnInit {
     );
   }
 
-  // ✅ Determinar tipo do arquivo
   private getFileType(file: File): 'image' | 'video' {
     return file.type.startsWith('image/') ? 'image' : 'video';
   }
 
-  // ✅ Limpar input
   private clearInput(inputElement: HTMLInputElement): void {
     inputElement.value = '';
   }
 
-  // ✅ Remover arquivo
   removeFile(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
@@ -137,17 +129,14 @@ export class InputMidiasComponent implements OnInit {
     console.log('Arquivo removido');
   }
 
-  // ✅ Obter ícone baseado no tipo
   getUploadIcon(): string {
-    return 'assets/icones/image.svg'; // Ícone padrão
+    return 'assets/icones/image.svg';
   }
 
-  // ✅ Obter nome do arquivo
   getFileName(): string {
     return this.selectedFile ? this.selectedFile.name : '';
   }
 
-  // ✅ Obter tamanho do arquivo formatado
   getFileSize(): string {
     if (!this.selectedFile) return '';
 
