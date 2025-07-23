@@ -1,20 +1,27 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar notícia</span>
+        <span>{{ isEditMode ? 'Editar notícia' : 'Cadastrar notícia' }}</span>
     </div>
   
     <div class="forms-container">
-        <form>
+        <form (ngSubmit)="onSubmit()" [formGroup]="noticiaForm">
             <div class="form-group">
                 <label for="titulo">Titulo</label>
-                <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Digite a data" required>
+                <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Digite um título para a notícia" required>
             </div>
 
-            <!-- <div class="form-group">
-                <label for="descricao">Notícia</label>
-                <textarea type="text" id="descricao" name="descricao" class="form-control" placeholder="Digite a descricao da notícia" rows="3" required></textarea>
-            </div> -->
+             <div class="form-group">
+                <label for="lojasIds">Destinatário</label>
+                <app-multiplo-select
+                  label="Selecione uma loja"
+                  [options]="lojasIds"
+                  [(selectedValue)]="selectedDestinatario"
+                  [multiple]="true"
+                  formControlName="lojasIds"
+                  (selectedValueChange)="onDestinatarioChange($event)">
+                </app-multiplo-select>
+            </div>
 
             <div class="form-group">
                  <!-- <label for="descricao">Notícia</label> -->
@@ -27,19 +34,22 @@
                 </app-input-word>
             </div>
 
-            <div class="form-group">
-                <label for="loja">Destinatário</label>
-                <app-select-padrao
-                  label="Selecione uma loja"
-                  [customStyles]="{'background': '#FFFFFF'}">
-                </app-select-padrao>
-            </div>
-
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar notícia
+                    {{ isEditMode ? 'Atualizar notícia' : 'Cadastrar notícia' }}
                 </button>
             </div>
         </form>
     </div>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
+
+    <app-loading *ngIf="isLoading"></app-loading>
 </div>
