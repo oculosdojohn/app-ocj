@@ -38,7 +38,7 @@ const routes: Routes = [
         path: 'dashboard-gerente',
         component: PainelGerenteComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['GERENTE_GERAL', 'ROLE_GERENTE', 'SUPERVISOR'] }
+        data: { roles: ['ROLE_GERENTE_GERAL', 'ROLE_GERENTE', 'ROLE_SUPERVISOR'] }
       },
       {
         path: 'dashboard-rh',
