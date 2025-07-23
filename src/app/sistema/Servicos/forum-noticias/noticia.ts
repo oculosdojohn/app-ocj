@@ -1,20 +1,15 @@
-export interface NoticiaResponse {
-  id?: number;
-  titulo: string;
-  conteudo: string;
-  lojas: { id: string; nome: string; endereco: { cidade: string } }[];
-  autor?: string;
-  publicadaEm?: number;
-}
-
 export class Noticia {
+  id!: string;
   titulo!: string;
   conteudo!: string;
   lojasIds!: string[];
+  lojas!: { id: string; nome: string; endereco: { cidade: string } }[];
+  autor!: string;
+  publicadaEm!: number;
 
   toJson?(): string {
     return JSON.stringify({
-      content: this.conteudo,
+      conteudo: this.conteudo,
       lojasIds: this.lojasIds,
     });
   }
