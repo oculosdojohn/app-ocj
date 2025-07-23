@@ -2,8 +2,7 @@ export interface NoticiaResponse {
   id?: number;
   titulo: string;
   conteudo: string;
-  lojas: string[];
-  dataPublicacao?: string;
+  lojas: { id: string; nome: string; endereco: { cidade: string } }[];
   autor?: string;
   publicadaEm?: number;
 }
