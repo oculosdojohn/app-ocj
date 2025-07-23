@@ -18,6 +18,7 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { LoadingComponent } from './loading/loading.component';
 import { InputWordComponent } from './input-word/input-word.component';
+import { InputMidiasComponent } from './input-midias/input-midias.component';
 
 export function playerFactory() {
   return player;
@@ -39,7 +40,8 @@ export function playerFactory() {
     StarsComponent,
     ModalQuizComponent,
     LoadingComponent,
-    InputWordComponent
+    InputWordComponent,
+    InputMidiasComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +63,8 @@ export function playerFactory() {
     StarsComponent,
     ModalQuizComponent,
     LoadingComponent,
-    InputWordComponent
+    InputWordComponent,
+    InputMidiasComponent
   ]
 })
 export class SharedModule { }

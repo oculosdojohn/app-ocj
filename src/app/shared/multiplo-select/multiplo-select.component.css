@@ -45,7 +45,7 @@ label.active {
 
 .options-container {
   position: absolute;
-  top: 50%;
+  top: 100%;
   left: 0;
   width: 100%;
   background: #ffffff;

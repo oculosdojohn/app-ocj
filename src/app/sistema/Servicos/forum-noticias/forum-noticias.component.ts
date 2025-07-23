@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Noticia } from './noticia';
+import { Noticia, NoticiaResponse } from './noticia';
 import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
+import { NoticiasService } from 'src/app/services/funcionalidades/noticias.service';
 
 @Component({
   selector: 'app-forum-noticias',
@@ -16,20 +17,25 @@ export class ForumNoticiasComponent implements OnInit {
   successMessage: string = '';
   messageTimeout: any;
 
-  noticias: Noticia[] = [];
+  noticias: NoticiaResponse[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.noticias.length / this.itensPorPagina);
-  noticiasPaginadas: Noticia[] = [];
+  noticiasPaginadas: NoticiaResponse[] = [];
 
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private noticiasService: NoticiasService
+  ) {}
 
   ngOnInit(): void {
     this.atualizarPaginacao();
+    this.fetchNoticias();
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
@@ -56,6 +62,26 @@ export class ForumNoticiasComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  fetchNoticias(): void {
+    this.isLoading = true;
+
+    this.noticiasService.getNoticias().subscribe(
+      (noticias: any[]) => {
+        console.log('Notícias retornadas:', noticias);
+        this.noticias = noticias;
+        this.totalPaginas = Math.ceil(
+          this.noticias.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Erro ao carregar noticias:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   get rotaDashboard(): string {

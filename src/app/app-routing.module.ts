@@ -9,11 +9,13 @@ import { PainelColaboradorComponent } from './sistema/Dashboard-Usuarios/painel-
 import { PainelGerenteComponent } from './sistema/Dashboard-Usuarios/painel-gerente/painel-gerente.component';
 import { PainelRhComponent } from './sistema/Dashboard-Usuarios/painel-rh/painel-rh.component';
 import { ResetPasswordComponent } from './recuperar-senha/reset-password/reset-password.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'recuperar-minha-senha', component: EsqueciSenhaComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'forbidden', component: ForbiddenComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
