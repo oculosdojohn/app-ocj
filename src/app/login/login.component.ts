@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
           case Permissao.GERENTE_GERAL:
           case Permissao.SUPERVISOR:
           case Permissao.GERENTE:
-          this.router.navigate(['/usuario/dashboard-gerentes']);
+          this.router.navigate(['/usuario/dashboard-gerente']);
           break;
           case Permissao.VENDEDOR:
           case Permissao.CONSULTOR_VENDAS:
