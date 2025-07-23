@@ -24,6 +24,16 @@
             </div>
 
             <div class="form-group">
+                <label for="arquivo">Arquivo</label>
+                <app-input-midias
+                    label="Clique ou arraste sua imagem/vídeo aqui"
+                    inputId="arquivo-noticia"
+                    (midiaSelected)="onArquivoSelecionado($event)"
+                    (fileRemoved)="onArquivoRemovido()">
+                </app-input-midias>
+            </div>
+
+            <div class="form-group">
                  <!-- <label for="descricao">Notícia</label> -->
                 <app-input-word
                     placeholder="Digite o conteúdo da notícia..."

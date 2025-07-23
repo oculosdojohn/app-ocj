@@ -27,6 +27,9 @@ export class CadastroNoticiasComponent implements OnInit {
   lojasIds: { value: string; description: string }[] = [];
   selectedDestinatario: string = '';
 
+  arquivo: File | null = null;
+  selectedFile: File | null = null;
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -57,9 +60,7 @@ export class CadastroNoticiasComponent implements OnInit {
       return;
     }
 
-    const lojasSelecionadas = Array.isArray(
-      this.noticiaForm.value.lojasIds
-    )
+    const lojasSelecionadas = Array.isArray(this.noticiaForm.value.lojasIds)
       ? this.noticiaForm.value.lojasIds.map((r: any) => r.value)
       : [];
 
@@ -75,9 +76,8 @@ export class CadastroNoticiasComponent implements OnInit {
     const formData = new FormData();
     formData.append('noticia', JSON.stringify(noticia));
 
-    const foto = this.noticiaForm.get('foto')?.value;
-    if (foto) {
-      formData.append('foto', foto);
+    if (this.selectedFile) {
+      formData.append('arquivo', this.selectedFile);
     }
 
     if (this.isEditMode && this.noticiaId) {
@@ -149,5 +149,21 @@ export class CadastroNoticiasComponent implements OnInit {
   onDestinatarioChange(event: any) {
     console.log('Destinatário selecionado:', event);
     this.noticiaForm.get('lojasIds')?.setValue(event);
+  }
+
+  onArquivoSelecionado(arquivo: File | null): void {
+    if (arquivo) {
+      console.log('📎 Arquivo selecionado:', arquivo.name);
+      console.log('📊 Tamanho:', arquivo.size);
+      console.log('🎭 Tipo:', arquivo.type);
+
+      // Salvar o arquivo para envio
+      this.selectedFile = arquivo;
+    }
+  }
+
+  onArquivoRemovido(): void {
+    console.log('🗑️ Arquivo removido');
+    this.selectedFile = null;
   }
 }
