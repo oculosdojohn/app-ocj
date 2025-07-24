@@ -17,7 +17,7 @@
             <thead>
                 <tr>
                     <th>Titulo</th>
-                    <th>Data</th>
+                    <th>Data/Hora</th>
                     <th>Destinatário</th>
                     <th>Autor</th>
                     <th>Ações</th>
@@ -34,6 +34,7 @@
                     <td>
                         <span>{{ noticia.lojas }}</span>
                     </td>
+                    <td>{{ noticia.autor.username }}</td>
                     <td>
                         <div class="acoes">
                             <button class="btn-acao visualizar" (click)="visualizarNoticia(noticia.id)">

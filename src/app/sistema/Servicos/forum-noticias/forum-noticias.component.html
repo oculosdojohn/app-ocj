@@ -9,7 +9,7 @@
             <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Fórum de Notícias</span>
         </div>
         <div class="actions" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
-            <button class="btn-cadastrar" (click)="acessarCentralNoticia()">
+            <button class="btn-line" (click)="acessarCentralNoticia()">
                 Central de notícias
             </button>
             <button class="btn-cadastrar" (click)="cadastrarNoticia()">
@@ -62,7 +62,7 @@
         <ng-template #semNoticias>
             <div class="no-data-message">
             <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
-            <p>Não há notícias cadastradas.</p>
+            <p>Não há notícias disponíveis.</p>
             </div>
         </ng-template>
     </div>

@@ -165,6 +165,7 @@ export class NoticiasService {
       params = params.set('unpaged', unpaged.toString());
 
     const url = `${this.apiURL}/filtro`;
+     console.log('Requisição GET:', url, params.toString());
 
     return this.http.get<Noticia[]>(url, { params }).pipe(
       map((response) => response),
