@@ -17,12 +17,15 @@
     </div>
     <div class="data-itens">
         <div class="item-data" *ngIf="noticia.arquivo as arquivo">
-            <ng-container *ngIf="isImage(arquivo.documentoUrl || ''); else videoBlock">
-                <img [src]="arquivo.documentoUrl" [alt]="arquivo.name" class="noticia-arquivo-img" />
-            </ng-container>
-            <ng-template #videoBlock>
+            <ng-container *ngIf="arquivo.documentoUrl; else noMidia">
+                <ng-container *ngIf="isImage(arquivo.documentoUrl); else videoBlock">
+                <img [src]="arquivo.documentoUrl" [alt]="arquivo.name || 'Arquivo da notícia'" class="noticia-arquivo-img" />
+                </ng-container>
+                <ng-template #videoBlock>
                 <video [src]="arquivo.documentoUrl" controls class="noticia-arquivo-video"></video>
-            </ng-template>
+                </ng-template>
+            </ng-container>
+            <ng-template #noMidia></ng-template>
         </div>
         <div class="item-data">
            <div [innerHTML]="conteudoSanitizado"></div>
