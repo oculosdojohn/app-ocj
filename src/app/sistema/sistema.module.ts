@@ -56,6 +56,7 @@ import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produ
 import { DetalhesProdutosComponent } from './Servicos/visualizar-servicos/detalhes-produtos/detalhes-produtos.component';
 import { CadastroDeRenovacaoContratoComponent } from './RH/cadastro-de-renovacao-contrato/cadastro-de-renovacao-contrato.component';
 import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhes-noticia/detalhes-noticia.component';
+import { CentralDeNoticiasComponent } from './Servicos/central-de-noticias/central-de-noticias.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhe
     DetalhesProdutosComponent,
     CadastroDeRenovacaoContratoComponent,
     DetalhesNoticiaComponent,
+    CentralDeNoticiasComponent,
   ],
   imports: [
     CommonModule,

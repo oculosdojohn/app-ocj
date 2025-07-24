@@ -46,4 +46,19 @@ export class DetalhesNoticiaComponent implements OnInit {
       );
     }
   }
+
+  isImage(url: string): boolean {
+    return /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i.test(url);
+  }
+
+  formatarDestinatariosArray(
+    lojas: { nome: string; endereco?: { cidade?: string } }[] | undefined
+  ): string[] {
+    if (!lojas || lojas.length === 0) return ['-'];
+    return lojas.map((l) => {
+      const nome = l.nome || '';
+      const cidade = l.endereco?.cidade ? ` - ${l.endereco.cidade}` : '';
+      return nome + cidade;
+    });
+  }
 }

@@ -16,6 +16,14 @@
         <hr class="line">
     </div>
     <div class="data-itens">
+        <div class="item-data" *ngIf="noticia.arquivo as arquivo">
+            <ng-container *ngIf="isImage(arquivo.documentoUrl || ''); else videoBlock">
+                <img [src]="arquivo.documentoUrl" [alt]="arquivo.name" class="noticia-arquivo-img" />
+            </ng-container>
+            <ng-template #videoBlock>
+                <video [src]="arquivo.documentoUrl" controls class="noticia-arquivo-video"></video>
+            </ng-template>
+        </div>
         <div class="item-data">
            <div [innerHTML]="conteudoSanitizado"></div>
         </div>
@@ -25,7 +33,9 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Destinatário</label>
-                <p>{{ noticia.lojas || '-' }}</p>
+                <div *ngFor="let destinatario of formatarDestinatariosArray(noticia.lojas)">
+                    <p>{{ destinatario }}</p>
+                </div>
             </div>
             <div class="item-data">
                 <label>Autor</label>

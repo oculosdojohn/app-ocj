@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { Noticia } from './noticia';
+import { Noticia } from '../forum-noticias/noticia';
 import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { NoticiasService } from 'src/app/services/funcionalidades/noticias.service';
 
 @Component({
-  selector: 'app-forum-noticias',
-  templateUrl: './forum-noticias.component.html',
-  styleUrls: ['./forum-noticias.component.css'],
+  selector: 'app-central-de-noticias',
+  templateUrl: './central-de-noticias.component.html',
+  styleUrls: ['./central-de-noticias.component.css'],
 })
-export class ForumNoticiasComponent implements OnInit {
+export class CentralDeNoticiasComponent implements OnInit {
   termoBusca: string = '';
   mensagemBusca: string = '';
   isLoading = false;
@@ -30,7 +31,8 @@ export class ForumNoticiasComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private noticiasService: NoticiasService
+    private noticiasService: NoticiasService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -41,12 +43,8 @@ export class ForumNoticiasComponent implements OnInit {
     });
   }
 
-  cadastrarNoticia(): void {
-    this.router.navigate(['/usuario/cadastro-noticia']);
-  }
-
-  acessarCentralNoticia(): void {
-    this.router.navigate(['/usuario/central-de-noticias']);
+  goBack() {
+    this.location.back();
   }
 
   onSearch(searchTerm: string) {
@@ -71,21 +69,34 @@ export class ForumNoticiasComponent implements OnInit {
   fetchNoticias(): void {
     this.isLoading = true;
 
-    this.noticiasService.getNoticias().subscribe(
-      (noticias: any[]) => {
-        console.log('Notícias retornadas:', noticias);
-        this.noticias = noticias;
-        this.totalPaginas = Math.ceil(
-          this.noticias.length / this.itensPorPagina
-        );
-        this.atualizarPaginacao();
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Erro ao carregar noticias:', error);
-        this.isLoading = false;
-      }
-    );
+    const lojasIds: number[] = [];
+    const pageNumber = this.paginaAtual;
+    const pageSize = this.itensPorPagina;
+    const paged = true;
+
+    this.noticiasService
+      .getNoticiasFiltradas(
+        lojasIds,
+        undefined,
+        pageNumber,
+        pageSize,
+        paged
+      )
+      .subscribe(
+        (noticias: Noticia[]) => {
+          console.log('Notícias filtradas retornadas:', noticias);
+          this.noticias = noticias;
+          this.totalPaginas = Math.ceil(
+            this.noticias.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Erro ao carregar notícias filtradas:', error);
+          this.isLoading = false;
+        }
+      );
   }
 
   visualizarNoticia(id: string): void {
@@ -94,18 +105,8 @@ export class ForumNoticiasComponent implements OnInit {
     console.log('Navegando para detalhes da notícia com ID:', id);
   }
 
-  get rotaDashboard(): string {
-    if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
-    if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
-    if (this.cargoUsuario === Permissao.GERENTE) return '/dashboard-gerente';
-    if (
-      this.cargoUsuario === Permissao.CONSULTOR_VENDAS ||
-      this.cargoUsuario === Permissao.VENDEDOR ||
-      this.cargoUsuario === Permissao.FINANCEIRO ||
-      this.cargoUsuario === Permissao.COBRADOR ||
-      this.cargoUsuario === Permissao.ESTAGIARIO
-    )
-      return '/dashboard-colaborador';
-    return '/login';
+  editarNoticia(id: string): void {
+    console.log('Editando notícia com ID:', id);
+    this.router.navigate(['/usuario/cadastro-noticia', id]);
   }
 }

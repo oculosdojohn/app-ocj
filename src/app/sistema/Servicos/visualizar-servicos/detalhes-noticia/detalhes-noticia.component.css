@@ -98,7 +98,7 @@
 }
 
 .data-itens {
-  margin: 16px 0;
+  margin: 40px 0;
 }
 
 .data-grid {
@@ -115,6 +115,9 @@
   word-break: break-word;
   white-space: pre-line;
   max-width: 100%;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 8px;
 }
 
 .data-grid-trio {
@@ -174,6 +177,17 @@
   overflow-x: auto;
   width: 100%;
   gap: 12px;
+}
+
+/* arquivos de midia */
+.noticia-arquivo-img,
+.noticia-arquivo-video {
+  max-width: 100%;
+  max-height: 350px;
+  display: block;
+  margin: 0 auto 24px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Breakpoints */
