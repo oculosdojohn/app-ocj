@@ -15,7 +15,10 @@
                     [customStyles]="{'background': '#FFFFFF'}"
                     [options]="meses"
                     [(selectedValue)]="selectedMes"
-                    (selectedValueChange)="filtrarPorMes()">
+                    (selectedValueChange)="filtrarPorMes()"
+                    [showDefaultOption]="true"
+                    [defaultLabel]="'Todos'"
+                    [defaultValue]="''">
                 </app-select-padrao>
             </div>
 

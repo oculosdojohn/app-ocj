@@ -264,20 +264,38 @@ export class ColaboradorService {
   }
 
   getDesempenhoCursos(id: number): Observable<any> {
-  const url = `${this.apiURL}/${id}/desempenho-cursos`;
-  return this.http.get<any>(url).pipe(
-    map((response) => response),
-    catchError((error: HttpErrorResponse) => {
-      let errorMessage = 'Erro ao buscar o desempenho do usuário nos cursos.';
-      
-      if (error.error instanceof ErrorEvent) {
-        errorMessage = `Erro: ${error.error.message}`;
-      } else if (error.status) {
-        errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
-      }
-      console.error(errorMessage);
-      return throwError(() => new Error(errorMessage));
-    })
-  );
-}
+    const url = `${this.apiURL}/${id}/desempenho-cursos`;
+    return this.http.get<any>(url).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao buscar o desempenho do usuário nos cursos.';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getAniversariantesPorMes(data: string): Observable<Colaborador[]> {
+    const url = `${this.apiURL}/aniversariantes`;
+    const params = { data };
+    return this.http.get<Colaborador[]>(url, { params }).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao buscar aniversariantes.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }

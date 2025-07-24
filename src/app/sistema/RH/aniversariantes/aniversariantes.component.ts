@@ -56,17 +56,37 @@ export class AniversariantesComponent implements OnInit {
   }
 
   filtrarPorMes(): void {
-    console.log('Mês selecionado:', this.selectedMes);
-    if (this.selectedMes) {
-      this.aniversariosFiltrados = this.colaboradores.filter((colaborador) => {
-        const mes = colaborador.dataNascimento.split('/')[1];
-        return mes === this.selectedMes;
-      });
-    } else {
-      this.aniversariosFiltrados = [...this.colaboradores];
+    this.isLoading = true;
+    this.mensagemBusca = '';
+
+    if (!this.selectedMes) {
+      this.fetchColaboradores();
+      this.isLoading = false;
+      return;
     }
-    console.log('Aniversários filtrados:', this.aniversariosFiltrados);
-    this.atualizarPaginacao();
+
+    const anoAtual = new Date().getFullYear();
+    const dataFiltro = `${anoAtual}-${this.selectedMes}-01`;
+
+    this.colaboradorService.getAniversariantesPorMes(dataFiltro).subscribe(
+      (colaboradores: Colaborador[]) => {
+        this.colaboradores = colaboradores;
+        this.totalPaginas = Math.ceil(
+          this.colaboradores.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (colaboradores.length === 0) {
+          this.mensagemBusca =
+            'Nenhum aniversariante encontrado para o mês selecionado.';
+        }
+      },
+      (error) => {
+        this.isLoading = false;
+        this.mensagemBusca = 'Erro ao buscar aniversariantes.';
+        console.error(error);
+      }
+    );
   }
 
   atualizarPaginacao(): void {
