@@ -5,6 +5,7 @@ import { Noticia } from '../forum-noticias/noticia';
 import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { NoticiasService } from 'src/app/services/funcionalidades/noticias.service';
+import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 
 @Component({
   selector: 'app-central-de-noticias',
@@ -24,6 +25,7 @@ export class CentralDeNoticiasComponent implements OnInit {
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.noticias.length / this.itensPorPagina);
   noticiasPaginadas: Noticia[] = [];
+  selectedNoticia: any = null;
 
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
@@ -32,7 +34,8 @@ export class CentralDeNoticiasComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private noticiasService: NoticiasService,
-    private location: Location
+    private location: Location,
+    private modalDeleteService: ModalDeleteService
   ) {}
 
   ngOnInit(): void {
@@ -67,21 +70,14 @@ export class CentralDeNoticiasComponent implements OnInit {
   }
 
   fetchNoticias(): void {
-    this.isLoading = true;
-
     const lojasIds: number[] = [];
     const pageNumber = this.paginaAtual;
     const pageSize = this.itensPorPagina;
     const paged = true;
 
+    this.isLoading = true;
     this.noticiasService
-      .getNoticiasFiltradas(
-        lojasIds,
-        undefined,
-        pageNumber,
-        pageSize,
-        paged
-      )
+      .getNoticiasFiltradas(lojasIds, undefined, pageNumber, pageSize, paged)
       .subscribe(
         (noticias: Noticia[]) => {
           console.log('Notícias filtradas retornadas:', noticias);
@@ -108,5 +104,59 @@ export class CentralDeNoticiasComponent implements OnInit {
   editarNoticia(id: string): void {
     console.log('Editando notícia com ID:', id);
     this.router.navigate(['/usuario/cadastro-noticia', id]);
+  }
+
+  deleteNoticia(id: string): void {
+    const noticiaRemovida = this.noticias.find((e) => e.id === id);
+    this.noticiasService.deleteNoticiaById(id).subscribe(
+      () => {
+        console.log('Notícia deletada com sucesso!');
+        this.fetchNoticias();
+        this.showMessage(
+          'success',
+          `Notícia "${noticiaRemovida?.titulo || ''}" deletada com sucesso!`
+        );
+      },
+      (error) => {
+        console.error('Erro ao deletar a notícia:', error);
+      }
+    );
+  }
+
+  openModalDeletar(noticia: any): void {
+    this.selectedNoticia = noticia;
+
+    this.modalDeleteService.openModal(
+      {
+        title: 'Remoção de Notícia',
+        description: `Tem certeza que deseja excluir a notícia <strong>${noticia.titulo}</strong>?`,
+        item: noticia,
+        deletarTextoBotao: 'Remover',
+        size: 'md',
+      },
+      () => {
+        this.deleteNoticia(noticia.id);
+      }
+    );
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }
