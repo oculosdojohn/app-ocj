@@ -39,6 +39,7 @@ export class CentralDeNoticiasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.exibirMensagemDeSucesso();
     this.atualizarPaginacao();
     this.fetchNoticias();
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
