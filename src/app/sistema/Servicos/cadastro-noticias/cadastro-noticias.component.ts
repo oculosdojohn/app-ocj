@@ -27,7 +27,7 @@ export class CadastroNoticiasComponent implements OnInit {
   lojasIds: { value: string; description: string }[] = [];
   selectedDestinatario: string = '';
 
-  arquivo: File | null = null;
+  arquivo: File | { documentoUrl: string; id: number; name: string } | null = null;
   selectedFile: File | null = null;
 
   constructor(
@@ -128,7 +128,33 @@ export class CadastroNoticiasComponent implements OnInit {
     return false;
   }
 
-  private verificarModoEdicao(): void {}
+  private verificarModoEdicao(): void {
+    this.noticiaId = this.route.snapshot.paramMap.get('id');
+    if (this.noticiaId) {
+      this.isEditMode = true;
+      this.noticiasService.getNoticiaById(Number(this.noticiaId)).subscribe(
+        (noticia: Noticia) => {
+          this.noticiaForm.patchValue({
+            ...noticia,
+            lojasIds:
+              noticia.lojas?.map((loja) => ({
+                value: loja.id,
+                description: loja.nome,
+              })) || [],
+          });
+
+          if (noticia.arquivo) {
+            this.selectedFile = null;
+            this.arquivo = noticia.arquivo;
+          }
+        },
+        (error) => {
+          console.error('Erro ao carregar os dados de notícia', error);
+          this.errorMessage = 'Erro ao carregar os dados da notícia.';
+        }
+      );
+    }
+  }
 
   carregarLojas(callback?: () => void): void {
     this.lojaService.getLojas().subscribe(

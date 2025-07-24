@@ -42,7 +42,9 @@
                     </td>
                     <td>{{ noticia.publicadaEm }}</td>
                     <td>
-                        <span>{{ noticia.lojas }}</span>
+                        <div class="destinatario" *ngFor="let destinatario of formatarDestinatariosArray(noticia.lojas)">
+                            <p>{{ destinatario }}</p>
+                        </div>
                     </td>
                     <td>{{ noticia.autor.username }}</td>
                     <td>

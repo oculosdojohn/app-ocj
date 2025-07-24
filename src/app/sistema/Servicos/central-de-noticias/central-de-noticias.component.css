@@ -200,6 +200,11 @@ tr:hover {
   gap: 15px;
 }
 
+.destinatario p {
+  margin: 0;
+  padding: 0;
+}
+
 /* Breakpoints */
 @media (min-width: 1200px) {
   .main-container {

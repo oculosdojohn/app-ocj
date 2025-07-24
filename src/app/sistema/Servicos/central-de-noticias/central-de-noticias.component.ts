@@ -159,4 +159,15 @@ export class CentralDeNoticiasComponent implements OnInit {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
+
+  formatarDestinatariosArray(
+    lojas: { nome: string; endereco?: { cidade?: string } }[] | undefined
+  ): string[] {
+    if (!lojas || lojas.length === 0) return ['-'];
+    return lojas.map((l) => {
+      const nome = l.nome || '';
+      const cidade = l.endereco?.cidade ? ` - ${l.endereco.cidade}` : '';
+      return nome + cidade;
+    });
+  }
 }
