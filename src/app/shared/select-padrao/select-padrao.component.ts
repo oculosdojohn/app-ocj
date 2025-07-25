@@ -26,9 +26,12 @@ export class SelectPadraoComponent {
   @Input() label: string = '';
   @Input() options: { value: string; description: string }[] = [];
   @Input() selectedValue: string = '';
-  @Output() selectedValueChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() selectedValueChange = new EventEmitter<string>();
   @Input() customStyles: { [key: string]: string } = {};
   @Input() disabled: boolean = false;
+  @Input() showDefaultOption: boolean = false;
+  @Input() defaultLabel: string = 'Todos';
+  @Input() defaultValue: any = '';
 
   isOpen: boolean = false;
   onChange = (value: string) => {};
@@ -62,7 +65,6 @@ export class SelectPadraoComponent {
   }
 
   onSelect(option: { value: string; description: string }) {
-    console.log('Selecionado:', option);
     this.selectedValue = option.value;
     this.value = option.value;
     this.onChange(this.value);
@@ -76,6 +78,12 @@ export class SelectPadraoComponent {
       (option) => option.value === this.selectedValue
     );
     return selectedOption ? selectedOption.description : '';
+  }
+
+  onSelectDefault() {
+    this.selectedValue = this.defaultValue;
+    this.selectedValueChange.emit(this.defaultValue);
+    this.isOpen = false;
   }
 
   @HostListener('document:click', ['$event'])

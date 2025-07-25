@@ -49,6 +49,7 @@ import { BuscarQuizzesComponent } from './Servicos/buscar-quizzes/buscar-quizzes
 import { DetalhesProdutosComponent } from './Servicos/visualizar-servicos/detalhes-produtos/detalhes-produtos.component';
 import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produtos/meus-produtos.component';
 import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhes-noticia/detalhes-noticia.component';
+import { CentralDeNoticiasComponent } from './Servicos/central-de-noticias/central-de-noticias.component';
 
 const routes: Routes = [
   {
@@ -109,6 +110,7 @@ const routes: Routes = [
       { path: 'cadastro-quizz/:id', component: CadastroQuizzComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
       { path: 'buscar-quizzes', component: BuscarQuizzesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
       { path: 'detalhes-produto/:id', component: DetalhesProdutosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
+      { path: 'central-de-noticias', component: CentralDeNoticiasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] }  },
 
       // rotas públicas (dentro de /usuario)
       { path: 'forum-de-noticias', component: ForumNoticiasComponent },

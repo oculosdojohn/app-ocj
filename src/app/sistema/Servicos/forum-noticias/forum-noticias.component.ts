@@ -19,7 +19,7 @@ export class ForumNoticiasComponent implements OnInit {
 
   noticias: Noticia[] = [];
 
-  itensPorPagina = 6;
+  itensPorPagina = 8;
   paginaAtual = 1;
   totalPaginas = Math.ceil(this.noticias.length / this.itensPorPagina);
   noticiasPaginadas: Noticia[] = [];
@@ -34,6 +34,7 @@ export class ForumNoticiasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.exibirMensagemDeSucesso();
     this.atualizarPaginacao();
     this.fetchNoticias();
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
@@ -43,6 +44,10 @@ export class ForumNoticiasComponent implements OnInit {
 
   cadastrarNoticia(): void {
     this.router.navigate(['/usuario/cadastro-noticia']);
+  }
+
+  acessarCentralNoticia(): void {
+    this.router.navigate(['/usuario/central-de-noticias']);
   }
 
   onSearch(searchTerm: string) {
@@ -90,11 +95,6 @@ export class ForumNoticiasComponent implements OnInit {
     console.log('Navegando para detalhes da notícia com ID:', id);
   }
 
-  editarNoticia(id: string): void {
-    console.log('Editando notícia com ID:', id);
-    this.router.navigate(['/usuario/cadastro-noticia', id]);
-  }
-
   get rotaDashboard(): string {
     if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
     if (this.cargoUsuario === Permissao.RH) return '/dashboard-rh';
@@ -108,5 +108,25 @@ export class ForumNoticiasComponent implements OnInit {
     )
       return '/dashboard-colaborador';
     return '/login';
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }

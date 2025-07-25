@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -120,6 +124,53 @@ export class NoticiasService {
       catchError((error) => {
         let errorMessage = 'Erro ao deletar a notícia.';
 
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getNoticiasFiltradas(
+    lojasIds: number[] = [],
+    offset?: number,
+    pageNumber?: number,
+    pageSize?: number,
+    paged?: boolean,
+    sortSorted?: boolean,
+    sortUnsorted?: boolean,
+    unpaged?: boolean
+  ): Observable<Noticia[]> {
+    let params = new HttpParams();
+
+    lojasIds.forEach((id) => {
+      params = params.append('loja_id', id.toString());
+    });
+
+    if (offset !== undefined) params = params.set('offset', offset.toString());
+    if (pageNumber !== undefined)
+      params = params.set('pageNumber', pageNumber.toString());
+    if (pageSize !== undefined)
+      params = params.set('pageSize', pageSize.toString());
+    if (paged !== undefined) params = params.set('paged', paged.toString());
+    if (sortSorted !== undefined)
+      params = params.set('sort.sorted', sortSorted.toString());
+    if (sortUnsorted !== undefined)
+      params = params.set('sort.unsorted', sortUnsorted.toString());
+    if (unpaged !== undefined)
+      params = params.set('unpaged', unpaged.toString());
+
+    const url = `${this.apiURL}/filtro`;
+     console.log('Requisição GET:', url, params.toString());
+
+    return this.http.get<Noticia[]>(url, { params }).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar as notícias filtradas.';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {

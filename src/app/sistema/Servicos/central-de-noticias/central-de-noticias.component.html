@@ -1,20 +1,14 @@
 <div class="main-container">
     <div class="banner">
-        <h1>Fórum de Notícias</h1>
-        <p>Fique por dentro das últimas novidades.</p>
+        <h1>Central de Notícias</h1>
+        <p>Gerencie todas as suas notícias em um só lugar.</p>
     </div>
 
     <div class="breadcrumb-container">
         <div class="breadcrumb">
-            <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Fórum de Notícias</span>
+            <a (click)="goBack()">Fórum de Notícias &gt; </a> <span class="breadcrumb-highlight"> Central de Notícias</span>
         </div>
-        <div class="actions" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
-            <button class="btn-line" (click)="acessarCentralNoticia()">
-                Central de notícias
-            </button>
-            <button class="btn-cadastrar" (click)="cadastrarNoticia()">
-                Cadastrar Notícia
-            </button>
+        <div class="actions">
         </div>
     </div>
 
@@ -34,6 +28,7 @@
                 <tr>
                     <th>Titulo</th>
                     <th>Data/Hora</th>
+                    <th>Destinatário</th>
                     <th>Autor</th>
                     <th>Ações</th>
                 </tr>
@@ -47,12 +42,21 @@
                     </td>
                     <td>{{ noticia.publicadaEm }}</td>
                     <td>
-                        <span>{{ noticia.autor.username }}</span>
+                        <div class="destinatario" *ngFor="let destinatario of formatarDestinatariosArray(noticia.lojas)">
+                            <p>{{ destinatario }}</p>
+                        </div>
                     </td>
+                    <td>{{ noticia.autor.username }}</td>
                     <td>
                         <div class="acoes">
                             <button class="btn-acao visualizar" (click)="visualizarNoticia(noticia.id)">
                                 <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarNoticia(noticia.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(noticia)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
                             </button>
                         </div>
                     </td>
@@ -72,7 +76,7 @@
         <ng-template #semNoticias>
             <div class="no-data-message">
             <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
-            <p>Não há notícias disponíveis.</p>
+            <p>Não há notícias cadastradas.</p>
             </div>
         </ng-template>
     </div>
