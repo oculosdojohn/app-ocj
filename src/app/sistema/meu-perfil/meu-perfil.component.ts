@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ThemeService } from '../../services/modo-escuro/theme.service';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { ErrorMessageService } from 'src/app/services/feedback/error-message.service';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -35,10 +36,15 @@ export class MeuPerfilComponent implements OnInit {
     confirmPassword: false,
   };
 
+  oldPassword: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
+
   constructor(
     private location: Location,
     public themeService: ThemeService,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private errorMessageService: ErrorMessageService
   ) {}
 
   ngOnInit(): void {
@@ -174,7 +180,51 @@ export class MeuPerfilComponent implements OnInit {
   }
 
   changePassword() {
-    this.showChangePassword = false;
+    if (!this.oldPassword && !this.newPassword && !this.confirmPassword) {
+      this.showMessage('error', 'Preencha todos os campos.');
+      return;
+    }
+
+    if (this.newPassword !== this.confirmPassword) {
+      this.showMessage('error', 'As senhas não coincidem.');
+      return;
+    }
+
+    const dto = {
+      oldPassword: this.oldPassword,
+      newPassword: this.newPassword,
+      confirmPassword: this.confirmPassword,
+    };
+
+    this.colaboradorService
+      .redefinirSenha({
+        oldPassword: this.oldPassword,
+        newPassword: this.newPassword,
+        confirmPassword: this.confirmPassword,
+      })
+      .subscribe({
+        next: () => {
+          this.showChangePassword = false;
+          this.showMessage('success', 'Senha alterada com sucesso!');
+          this.oldPassword = '';
+          this.newPassword = '';
+          this.confirmPassword = '';
+        },
+        error: (error) => {
+          let msg = '';
+          if (error.status) {
+            msg = this.errorMessageService.getErrorMessage(
+              error.status,
+              'PUT',
+              'senha'
+            );
+          }
+          if (error.error?.message) {
+            msg = error.error.message;
+          }
+          this.showMessage('error', msg || 'Erro ao alterar a senha.');
+        },
+      });
   }
 
   togglePasswordVisibility(field: string) {
@@ -186,5 +236,21 @@ export class MeuPerfilComponent implements OnInit {
         this.passwordVisible[field] ? 'text' : 'password'
       );
     }
+  }
+
+  get senhaMin8(): boolean {
+    return (this.newPassword?.length ?? 0) >= 8;
+  }
+  get senhaMaiuscula(): boolean {
+    return /[A-Z]/.test(this.newPassword || '');
+  }
+  get senhaMinuscula(): boolean {
+    return /[a-z]/.test(this.newPassword || '');
+  }
+  get senhaNumero(): boolean {
+    return /\d/.test(this.newPassword || '');
+  }
+  get senhaEspecial(): boolean {
+    return /[!@#$%^&*(),.?":{}|<>]/.test(this.newPassword || '');
   }
 }

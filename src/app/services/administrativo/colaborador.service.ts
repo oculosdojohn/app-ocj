@@ -298,4 +298,19 @@ export class ColaboradorService {
       })
     );
   }
+
+  redefinirSenha(dto: {
+    oldPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+  }): Observable<any> {
+    const url = `${this.apiURL}/newPassword`;
+    return this.http.put<any>(url, dto).pipe(
+      map((response) => response),
+      catchError((error) => {
+        console.error('Erro no servidor:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }
