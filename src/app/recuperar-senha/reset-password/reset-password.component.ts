@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/configs/auth.service';
+import { ErrorMessageService } from 'src/app/services/feedback/error-message.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -19,7 +20,11 @@ export class ResetPasswordComponent implements OnInit {
     confirmPassword: false,
   };
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private errorMessageService: ErrorMessageService
+  ) {}
 
   ngOnInit(): void {
     const queryParams = new URLSearchParams(window.location.search);
@@ -49,14 +54,13 @@ export class ResetPasswordComponent implements OnInit {
         setTimeout(() => this.router.navigate(['/login']), 2000);
       },
       (error) => {
-        console.log(error);
-        if (error.status === 400) {
-          this.errors = ['E-mail não encontrado ou inválido.'];
-        } else if (error.status === 500) {
-          this.errors = ['Erro ao atualiza senha.'];
-        } else {
-          this.errors = ['Erro desconhecido na atualização de senha.'];
-        }
+        const msg = this.errorMessageService.getErrorMessage(
+          error.status,
+          'PUT',
+          'senha'
+        );
+        this.errors = [msg];
+        console.error(error);
       }
     );
   }

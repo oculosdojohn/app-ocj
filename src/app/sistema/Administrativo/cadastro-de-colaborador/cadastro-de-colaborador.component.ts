@@ -289,7 +289,7 @@ export class CadastroDeColaboradorComponent implements OnInit {
       (departamentos) => {
         this.departamentos = departamentos.map((departamento) => ({
           value: departamento.id,
-          description: departamento.nome,
+          description: `${departamento.nome} - ${departamento.loja?.nome || ''}, ${departamento.loja?.endereco.cidade || ''}`,
         }));
       },
       (error) => {
