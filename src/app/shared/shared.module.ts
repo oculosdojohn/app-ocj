@@ -74,6 +74,9 @@ export function playerFactory() {
     InputWordComponent,
     InputMidiasComponent,
     GraficoLinhaComponent,
+    GraficoRosquinhaComponent,
+    GraficoBarraVerticalComponent,
+    GraficoBarraHorizontalComponent
   ]
 })
 export class SharedModule { }
