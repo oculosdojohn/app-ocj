@@ -75,6 +75,13 @@
         <div class="grafico"></div>
       </div>
 
+      <app-grafico-barra-vertical
+            [series]="[{ name: 'Funcionarios', data: [18, 20, 10, 8, 9, 25] }]"
+            [categories]="['Até 1 ano', 'De 1 a 2 anos', 'De 2 a 3 anos', 'De 3 a 4 anos', 'De 5 a 10 anos', 'Mais de 10 anos']"
+            [colors]="['#42085d', '#611f7f', '#921fbc', '#8d09ca', '#8d55b6', '#bb7fe7']"
+            title="Funcionários por tempo de empresa">
+        </app-grafico-barra-vertical>
+
       <app-grafico-barra-horizontal
             [series]="[{ name: 'Concluidas', data: [18, 20, 10] }]"
             [categories]="['Completo', 'Em andamento', 'Incompleto']"
