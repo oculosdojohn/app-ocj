@@ -171,6 +171,14 @@
   display: flex;
   flex-direction: row;
   gap: 24px;
+  width: 100%;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.duo-graficos > * {
+  flex: 1 1 0;
+  min-width: 320px;
+  max-width: 100%;
 }
 
 .one-grafico {
