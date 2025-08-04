@@ -25,6 +25,14 @@
   height: 100%;
 }
 
+.grafico svg {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .grafico {

@@ -7,6 +7,7 @@ import {
   ElementRef,
   ViewChild,
   OnDestroy,
+  AfterViewInit,
 } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
 import {
@@ -31,7 +32,9 @@ export type ChartOptions = {
   templateUrl: './grafico-linha.component.html',
   styleUrls: ['./grafico-linha.component.css'],
 })
-export class GraficoLinhaComponent implements OnInit, OnChanges, OnDestroy {
+export class GraficoLinhaComponent
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit
+{
   @Input() series: ApexAxisChartSeries = [];
   @Input() categories: string[] = [];
   @Input() colors: string[] = [
@@ -56,8 +59,13 @@ export class GraficoLinhaComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.renderBarChart();
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.renderBarChart();
+      window.addEventListener('resize', this.handleResize);
+    }, 100);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -67,6 +75,7 @@ export class GraficoLinhaComponent implements OnInit, OnChanges, OnDestroy {
     ) {
       this.updateChart();
     }
+    window.removeEventListener('resize', this.handleResize);
   }
 
   ngOnDestroy(): void {
@@ -74,6 +83,16 @@ export class GraficoLinhaComponent implements OnInit, OnChanges, OnDestroy {
       this.chart.destroy();
     }
   }
+
+  handleResize = () => {
+    if (this.chart) {
+      this.chart.updateOptions(
+        { chart: { width: '100%' } },
+        false, // redraw
+        true // animate
+      );
+    }
+  };
 
   renderBarChart(): void {
     let subtitleText = this.subtitle;
