@@ -171,8 +171,8 @@ export class ColaboradorService {
     );
   }
 
-  atualizarPerfilUsuario(id: number, formData: FormData): Observable<any> {
-    const url = `${this.apiURL}/perfil/${id}`;
+  atualizarPerfilUsuario(formData: FormData): Observable<any> {
+    const url = `${this.apiURL}/perfil`;
     console.log('Dados enviados para o backend (atualizar perfil):');
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);

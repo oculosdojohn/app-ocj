@@ -144,21 +144,19 @@ export class MeuPerfilComponent implements OnInit {
       console.log(`${key}:`, value);
     });
 
-    this.colaboradorService
-      .atualizarPerfilUsuario(this.userId, formData)
-      .subscribe({
-        next: (response) => {
-          this.isEditing = false;
-          this.showMessage('success', 'Perfil atualizado com sucesso!');
-        },
-        error: (error) => {
-          this.showMessage(
-            'error',
-            error.message || 'Erro ao atualizar o perfil.'
-          );
-          console.error('Erro ao atualizar perfil:', error);
-        },
-      });
+    this.colaboradorService.atualizarPerfilUsuario(formData).subscribe({
+      next: (response) => {
+        this.isEditing = false;
+        this.showMessage('success', 'Perfil atualizado com sucesso!');
+      },
+      error: (error) => {
+        this.showMessage(
+          'error',
+          error.message || 'Erro ao atualizar o perfil.'
+        );
+        console.error('Erro ao atualizar perfil:', error);
+      },
+    });
   }
 
   showMessage(type: 'success' | 'error', msg: string) {
