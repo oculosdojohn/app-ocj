@@ -89,6 +89,10 @@ export class PainelColaboradorComponent implements OnInit {
     );
   }
 
+  visualizarCursos(): void {
+    this.router.navigate(['/usuario/cursos-disponiveis']);
+  }
+
   getWeatherForRussas(): void {
     this.apiService.fetchWeatherForRussas().subscribe((data) => {
       this.weatherData = data;

@@ -28,7 +28,7 @@
             <span> 0 </span>
             <div class="categoria-card">
                 <div class="icone-card">
-                    <img src="assets/icones/dashboard/cursos.svg" alt="Curso icone">
+                    <img src="assets/icones/modulo.svg" alt="Curso icone">
                 </div>
                 <p>Cursos finalizados</p>
             </div>
@@ -37,7 +37,7 @@
             <span> 0 </span>
             <div class="categoria-card">
                 <div class="icone-card">
-                    <img src="assets/icones/dashboard/gerentes.svg" alt="Gerente icone">
+                    <img src="assets/icones/dashboard/cursos.svg" alt="Curso icone">
                 </div>
                 <p>Aulas assistidas</p>
             </div>
@@ -45,10 +45,8 @@
         <div class="card info-card">
             <span> 0 </span>
             <div class="categoria-card">
-                <div class="icone-card">
-                    <img src="assets/icones/dashboard/colaboradores.svg" alt="Colaborador icone">
-                </div>
-                <p>Total de Quiz</p>
+                <img src="assets/icones/coin.svg" alt="Curso icone">
+                <p>Moedas</p>
             </div>
         </div>
       </div>
@@ -57,10 +55,9 @@
     <div class="banner-info">
         <h1>Inicie seu primeiro curso agora</h1>
         <p>Além de adquirir conhecimento você irá ganhar moedas para comprar produtos na Lojinha do John</p>
-        <button class="btn-acao">Acessar cursos</button>
+        <button class="btn-acao" (click)="visualizarCursos()">Acessar cursos</button>
     </div>
 
-    <!-- Adicione onde deseja exibir os recomendados -->
     <div class="cursos-recomendados">
       <h2>Cursos Recomendados</h2>
       <div class="cursos-grid">
@@ -75,5 +72,9 @@
           <button (click)="navegarParaModulo(curso.value)" class="access-btn">Acessar curso →</button>
         </div>
       </div>
+    </div>
+
+    <div class="cursos-recomendados">
+      <h2>Lojinha do John</h2>
     </div>
 </div>
