@@ -7,6 +7,9 @@ import { ServicesApisService } from 'src/app/services/services-apis.service';
 import { Router } from '@angular/router';
 import { Modulos } from '../../Servicos/cursos/enums/modulos';
 import { ModulosDescricao } from '../../Servicos/cursos/enums/modulos-descricao';
+import { LojinhaService } from 'src/app/services/funcionalidades/lojinha.service';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-painel-colaborador',
@@ -67,11 +70,20 @@ export class PainelColaboradorComponent implements OnInit {
 
   cursosFinalizados: string[] = [];
 
+  produtosLojinha: any[] = [];
+  produtosResgatados: string[] = [];
+
+  successMessage: string = '';
+  errorMessage: string = '';
+  messageTimeout: any;
+
   constructor(
     private apiService: ServicesApisService,
     private motivationalMessagesService: MotivationalMessagesService,
     private cdr: ChangeDetectorRef,
     private usuarioService: AuthService,
+    private lojinhaService: LojinhaService,
+    private colaboradorService: ColaboradorService,
     private router: Router
   ) {}
 
@@ -194,5 +206,61 @@ export class PainelColaboradorComponent implements OnInit {
     if (moduloSlug) {
       this.router.navigate(['/usuario/curso', moduloSlug]);
     }
+  }
+
+  get produtosLojinhaRecomendados() {
+    // Filtra produtos que o usuário NÃO resgatou
+    const naoResgatados = this.produtosLojinha.filter(
+      (produto) => !this.produtosResgatados.includes(produto.id)
+    );
+    // Embaralha e pega 3 aleatórios
+    return naoResgatados
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+      .slice(0, 3);
+  }
+
+  resgatarProduto(produtoId: any): void {
+    const id = Number(produtoId);
+    const produto = this.produtosLojinha.find((p) => Number(p.id) === id);
+
+    if (!produto) return;
+    this.lojinhaService.resgatarProduto(id).subscribe({
+      next: (res) => {
+        this.showMessage('success', 'Produto resgatado com sucesso!');
+        const moedasGastas = produto.valor;
+        this.colaboradorService.moedas$
+          .pipe(take(1))
+          .subscribe((moedasAtuais) => {
+            this.colaboradorService.atualizarMoedas(
+              moedasAtuais - moedasGastas
+            );
+          });
+      },
+      error: (err) => {
+        this.showMessage('error', err.message || 'Erro ao resgatar produto.');
+      },
+    });
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }

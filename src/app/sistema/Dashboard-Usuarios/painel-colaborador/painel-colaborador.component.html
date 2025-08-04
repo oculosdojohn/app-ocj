@@ -74,7 +74,22 @@
       </div>
     </div>
 
-    <div class="cursos-recomendados">
+    <div class="produtos-recomendados">
       <h2>Lojinha do John</h2>
+      <div class="produtos-grid">
+        <div class="produto-card" *ngFor="let produto of produtosLojinhaRecomendados">
+          <div class="produto-image">
+            <img [src]="produto.foto?.documentoUrl || 'assets/imgs/defaut-img-produto.png'" [alt]="produto.nome">
+          </div>
+          <h3>{{ produto.nome }}</h3>
+          <div class="details">
+            <span>
+              <img src="assets/icones/coin.svg" alt="Moeda">
+              {{ produto.valor }} Moedas
+            </span>
+          </div>
+          <button class="resgate-btn" (click)="resgatarProduto(produto.id)">Resgatar Produto</button>
+        </div>
+      </div>
     </div>
 </div>
