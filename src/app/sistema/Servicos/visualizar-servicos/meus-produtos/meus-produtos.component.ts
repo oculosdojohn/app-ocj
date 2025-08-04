@@ -81,21 +81,23 @@ export class MeusProdutosComponent implements OnInit {
   fetchProdutos(): void {
     this.isLoading = true;
 
-    this.lojinhaService.getProdutosResgatadosPorUsuario(Number(this.userId)).subscribe(
-      (produtos: any[]) => {
-        console.log('Produtos retornadas:', produtos);
-        this.meusProdutos = produtos;
-        this.totalPaginas = Math.ceil(
-          this.meusProdutos.length / this.itensPorPagina
-        );
-        this.atualizarPaginacao();
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Erro ao carregar produtos:', error);
-        this.isLoading = false;
-      }
-    );
+    this.lojinhaService
+      .getProdutosResgatadosPorUsuario(Number(this.userId))
+      .subscribe(
+        (produtos: any[]) => {
+          console.log('Produtos retornadas:', produtos);
+          this.meusProdutos = produtos;
+          this.totalPaginas = Math.ceil(
+            this.meusProdutos.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Erro ao carregar produtos:', error);
+          this.isLoading = false;
+        }
+      );
   }
 
   atualizarPaginacao(): void {
