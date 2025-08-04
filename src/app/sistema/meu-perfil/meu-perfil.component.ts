@@ -128,7 +128,6 @@ export class MeuPerfilComponent implements OnInit {
     const formData = new FormData();
     const perfil = {
       username: this.user.username,
-      loja: this.user.loja,
       emailEmpresarial: this.user.emailEmpresarial,
       emailPessoal: this.user.emailPessoal,
       telefoneUm: this.user.telefoneUm,
