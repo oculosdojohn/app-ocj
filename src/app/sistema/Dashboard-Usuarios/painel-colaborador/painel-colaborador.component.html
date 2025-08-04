@@ -59,4 +59,21 @@
         <p>Além de adquirir conhecimento você irá ganhar moedas para comprar produtos na Lojinha do John</p>
         <button class="btn-acao">Acessar cursos</button>
     </div>
+
+    <!-- Adicione onde deseja exibir os recomendados -->
+    <div class="cursos-recomendados">
+      <h2>Cursos Recomendados</h2>
+      <div class="cursos-grid">
+        <div class="curso-card" *ngFor="let curso of cursosRecomendados">
+          <div class="curso-image">
+            <img [src]="curso.image" [alt]="curso.description">
+          </div>
+          <h3>{{ curso.description }}</h3>
+          <div class="details">
+            <p>{{ curso.descriptionText }}</p>
+          </div>
+          <button (click)="navegarParaModulo(curso.value)" class="access-btn">Acessar curso →</button>
+        </div>
+      </div>
+    </div>
 </div>
