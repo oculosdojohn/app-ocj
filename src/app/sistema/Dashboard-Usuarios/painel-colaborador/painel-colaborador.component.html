@@ -76,7 +76,7 @@
 
     <div class="produtos-recomendados">
       <h2>Lojinha do John</h2>
-      <div class="produtos-grid">
+      <div class="produtos-grid" *ngIf="produtosLojinhaRecomendados.length > 0; else noProdutos">
         <div class="produto-card" *ngFor="let produto of produtosLojinhaRecomendados">
           <div class="produto-image">
             <img [src]="produto.foto?.documentoUrl || 'assets/imgs/defaut-img-produto.png'" [alt]="produto.nome">
@@ -91,5 +91,12 @@
           <button class="resgate-btn" (click)="resgatarProduto(produto.id)">Resgatar Produto</button>
         </div>
       </div>
+
+       <ng-template #noProdutos>
+            <div class="no-data-message">
+              <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+              <p>Não há produtos disponíveis.</p>
+            </div>
+        </ng-template>
     </div>
 </div>
