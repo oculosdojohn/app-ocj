@@ -1,239 +1,279 @@
 .main-container {
-    margin: 90px 32px 24px;
-    max-width: 100%;
+  margin: 90px 32px 24px;
+  max-width: 100%;
+  padding: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.banner {
+  background-image: url("src/assets/icones/dashboard/arte-banner.png");
+  background-size: cover;
+  background-position: center;
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.welcome h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #cb4417;
+}
+
+.welcome p {
+  font-size: 18px;
+  font-weight: 500;
+  color: #454844;
+  margin: 0;
+  text-align: justify;
+}
+
+.welcome .author {
+  font-size: 16px;
+  font-weight: 400;
+  color: #5d605b;
+  font-style: italic;
+  text-align: end;
+}
+
+.motivational-message {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 60%;
+}
+
+/* clima */
+.climate {
+  background: rgba(234, 234, 234, 0.796);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  gap: 2px;
+}
+
+.title-clima h3 {
+  color: #0b260f;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.temperatura {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.temperatura img {
+  width: 60px;
+  height: 60px;
+}
+
+.temperatura span {
+  color: #4b504b;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.descricao h6 {
+  color: #4b504b;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* cards */
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 160px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
+}
+
+.info-card span {
+  font-size: 32px;
+  font-weight: 700;
+  color: #cb4417;
+}
+
+.categoria-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.categoria-card p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4d4a49;
+  margin: 0;
+}
+
+.icone-card {
+  width: 48px;
+  height: 48px;
+  background: #deebe5;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+}
+
+.icone-card img {
+  width: 24px;
+  height: 24px;
+}
+
+.banner-info {
+  background-image: url("src/assets/imgs/capa-info-cursos.png");
+  background-size: cover;
+  background-position: center;
+  padding: 32px;
+  color: #ffffff;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.banner-info h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.banner-info p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.btn-acao {
+  background: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  width: fit-content;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-acao:hover {
+  background: #0056b3;
+}
+
+/* graficos */
+.graficos-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+}
+
+.duo-graficos {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.one-grafico {
+  display: flex;
+  flex-direction: column;
+}
+
+.grafico {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 160px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
+}
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+  .main-container {
+    margin: 90px 20px 20px;
     padding: 32px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
   }
-  
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 24px;
+  }
+
+  .motivational-message {
+    width: 80%;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 16px;
+  }
+
   .banner {
-    background-image: url("src/assets/icones/dashboard/arte-banner.png");
-    background-size: cover;
-    background-position: center;
-    padding: 32px;
-    border-radius: 24px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .welcome {
-    display: flex;
     flex-direction: column;
     gap: 16px;
   }
-  
-  .welcome h1 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #cb4417;
-  }
-  
-  .welcome p {
-    font-size: 18px;
-    font-weight: 500;
-    color: #454844;
-    margin: 0;
-    text-align: justify;
-  }
-  
-  .welcome .author {
-    font-size: 16px;
-    font-weight: 400;
-    color: #5d605b;
-    font-style: italic;
-    text-align: end;
-  }
-  
-  .motivational-message {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 60%;
-  }
-  
-  /* clima */
-  .climate {
-    background: rgba(234, 234, 234, 0.796);
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-    gap: 2px;
-  }
-  
-  .title-clima h3 {
-    color: #0b260f;
-    font-size: 16px;
-    font-weight: 500;
-  }
-  
-  .temperatura {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .temperatura img {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .temperatura span {
-    color: #4b504b;
-    font-size: 26px;
-    font-weight: 700;
-  }
-  
-  .descricao h6 {
-    color: #4b504b;
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
-  }
-  
-  /* cards */
+
   .cards-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 24px;
-  }
-  
-  .card {
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .welcome h1 {
+    font-size: 26px;
+  }
+
+  .motivational-message {
     width: 100%;
-    min-height: 160px;
-    padding: 24px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
   }
-  
-  .info-card span {
-    font-size: 32px;
-    font-weight: 700;
-    color: #cb4417;
-  }
-  
-  .categoria-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .categoria-card p {
+
+  .welcome p {
     font-size: 16px;
-    font-weight: 500;
-    color: #4d4a49;
-    margin: 0;
+    text-align: center;
   }
-  
-  .icone-card {
-    width: 48px;
-    height: 48px;
-    background: #deebe5;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 6px;
-  }
-  
-  .icone-card img {
-    width: 24px;
-    height: 24px;
-  }
-  
-  /* graficos */
-  .graficos-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 24px;
-  }
-  
+
   .duo-graficos {
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-  }
-  
-  .one-grafico {
-    display: flex;
     flex-direction: column;
   }
-  
-  .grafico {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 160px;
-    padding: 24px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
-  }
-  
-  /* Breakpoints */
-  @media (min-width: 1200px) {
-    .main-container {
-      margin: 90px 20px 20px;
-      padding: 32px;
-    }
-  }
-  
-  @media (min-width: 768px) and (max-width: 1199px) {
-    .main-container {
-      margin: 90px 20px 20px;
-      padding: 24px;
-    }
-  
-    .motivational-message {
-      width: 80%;
-    }
-  }
-  
-  @media (max-width: 767px) {
-    .main-container {
-      margin: 90px 20px 20px;
-      padding: 16px;
-    }
-  
-    .banner {
-      flex-direction: column;
-      gap: 16px;
-    }
-  
-    .cards-container {
-      flex-direction: column;
-      gap: 16px;
-    }
-  
-    .welcome h1 {
-      font-size: 26px;
-    }
-  
-    .motivational-message {
-      width: 100%;
-    }
-  
-    .welcome p {
-      font-size: 16px;
-      text-align: center;
-    }
-  
-    .duo-graficos {
-      flex-direction: column;
-    }
-  }
-  
+}
