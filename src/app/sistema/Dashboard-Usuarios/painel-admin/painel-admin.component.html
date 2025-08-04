@@ -69,33 +69,31 @@
       </div>
 
       <div class="duo-graficos">
-        <app-grafico-linha
-                [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 15, 200, 20] }]"
-                [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'out', 'nov', 'dez',]"
-                [colors]="['#287ba8']"
-                title="Admissões"
-                totalLabel="Total"
-                [showTotal]="true"
-                [subtitle]="'Total: 20'">
-        </app-grafico-linha>
-
-        <app-grafico-linha
-                [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 15, 200, 20] }]"
-                [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'out', 'nov', 'dez',]"
-                [colors]="['#a82828']"
-                title="Demissões"
-                totalLabel="Total"
-                [showTotal]="true"
-                [subtitle]="'Total: 20'">
-        </app-grafico-linha>
-      </div>
-      
-      <div class="duo-graficos">
         <div class="grafico" id="chartColaboradoresPorLoja"></div> 
       </div>      
       <div class="one-grafico">
         <div class="grafico"></div>
       </div>
+
+      <app-grafico-linha
+            [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 15, 200, 20] }]"
+            [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'out', 'nov', 'dez',]"
+            [colors]="['#287ba8']"
+            title="Admissões"
+            totalLabel="Total"
+            [showTotal]="true"
+            [subtitle]="'Total: 20'">
+      </app-grafico-linha>
+
+      <app-grafico-linha
+            [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 15, 200, 20] }]"
+            [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'out', 'nov', 'dez',]"
+            [colors]="['#a82828']"
+            title="Demissões"
+            totalLabel="Total"
+            [showTotal]="true"
+            [subtitle]="'Total: 20'">
+        </app-grafico-linha>
     </div>
   </div>
 </div>
