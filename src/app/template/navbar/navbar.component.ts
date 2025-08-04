@@ -48,10 +48,10 @@ export class NavbarComponent implements OnInit {
         this.qtdMoedas = usuario.qtdMoedas || 0;
         this.valorAnimadoMoedas = this.qtdMoedas;
         this.colaboradorService.atualizarMoedas(this.qtdMoedas);
-       // console.log('Permissão atribuída (cargoUsuario):', this.cargoUsuario);
+        // console.log('Permissão atribuída (cargoUsuario):', this.cargoUsuario);
       },
       (error) => {
-       // console.error('Erro ao obter perfil do usuário:', error);
+        // console.error('Erro ao obter perfil do usuário:', error);
       }
     );
 
@@ -62,10 +62,11 @@ export class NavbarComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-  return this.cargoUsuario === 'ROLE_ADMIN'
-      || this.cargoUsuario === 'ROLE_DIRETOR';
+    return (
+      this.cargoUsuario === 'ROLE_ADMIN' || this.cargoUsuario === 'ROLE_DIRETOR'
+    );
   }
-  
+
   isColaborador(): boolean {
     return (
       this.cargoUsuario === Permissao.CONSULTOR_VENDAS ||
@@ -150,6 +151,12 @@ export class NavbarComponent implements OnInit {
     ];
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
+  }
+
+  getPrimeirosNomes(nome: string): string {
+    if (!nome) return '';
+    const partes = nome.trim().split(' ');
+    return partes.slice(0, 2).join(' ');
   }
 
   // Função de animação
