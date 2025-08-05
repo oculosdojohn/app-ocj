@@ -50,6 +50,10 @@ export class PainelAdminComponent implements OnInit {
   public seriesFuncionariosPorLoja: any[] = [];
   public categoriesFuncionariosPorLoja: string[] = [];
 
+  tooltipFuncionario = (val: number) => `${val} funcionários`;
+  public seriesEscolaridade: number[] = [];
+  public labelsEscolaridade: string[] = [];
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -75,16 +79,13 @@ export class PainelAdminComponent implements OnInit {
       (error) => console.error('Erro ao obter perfil do usuário:', error)
     );
 
-    this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
-      this.renderChartEscolaridade(data);
-    });
-
     this.quantidadeCursos = Object.keys(Modulos).length;
 
     this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
       this.renderChartGenero(data);
     });
 
+    this.carregarGraficoEscolaridade();
     this.carregarGraficoFuncionariosPorLoja();
 
     this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
@@ -224,45 +225,11 @@ export class PainelAdminComponent implements OnInit {
     chart.render();
   }
 
-  renderChartEscolaridade(data: Record<string, number>) {
-    const labels = Object.keys(data);
-    const values = Object.values(data);
-
-    const options = {
-      chart: {
-        type: 'donut',
-        height: 350,
-        width: '100%',
-      },
-      title: {
-        text: 'Colaboradores por Escolaridade',
-        align: 'center',
-      },
-      series: values,
-      labels: labels,
-      theme: {
-        palette: 'palette8',
-      },
-      responsive: [
-        {
-          breakpoint: 980,
-          options: {
-            chart: {
-              width: 250,
-            },
-            legend: {
-              position: 'bottom',
-            },
-          },
-        },
-      ],
-    };
-
-    const chart = new ApexCharts(
-      document.querySelector('#chartEscolaridade'),
-      options
-    );
-    chart.render();
+  carregarGraficoEscolaridade(): void {
+    this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
+      this.labelsEscolaridade = Object.keys(data);
+      this.seriesEscolaridade = Object.values(data);
+    });
   }
 
   carregarGraficoFuncionariosPorLoja(): void {

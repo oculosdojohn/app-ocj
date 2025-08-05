@@ -64,8 +64,19 @@
 
     <div class="graficos-container">
       <div class="duo-container">
-        <div class="grafico" id="chartEscolaridade"></div>
         <div class="grafico" id="chartGenero"></div> 
+      </div>
+
+       <div class="duo-container">
+         <app-grafico-rosquinha
+                [series]="seriesEscolaridade"
+                [labels]="labelsEscolaridade"
+                colorPalette="palette8"
+                title="Funcionarios por escolaridade"
+                [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
+                [showLegend]="true">
+          </app-grafico-rosquinha>
       </div>
       
       <app-grafico-barra-vertical
@@ -76,8 +87,23 @@
       </app-grafico-barra-vertical>
 
       <div class="duo-container">
-        <div class="grafico" id="chartEscolaridade"></div>
-        <div class="grafico" id="chartGenero"></div> 
+         <app-grafico-rosquinha
+                [series]="[30, 25, 20]"
+                [labels]="['Simples Nacional', 'Lucro Presumido', 'Lucro Real']"
+                colorPalette="palette8"
+                title="Regimes das empresas"
+                [height]="400"
+                [showLegend]="true">
+          </app-grafico-rosquinha>
+          <app-grafico-rosquinha
+                [series]="[30, 25, 20, 15, 10, 5, 2]"
+                [labels]="['Até 21 anos', 'De 22 a 28 anos', 'De 29 a 35 anos', 'De 36 a 42 anos', 'De 43 a 49 anos', 'De 50 a 56 anos', 'Acima de 57 anos']"
+                colorPalette="palette2"
+                title="Funcionários por grupo de idade"
+                [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
+                [showLegend]="true">
+          </app-grafico-rosquinha>
       </div>
 
       <app-grafico-barra-vertical
@@ -96,8 +122,8 @@
 
       <div class="duo-container">
           <app-grafico-linha
-              [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 15, 200, 20] }]"
-              [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'out', 'nov', 'dez',]"
+              [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 85, 160, 20] }]"
+              [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']"
               [colors]="['#287ba8']"
               title="Admissões"
               totalLabel="Total"
@@ -106,8 +132,8 @@
           </app-grafico-linha>
 
           <app-grafico-linha
-                [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 15, 200, 20] }]"
-                [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'out', 'nov', 'dez',]"
+                [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 55, 200, 20] }]"
+                [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']"
                 [colors]="['#a82828']"
                 title="Demissões"
                 totalLabel="Total"
