@@ -47,6 +47,8 @@ export class PainelAdminComponent implements OnInit {
   totalLojas: number = 0;
   totalGestores: number = 0;
 
+  public seriesFuncionariosPorLoja: any[] = [];
+  public categoriesFuncionariosPorLoja: string[] = [];
 
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
@@ -64,19 +66,6 @@ export class PainelAdminComponent implements OnInit {
     this.getWeatherForCurrentLocation();
     this.motivationalMessage =
       this.motivationalMessagesService.getRandomMessage();
-    this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
-      this.renderChartEscolaridade(data);
-    });
-
-    this.quantidadeCursos = Object.keys(Modulos).length 
-
-    this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
-      this.renderChartGenero(data);
-    });
-
-    this.graficosService.getColaboradoresPorLoja().subscribe((data) => {
-      this.renderChartPorLoja(data);
-    });
     this.usuarioService.obterPerfilUsuario().subscribe(
       (usuario) => {
         this.usuario = usuario;
@@ -85,20 +74,33 @@ export class PainelAdminComponent implements OnInit {
       },
       (error) => console.error('Erro ao obter perfil do usuário:', error)
     );
+
+    this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
+      this.renderChartEscolaridade(data);
+    });
+
+    this.quantidadeCursos = Object.keys(Modulos).length;
+
+    this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
+      this.renderChartGenero(data);
+    });
+
+    this.carregarGraficoFuncionariosPorLoja();
+
     this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
       this.renderChartOrcamentoDepartamento(data);
     });
     this.graficosService.getTotalColaboradores().subscribe((total) => {
       this.totalColaboradores = total;
     });
-    
+
     this.graficosService.getTotalLojas().subscribe((total) => {
       this.totalLojas = total;
     });
-    
+
     this.graficosService.getTotalGestores().subscribe((total) => {
       this.totalGestores = total;
-    });    
+    });
   }
 
   getWeatherForRussas(): void {
@@ -144,7 +146,7 @@ export class PainelAdminComponent implements OnInit {
   renderChartOrcamentoDepartamento(data: Record<string, number>) {
     const labels = Object.keys(data);
     const values = Object.values(data);
-  
+
     const options = {
       chart: {
         type: 'bar',
@@ -173,14 +175,13 @@ export class PainelAdminComponent implements OnInit {
         palette: 'palette5',
       },
     };
-  
+
     const chart = new ApexCharts(
       document.querySelector('#chartOrcamentoDepartamento'),
       options
     );
     chart.render();
   }
-  
 
   renderChartGenero(data: Record<string, number>) {
     const labels = Object.keys(data);
@@ -218,41 +219,6 @@ export class PainelAdminComponent implements OnInit {
 
     const chart = new ApexCharts(
       document.querySelector('#chartGenero'),
-      options
-    );
-    chart.render();
-  }
-
-  renderChartPorLoja(data: Record<string, number>) {
-    const labels = Object.keys(data);
-    const values = Object.values(data);
-
-    const options = {
-      chart: {
-        type: 'bar',
-        height: 350,
-        width: '100%',
-      },
-      title: {
-        text: 'Colaboradores por Loja',
-        align: 'center',
-      },
-      series: [
-        {
-          name: 'Colaboradores',
-          data: values,
-        },
-      ],
-      xaxis: {
-        categories: labels,
-      },
-      theme: {
-        palette: 'palette4',
-      },
-    };
-
-    const chart = new ApexCharts(
-      document.querySelector('#chartColaboradoresPorLoja'),
       options
     );
     chart.render();
@@ -297,5 +263,17 @@ export class PainelAdminComponent implements OnInit {
       options
     );
     chart.render();
+  }
+
+  carregarGraficoFuncionariosPorLoja(): void {
+    this.graficosService.getColaboradoresPorLoja().subscribe((data) => {
+      this.categoriesFuncionariosPorLoja = Object.keys(data);
+      this.seriesFuncionariosPorLoja = [
+        {
+          name: 'Funcionarios',
+          data: Object.values(data),
+        },
+      ];
+    });
   }
 }
