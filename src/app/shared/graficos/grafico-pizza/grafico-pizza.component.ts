@@ -143,8 +143,8 @@ export class GraficoPizzaComponent
           return Math.round(val) + '%';
         },
         style: {
-          fontSize: '12px',
-          fontWeight: 'bold',
+          fontSize: '14px',
+          fontWeight: 'medium',
         },
       },
       legend: {

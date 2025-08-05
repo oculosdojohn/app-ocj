@@ -79,6 +79,7 @@
                 colorPalette="palette2"
                 title="Funcionarios por gênero"
                 [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
                 [showLegend]="true">
           </app-grafico-pizza>
       </div>
@@ -97,6 +98,7 @@
                 colorPalette="palette2"
                 title="Funcionários por cargo"
                 [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
                 [showLegend]="true">
           </app-grafico-pizza>
           <app-grafico-rosquinha
