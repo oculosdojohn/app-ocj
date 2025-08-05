@@ -54,6 +54,9 @@ export class PainelAdminComponent implements OnInit {
   public seriesEscolaridade: number[] = [];
   public labelsEscolaridade: string[] = [];
 
+  public seriesGenero: number[] = [];
+  public labelsGenero: string[] = [];
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -81,11 +84,8 @@ export class PainelAdminComponent implements OnInit {
 
     this.quantidadeCursos = Object.keys(Modulos).length;
 
-    this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
-      this.renderChartGenero(data);
-    });
-
     this.carregarGraficoEscolaridade();
+    this.carregarGraficoGenero();
     this.carregarGraficoFuncionariosPorLoja();
 
     this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
@@ -184,47 +184,6 @@ export class PainelAdminComponent implements OnInit {
     chart.render();
   }
 
-  renderChartGenero(data: Record<string, number>) {
-    const labels = Object.keys(data);
-    const values = Object.values(data);
-
-    const options = {
-      chart: {
-        type: 'pie',
-        height: 350,
-        width: '100%',
-      },
-      title: {
-        text: 'Colaboradores por Gênero',
-        align: 'center',
-      },
-      series: values,
-      labels: labels,
-      theme: {
-        palette: 'palette2',
-      },
-      responsive: [
-        {
-          breakpoint: 980,
-          options: {
-            chart: {
-              width: 250,
-            },
-            legend: {
-              position: 'bottom',
-            },
-          },
-        },
-      ],
-    };
-
-    const chart = new ApexCharts(
-      document.querySelector('#chartGenero'),
-      options
-    );
-    chart.render();
-  }
-
   carregarGraficoEscolaridade(): void {
     this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
       this.labelsEscolaridade = Object.keys(data);
@@ -241,6 +200,13 @@ export class PainelAdminComponent implements OnInit {
           data: Object.values(data),
         },
       ];
+    });
+  }
+
+  carregarGraficoGenero(): void {
+    this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
+      this.labelsGenero = Object.keys(data);
+      this.seriesGenero = Object.values(data);
     });
   }
 }
