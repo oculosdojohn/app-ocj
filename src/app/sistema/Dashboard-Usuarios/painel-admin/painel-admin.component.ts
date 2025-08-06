@@ -57,6 +57,9 @@ export class PainelAdminComponent implements OnInit {
   public seriesGenero: number[] = [];
   public labelsGenero: string[] = [];
 
+  public seriesOrcamentoDepartamento: any[] = [];
+  public categoriesOrcamentoDepartamento: string[] = [];
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -83,25 +86,20 @@ export class PainelAdminComponent implements OnInit {
     );
 
     this.quantidadeCursos = Object.keys(Modulos).length;
+    this.graficosService.getTotalColaboradores().subscribe((total) => {
+      this.totalColaboradores = total;
+    });
+    this.graficosService.getTotalLojas().subscribe((total) => {
+      this.totalLojas = total;
+    });
+    this.graficosService.getTotalGestores().subscribe((total) => {
+      this.totalGestores = total;
+    });
 
     this.carregarGraficoEscolaridade();
     this.carregarGraficoGenero();
     this.carregarGraficoFuncionariosPorLoja();
-
-    this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
-      this.renderChartOrcamentoDepartamento(data);
-    });
-    this.graficosService.getTotalColaboradores().subscribe((total) => {
-      this.totalColaboradores = total;
-    });
-
-    this.graficosService.getTotalLojas().subscribe((total) => {
-      this.totalLojas = total;
-    });
-
-    this.graficosService.getTotalGestores().subscribe((total) => {
-      this.totalGestores = total;
-    });
+    this.carregarGraficoOrcamentoDepartamento();
   }
 
   getWeatherForRussas(): void {
@@ -144,46 +142,6 @@ export class PainelAdminComponent implements OnInit {
     }
   }
 
-  renderChartOrcamentoDepartamento(data: Record<string, number>) {
-    const labels = Object.keys(data);
-    const values = Object.values(data);
-
-    const options = {
-      chart: {
-        type: 'bar',
-        height: 350,
-        width: '100%',
-      },
-      title: {
-        text: 'Orçamento por Departamento',
-        align: 'center',
-      },
-      series: [
-        {
-          name: 'Orçamento (R$)',
-          data: values,
-        },
-      ],
-      xaxis: {
-        categories: labels,
-      },
-      tooltip: {
-        y: {
-          formatter: (val: number) => `R$ ${val.toLocaleString('pt-BR')}`,
-        },
-      },
-      theme: {
-        palette: 'palette5',
-      },
-    };
-
-    const chart = new ApexCharts(
-      document.querySelector('#chartOrcamentoDepartamento'),
-      options
-    );
-    chart.render();
-  }
-
   carregarGraficoEscolaridade(): void {
     this.graficosService.getColaboradoresPorEscolaridade().subscribe((data) => {
       this.labelsEscolaridade = Object.keys(data);
@@ -207,6 +165,18 @@ export class PainelAdminComponent implements OnInit {
     this.graficosService.getColaboradoresPorGenero().subscribe((data) => {
       this.labelsGenero = Object.keys(data);
       this.seriesGenero = Object.values(data);
+    });
+  }
+
+  carregarGraficoOrcamentoDepartamento(): void {
+    this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
+      this.categoriesOrcamentoDepartamento = Object.keys(data);
+      this.seriesOrcamentoDepartamento = [
+        {
+          name: 'Orçamento (R$)',
+          data: Object.values(data),
+        },
+      ];
     });
   }
 }

@@ -13,24 +13,32 @@ export class GraficosService {
   constructor(private http: HttpClient) {}
 
   getColaboradoresPorLoja(): Observable<Record<string, number>> {
-    return this.http.get<Record<string, number>>(`${this.apiURL}/colaboradores-por-loja`).pipe(
-      map((response) => response),
-      catchError(this.handleError('colaboradores por loja'))
-    );
+    return this.http
+      .get<Record<string, number>>(`${this.apiURL}/colaboradores-por-loja`)
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('colaboradores por loja'))
+      );
   }
 
   getColaboradoresPorEscolaridade(): Observable<Record<string, number>> {
-    return this.http.get<Record<string, number>>(`${this.apiURL}/colaboradores-por-escolaridade`).pipe(
-      map((response) => response),
-      catchError(this.handleError('colaboradores por escolaridade'))
-    );
+    return this.http
+      .get<Record<string, number>>(
+        `${this.apiURL}/colaboradores-por-escolaridade`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('colaboradores por escolaridade'))
+      );
   }
 
   getColaboradoresPorGenero(): Observable<Record<string, number>> {
-    return this.http.get<Record<string, number>>(`${this.apiURL}/colaboradores-por-genero`).pipe(
-      map((response) => response),
-      catchError(this.handleError('colaboradores por gênero'))
-    );
+    return this.http
+      .get<Record<string, number>>(`${this.apiURL}/colaboradores-por-genero`)
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('colaboradores por gênero'))
+      );
   }
 
   getOrcamentoPorDepartamento(): Observable<Record<string, number>> {
@@ -48,20 +56,20 @@ export class GraficosService {
       catchError(this.handleError('total de colaboradores'))
     );
   }
-  
+
   getTotalLojas(): Observable<number> {
     return this.http.get<number>(`${this.apiURL}/total-lojas`).pipe(
       map((response) => response),
       catchError(this.handleError('total de lojas'))
     );
   }
-  
+
   getTotalGestores(): Observable<number> {
     return this.http.get<number>(`${this.apiURL}/total-gestores`).pipe(
       map((response) => response),
       catchError(this.handleError('total de gestores'))
     );
-  }  
+  }
 
   private handleError(contexto: string) {
     return (error: HttpErrorResponse) => {

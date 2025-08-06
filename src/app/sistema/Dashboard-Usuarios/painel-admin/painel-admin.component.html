@@ -126,6 +126,13 @@
             title="Funcionários por período de experiência">
       </app-grafico-barra-horizontal>
 
+      <app-grafico-barra-vertical
+            [series]="seriesOrcamentoDepartamento"
+            [categories]="categoriesOrcamentoDepartamento"
+            [colors]="['#5C6BC0']"
+            title="Orçamento por departamento">
+      </app-grafico-barra-vertical>
+
       <div class="duo-container">
           <app-grafico-linha
               [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 85, 160, 20] }]"
