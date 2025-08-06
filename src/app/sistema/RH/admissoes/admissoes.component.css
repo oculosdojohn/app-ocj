@@ -197,6 +197,18 @@ tr:hover {
   height: 18px;
 }
 
+.visualizar:hover {
+  background: #3d4b123b;
+}
+
+.edit:hover {
+  background: #007bff3b;
+}
+
+.delete:hover {
+  background: #dc35453b;
+}
+
 .admitir {
   background: #008000;
   color: #ffffff;
@@ -208,18 +220,6 @@ tr:hover {
 
 .admitir:hover {
   background: #006500;
-}
-
-.visualizar:hover {
-  background: #3d4b123b;
-}
-
-.edit:hover {
-  background: #007bff3b;
-}
-
-.delete:hover {
-  background: #dc35453b;
 }
 
 /* Paginação */
