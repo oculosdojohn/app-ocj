@@ -7,6 +7,7 @@ import { CargoDescricoes } from 'src/app/sistema/Administrativo/funcionarios/enu
 import { Permissao } from 'src/app/login/permissao';
 import { PermissaoDescricoes } from 'src/app/login/permissao-descricao';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { ModalPadraoService } from 'src/app/services/modal/modal-padrao.service';
 
 @Component({
   selector: 'app-navbar',
@@ -35,7 +36,8 @@ export class NavbarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private authService: AuthService,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private modalConfirmacaoService: ModalPadraoService
   ) {}
 
   ngOnInit() {
@@ -201,5 +203,19 @@ export class NavbarComponent implements OnInit {
       }
     };
     animar();
+  }
+
+  openModalLogout(): void {
+    this.modalConfirmacaoService.openModal(
+      {
+        title: 'Sair da Plataforma',
+        description: `Tem certeza que deseja sair da plataforma <strong>OCJ</strong>? Você será redirecionado para a tela de login.`,
+        confirmTextoBotao: 'Sair',
+        size: 'md',
+      },
+      () => {
+        this.logout();
+      }
+    );
   }
 }

@@ -252,7 +252,7 @@ export class AniversariantesComponent implements OnInit {
         title: 'Relatório de Aniversariantes',
         description: `Tem certeza que deseja exportar o relatório de aniversariantes em PDF?`,
         item: null,
-        deletarTextoBotao: 'Exportar PDF',
+        confirmTextoBotao: 'Exportar PDF',
         size: 'md',
       },
       () => {
