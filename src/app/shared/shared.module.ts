@@ -19,6 +19,11 @@ import player from 'lottie-web';
 import { LoadingComponent } from './loading/loading.component';
 import { InputWordComponent } from './input-word/input-word.component';
 import { InputMidiasComponent } from './input-midias/input-midias.component';
+import { GraficoLinhaComponent } from './graficos/grafico-linha/grafico-linha.component';
+import { GraficoRosquinhaComponent } from './graficos/grafico-rosquinha/grafico-rosquinha.component';
+import { GraficoBarraVerticalComponent } from './graficos/grafico-barra-vertical/grafico-barra-vertical.component';
+import { GraficoBarraHorizontalComponent } from './graficos/grafico-barra-horizontal/grafico-barra-horizontal.component';
+import { GraficoPizzaComponent } from './graficos/grafico-pizza/grafico-pizza.component';
 
 export function playerFactory() {
   return player;
@@ -41,7 +46,12 @@ export function playerFactory() {
     ModalQuizComponent,
     LoadingComponent,
     InputWordComponent,
-    InputMidiasComponent
+    InputMidiasComponent,
+    GraficoLinhaComponent,
+    GraficoRosquinhaComponent,
+    GraficoBarraVerticalComponent,
+    GraficoBarraHorizontalComponent,
+    GraficoPizzaComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +74,12 @@ export function playerFactory() {
     ModalQuizComponent,
     LoadingComponent,
     InputWordComponent,
-    InputMidiasComponent
+    InputMidiasComponent,
+    GraficoLinhaComponent,
+    GraficoRosquinhaComponent,
+    GraficoBarraVerticalComponent,
+    GraficoBarraHorizontalComponent,
+    GraficoPizzaComponent
   ]
 })
 export class SharedModule { }

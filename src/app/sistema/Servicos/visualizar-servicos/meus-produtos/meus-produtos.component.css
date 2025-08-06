@@ -1,0 +1,338 @@
+.main-container {
+  margin: 90px 32px 24px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px 64px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.banner {
+  background-image: url("src/assets/imgs/capa-loja.png");
+  background-size: cover;
+  background-position: center;
+  padding: 32px;
+  color: #ffffff;
+  border-radius: 24px;
+}
+
+.banner h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.banner p {
+  margin: 10px 0 0;
+  font-size: 1.2rem;
+}
+
+/* Breadcrumb e button */
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 0;
+  padding-top: 40px;
+  align-items: center;
+}
+
+.breadcrumb {
+  font-size: 1rem;
+  color: #666261;
+  margin: 0;
+  width: 100%;
+}
+
+.breadcrumb a {
+  color: #666;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.breadcrumb-highlight {
+  margin-left: 5px;
+  color: #008000;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* buscar e button */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 16px;
+}
+
+.search-container {
+  width: 400px;
+}
+
+/* button */
+.btn-cadastrar {
+  background: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cadastrar:hover {
+  background: #0056b3;
+}
+
+.image-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.centered-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+
+/* Cards de curos/modulos */
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  padding: 32px 0;
+}
+
+.produto-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #d9d9d9;
+  overflow: hidden;
+  text-align: left;
+  padding: 8px;
+}
+
+.produto-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #cb4417;
+  padding: 16px;
+  margin: 0;
+}
+
+.produto-image {
+  width: calc(100% - 20px);
+  height: 280px;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.produto-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(95%);
+  image-rendering: auto;
+}
+
+.details {
+  padding: 0 16px;
+  font-size: 1rem;
+  color: #666261;
+}
+
+.details span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 5px 0;
+}
+
+/* moedas */
+.value-coin {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.value-coin img {
+  width: 24px;
+  height: auto;
+}
+
+.value-coin span {
+  font-size: 20px;
+  color: #004300;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* botão */
+.resgate-btn {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 15px auto;
+  padding: 10px;
+  border: 1px solid #007bff;
+  color: #007bff;
+  text-align: center;
+  border-radius: 24px;
+  font-size: 1rem;
+}
+
+.resgate-btn:hover {
+  border: 1px solid #0056b3;
+
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 40px 56px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 40px 48px;
+  }
+  .produtos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-container {
+    margin: 90px 20px 20px;
+    padding: 20px;
+  }
+
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+  .search-container {
+    width: 100%;
+  }
+  .btn-cadastrar {
+    width: 100%;
+  }
+  .breadcrumb {
+    width: 100%;
+  }
+
+  .produtos {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  margin-top: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background-color: #007bff;
+  animation: progress-animation 2s infinite linear;
+}
+
+@keyframes progress-animation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.progress-bar-sucess {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: #40812d;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes progressBarAnim {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}

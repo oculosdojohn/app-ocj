@@ -204,4 +204,21 @@ export class LojinhaService {
       })
     );
   }
+
+  getProdutosResgatadosPorUsuario(userId: number): Observable<Produto[]> {
+    const url = `${this.apiURL}/resgate/user/${userId}`;
+    return this.http.get<Produto[]>(url).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao buscar produtos resgatados pelo usuário.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }

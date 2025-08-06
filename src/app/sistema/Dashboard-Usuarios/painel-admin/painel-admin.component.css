@@ -167,7 +167,7 @@
   gap: 24px;
 }
 
-.duo-graficos {
+.duo-container {
   display: flex;
   flex-direction: row;
   gap: 24px;
@@ -178,15 +178,29 @@
   flex-direction: column;
 }
 
+.title-grafico {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.title-grafico h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .grafico {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 160px;
+  min-height: 120px;
   padding: 24px;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 8px;
+  border: #c9c9c9 1px solid;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.101);
 }
 

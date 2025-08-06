@@ -63,16 +63,96 @@
     </div>
 
     <div class="graficos-container">
-      <div class="duo-graficos">
-        <div class="grafico" id="chartEscolaridade"></div>
-        <div class="grafico" id="chartGenero"></div> 
+       <div class="duo-container">
+         <app-grafico-rosquinha
+                [series]="seriesEscolaridade"
+                [labels]="labelsEscolaridade"
+                colorPalette="palette8"
+                title="Funcionarios por escolaridade"
+                [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
+                [showLegend]="true">
+          </app-grafico-rosquinha>
+          <app-grafico-pizza
+                [series]="seriesGenero"
+                [labels]="labelsGenero"
+                colorPalette="palette2"
+                title="Funcionarios por gênero"
+                [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
+                [showLegend]="true">
+          </app-grafico-pizza>
       </div>
-      <div class="duo-graficos">
-        <div class="grafico" id="chartColaboradoresPorLoja"></div> 
-        <div class="grafico" id="chartOrcamentoDepartamento"></div>
-      </div>      
-      <div class="one-grafico">
-        <div class="grafico"></div>
+      
+      <app-grafico-barra-vertical
+            [series]="seriesFuncionariosPorLoja"
+            [categories]="categoriesFuncionariosPorLoja"
+            [colors]="['#66D3CC']"
+            title="Funcionários por loja">
+      </app-grafico-barra-vertical>
+
+      <div class="duo-container">
+         <app-grafico-pizza
+                [series]="[30, 25, 20, 12]"
+                [labels]="['Vendedor', 'Gerente', 'Gerente geral', 'Supervisor']"
+                colorPalette="palette2"
+                title="Funcionários por cargo"
+                [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
+                [showLegend]="true">
+          </app-grafico-pizza>
+          <app-grafico-rosquinha
+                [series]="[30, 25, 20, 15, 10, 5, 2]"
+                [labels]="['Até 21 anos', 'De 22 a 28 anos', 'De 29 a 35 anos', 'De 36 a 42 anos', 'De 43 a 49 anos', 'De 50 a 56 anos', 'Acima de 57 anos']"
+                colorPalette="palette2"
+                title="Funcionários por grupo de idade"
+                [height]="400"
+                [tooltipFormatter]="tooltipFuncionario"
+                [showLegend]="true">
+          </app-grafico-rosquinha>
+      </div>
+
+      <app-grafico-barra-vertical
+            [series]="[{ name: 'Funcionarios', data: [18, 20, 10, 8, 9, 25] }]"
+            [categories]="['Até 1 ano', 'De 1 a 2 anos', 'De 2 a 3 anos', 'De 3 a 4 anos', 'De 5 a 10 anos', 'Mais de 10 anos']"
+            [colors]="['#42085d', '#611f7f', '#921fbc', '#8d09ca', '#8d55b6', '#bb7fe7']"
+            title="Funcionários por tempo de empresa">
+      </app-grafico-barra-vertical>
+
+      <app-grafico-barra-horizontal
+            [series]="[{ name: 'Concluidas', data: [18, 20, 10] }]"
+            [categories]="['Completo', 'Em andamento', 'Incompleto']"
+            [colors]="['#FEB019']"
+            title="Funcionários por período de experiência">
+      </app-grafico-barra-horizontal>
+
+      <app-grafico-barra-vertical
+            [series]="seriesOrcamentoDepartamento"
+            [categories]="categoriesOrcamentoDepartamento"
+            [colors]="['#5C6BC0']"
+            title="Orçamento por departamento">
+      </app-grafico-barra-vertical>
+
+      <div class="duo-container">
+          <app-grafico-linha
+              [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 85, 160, 20] }]"
+              [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']"
+              [colors]="['#58D9FF']"
+              title="Admissões"
+              totalLabel="Total"
+              [showTotal]="true"
+              [subtitle]="'Total: 20'">
+          </app-grafico-linha>
+
+          <app-grafico-linha
+                [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 55, 200, 20] }]"
+                [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']"
+                [colors]="['#ED5362']"
+                title="Demissões"
+                totalLabel="Total"
+                [showTotal]="true"
+                [subtitle]="'Total: 20'">
+          </app-grafico-linha>
       </div>
     </div>
   </div>
