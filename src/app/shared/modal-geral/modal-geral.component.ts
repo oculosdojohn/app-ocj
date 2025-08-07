@@ -9,7 +9,7 @@ export class ModalGeralComponent {
   @Input() title: string = 'Concluir ação';
   @Input() description: string = 'Tem certeza que deseja efetuar a ação?';
   @Input() item: any;
-  @Input() deletarTextoBotao: string = 'Confirmar';
+  @Input() confirmTextoBotao: string = 'Confirmar';
   @Input() size: string = 'xl:max-w-7xl';
 
   @Output() closeModal = new EventEmitter<void>();
