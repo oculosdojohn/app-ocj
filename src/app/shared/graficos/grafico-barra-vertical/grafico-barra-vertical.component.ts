@@ -88,6 +88,7 @@ export class GraficoBarraVerticalComponent
     if (this.chart) {
       this.chart.destroy();
     }
+    window.removeEventListener('resize', this.handleResize);
   }
 
   renderBarChart(): void {

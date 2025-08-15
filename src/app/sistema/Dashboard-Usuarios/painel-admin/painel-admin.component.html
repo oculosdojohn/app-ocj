@@ -93,8 +93,8 @@
 
       <div class="duo-container">
          <app-grafico-pizza
-                [series]="[30, 25, 20, 12]"
-                [labels]="['Vendedor', 'Gerente', 'Gerente geral', 'Supervisor']"
+                [series]="seriesCargo"
+                [labels]="labelsCargo"
                 colorPalette="palette2"
                 title="Funcionários por cargo"
                 [height]="400"
@@ -102,8 +102,8 @@
                 [showLegend]="true">
           </app-grafico-pizza>
           <app-grafico-rosquinha
-                [series]="[30, 25, 20, 15, 10, 5, 2]"
-                [labels]="['Até 21 anos', 'De 22 a 28 anos', 'De 29 a 35 anos', 'De 36 a 42 anos', 'De 43 a 49 anos', 'De 50 a 56 anos', 'Acima de 57 anos']"
+                [series]="seriesFaixaEtaria"
+                [labels]="labelsFaixaEtaria"
                 colorPalette="palette2"
                 title="Funcionários por grupo de idade"
                 [height]="400"
@@ -113,8 +113,8 @@
       </div>
 
       <app-grafico-barra-vertical
-            [series]="[{ name: 'Funcionarios', data: [18, 20, 10, 8, 9, 25] }]"
-            [categories]="['Até 1 ano', 'De 1 a 2 anos', 'De 2 a 3 anos', 'De 3 a 4 anos', 'De 5 a 10 anos', 'Mais de 10 anos']"
+            [series]="seriesTempoEmpresa"
+            [categories]="categoriesTempoEmpresa"
             [colors]="['#42085d', '#611f7f', '#921fbc', '#8d09ca', '#8d55b6', '#bb7fe7']"
             title="Funcionários por tempo de empresa">
       </app-grafico-barra-vertical>

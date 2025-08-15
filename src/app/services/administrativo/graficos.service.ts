@@ -85,4 +85,43 @@ export class GraficosService {
       return throwError(() => new Error(errorMessage));
     };
   }
+
+  getFuncionariosPorFaixaEtaria(): Observable<
+    { faixaEtaria: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ faixaEtaria: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/faixa-etaria`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por faixa etária'))
+      );
+  }
+
+  getFuncionariosPorCargo(): Observable<
+    { cargo: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ cargo: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/qtd-por-cargo`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por cargo'))
+      );
+  }
+
+  getFuncionariosPorTempoEmpresa(): Observable<
+    { tempoDeEmpresa: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ tempoDeEmpresa: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/tempo-empresa`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por tempo de empresa'))
+      );
+  }
 }

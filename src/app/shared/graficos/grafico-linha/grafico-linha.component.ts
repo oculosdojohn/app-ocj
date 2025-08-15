@@ -82,6 +82,7 @@ export class GraficoLinhaComponent
     if (this.chart) {
       this.chart.destroy();
     }
+    window.removeEventListener('resize', this.handleResize);
   }
 
   handleResize = () => {
