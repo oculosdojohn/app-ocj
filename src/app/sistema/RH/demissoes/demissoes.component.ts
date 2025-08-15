@@ -148,7 +148,7 @@ export class DemissoesComponent implements OnInit {
         this.modalCadastroService.openModal(
           {
             title: 'Demitir colaborador',
-            description: `Preencha os dados da demissão de <strong>${colab.username}</strong>`,
+            description: `Preencha os dados da demissão do(a) <strong>${colab.username}</strong>`,
             size: 'lg',
           },
           () => this.onSubmit(colab),

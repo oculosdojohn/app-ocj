@@ -96,6 +96,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  text-align: flex-start;
 }
 
 .modal-conteudo h2 {
