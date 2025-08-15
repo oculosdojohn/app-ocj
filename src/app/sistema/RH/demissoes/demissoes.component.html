@@ -40,13 +40,9 @@
                             <span>{{ colaborador.username }}</span>
                         </div>
                     </td>
-                    <td>{{ colaborador.loja }}</td>
-                    <td>
-                        <div class="perfil">
-                            <span>{{ colaborador.departamento }}</span>
-                        </div>
-                    </td>
-                    <td>{{ colaborador.cargo }}</td>
+                    <td><span>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</span></td>
+                    <td>{{ colaborador.departamento?.nome }}</td>
+                    <td>{{ getDescricaoCargo(colaborador.cargo) }}</td>
                     <td>
                         <span [class.ativo]="colaborador.status === 'Ativo'"
                               [class.inativo]="colaborador.status === 'Inativo'">
