@@ -5,6 +5,8 @@ import { GraficosService } from 'src/app/services/administrativo/graficos.servic
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { MotivationalMessagesService } from 'src/app/services/motivational-messages.service';
 import { ServicesApisService } from 'src/app/services/services-apis.service';
+import { Cargo } from '../../Administrativo/funcionarios/enums/cargo';
+import { CargoDescricoes } from 'src/app/sistema/Administrativo/funcionarios/enums/cargo-descricoes';
 
 @Component({
   selector: 'app-painel-rh',
@@ -38,6 +40,23 @@ export class PainelRhComponent implements OnInit {
   public seriesOrcamentoDepartamento: any[] = [];
   public categoriesOrcamentoDepartamento: string[] = [];
 
+  public seriesFaixaEtaria: number[] = [];
+  public labelsFaixaEtaria: string[] = [
+    'Até 21 anos',
+    'De 22 a 28 anos',
+    'De 29 a 35 anos',
+    'De 36 a 42 anos',
+    'De 43 a 49 anos',
+    'De 50 a 56 anos',
+    'Acima de 57 anos',
+  ];
+
+  public seriesCargo: number[] = [];
+  public labelsCargo: string[] = [];
+
+  public seriesTempoEmpresa: any[] = [];
+  public categoriesTempoEmpresa: string[] = [];
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -66,7 +85,9 @@ export class PainelRhComponent implements OnInit {
     this.carregarGraficoEscolaridade();
     this.carregarGraficoGenero();
     this.carregarGraficoFuncionariosPorLoja();
-    this.carregarGraficoOrcamentoDepartamento();
+    this.carregarGraficoFaixaEtaria();
+    this.carregarGraficoCargo();
+    this.carregarGraficoTempoEmpresa();
   }
 
   getWeatherForRussas(): void {
@@ -142,6 +163,48 @@ export class PainelRhComponent implements OnInit {
         {
           name: 'Orçamento (R$)',
           data: Object.values(data),
+        },
+      ];
+    });
+  }
+
+  carregarGraficoFaixaEtaria(): void {
+    this.graficosService.getFuncionariosPorFaixaEtaria().subscribe((data) => {
+      this.labelsFaixaEtaria = data.map((item) => item.faixaEtaria);
+      this.seriesFaixaEtaria = data.map((item) => item.quantidade);
+    });
+  }
+
+  carregarGraficoCargo(): void {
+    this.graficosService.getFuncionariosPorCargo().subscribe((data) => {
+      this.labelsCargo = data.map(
+        (item) =>
+          CargoDescricoes[item.cargo as keyof typeof CargoDescricoes] ||
+          item.cargo
+      );
+      this.seriesCargo = data.map((item) => item.quantidade);
+    });
+  }
+
+  carregarGraficoTempoEmpresa(): void {
+    const categoriasFixas = [
+      'Até 1 ano',
+      'De 1 a 2 anos',
+      'De 2 a 3 anos',
+      'De 3 a 4 anos',
+      'De 5 a 10 anos',
+      'Mais de 10 anos',
+    ];
+
+    this.graficosService.getFuncionariosPorTempoEmpresa().subscribe((data) => {
+      const map = new Map(
+        data.map((item) => [item.tempoDeEmpresa, item.quantidade])
+      );
+      this.categoriesTempoEmpresa = categoriasFixas;
+      this.seriesTempoEmpresa = [
+        {
+          name: 'Funcionarios',
+          data: categoriasFixas.map((cat) => map.get(cat) ?? 0),
         },
       ];
     });
