@@ -28,34 +28,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let demissao of demissoesPaginados">
+                <tr *ngFor="let colaborador of colaboradoresPaginados">
                     <td>
                         <div class="perfil">
-                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(demissao.colaborador)}">
-                                <img [src]="demissao.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="demissao.foto?.documentoUrl; else defaultAvatar" />
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                                <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
                                 <ng-template #defaultAvatar>
-                                    <span>{{ getInitial(demissao.colaborador) }}</span>
+                                    <span>{{ getInitial(colaborador.username) }}</span>
                                 </ng-template>
                             </div>
-                            <span>{{ demissao.colaborador }}</span>
+                            <span>{{ colaborador.username }}</span>
                         </div>
                     </td>
-                    <td>{{ demissao.loja }}</td>
+                    <td>{{ colaborador.loja }}</td>
                     <td>
                         <div class="perfil">
-                            <span>{{ demissao.departamento }}</span>
+                            <span>{{ colaborador.departamento }}</span>
                         </div>
                     </td>
-                    <td>{{ demissao.cargo }}</td>
+                    <td>{{ colaborador.cargo }}</td>
                     <td>
-                        <span [class.ativo]="demissao.status === 'Ativo'"
-                              [class.inativo]="demissao.status === 'Inativo'">
-                            {{ demissao.status }}
+                        <span [class.ativo]="colaborador.status === 'Ativo'"
+                              [class.inativo]="colaborador.status === 'Inativo'">
+                            {{ colaborador.status }}
                         </span>
                     </td>
                     <td>
                         <div class="acoes">
-                            <button class="btn-acao demitir">
+                            <button class="btn-acao demitir" (click)="openModalCadastro(colaborador)">
                                 Demitir
                             </button>
                         </div>
@@ -65,7 +65,7 @@
         </table>
     </div>
     
-    <div *ngIf="demissoesPaginados.length === 0">
+    <div *ngIf="colaboradoresPaginados.length === 0">
         <ng-container *ngIf="mensagemBusca; else semDemissoes">
             <div>
             <div class="alert alert-warning text-center">
@@ -90,3 +90,22 @@
         </app-pagination>
     </div> 
 </div>
+
+<ng-template #formCadastroTemplate>
+    <div class="forms-container">
+        <form class="modal-form" [formGroup]="demissaoForm">
+            <div class="form-group">
+                <label for="dataDemissao">Data da Demissão</label>
+                <input formControlName="dataDemissao" name="dataDemissao" type="date" required />
+            </div>
+            <div class="form-group">
+                <label for="valorRecisao">Valor da Rescisão</label>
+                <input formControlName="valorRecisao" placeholder="0" type="number" required />
+            </div>
+            <div class="form-group">
+                <label for="observacao">Observações</label>
+                <textarea formControlName="observacao" placeholder="Digite as observações da demissão" type="text"></textarea>
+            </div>
+        </form>
+    </div>
+</ng-template>
