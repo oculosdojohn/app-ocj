@@ -57,6 +57,12 @@ export class PainelRhComponent implements OnInit {
   public seriesTempoEmpresa: any[] = [];
   public categoriesTempoEmpresa: string[] = [];
 
+  public seriesEstadoCivil: number[] = [];
+  public labelsEstadoCivil: string[] = [];
+
+  public seriesEtnia: number[] = [];
+  public labelsEtnia: string[] = [];
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -88,6 +94,8 @@ export class PainelRhComponent implements OnInit {
     this.carregarGraficoFaixaEtaria();
     this.carregarGraficoCargo();
     this.carregarGraficoTempoEmpresa();
+    this.carregarGraficoEstadoCivil();
+    this.carregarGraficoEtnia();
   }
 
   getWeatherForRussas(): void {
@@ -207,6 +215,20 @@ export class PainelRhComponent implements OnInit {
           data: categoriasFixas.map((cat) => map.get(cat) ?? 0),
         },
       ];
+    });
+  }
+
+  carregarGraficoEstadoCivil(): void {
+    this.graficosService.getFuncionariosPorEstadoCivil().subscribe((data) => {
+      this.labelsEstadoCivil = data.map((item) => item.estadoCivil);
+      this.seriesEstadoCivil = data.map((item) => item.quantidade);
+    });
+  }
+
+  carregarGraficoEtnia(): void {
+    this.graficosService.getFuncionariosPorEtnia().subscribe((data) => {
+      this.labelsEtnia = data.map((item) => item.etnia);
+      this.seriesEtnia = data.map((item) => item.quantidade);
     });
   }
 }

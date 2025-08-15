@@ -97,8 +97,8 @@
 
      <div class="duo-container">
           <app-grafico-rosquinha
-                [series]="[30, 25, 20, 15, 10, 5]"
-                [labels]="['Branca', 'Preta', 'Parda', 'Amarela', 'Indígena', 'Prefiro não informar']"
+                [series]="seriesEtnia"
+                [labels]="labelsEtnia"
                 colorPalette="palette2"
                 title="Funcionários por raça/etnia"
                 [height]="400"
@@ -107,8 +107,8 @@
           </app-grafico-rosquinha>
 
             <app-grafico-rosquinha
-                [series]="[30, 25, 20, 15, 10]"
-                [labels]="['Solteiro', 'Casado', 'Divorciado', 'Viúvo', 'União Estável']"
+                [series]="seriesEstadoCivil"
+                [labels]="labelsEstadoCivil"
                 colorPalette="palette2"
                 [colors]="['#5C6BC0', '#29B6F6', '#67BB6A', '#FAD53F', '#FFA726']"
                 title="Funcionários por estado civil"

@@ -124,4 +124,30 @@ export class GraficosService {
         catchError(this.handleError('funcionários por tempo de empresa'))
       );
   }
+
+  getFuncionariosPorEstadoCivil(): Observable<
+    { estadoCivil: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ estadoCivil: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/estado-civil`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por estado civil'))
+      );
+  }
+
+  getFuncionariosPorEtnia(): Observable<
+    { etnia: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ etnia: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/etnia`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por etnia'))
+      );
+  }
 }
