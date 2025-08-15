@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectPadraoComponent } from './select-padrao/select-padrao.component';
 import { InputImgComponent } from './input-img/input-img.component';
-import { ModalGeralComponent } from './modal-geral/modal-geral.component';
+import { ModalGeralComponent } from './modal/modal-geral/modal-geral.component';
 import { InputArquivosComponent } from './input-arquivos/input-arquivos.component';
 import { MultiploSelectComponent } from './multiplo-select/multiplo-select.component';
 import { PlaylistVideoComponent } from './playlist-video/playlist-video.component';
@@ -11,9 +11,9 @@ import { InputVideoComponent } from './input-video/input-video.component';
 import { SearchComponent } from './search/search.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SectorNavigationComponent } from './sector-navigation/sector-navigation.component';
-import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
+import { ModalDeleteComponent } from './modal/modal-delete/modal-delete.component';
 import { StarsComponent } from './stars/stars.component';
-import { ModalQuizComponent } from './modal-quiz/modal-quiz.component';
+import { ModalQuizComponent } from './modal/modal-quiz/modal-quiz.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { LoadingComponent } from './loading/loading.component';
@@ -24,6 +24,7 @@ import { GraficoRosquinhaComponent } from './graficos/grafico-rosquinha/grafico-
 import { GraficoBarraVerticalComponent } from './graficos/grafico-barra-vertical/grafico-barra-vertical.component';
 import { GraficoBarraHorizontalComponent } from './graficos/grafico-barra-horizontal/grafico-barra-horizontal.component';
 import { GraficoPizzaComponent } from './graficos/grafico-pizza/grafico-pizza.component';
+import { ModalCadastroComponent } from './modal/modal-cadastro/modal-cadastro.component';
 
 export function playerFactory() {
   return player;
@@ -51,7 +52,8 @@ export function playerFactory() {
     GraficoRosquinhaComponent,
     GraficoBarraVerticalComponent,
     GraficoBarraHorizontalComponent,
-    GraficoPizzaComponent
+    GraficoPizzaComponent,
+    ModalCadastroComponent,
   ],
   imports: [
     CommonModule,
@@ -79,7 +81,8 @@ export function playerFactory() {
     GraficoRosquinhaComponent,
     GraficoBarraVerticalComponent,
     GraficoBarraHorizontalComponent,
-    GraficoPizzaComponent
-  ]
+    GraficoPizzaComponent,
+    ModalCadastroComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

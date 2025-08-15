@@ -1,6 +1,6 @@
 import { Injectable, ComponentRef, ViewContainerRef } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ModalQuizComponent } from '../../shared/modal-quiz/modal-quiz.component';
+import { ModalQuizComponent } from '../../shared/modal/modal-quiz/modal-quiz.component';
 
 @Injectable({ providedIn: 'root' })
 export class ModalQuizzService {
@@ -11,9 +11,7 @@ export class ModalQuizzService {
     this.outlet = outlet;
   }
 
-  openModal(
-    config?: Partial<ModalQuizComponent>,
-  ): void {
+  openModal(config?: Partial<ModalQuizComponent>): void {
     if (!this.outlet) throw new Error('Outlet não registrado!');
     this.outlet.clear();
 

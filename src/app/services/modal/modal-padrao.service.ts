@@ -1,6 +1,6 @@
 import { Injectable, ComponentRef, ViewContainerRef } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ModalGeralComponent } from '../../shared/modal-geral/modal-geral.component';
+import { ModalGeralComponent } from '../../shared/modal/modal-geral/modal-geral.component';
 
 @Injectable({ providedIn: 'root' })
 export class ModalPadraoService {
