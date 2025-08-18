@@ -7,7 +7,7 @@ import {
   ElementRef,
   ViewChild,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
 import {
@@ -56,8 +56,7 @@ export class GraficoBarraHorizontalComponent
 
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -89,6 +88,7 @@ export class GraficoBarraHorizontalComponent
     if (this.chart) {
       this.chart.destroy();
     }
+    window.removeEventListener('resize', this.handleResize);
   }
 
   renderBarChart(): void {

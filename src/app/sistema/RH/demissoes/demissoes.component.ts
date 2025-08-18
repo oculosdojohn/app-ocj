@@ -1,9 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Demissao } from './demissoes';
 import { CargoDescricoes } from '../../Administrativo/funcionarios/enums/cargo-descricoes';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
+import { ModalCadastroService } from 'src/app/services/modal/modal-cadastro.service';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
+import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
+import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
 
 @Component({
   selector: 'app-demissoes',
@@ -11,41 +20,42 @@ import { Permissao } from 'src/app/login/permissao';
   styleUrls: ['./demissoes.component.css'],
 })
 export class DemissoesComponent implements OnInit {
+  demissaoForm: FormGroup;
   termoBusca: string = '';
   mensagemBusca: string = '';
   isLoading = false;
   successMessage: string = '';
   messageTimeout: any;
 
-  demissoes: Demissao[] = [];
+  colaboradores: Colaborador[] = [];
 
   itensPorPagina = 6;
   paginaAtual = 1;
-  totalPaginas = Math.ceil(this.demissoes.length / this.itensPorPagina);
-  demissoesPaginados: Demissao[] = [];
+  totalPaginas = Math.ceil(this.colaboradores.length / this.itensPorPagina);
+  colaboradoresPaginados: Colaborador[] = [];
 
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  @ViewChild('formCadastroTemplate') formCadastroTemplate!: TemplateRef<any>;
+
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private modalCadastroService: ModalCadastroService,
+    private formBuilder: FormBuilder,
+    private colaboradorService: ColaboradorService
+  ) {
+    this.demissaoForm = this.formBuilder.group({
+      dataSaida: [''],
+      valorRecisao: [''],
+      observacao: [''],
+    });
+  }
 
   ngOnInit(): void {
-    this.demissoes = [
-      {
-        colaborador: 'Maria Silva',
-        loja: 'Óculos do John - Russas',
-        departamento: 'Financeiro',
-        cargo: 'Vendedor',
-        status: 'Ativo',
-      },
-      {
-        colaborador: 'João Souza',
-        loja: 'Óculos do John - Russas',
-        departamento: 'Comercial',
-        cargo: 'Vendedor',
-        status: 'Ativo',
-      },
-    ];
+    this.exibirMensagemDeSucesso();
+    this.fetchColaboradores();
     this.atualizarPaginacao();
     // já busca o perfil e define o cargo
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
@@ -60,11 +70,11 @@ export class DemissoesComponent implements OnInit {
   atualizarPaginacao(): void {
     const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
     const fim = inicio + this.itensPorPagina;
-    this.demissoesPaginados = this.demissoes.slice(inicio, fim);
+    this.colaboradoresPaginados = this.colaboradores.slice(inicio, fim);
   }
 
   get totalItens() {
-    return this.demissoes.length;
+    return this.colaboradores.length;
   }
 
   onPaginaMudou(novaPagina: number) {
@@ -108,5 +118,72 @@ export class DemissoesComponent implements OnInit {
     )
       return '/dashboard-colaborador';
     return '/login';
+  }
+
+  fetchColaboradores(): void {
+    this.isLoading = true;
+
+    this.colaboradorService.getUsuariosPorCargoNotIn(['ADMIN']).subscribe(
+      (colaboradores: any[]) => {
+        console.log('usuários retornados:', colaboradores);
+        this.colaboradores = colaboradores;
+        this.totalPaginas = Math.ceil(
+          this.colaboradores.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Erro ao carregar colaboradores:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  openModalCadastro(colaborador: Colaborador): void {
+    this.colaboradorService
+      .getColaboradorById(Number(colaborador.id))
+      .subscribe((colab) => {
+        this.demissaoForm.reset();
+        this.modalCadastroService.openModal(
+          {
+            title: 'Demitir colaborador',
+            description: `Preencha os dados da demissão do(a) <strong>${colab.username}</strong>`,
+            size: 'lg',
+          },
+          () => this.onSubmit(colab),
+          this.formCadastroTemplate
+        );
+      });
+  }
+
+  onSubmit(colab: Colaborador): void {
+    if (this.demissaoForm.invalid) return;
+
+    const dadosDemissao = {
+      ...this.demissaoForm.value,
+      colaboradorId: colab.id,
+    };
+    this.modalCadastroService.closeModal();
+  }
+
+  exibirMensagemDeSucesso(): void {
+    const state = window.history.state as { successMessage?: string };
+    if (state?.successMessage) {
+      this.successMessage = state.successMessage;
+      setTimeout(() => (this.successMessage = ''), 3000);
+      window.history.replaceState({}, document.title);
+    }
+  }
+
+  showMessage(type: 'success' | 'error', msg: string) {
+    this.clearMessage();
+    if (type === 'success') this.successMessage = msg;
+    this.messageTimeout = setTimeout(() => this.clearMessage(), 3000);
+  }
+
+  clearMessage() {
+    this.successMessage = '';
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
 }

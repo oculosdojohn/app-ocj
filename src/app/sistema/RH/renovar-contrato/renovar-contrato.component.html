@@ -28,34 +28,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let renovacao of renovacoesPaginados">
+                <tr *ngFor="let colaborador of colaboradoresPaginados">
                     <td>
                         <div class="perfil">
-                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(renovacao.colaborador)}">
-                                <img [src]="renovacao.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="renovacao.foto?.documentoUrl; else defaultAvatar" />
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                                <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
                                 <ng-template #defaultAvatar>
-                                    <span>{{ getInitial(renovacao.colaborador) }}</span>
+                                    <span>{{ getInitial(colaborador.username) }}</span>
                                 </ng-template>
                             </div>
-                            <span>{{ renovacao.colaborador }}</span>
+                            <span>{{ colaborador.username }}</span>
                         </div>
                     </td>
-                    <td>{{ renovacao.loja }}</td>
+                    <td><span>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</span></td>
+                    <td>{{ colaborador.departamento?.nome }}</td>
+                    <td>{{ getDescricaoCargo(colaborador.cargo) }}</td>
                     <td>
-                        <div class="perfil">
-                            <span>{{ renovacao.departamento }}</span>
-                        </div>
-                    </td>
-                    <td>{{ renovacao.cargo }}</td>
-                    <td>
-                        <span [class.ativo]="renovacao.status === 'Ativo'"
-                              [class.inativo]="renovacao.status === 'Inativo'">
-                            {{ renovacao.status }}
+                        <span [class.ativo]="colaborador.status === 'Ativo'"
+                              [class.inativo]="colaborador.status === 'Inativo'">
+                            {{ colaborador.status }}
                         </span>
                     </td>
                     <td>
                         <div class="acoes">
-                           <button class="btn-acao renovar">
+                           <button class="btn-acao renovar" (click)="openModalCadastro(colaborador)">
                                 Renovar
                             </button>
                         </div>
@@ -65,7 +61,7 @@
         </table>
     </div>
     
-    <div *ngIf="renovacoesPaginados.length === 0">
+    <div *ngIf="colaboradoresPaginados.length === 0">
         <ng-container *ngIf="mensagemBusca; else semRenovacoes">
             <div>
             <div class="alert alert-warning text-center">
@@ -90,3 +86,47 @@
         </app-pagination>
     </div> 
 </div>
+
+<ng-template #formCadastroTemplate>
+    <div class="forms-container">
+        <form class="modal-form" [formGroup]="renovacaoForm">
+            <div class="form-group">
+                <label for="periodoDeExperiencia">
+                    Período de experiência
+                </label>
+                <app-select-padrao
+                  label="Selecionar período de experiência"
+                  [options]="periodosExperiencia"
+                  [(selectedValue)]="selectedPeriodoExperiencia"
+                  formControlName="periodoDeExperiencia">
+                </app-select-padrao>
+            </div>
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="dataDoContrato">
+                        Data de admissão
+                    </label>
+                    <input type="date" id="dataDoContrato" formControlName="dataDoContrato" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="duracaoDoContrato">
+                        Duração do contrato
+                    </label>
+                    <input type="number" id="duracaoDoContrato" formControlName="duracaoDoContrato" class="form-control" placeholder="Duração em dias" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="dataTerminoDoContrato">
+                        Data do término do contrato
+                    </label>
+                    <input type="date" id="dataTerminoDoContrato" formControlName="dataTerminoDoContrato" class="form-control" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="observacao">Observações</label>
+                <textarea formControlName="observacao" placeholder="Digite as observações da renovação do contrato" type="text"></textarea>
+            </div>
+        </form>
+    </div>
+</ng-template>

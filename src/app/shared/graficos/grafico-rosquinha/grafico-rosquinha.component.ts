@@ -114,6 +114,7 @@ export class GraficoRosquinhaComponent
     if (this.chart) {
       this.chart.destroy();
     }
+    window.removeEventListener('resize', this.handleResize);
   }
 
   renderDonutChart(): void {

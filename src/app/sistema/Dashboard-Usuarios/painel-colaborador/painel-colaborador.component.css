@@ -8,6 +8,19 @@
   gap: 24px;
 }
 
+.subMain-container {
+  margin: 0;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
 .banner {
   background-image: url("src/assets/icones/dashboard/arte-banner.png");
   background-size: cover;

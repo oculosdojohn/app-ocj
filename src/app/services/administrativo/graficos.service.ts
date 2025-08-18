@@ -85,4 +85,69 @@ export class GraficosService {
       return throwError(() => new Error(errorMessage));
     };
   }
+
+  getFuncionariosPorFaixaEtaria(): Observable<
+    { faixaEtaria: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ faixaEtaria: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/faixa-etaria`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por faixa etária'))
+      );
+  }
+
+  getFuncionariosPorCargo(): Observable<
+    { cargo: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ cargo: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/qtd-por-cargo`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por cargo'))
+      );
+  }
+
+  getFuncionariosPorTempoEmpresa(): Observable<
+    { tempoDeEmpresa: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ tempoDeEmpresa: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/tempo-empresa`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por tempo de empresa'))
+      );
+  }
+
+  getFuncionariosPorEstadoCivil(): Observable<
+    { estadoCivil: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ estadoCivil: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/estado-civil`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por estado civil'))
+      );
+  }
+
+  getFuncionariosPorEtnia(): Observable<
+    { etnia: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ etnia: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/etnia`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por etnia'))
+      );
+  }
 }
