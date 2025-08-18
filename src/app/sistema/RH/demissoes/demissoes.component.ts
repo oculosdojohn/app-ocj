@@ -13,6 +13,8 @@ import {
 } from '@angular/forms';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
+import { TipoDemissao } from './enums/tipo-demissao';
+import { TipoDemissaoDescricoes } from './enums/tipo-demissao-descricao';
 
 @Component({
   selector: 'app-demissoes',
@@ -39,6 +41,13 @@ export class DemissoesComponent implements OnInit {
 
   @ViewChild('formCadastroTemplate') formCadastroTemplate!: TemplateRef<any>;
 
+  tiposDemissao = Object.keys(TipoDemissao).map((key) => ({
+    value: TipoDemissao[key as keyof typeof TipoDemissao],
+    description:
+      TipoDemissaoDescricoes[TipoDemissao[key as keyof typeof TipoDemissao]],
+  }));
+  selectedTipoDemissao: string = '';
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -49,6 +58,8 @@ export class DemissoesComponent implements OnInit {
     this.demissaoForm = this.formBuilder.group({
       dataSaida: [''],
       valorRecisao: [''],
+      valorMulta: [''],
+      tipoDemissao: [''],
       observacao: [''],
     });
   }
