@@ -15,6 +15,7 @@ import { ColaboradorService } from 'src/app/services/administrativo/colaborador.
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
 import { TipoDemissao } from './enums/tipo-demissao';
 import { TipoDemissaoDescricoes } from './enums/tipo-demissao-descricao';
+import { FuncionarioService } from 'src/app/services/rh/funcionarios.service';
 
 @Component({
   selector: 'app-demissoes',
@@ -53,14 +54,15 @@ export class DemissoesComponent implements OnInit {
     private authService: AuthService,
     private modalCadastroService: ModalCadastroService,
     private formBuilder: FormBuilder,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private funcionarioService: FuncionarioService
   ) {
     this.demissaoForm = this.formBuilder.group({
-      dataSaida: [''],
-      valorRecisao: [''],
+      dataDemissao: [''],
+      valorRescisao: [''],
       valorMulta: [''],
       tipoDemissao: [''],
-      observacao: [''],
+      observacoes: [''],
     });
   }
 
@@ -173,9 +175,21 @@ export class DemissoesComponent implements OnInit {
 
     const dadosDemissao = {
       ...this.demissaoForm.value,
-      colaboradorId: colab.id,
     };
-    this.modalCadastroService.closeModal();
+
+    this.funcionarioService
+      .registrarDemissao(Number(colab.id), dadosDemissao)
+      .subscribe({
+        next: () => {
+          this.showMessage('success', 'Demissão registrada com sucesso!');
+          this.fetchColaboradores();
+          this.modalCadastroService.closeModal();
+        },
+        error: (err) => {
+          this.showMessage('error', 'Erro ao registrar demissão!');
+          this.modalCadastroService.closeModal();
+        },
+      });
   }
 
   exibirMensagemDeSucesso(): void {
