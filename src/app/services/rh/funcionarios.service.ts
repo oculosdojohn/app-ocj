@@ -50,4 +50,93 @@ export class FuncionarioService {
       })
     );
   }
+
+  registrarRenovacao(id: number, dto: any): Observable<any> {
+    const url = `${this.apiURL}/${id}/renovacao`;
+    return this.http.post<any>(url, dto).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao registrar renovação de contrato.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getUsuariosInativos(): Observable<Colaborador[]> {
+    const url = `${this.apiURL}/inativo`;
+    return this.http.get<Colaborador[]>(url).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao buscar usuários inativos.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getUsuariosInativosPorCargoNotIn(
+    cargos: string[]
+  ): Observable<Colaborador[]> {
+    const url = `${this.apiURL}/inativos/cargos/not-in`;
+    const params = { cargo: cargos };
+    return this.http.get<Colaborador[]>(url, { params }).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage =
+          'Erro ao buscar usuários inativos por cargos (not-in).';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getUsuariosInativosPorNome(name: string): Observable<Colaborador[]> {
+    const url = `${this.apiURL}/inativo/search/${encodeURIComponent(name)}`;
+    return this.http.get<Colaborador[]>(url).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao buscar usuários inativos por nome.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  getObservacoesColaborador(id: number): Observable<string[]> {
+    const url = `${this.apiURL}/${id}/observacoes`;
+    return this.http.get<string[]>(url).pipe(
+      map((response) => response),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'Erro ao buscar observações do colaborador.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
