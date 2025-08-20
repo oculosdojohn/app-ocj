@@ -15,6 +15,10 @@
         </div>
     </div>
 
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
     <div class="tabela-container">
         <table>
             <thead>
@@ -28,34 +32,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let admissao of admissoesPaginados">
+                <tr *ngFor="let colaborador of colaboradoresPaginados">
                     <td>
                         <div class="perfil">
-                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(admissao.colaborador)}">
-                                <img [src]="admissao.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="admissao.foto?.documentoUrl; else defaultAvatar" />
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(colaborador.username)}">
+                                <img [src]="colaborador.foto?.documentoUrl" alt="Foto do Colaborador" *ngIf="colaborador.foto?.documentoUrl; else defaultAvatar" />
                                 <ng-template #defaultAvatar>
-                                    <span>{{ getInitial(admissao.colaborador) }}</span>
+                                    <span>{{ getInitial(colaborador.username) }}</span>
                                 </ng-template>
                             </div>
-                            <span>{{ admissao.colaborador }}</span>
+                            <span>{{ colaborador.username }}</span>
                         </div>
                     </td>
-                    <td>{{ admissao.loja }}</td>
+                    <td><span>{{ colaborador.loja?.nome }} - {{ colaborador.loja?.endereco?.cidade }}</span></td>
+                    <td>{{ colaborador.departamento?.nome }}</td>
+                    <td>{{ getDescricaoCargo(colaborador.cargo) }}</td>
                     <td>
-                        <div class="perfil">
-                            <span>{{ admissao.departamento }}</span>
-                        </div>
-                    </td>
-                    <td>{{ admissao.cargo }}</td>
-                    <td>
-                        <span [class.ativo]="admissao.status === 'Ativo'"
-                              [class.inativo]="admissao.status === 'Inativo'">
-                            {{ admissao.status }}
+                        <span [class.ativo]="colaborador.status === 'Ativo'"
+                              [class.inativo]="colaborador.status === 'Inativo'">
+                            {{ colaborador.status }}
                         </span>
                     </td>
                     <td>
                         <div class="acoes">
-                            <button class="btn-acao admitir">
+                            <button class="btn-acao admitir" (click)="openModalCadastro(colaborador)">
                                 Admitir
                             </button>
                         </div>
@@ -65,7 +65,7 @@
         </table>
     </div>
     
-    <div *ngIf="admissoesPaginados.length === 0">
+    <div *ngIf="colaboradoresPaginados.length === 0">
         <ng-container *ngIf="mensagemBusca; else semAdmissoes">
             <div>
             <div class="alert alert-warning text-center">
@@ -90,3 +90,19 @@
         </app-pagination>
     </div> 
 </div>
+
+<ng-template #formCadastroTemplate>
+    <div class="forms-container">
+        <form class="modal-form" [formGroup]="admissaoForm">
+            <div class="form-group">
+                <label for="dataEntrada">Data da Admissão</label>
+                <input formControlName="dataEntrada" name="dataEntrada" type="date" required />
+            </div>
+
+            <div class="form-group">
+                <label for="observacao">Observações</label>
+                <textarea formControlName="observacao" placeholder="Digite as observações da admissão" type="text"></textarea>
+            </div>
+        </form>
+    </div>
+</ng-template>

@@ -15,6 +15,10 @@
         </div>
     </div>
 
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
     <div class="tabela-container">
         <table>
             <thead>
@@ -94,10 +98,30 @@
                 <label for="dataDemissao">Data da Demissão</label>
                 <input formControlName="dataDemissao" name="dataDemissao" type="date" required />
             </div>
-            <div class="form-group">
-                <label for="valorRecisao">Valor da Rescisão</label>
-                <input formControlName="valorRecisao" placeholder="0" type="number" required />
+
+            <div class="input-duo">
+                <div class="form-group">
+                    <label for="valorRecisao">Valor da Rescisão</label>
+                    <input formControlName="valorRecisao" placeholder="0" type="number" required />
+                </div>
+                <div class="form-group">
+                    <label for="valorMulta">Valor da Multa</label>
+                    <input formControlName="valorMulta" placeholder="0" type="number" required />
+                </div>
             </div>
+
+            <div class="form-group">
+                <label for="tipoDemissao">
+                    Tipo de demissão
+                </label>
+                <app-select-padrao
+                  label="Selecionar tipo de demissão"
+                  [options]="tiposDemissao"
+                  [(selectedValue)]="selectedTipoDemissao"
+                  formControlName="tipoDemissao">
+                </app-select-padrao>
+            </div>
+
             <div class="form-group">
                 <label for="observacao">Observações</label>
                 <textarea formControlName="observacao" placeholder="Digite as observações da demissão" type="text"></textarea>
