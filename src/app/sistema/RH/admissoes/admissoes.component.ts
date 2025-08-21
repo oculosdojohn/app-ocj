@@ -64,7 +64,35 @@ export class AdmissoesComponent implements OnInit {
   }
 
   onSearch(searchTerm: string) {
-    console.log('Search term:', searchTerm);
+    if (!searchTerm || searchTerm.trim() === '') {
+      this.mensagemBusca = '';
+      this.fetchColaboradores();
+      return;
+    }
+    this.isLoading = true;
+    this.funcionarioService.getUsuariosInativosPorNome(searchTerm).subscribe(
+      (colaboradores: any[]) => {
+        this.colaboradores = colaboradores;
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(
+          this.colaboradores.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (!colaboradores || colaboradores.length === 0) {
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar colaboradores:', error);
+        this.isLoading = false;
+        if (error.message && error.message.includes('404')) {
+          this.colaboradores = [];
+          this.atualizarPaginacao();
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      }
+    );
   }
 
   atualizarPaginacao(): void {
@@ -123,21 +151,23 @@ export class AdmissoesComponent implements OnInit {
   fetchColaboradores(): void {
     this.isLoading = true;
 
-    this.funcionarioService.getUsuariosInativosPorCargoNotIn(['ADMIN']).subscribe(
-      (colaboradores: any[]) => {
-        console.log('usuários retornados:', colaboradores);
-        this.colaboradores = colaboradores;
-        this.totalPaginas = Math.ceil(
-          this.colaboradores.length / this.itensPorPagina
-        );
-        this.atualizarPaginacao();
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Erro ao carregar colaboradores:', error);
-        this.isLoading = false;
-      }
-    );
+    this.funcionarioService
+      .getUsuariosInativosPorCargoNotIn(['ADMIN'])
+      .subscribe(
+        (colaboradores: any[]) => {
+          console.log('usuários retornados:', colaboradores);
+          this.colaboradores = colaboradores;
+          this.totalPaginas = Math.ceil(
+            this.colaboradores.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Erro ao carregar colaboradores:', error);
+          this.isLoading = false;
+        }
+      );
   }
 
   openModalCadastro(colaborador: Colaborador): void {
