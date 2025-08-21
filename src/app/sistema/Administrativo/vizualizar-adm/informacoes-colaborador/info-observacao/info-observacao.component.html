@@ -1,1 +1,88 @@
-<p>info-observacao works!</p>
+<div class="main-container">
+  <div *ngFor="let obs of observacoesPaginadas">
+    <!-- Card de Admissão -->
+    <div *ngIf="obs['tipo'] === 'ADMISSAO'" class="card obs-card admissao">
+      <div class="divisao">
+        <p>Admissão</p>
+        <hr class="line">
+      </div>
+
+      <div class="data-itens">
+        <div class="data-grid">
+            <div class="item-data">
+                 <label>Data</label>
+                 <p>{{ obs["dataAdmissao"] }}</p>
+            </div>
+            <div class="item-data">
+                 <label>Autor(a)</label>
+                 <p>-</p>
+            </div>
+        </div>
+
+         <div class="item-data">
+            <label>Observações</label>
+            <p>{{ obs["observacoes"] || '-' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card de Demissão -->
+    <div *ngIf="obs['tipo'] === 'DEMISSAO'" class="card obs-card demissao">
+      <div class="divisao">
+        <p>Demissão</p>
+        <hr class="line">
+      </div>
+
+       <div class="data-itens">
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Data</label>
+                <p>{{ obs["dataDemissao"] }}</p>
+            </div>
+            <div class="item-data">
+                <label>Autor(a)</label>
+                <p>-</p>
+            </div>
+        </div>
+
+        <div class="item-data">
+            <label>Tipo</label>
+            <p>{{ obs["tipoDemissao"] || '-' }}</p>
+        </div>
+
+         <div class="data-grid">
+            <div class="item-data">
+                <label>Valor Multa</label>
+                <p>{{ obs["valorMulta"] | currency : "BRL" }}</p>
+            </div>
+            <div class="item-data">
+                <label>Valor Rescisão</label>
+                <p>{{ obs["valorRescisao"] | currency : "BRL" }}</p>
+            </div>
+        </div>
+       </div>
+
+       <div class="item-data">
+            <label>Observações</label>
+            <p>{{ obs["observacoes"] || '-' }}</p>
+        </div>
+    </div>
+
+    <!-- Card de Renovação -->
+    <div *ngIf="obs['tipo'] === 'RENOVACAO'" class="card obs-card renovacao">
+      <div class="divisao">
+        <p>Renovação de Contrato</p>
+        <hr class="line">
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+   </div>  
+</div>
