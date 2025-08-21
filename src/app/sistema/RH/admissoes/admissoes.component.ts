@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
+import { FuncionarioService } from 'src/app/services/rh/funcionarios.service';
 
 @Component({
   selector: 'app-admissoes',
@@ -44,11 +45,12 @@ export class AdmissoesComponent implements OnInit {
     private authService: AuthService,
     private modalCadastroService: ModalCadastroService,
     private formBuilder: FormBuilder,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private funcionarioService: FuncionarioService
   ) {
     this.admissaoForm = this.formBuilder.group({
-      dataEntrada: [''],
-      observacao: [''],
+      dataAdmissao: [''],
+      observacoes: [''],
     });
   }
 
@@ -121,7 +123,7 @@ export class AdmissoesComponent implements OnInit {
   fetchColaboradores(): void {
     this.isLoading = true;
 
-    this.colaboradorService.getUsuariosPorCargoNotIn(['ADMIN']).subscribe(
+    this.funcionarioService.getUsuariosInativosPorCargoNotIn(['ADMIN']).subscribe(
       (colaboradores: any[]) => {
         console.log('usuários retornados:', colaboradores);
         this.colaboradores = colaboradores;
@@ -158,11 +160,24 @@ export class AdmissoesComponent implements OnInit {
   onSubmit(colab: Colaborador): void {
     if (this.admissaoForm.invalid) return;
 
-    const dadosDemissao = {
+    const dadosAdmissao = {
       ...this.admissaoForm.value,
       colaboradorId: colab.id,
     };
-    this.modalCadastroService.closeModal();
+
+    this.funcionarioService
+      .registrarAdmissao(Number(colab.id), dadosAdmissao)
+      .subscribe({
+        next: () => {
+          this.showMessage('success', 'Admissão registrada com sucesso!');
+          this.fetchColaboradores();
+          this.modalCadastroService.closeModal();
+        },
+        error: (err) => {
+          this.showMessage('error', 'Erro ao registrar admissão!');
+          this.modalCadastroService.closeModal();
+        },
+      });
   }
 
   exibirMensagemDeSucesso(): void {
