@@ -15,6 +15,7 @@ import { ColaboradorService } from 'src/app/services/administrativo/colaborador.
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
 import { TipoDemissao } from './enums/tipo-demissao';
 import { TipoDemissaoDescricoes } from './enums/tipo-demissao-descricao';
+import { FuncionarioService } from 'src/app/services/rh/funcionarios.service';
 
 @Component({
   selector: 'app-demissoes',
@@ -53,14 +54,15 @@ export class DemissoesComponent implements OnInit {
     private authService: AuthService,
     private modalCadastroService: ModalCadastroService,
     private formBuilder: FormBuilder,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private funcionarioService: FuncionarioService
   ) {
     this.demissaoForm = this.formBuilder.group({
-      dataSaida: [''],
-      valorRecisao: [''],
+      dataDemissao: [''],
+      valorRescisao: [''],
       valorMulta: [''],
       tipoDemissao: [''],
-      observacao: [''],
+      observacoes: [''],
     });
   }
 
@@ -75,7 +77,36 @@ export class DemissoesComponent implements OnInit {
   }
 
   onSearch(searchTerm: string) {
-    console.log('Search term:', searchTerm);
+    this.termoBusca = searchTerm;
+    if (!searchTerm || searchTerm.trim() === '') {
+      this.mensagemBusca = '';
+      this.fetchColaboradores();
+      return;
+    }
+    this.isLoading = true;
+    this.colaboradorService.buscarUsuariosPorNome(searchTerm).subscribe(
+      (colaboradores: any[]) => {
+        this.colaboradores = colaboradores;
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(
+          this.colaboradores.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (!colaboradores || colaboradores.length === 0) {
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar colaboradores:', error);
+        this.isLoading = false;
+        if (error.message && error.message.includes('404')) {
+          this.colaboradores = [];
+          this.atualizarPaginacao();
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      }
+    );
   }
 
   atualizarPaginacao(): void {
@@ -173,9 +204,21 @@ export class DemissoesComponent implements OnInit {
 
     const dadosDemissao = {
       ...this.demissaoForm.value,
-      colaboradorId: colab.id,
     };
-    this.modalCadastroService.closeModal();
+
+    this.funcionarioService
+      .registrarDemissao(Number(colab.id), dadosDemissao)
+      .subscribe({
+        next: () => {
+          this.showMessage('success', 'Demissão registrada com sucesso!');
+          this.fetchColaboradores();
+          this.modalCadastroService.closeModal();
+        },
+        error: (err) => {
+          this.showMessage('error', 'Erro ao registrar demissão!');
+          this.modalCadastroService.closeModal();
+        },
+      });
   }
 
   exibirMensagemDeSucesso(): void {

@@ -15,6 +15,12 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
     <div class="progress-bar-container" *ngIf="isLoading">
         <div class="progress-bar"></div>
     </div>
@@ -76,7 +82,7 @@
         <ng-template #semDemissoes>
             <div class="no-data-message">
             <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
-            <p>Não há demissões cadastradas.</p>
+            <p>Não há colaboradores cadastrados.</p>
             </div>
         </ng-template>
     </div>
@@ -101,8 +107,8 @@
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="valorRecisao">Valor da Rescisão</label>
-                    <input formControlName="valorRecisao" placeholder="0" type="number" required />
+                    <label for="valorRescisao">Valor da Rescisão</label>
+                    <input formControlName="valorRescisao" placeholder="0" type="number" required />
                 </div>
                 <div class="form-group">
                     <label for="valorMulta">Valor da Multa</label>
@@ -123,8 +129,8 @@
             </div>
 
             <div class="form-group">
-                <label for="observacao">Observações</label>
-                <textarea formControlName="observacao" placeholder="Digite as observações da demissão" type="text"></textarea>
+                <label for="observacoes">Observações</label>
+                <textarea formControlName="observacoes" placeholder="Digite as observações da demissão" type="text"></textarea>
             </div>
         </form>
     </div>

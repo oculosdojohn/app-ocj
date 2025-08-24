@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
+import { FuncionarioService } from 'src/app/services/rh/funcionarios.service';
 
 @Component({
   selector: 'app-admissoes',
@@ -44,11 +45,12 @@ export class AdmissoesComponent implements OnInit {
     private authService: AuthService,
     private modalCadastroService: ModalCadastroService,
     private formBuilder: FormBuilder,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private funcionarioService: FuncionarioService
   ) {
     this.admissaoForm = this.formBuilder.group({
-      dataEntrada: [''],
-      observacao: [''],
+      dataAdmissao: [''],
+      observacoes: [''],
     });
   }
 
@@ -62,7 +64,35 @@ export class AdmissoesComponent implements OnInit {
   }
 
   onSearch(searchTerm: string) {
-    console.log('Search term:', searchTerm);
+    if (!searchTerm || searchTerm.trim() === '') {
+      this.mensagemBusca = '';
+      this.fetchColaboradores();
+      return;
+    }
+    this.isLoading = true;
+    this.funcionarioService.getUsuariosInativosPorNome(searchTerm).subscribe(
+      (colaboradores: any[]) => {
+        this.colaboradores = colaboradores;
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(
+          this.colaboradores.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+        if (!colaboradores || colaboradores.length === 0) {
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      },
+      (error) => {
+        console.error('Erro ao buscar colaboradores:', error);
+        this.isLoading = false;
+        if (error.message && error.message.includes('404')) {
+          this.colaboradores = [];
+          this.atualizarPaginacao();
+          this.mensagemBusca = 'Busca não encontrada';
+        }
+      }
+    );
   }
 
   atualizarPaginacao(): void {
@@ -121,21 +151,23 @@ export class AdmissoesComponent implements OnInit {
   fetchColaboradores(): void {
     this.isLoading = true;
 
-    this.colaboradorService.getUsuariosPorCargoNotIn(['ADMIN']).subscribe(
-      (colaboradores: any[]) => {
-        console.log('usuários retornados:', colaboradores);
-        this.colaboradores = colaboradores;
-        this.totalPaginas = Math.ceil(
-          this.colaboradores.length / this.itensPorPagina
-        );
-        this.atualizarPaginacao();
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Erro ao carregar colaboradores:', error);
-        this.isLoading = false;
-      }
-    );
+    this.funcionarioService
+      .getUsuariosInativosPorCargoNotIn(['ADMIN'])
+      .subscribe(
+        (colaboradores: any[]) => {
+          console.log('usuários retornados:', colaboradores);
+          this.colaboradores = colaboradores;
+          this.totalPaginas = Math.ceil(
+            this.colaboradores.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Erro ao carregar colaboradores:', error);
+          this.isLoading = false;
+        }
+      );
   }
 
   openModalCadastro(colaborador: Colaborador): void {
@@ -158,11 +190,24 @@ export class AdmissoesComponent implements OnInit {
   onSubmit(colab: Colaborador): void {
     if (this.admissaoForm.invalid) return;
 
-    const dadosDemissao = {
+    const dadosAdmissao = {
       ...this.admissaoForm.value,
       colaboradorId: colab.id,
     };
-    this.modalCadastroService.closeModal();
+
+    this.funcionarioService
+      .registrarAdmissao(Number(colab.id), dadosAdmissao)
+      .subscribe({
+        next: () => {
+          this.showMessage('success', 'Admissão registrada com sucesso!');
+          this.fetchColaboradores();
+          this.modalCadastroService.closeModal();
+        },
+        error: (err) => {
+          this.showMessage('error', 'Erro ao registrar admissão!');
+          this.modalCadastroService.closeModal();
+        },
+      });
   }
 
   exibirMensagemDeSucesso(): void {

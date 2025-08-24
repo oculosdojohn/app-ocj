@@ -377,9 +377,7 @@
         </div>
 
         <div *ngSwitchCase="'observacao'">
-            <div class="image-center">
-                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
-            </div>
+            <app-info-observacao [colaboradorId]="+colaborador.id"></app-info-observacao>
         </div>
       </ng-container>
 </div>
