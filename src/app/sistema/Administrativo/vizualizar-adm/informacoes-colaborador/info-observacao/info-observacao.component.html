@@ -47,7 +47,7 @@
 
         <div class="item-data">
             <label>Tipo</label>
-            <p>{{ obs["tipoDemissao"] || '-' }}</p>
+            <p>{{ getDescricaoTipoDemissao(obs["tipoDemissao"]) }}</p>
         </div>
 
          <div class="data-grid">
@@ -79,7 +79,7 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Período de Experiência</label>
-                <p>{{ obs["periodoDeExperiencia"] || '-' }}</p>
+                <p>{{ getDescricaoPeriodoExperiencia(obs["periodoDeExperiencia"]) }}</p>
             </div>
             <div class="item-data">
                 <label>Autor(a)</label>

@@ -299,4 +299,8 @@ export class RenovarContratoComponent implements OnInit {
       this.calcularDataTermino();
     });
   }
+
+  visualizarColaborador(id: string): void {
+    this.router.navigate(['/usuario/detalhes-colaborador', id]);
+  }
 }
