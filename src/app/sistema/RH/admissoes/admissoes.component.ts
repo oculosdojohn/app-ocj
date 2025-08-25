@@ -229,4 +229,8 @@ export class AdmissoesComponent implements OnInit {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
+
+  visualizarColaborador(id: string): void {
+    this.router.navigate(['/usuario/detalhes-colaborador', id]);
+  }
 }
