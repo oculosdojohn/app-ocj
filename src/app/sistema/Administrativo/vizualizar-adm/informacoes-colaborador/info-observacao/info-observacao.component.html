@@ -37,7 +37,7 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Data</label>
-                <p>{{ obs["dataDemissao"] }}</p>
+                <p>{{ obs["dataDemissao"] || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Autor(a)</label>
@@ -59,7 +59,7 @@
                 <label>Valor Rescisão</label>
                 <p>{{ obs["valorRescisao"] | currency : "BRL" }}</p>
             </div>
-        </div>
+          </div>
        </div>
 
        <div class="item-data">
@@ -73,6 +73,39 @@
       <div class="divisao">
         <p>Renovação de Contrato</p>
         <hr class="line">
+      </div>
+
+      <div class="data-itens">
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Período de Experiência</label>
+                <p>{{ obs["periodoDeExperiencia"] || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Autor(a)</label>
+                <p>-</p>
+            </div>
+        </div>
+
+        <div class="data-grid-trio">
+            <div class="item-data">
+                <label>Data do contrato</label>
+                <p>{{ obs["dataDoContrato"] || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Duração do contrato</label>
+                <p>{{ obs["duracaoDoContrato"] || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Data do término do contrato</label>
+                <p>{{ obs["dataTerminoDoContrato"] || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="item-data">
+            <label>Observações</label>
+            <p>{{ obs["observacoes"] || '-' }}</p>
+        </div>
       </div>
     </div>
   </div>
