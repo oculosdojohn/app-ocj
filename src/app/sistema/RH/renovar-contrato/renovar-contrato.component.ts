@@ -15,6 +15,7 @@ import { ColaboradorService } from 'src/app/services/administrativo/colaborador.
 import { Colaborador } from '../../Administrativo/funcionarios/colaborador';
 import { PeriodoExperienciaDescricoes } from '../../Administrativo/funcionarios/enums/periodo-experiencia-descricoes';
 import { PeriodoExperiencia } from '../../Administrativo/funcionarios/enums/periodo-experiencia';
+import { FuncionarioService } from 'src/app/services/rh/funcionarios.service';
 
 @Component({
   selector: 'app-renovar-contrato',
@@ -55,13 +56,15 @@ export class RenovarContratoComponent implements OnInit {
     private authService: AuthService,
     private modalCadastroService: ModalCadastroService,
     private formBuilder: FormBuilder,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private funcionarioService: FuncionarioService
   ) {
     this.renovacaoForm = this.formBuilder.group({
       periodoDeExperiencia: [''],
       dataDoContrato: [''],
       duracaoDoContrato: [''],
       dataTerminoDoContrato: [''],
+      observacoes: [''],
     });
   }
 
@@ -186,6 +189,12 @@ export class RenovarContratoComponent implements OnInit {
     this.colaboradorService
       .getColaboradorById(Number(colaborador.id))
       .subscribe((colab) => {
+        this.renovacaoForm.patchValue({
+          periodoDeExperiencia: colab.periodoDeExperiencia || '',
+          dataDoContrato: colab.dataDoContrato || '',
+          duracaoDoContrato: colab.duracaoDoContrato || '',
+          dataTerminoDoContrato: colab.dataTerminoDoContrato || '',
+        });
         this.renovacaoForm.reset();
         this.modalCadastroService.openModal(
           {
@@ -206,7 +215,22 @@ export class RenovarContratoComponent implements OnInit {
       ...this.renovacaoForm.value,
       colaboradorId: colab.id,
     };
-    this.modalCadastroService.closeModal();
+
+    console.log('Dados para renovação:', dadosRenovacao);
+
+    this.funcionarioService
+      .registrarRenovacao(Number(colab.id), dadosRenovacao)
+      .subscribe({
+        next: () => {
+          this.showMessage('success', 'Renovação registrada com sucesso!');
+          this.fetchColaboradores();
+          this.modalCadastroService.closeModal();
+        },
+        error: (err) => {
+          this.showMessage('error', 'Erro ao registrar renovação!');
+          this.modalCadastroService.closeModal();
+        },
+      });
   }
 
   exibirMensagemDeSucesso(): void {
@@ -274,5 +298,9 @@ export class RenovarContratoComponent implements OnInit {
     this.renovacaoForm.get('dataDoContrato')?.valueChanges.subscribe(() => {
       this.calcularDataTermino();
     });
+  }
+
+  visualizarColaborador(id: string): void {
+    this.router.navigate(['/usuario/detalhes-colaborador', id]);
   }
 }

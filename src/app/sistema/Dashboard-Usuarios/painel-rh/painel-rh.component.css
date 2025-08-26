@@ -64,6 +64,7 @@
 .climate {
   background: rgba(234, 234, 234, 0.796);
   border-radius: 12px;
+  min-width: 180px;
   padding: 16px;
   display: flex;
   flex-direction: column;

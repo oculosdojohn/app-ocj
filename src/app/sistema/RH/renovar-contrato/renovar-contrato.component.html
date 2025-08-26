@@ -15,6 +15,12 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
     <div class="progress-bar-container" *ngIf="isLoading">
         <div class="progress-bar"></div>
     </div>
@@ -57,6 +63,9 @@
                         <div class="acoes">
                            <button class="btn-acao renovar" (click)="openModalCadastro(colaborador)">
                                 Renovar
+                            </button>
+                            <button class="btn-acao visualizar" (click)="visualizarColaborador(colaborador.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
                             </button>
                         </div>
                     </td>
@@ -128,8 +137,8 @@
             </div>
 
             <div class="form-group">
-                <label for="observacao">Observações</label>
-                <textarea formControlName="observacao" placeholder="Digite as observações da renovação do contrato" type="text"></textarea>
+                <label for="observacoes">Observações</label>
+                <textarea formControlName="observacoes" placeholder="Digite as observações da renovação do contrato" type="text"></textarea>
             </div>
         </form>
     </div>

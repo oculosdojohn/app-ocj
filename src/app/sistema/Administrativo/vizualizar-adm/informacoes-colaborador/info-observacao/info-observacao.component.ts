@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { FuncionarioService } from 'src/app/services/rh/funcionarios.service';
+import { PeriodoExperienciaDescricoes } from '../../../funcionarios/enums/periodo-experiencia-descricoes';
+import { PeriodoExperiencia } from '../../../funcionarios/enums/periodo-experiencia';
+import { TipoDemissaoDescricoes } from 'src/app/sistema/RH/demissoes/enums/tipo-demissao-descricao';
+import { TipoDemissao } from 'src/app/sistema/RH/demissoes/enums/tipo-demissao';
 
 interface ObservacaoBase {
   tipo: 'ADMISSAO' | 'DEMISSAO' | 'RENOVACAO';
@@ -89,5 +93,23 @@ export class InfoObservacaoComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  getDescricaoTipoDemissao(tipo: string): string {
+    return (
+      TipoDemissaoDescricoes[tipo as keyof typeof TipoDemissaoDescricoes] ||
+      tipo ||
+      '-'
+    );
+  }
+
+  getDescricaoPeriodoExperiencia(periodo: string): string {
+    return (
+      PeriodoExperienciaDescricoes[
+        periodo as keyof typeof PeriodoExperienciaDescricoes
+      ] ||
+      periodo ||
+      '-'
+    );
   }
 }

@@ -65,18 +65,6 @@
   gap: 15px;
 }
 
-/* .obs-card.admissao {
-  border-left-color: #4caf50;
-}
-
-.obs-card.demissao {
-  border-left-color: #f44336;
-}
-
-.obs-card.renovacao {
-  border-left-color: #2196f3;
-} */
-
 /* Breakpoints */
 @media (min-width: 1200px) {
 }
@@ -89,17 +77,17 @@
     width: 100%;
     gap: 12px;
   }
-
-  .data-grid-trio > .item-data,
-  .data-grid-quad > .item-data {
-    min-width: 120px;
-    flex: auto;
-  }
 }
 
 @media (max-width: 767px) {
   .cards-container {
     flex-direction: column;
+  }
+
+  .data-grid-trio {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
   }
 
   .data-grid-trio > .item-data,

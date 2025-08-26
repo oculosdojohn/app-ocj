@@ -160,8 +160,13 @@ tr:hover {
 .avatar {
   width: 30px;
   height: 30px;
+  min-width: 30px;
   background: #ddd;
   border-radius: 50%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .ativo {
