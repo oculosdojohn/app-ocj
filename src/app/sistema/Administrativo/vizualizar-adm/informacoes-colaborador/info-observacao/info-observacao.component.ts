@@ -112,4 +112,9 @@ export class InfoObservacaoComponent implements OnInit {
       '-'
     );
   }
+
+  getAutorNome(autor: any): string {
+    if (!autor) return '-';
+    return autor.username || '-';
+  }
 }
