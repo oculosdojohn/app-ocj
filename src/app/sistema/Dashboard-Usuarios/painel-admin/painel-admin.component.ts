@@ -82,6 +82,14 @@ export class PainelAdminComponent implements OnInit {
   public seriesStatusExperiencia: any[] = [];
   public categoriesStatusExperiencia: string[] = [];
 
+  public seriesDemissoesPorMes: any[] = [];
+  public categoriesDemissoesPorMes: string[] = [];
+  public totalDemissoesPorMes: number = 0;
+
+  public seriesAdmissoesPorMes: any[] = [];
+  public categoriesAdmissoesPorMes: string[] = [];
+  public totalAdmissoesPorMes: number = 0;
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -126,6 +134,8 @@ export class PainelAdminComponent implements OnInit {
     this.carregarGraficoCargo();
     this.carregarGraficoTempoEmpresa();
     this.carregarGraficoStatusExperiencia();
+    this.carregarGraficoDemissoesPorMes();
+    this.carregarGraficoAdmissoesPorMes();
   }
 
   getWeatherForRussas(): void {
@@ -262,5 +272,33 @@ export class PainelAdminComponent implements OnInit {
           },
         ];
       });
+  }
+
+  carregarGraficoDemissoesPorMes(): void {
+    this.graficosService.getDemissoesPorMes().subscribe((data) => {
+      this.categoriesDemissoesPorMes = data.map((item) => item.nomeMes);
+      const valores = data.map((item) => item.quantidade);
+      this.seriesDemissoesPorMes = [
+        {
+          name: 'Demissões',
+          data: valores,
+        },
+      ];
+      this.totalDemissoesPorMes = valores.reduce((a, b) => a + b, 0);
+    });
+  }
+
+  carregarGraficoAdmissoesPorMes(): void {
+    this.graficosService.getAdmissoesPorMes().subscribe((data) => {
+      this.categoriesAdmissoesPorMes = data.map((item) => item.nomeMes);
+      const valores = data.map((item) => item.quantidade);
+      this.seriesAdmissoesPorMes = [
+        {
+          name: 'Admissões',
+          data: valores,
+        },
+      ];
+      this.totalAdmissoesPorMes = valores.reduce((a, b) => a + b, 0);
+    });
   }
 }

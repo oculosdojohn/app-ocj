@@ -167,4 +167,30 @@ export class GraficosService {
         catchError(this.handleError('funcionários por status de experiência'))
       );
   }
+
+  getDemissoesPorMes(): Observable<
+    { mes: number; nomeMes: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ mes: number; nomeMes: string; quantidade: number }[]>(
+        `${this.apiURL}/demissoes/por-mes`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('demissões por mês'))
+      );
+  }
+
+  getAdmissoesPorMes(): Observable<
+    { mes: number; nomeMes: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ mes: number; nomeMes: string; quantidade: number }[]>(
+        `${this.apiURL}/admissoes/por-mes`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('admissões por mês'))
+      );
+  }
 }
