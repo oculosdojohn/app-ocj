@@ -79,6 +79,9 @@ export class PainelAdminComponent implements OnInit {
   public seriesTempoEmpresa: any[] = [];
   public categoriesTempoEmpresa: string[] = [];
 
+  public seriesStatusExperiencia: any[] = [];
+  public categoriesStatusExperiencia: string[] = [];
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -122,6 +125,7 @@ export class PainelAdminComponent implements OnInit {
     this.carregarGraficoFaixaEtaria();
     this.carregarGraficoCargo();
     this.carregarGraficoTempoEmpresa();
+    this.carregarGraficoStatusExperiencia();
   }
 
   getWeatherForRussas(): void {
@@ -192,11 +196,13 @@ export class PainelAdminComponent implements OnInit {
 
   carregarGraficoOrcamentoDepartamento(): void {
     this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
-      this.categoriesOrcamentoDepartamento = Object.keys(data);
+      this.categoriesOrcamentoDepartamento = data.map(
+        (item) => item.departamento.nome
+      );
       this.seriesOrcamentoDepartamento = [
         {
           name: 'Orçamento (R$)',
-          data: Object.values(data),
+          data: data.map((item) => item.orcamentoMensal),
         },
       ];
     });
@@ -242,5 +248,19 @@ export class PainelAdminComponent implements OnInit {
         },
       ];
     });
+  }
+
+  carregarGraficoStatusExperiencia(): void {
+    this.graficosService
+      .getFuncionariosPorStatusExperiencia()
+      .subscribe((data) => {
+        this.categoriesStatusExperiencia = data.map((item) => item.status);
+        this.seriesStatusExperiencia = [
+          {
+            name: 'Funcionários',
+            data: data.map((item) => item.quantidade),
+          },
+        ];
+      });
   }
 }

@@ -120,8 +120,8 @@
       </app-grafico-barra-vertical>
 
       <app-grafico-barra-horizontal
-            [series]="[{ name: 'Concluidas', data: [18, 20, 10] }]"
-            [categories]="['Completo', 'Em andamento', 'Incompleto']"
+            [series]="seriesStatusExperiencia"
+            [categories]="categoriesStatusExperiencia"
             [colors]="['#FEB019']"
             title="Funcionários por período de experiência">
       </app-grafico-barra-horizontal>

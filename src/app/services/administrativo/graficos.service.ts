@@ -41,9 +41,13 @@ export class GraficosService {
       );
   }
 
-  getOrcamentoPorDepartamento(): Observable<Record<string, number>> {
+  getOrcamentoPorDepartamento(): Observable<
+    { departamento: { nome: string }; orcamentoMensal: number }[]
+  > {
     return this.http
-      .get<Record<string, number>>(`${this.apiURL}/orcamento-por-departamento`)
+      .get<{ departamento: { nome: string }; orcamentoMensal: number }[]>(
+        `${this.apiURL}/orcamento-por-departamento`
+      )
       .pipe(
         map((response) => response),
         catchError(this.handleError('orçamento por departamento'))
@@ -148,6 +152,19 @@ export class GraficosService {
       .pipe(
         map((response) => response),
         catchError(this.handleError('funcionários por etnia'))
+      );
+  }
+
+  getFuncionariosPorStatusExperiencia(): Observable<
+    { status: string; quantidade: number }[]
+  > {
+    return this.http
+      .get<{ status: string; quantidade: number }[]>(
+        `${this.apiURL}/funcionarios/experiencia-status`
+      )
+      .pipe(
+        map((response) => response),
+        catchError(this.handleError('funcionários por status de experiência'))
       );
   }
 }
