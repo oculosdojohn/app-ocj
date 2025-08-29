@@ -25,23 +25,23 @@
     <div class="graficos-container">
       <div class="duo-container">
           <app-grafico-linha
-              [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 85, 160, 20] }]"
-              [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']"
+              [series]="seriesAdmissoesPorMes"
+              [categories]="categoriesAdmissoesPorMes"
               [colors]="['#58D9FF']"
               title="Admissões"
               totalLabel="Total"
               [showTotal]="true"
-              [subtitle]="'Total: 20'">
+              [subtitle]="'Total: ' + totalAdmissoesPorMes">
           </app-grafico-linha>
 
           <app-grafico-linha
-                [series]="[{ name: 'Desempenho', data: [30, 40, 35, 50, 48, 60, 70, 91, 125, 55, 200, 20] }]"
-                [categories]="['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']"
+                [series]="seriesDemissoesPorMes"
+                [categories]="categoriesDemissoesPorMes"
                 [colors]="['#ED5362']"
                 title="Demissões"
                 totalLabel="Total"
                 [showTotal]="true"
-                [subtitle]="'Total: 20'">
+                [subtitle]="'Total: ' + totalDemissoesPorMes">
           </app-grafico-linha>
       </div>
 
@@ -126,8 +126,8 @@
     </app-grafico-barra-vertical>
 
     <app-grafico-barra-horizontal
-            [series]="[{ name: 'Concluidas', data: [18, 20, 10] }]"
-            [categories]="['Completo', 'Em andamento', 'Incompleto']"
+            [series]="seriesStatusExperiencia"
+            [categories]="categoriesStatusExperiencia"
             [colors]="['#FEB019']"
             title="Funcionários por período de experiência">
     </app-grafico-barra-horizontal>
