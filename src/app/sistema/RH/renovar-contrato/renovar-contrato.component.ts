@@ -189,13 +189,13 @@ export class RenovarContratoComponent implements OnInit {
     this.colaboradorService
       .getColaboradorById(Number(colaborador.id))
       .subscribe((colab) => {
+        this.renovacaoForm.reset();
         this.renovacaoForm.patchValue({
           periodoDeExperiencia: colab.periodoDeExperiencia || '',
           dataDoContrato: colab.dataDoContrato || '',
           duracaoDoContrato: colab.duracaoDoContrato || '',
           dataTerminoDoContrato: colab.dataTerminoDoContrato || '',
         });
-        this.renovacaoForm.reset();
         this.modalCadastroService.openModal(
           {
             title: 'Renovar contrato do colaborador',
@@ -211,8 +211,15 @@ export class RenovarContratoComponent implements OnInit {
   onSubmit(colab: Colaborador): void {
     if (this.renovacaoForm.invalid) return;
 
+    const periodoEnum = this.renovacaoForm.value.periodoDeExperiencia;
+    const periodoObj = this.periodosExperiencia.find(
+      (p) => p.value === periodoEnum
+    );
+    const periodoDescricao = periodoObj ? periodoObj.description : periodoEnum;
+
     const dadosRenovacao = {
       ...this.renovacaoForm.value,
+      periodoDeExperiencia: periodoDescricao,
       colaboradorId: colab.id,
     };
 

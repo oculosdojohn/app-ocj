@@ -39,6 +39,7 @@ export class InfoObservacaoComponent implements OnInit {
         .getObservacoesColaborador(this.colaboradorId)
         .subscribe({
           next: (obs: any) => {
+            console.log('Observações recebidas:', obs);
             this.observacoes = this.processarObservacoes(obs);
             this.isLoading = false;
             this.atualizarPaginacao();
@@ -52,25 +53,47 @@ export class InfoObservacaoComponent implements OnInit {
   }
 
   processarObservacoes(obs: any): ObservacaoBase[] {
+    function getDataHistorico(item: any, tipo: string): Date {
+      if (item.dataDeCadastro && Array.isArray(item.dataDeCadastro)) {
+        return new Date(
+          item.dataDeCadastro[0], // ano
+          item.dataDeCadastro[1] - 1, // mês
+          item.dataDeCadastro[2], // dia
+          item.dataDeCadastro[3] || 0, // hora
+          item.dataDeCadastro[4] || 0, // min
+          item.dataDeCadastro[5] || 0, // seg
+          item.dataDeCadastro[6] || 0 // ms
+        );
+      }
+      let dataStr = '';
+      if (tipo === 'ADMISSAO') dataStr = item.dataAdmissao;
+      if (tipo === 'DEMISSAO') dataStr = item.dataDemissao;
+      if (tipo === 'RENOVACAO') dataStr = item.dataDoContrato;
+      if (dataStr) {
+        const [dia, mes, ano] = dataStr.split('/');
+        return new Date(+ano, +mes - 1, +dia);
+      }
+      return new Date(0);
+    }
+
     const admissoes = (obs.historicoAdmissoes || []).map((item: any) => ({
       ...item,
       tipo: 'ADMISSAO',
-      dataHistorico: item.dataAdmissao,
+      dataHistorico: getDataHistorico(item, 'ADMISSAO'),
     }));
     const demissoes = (obs.historicoDemissoes || []).map((item: any) => ({
       ...item,
       tipo: 'DEMISSAO',
-      dataHistorico: item.dataDemissao,
+      dataHistorico: getDataHistorico(item, 'DEMISSAO'),
     }));
     const renovacoes = (obs.historicoRenovacao || []).map((item: any) => ({
       ...item,
       tipo: 'RENOVACAO',
-      dataHistorico: item.dataDoContrato,
+      dataHistorico: getDataHistorico(item, 'RENOVACAO'),
     }));
+
     return [...admissoes, ...demissoes, ...renovacoes].sort(
-      (a, b) =>
-        this.parseDataBR(b.dataHistorico).getTime() -
-        this.parseDataBR(a.dataHistorico).getTime()
+      (a, b) => b.dataHistorico.getTime() - a.dataHistorico.getTime()
     );
   }
 
