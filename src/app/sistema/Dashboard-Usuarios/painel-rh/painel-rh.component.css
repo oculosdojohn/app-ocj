@@ -253,7 +253,7 @@
     text-align: center;
   }
 
-  .duo-graficos {
+  .duo-container {
     flex-direction: column;
   }
 }

@@ -3,7 +3,10 @@
     <!-- Card de Admissão -->
     <div *ngIf="obs['tipo'] === 'ADMISSAO'" class="card obs-card admissao">
       <div class="divisao">
-        <p>Admissão</p>
+        <div class="titulo-container">
+          <p>Admissão</p>
+          <span class="data-historico">{{ obs['dataDeCadastro'] }}</span>
+        </div>
         <hr class="line">
       </div>
 
@@ -29,7 +32,10 @@
     <!-- Card de Demissão -->
     <div *ngIf="obs['tipo'] === 'DEMISSAO'" class="card obs-card demissao">
       <div class="divisao">
-        <p>Demissão</p>
+        <div class="titulo-container">
+          <p>Demissão</p>
+          <span class="data-historico">{{ obs['dataDeCadastro'] }}</span>
+        </div>
         <hr class="line">
       </div>
 
@@ -71,7 +77,10 @@
     <!-- Card de Renovação -->
     <div *ngIf="obs['tipo'] === 'RENOVACAO'" class="card obs-card renovacao">
       <div class="divisao">
-        <p>Renovação de Contrato</p>
+        <div class="titulo-container">
+          <p>Renovação de Contrato</p>
+          <span class="data-historico">{{ obs['dataDeCadastro'] }}</span>
+        </div>
         <hr class="line">
       </div>
 

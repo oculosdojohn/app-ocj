@@ -79,6 +79,17 @@ export class PainelAdminComponent implements OnInit {
   public seriesTempoEmpresa: any[] = [];
   public categoriesTempoEmpresa: string[] = [];
 
+  public seriesStatusExperiencia: any[] = [];
+  public categoriesStatusExperiencia: string[] = [];
+
+  public seriesDemissoesPorMes: any[] = [];
+  public categoriesDemissoesPorMes: string[] = [];
+  public totalDemissoesPorMes: number = 0;
+
+  public seriesAdmissoesPorMes: any[] = [];
+  public categoriesAdmissoesPorMes: string[] = [];
+  public totalAdmissoesPorMes: number = 0;
+
   public Permissao = Permissao;
   cargoUsuario!: Permissao;
 
@@ -122,6 +133,9 @@ export class PainelAdminComponent implements OnInit {
     this.carregarGraficoFaixaEtaria();
     this.carregarGraficoCargo();
     this.carregarGraficoTempoEmpresa();
+    this.carregarGraficoStatusExperiencia();
+    this.carregarGraficoDemissoesPorMes();
+    this.carregarGraficoAdmissoesPorMes();
   }
 
   getWeatherForRussas(): void {
@@ -192,11 +206,13 @@ export class PainelAdminComponent implements OnInit {
 
   carregarGraficoOrcamentoDepartamento(): void {
     this.graficosService.getOrcamentoPorDepartamento().subscribe((data) => {
-      this.categoriesOrcamentoDepartamento = Object.keys(data);
+      this.categoriesOrcamentoDepartamento = data.map(
+        (item) => item.departamento.nome
+      );
       this.seriesOrcamentoDepartamento = [
         {
           name: 'Orçamento (R$)',
-          data: Object.values(data),
+          data: data.map((item) => item.orcamentoMensal),
         },
       ];
     });
@@ -241,6 +257,48 @@ export class PainelAdminComponent implements OnInit {
           data: categoriasFixas.map((cat) => map.get(cat) ?? 0),
         },
       ];
+    });
+  }
+
+  carregarGraficoStatusExperiencia(): void {
+    this.graficosService
+      .getFuncionariosPorStatusExperiencia()
+      .subscribe((data) => {
+        this.categoriesStatusExperiencia = data.map((item) => item.status);
+        this.seriesStatusExperiencia = [
+          {
+            name: 'Funcionários',
+            data: data.map((item) => item.quantidade),
+          },
+        ];
+      });
+  }
+
+  carregarGraficoDemissoesPorMes(): void {
+    this.graficosService.getDemissoesPorMes().subscribe((data) => {
+      this.categoriesDemissoesPorMes = data.map((item) => item.nomeMes);
+      const valores = data.map((item) => item.quantidade);
+      this.seriesDemissoesPorMes = [
+        {
+          name: 'Demissões',
+          data: valores,
+        },
+      ];
+      this.totalDemissoesPorMes = valores.reduce((a, b) => a + b, 0);
+    });
+  }
+
+  carregarGraficoAdmissoesPorMes(): void {
+    this.graficosService.getAdmissoesPorMes().subscribe((data) => {
+      this.categoriesAdmissoesPorMes = data.map((item) => item.nomeMes);
+      const valores = data.map((item) => item.quantidade);
+      this.seriesAdmissoesPorMes = [
+        {
+          name: 'Admissões',
+          data: valores,
+        },
+      ];
+      this.totalAdmissoesPorMes = valores.reduce((a, b) => a + b, 0);
     });
   }
 }

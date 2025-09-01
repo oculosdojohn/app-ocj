@@ -16,6 +16,21 @@
   margin: 0;
 }
 
+.titulo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.data-historico {
+  font-size: 0.95em;
+  color: #888;
+  font-weight: 400;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
 /* card */
 .obs-card {
   border-radius: 12px;
