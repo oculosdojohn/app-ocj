@@ -53,54 +53,65 @@ export class InfoObservacaoComponent implements OnInit {
   }
 
   processarObservacoes(obs: any): ObservacaoBase[] {
-    function getDataHistorico(item: any, tipo: string): Date {
-      if (item.dataDeCadastro && Array.isArray(item.dataDeCadastro)) {
-        return new Date(
-          item.dataDeCadastro[0], // ano
-          item.dataDeCadastro[1] - 1, // mês
-          item.dataDeCadastro[2], // dia
-          item.dataDeCadastro[3] || 0, // hora
-          item.dataDeCadastro[4] || 0, // min
-          item.dataDeCadastro[5] || 0, // seg
-          item.dataDeCadastro[6] || 0 // ms
+    function getDataDeCadastroString(item: any): string {
+      // Se vier string já formatada do back, use ela
+      if (typeof item.dataDeCadastro === 'string') {
+        return item.dataDeCadastro;
+      }
+      // Se vier array, tente montar string (fallback)
+      if (
+        item.dataDeCadastro &&
+        Array.isArray(item.dataDeCadastro) &&
+        item.dataDeCadastro.length >= 3
+      ) {
+        const data = new Date(
+          item.dataDeCadastro[0],
+          item.dataDeCadastro[1] - 1,
+          item.dataDeCadastro[2],
+          item.dataDeCadastro[3] || 0,
+          item.dataDeCadastro[4] || 0,
+          item.dataDeCadastro[5] || 0,
+          item.dataDeCadastro[6] || 0
         );
+        if (!isNaN(data.getTime())) {
+          const dia = String(data.getDate()).padStart(2, '0');
+          const mes = String(data.getMonth() + 1).padStart(2, '0');
+          const ano = data.getFullYear();
+          const hora = String(data.getHours()).padStart(2, '0');
+          const min = String(data.getMinutes()).padStart(2, '0');
+          return `${dia}/${mes}/${ano} ${hora}:${min}`;
+        }
       }
-      let dataStr = '';
-      if (tipo === 'ADMISSAO') dataStr = item.dataAdmissao;
-      if (tipo === 'DEMISSAO') dataStr = item.dataDemissao;
-      if (tipo === 'RENOVACAO') dataStr = item.dataDoContrato;
-      if (dataStr) {
-        const [dia, mes, ano] = dataStr.split('/');
-        return new Date(+ano, +mes - 1, +dia);
-      }
-      return new Date(0);
+      return '';
     }
 
     const admissoes = (obs.historicoAdmissoes || []).map((item: any) => ({
       ...item,
       tipo: 'ADMISSAO',
-      dataHistorico: getDataHistorico(item, 'ADMISSAO'),
+      dataDeCadastro: getDataDeCadastroString(item),
     }));
     const demissoes = (obs.historicoDemissoes || []).map((item: any) => ({
       ...item,
       tipo: 'DEMISSAO',
-      dataHistorico: getDataHistorico(item, 'DEMISSAO'),
+      dataDeCadastro: getDataDeCadastroString(item),
     }));
     const renovacoes = (obs.historicoRenovacao || []).map((item: any) => ({
       ...item,
       tipo: 'RENOVACAO',
-      dataHistorico: getDataHistorico(item, 'RENOVACAO'),
+      dataDeCadastro: getDataDeCadastroString(item),
     }));
 
-    return [...admissoes, ...demissoes, ...renovacoes].sort(
-      (a, b) => b.dataHistorico.getTime() - a.dataHistorico.getTime()
-    );
-  }
-
-  parseDataBR(data: string): Date {
-    if (!data) return new Date(0);
-    const [dia, mes, ano] = data.split('/');
-    return new Date(+ano, +mes - 1, +dia);
+    // Ordena por data/hora string (mais recente primeiro)
+    return [...admissoes, ...demissoes, ...renovacoes].sort((a, b) => {
+      // Se ambos têm data, compara como datas
+      if (a.dataDeCadastro && b.dataDeCadastro) {
+        return b.dataDeCadastro.localeCompare(a.dataDeCadastro);
+      }
+      // Quem não tem data vai para o final
+      if (!a.dataDeCadastro && b.dataDeCadastro) return 1;
+      if (a.dataDeCadastro && !b.dataDeCadastro) return -1;
+      return 0;
+    });
   }
 
   atualizarPaginacao(): void {
