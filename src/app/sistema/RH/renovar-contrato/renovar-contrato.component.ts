@@ -196,6 +196,7 @@ export class RenovarContratoComponent implements OnInit {
           duracaoDoContrato: colab.duracaoDoContrato || '',
           dataTerminoDoContrato: colab.dataTerminoDoContrato || '',
         });
+        this.selectedPeriodoExperiencia = colab.periodoDeExperiencia || '';
         this.modalCadastroService.openModal(
           {
             title: 'Renovar contrato do colaborador',
