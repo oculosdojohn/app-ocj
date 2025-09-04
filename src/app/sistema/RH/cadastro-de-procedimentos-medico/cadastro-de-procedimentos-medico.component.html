@@ -7,12 +7,13 @@
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="medicinaForm">
             <div class="form-group">
-                <label for="identificadorLoja">Loja</label>
+                <label for="lojaId">Loja</label>
                 <app-select-padrao
                   label="Selecione uma loja"
                   [options]="lojas"
                   [(selectedValue)]="selectedLoja"
-                  formControlName="identificadorLoja">
+                  formControlName="lojaId"
+                  (selectedValueChange)="onLojaSelecionada($event)">
                 </app-select-padrao>
             </div>
 
@@ -20,7 +21,10 @@
                 <label for="usuarioId">Colaborador</label>
                 <app-select-padrao
                   label="Selecione um colaborador"
-                  formControlName="usuarioId">
+                  [options]="colaboradoresDaLoja"
+                  [(selectedValue)]="medicinaForm.value.usuarioId"
+                  formControlName="usuarioId"
+                  [disabled]="colaboradorSelectDisabled">
                 </app-select-padrao>
             </div>
 
@@ -109,7 +113,7 @@
 
                 <div class="form-group">
                     <label for="numDiasAfastado">Número de dias de afastamento</label>
-                    <input type="text" id="numDiasAfastado" name="numDiasAfastado" formControlName="numDiasAfastado" class="form-control" placeholder="Digite o número de dias">
+                    <input type="number" id="numDiasAfastado" name="numDiasAfastado" formControlName="numDiasAfastado" class="form-control" placeholder="Digite o número de dias">
                 </div>
             </div>
 

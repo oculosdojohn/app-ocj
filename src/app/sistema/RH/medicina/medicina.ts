@@ -1,6 +1,7 @@
 export class Medicina {
   id!: string;
   loja!: { id: string; nome: string; endereco: { cidade: string } } | null;
+  lojaId!: string;
   usuarioId!: string;
   colaborador!: {
     id: string;

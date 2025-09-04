@@ -14,6 +14,7 @@ export class Loja {
   id_supervisor!: string;
   quantidadeFuncionarios!: string;
   colaboradores!: {
+    id: string;
     username: string;
     cargo: string;
     departamento?: { nome: string };
