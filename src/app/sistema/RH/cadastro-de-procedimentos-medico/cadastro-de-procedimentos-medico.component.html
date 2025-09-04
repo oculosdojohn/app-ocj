@@ -17,10 +17,10 @@
             </div>
 
             <div class="form-group">
-                <label for="colaborador">Colaborador</label>
+                <label for="usuarioId">Colaborador</label>
                 <app-select-padrao
                   label="Selecione um colaborador"
-                  formControlName="identificadorColaborador">
+                  formControlName="usuarioId">
                 </app-select-padrao>
             </div>
 
@@ -122,4 +122,13 @@
     </div>
 
     <app-loading *ngIf="isLoading"></app-loading>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </div>
 </div>

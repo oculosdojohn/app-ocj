@@ -61,18 +61,18 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
   ) {
     this.medicinaForm = this.formBuilder.group({
       identificadorLoja: ['', Validators.required],
-      identificadorColaborador: ['', Validators.required],
-      dataExameProcedimento: [''],
-      tipoProcedimento: [''],
+      usuarioId: ['', Validators.required],
+      data: [''],
+      tipo: [''],
       descricao: [''],
-      nomeMedico: [''],
-      crmMedico: [''],
+      crmDoMedico: [''],
+      nomeDoMedico: [''],
       cid10: [''],
-      avaliacaoMedica: [''],
+      avaliacao: [''],
       finalizado: ['sim'],
       apto: ['sim'],
       dataProximoExame: [''],
-      numeroDiasAfastamento: [''],
+      numDiasAfastado: [''],
     });
   }
 

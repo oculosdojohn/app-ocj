@@ -1,8 +1,11 @@
 export class Medicina {
   id!: string;
-  loja!: string;
+  loja!: { id: string; nome: string; endereco: { cidade: string } } | null;
   usuarioId!: string;
-  colaborador!: string;
+  colaborador!: {
+    id: string;
+    username: string;
+  } | null;
   data!: string;
   tipo!: string;
   descricao!: string;
