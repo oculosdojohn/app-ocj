@@ -28,8 +28,8 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
   isEditMode = false;
   medicinaId: string | null = null;
 
-  finalizado: string = 'sim';
-  apto: string = 'sim';
+  finalizado: string = 'SIM';
+  apto: string = 'SIM';
 
   lojas: { value: string; description: string }[] = [];
   selectedLoja: string = '';
@@ -69,8 +69,8 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
       nomeDoMedico: [''],
       cid10: [''],
       avaliacao: [''],
-      finalizado: ['sim'],
-      apto: ['sim'],
+      finalizado: ['SIM'],
+      apto: ['SIM'],
       dataProximoExame: [''],
       numDiasAfastado: [''],
     });

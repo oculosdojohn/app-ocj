@@ -7,7 +7,7 @@
     <div class="forms-container">
         <form (ngSubmit)="onSubmit()" [formGroup]="medicinaForm">
             <div class="form-group">
-                <label for="loja">Loja</label>
+                <label for="identificadorLoja">Loja</label>
                 <app-select-padrao
                   label="Selecione uma loja"
                   [options]="lojas"
@@ -26,8 +26,8 @@
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="dataExameProcedimento">Data Exame/Procedimento</label>
-                    <input type="date" id="dataExameProcedimento" name="dataExameProcedimento" formControlName="dataExameProcedimento" class="form-control">
+                    <label for="data">Data Exame/Procedimento</label>
+                    <input type="date" id="data" name="data" formControlName="data" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -36,7 +36,7 @@
                       label="Selecione o tipo"
                       [options]="tiposProcedimento"
                       [(selectedValue)]="selectedTipoProcedimento"
-                      formControlName="tipoProcedimento">
+                      formControlName="tipo">
                     </app-select-padrao>
                 </div>
             </div>
@@ -48,18 +48,18 @@
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="nomeMedico">Nome do médico</label>
-                    <input type="text" id="nomeMedico" name="nomeMedico" formControlName="nomeMedico" class="form-control" placeholder="Digite o nome do médico">
+                    <label for="nomeDoMedico">Nome do médico</label>
+                    <input type="text" id="nomeDoMedico" name="nomeDoMedico" formControlName="nomeDoMedico" class="form-control" placeholder="Digite o nome do médico">
                 </div>
 
                 <div class="form-group">
-                    <label for="CRM">CRM do médico</label>
-                    <input type="text" id="CRM" name="CRM" formControlName="crmMedico" class="form-control" placeholder="Digite a CRM do médico">
+                    <label for="crmDoMedico">CRM do médico</label>
+                    <input type="text" id="crmDoMedico" name="crmDoMedico" formControlName="crmDoMedico" class="form-control" placeholder="Digite a CRM do médico">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="CID">CID-10</label>
+                <label for="cid10">CID-10</label>
                 <app-select-padrao
                   label="Selecione CID-10"
                   [options]="cid10"
@@ -69,19 +69,19 @@
             </div>
 
             <div class="form-group">
-                <label for="avaliacaoMedica">Avaliação médica</label>
-                <textarea type="text" id="avaliacaoMedica" name="avaliacaoMedica" formControlName="avaliacaoMedica" class="form-control" placeholder="Digite a avaliação médica" rows="3"></textarea>
+                <label for="avaliacao">Avaliação médica</label>
+                <textarea type="text" id="avaliacao" name="avaliacao" formControlName="avaliacao" class="form-control" placeholder="Digite a avaliação médica" rows="3"></textarea>
             </div>
 
             <div class="form-group">
                 <label>Finalizado?</label>
                 <div class="radio-group">
                     <div class="radio-item">
-                        <input type="radio" id="statusSim" name="finalizado" value="sim" formControlName="finalizado" checked>
+                        <input type="radio" id="statusSim" name="finalizado" value="SIM" formControlName="finalizado" checked>
                         <label for="statusSim">Sim</label>
                     </div>
                     <div class="radio-item">
-                        <input type="radio" id="statusNao" name="finalizado" value="nao" formControlName="finalizado">
+                        <input type="radio" id="statusNao" name="finalizado" value="NAO" formControlName="finalizado">
                         <label for="statusNao">Não</label>
                     </div>
                 </div>
@@ -91,11 +91,11 @@
                 <label>Apto?</label>
                 <div class="radio-group">
                     <div class="radio-item">
-                        <input type="radio" id="statusSim" name="apto" value="sim" formControlName="apto" checked>
+                        <input type="radio" id="statusSim" name="apto" value="SIM" formControlName="apto" checked>
                         <label for="statusSim">Sim</label>
                     </div>
                     <div class="radio-item">
-                        <input type="radio" id="statusNao" name="apto" value="nao" formControlName="apto">
+                        <input type="radio" id="statusNao" name="apto" value="NAO" formControlName="apto">
                         <label for="statusNao">Não</label>
                     </div>
                 </div>
@@ -108,8 +108,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="numeroDiasAfastamento">Número de dias de afastamento</label>
-                    <input type="text" id="numeroDiasAfastamento" name="numeroDiasAfastamento" formControlName="numeroDiasAfastamento" class="form-control" placeholder="Digite o número de dias">
+                    <label for="numDiasAfastado">Número de dias de afastamento</label>
+                    <input type="text" id="numDiasAfastado" name="numDiasAfastado" formControlName="numDiasAfastado" class="form-control" placeholder="Digite o número de dias">
                 </div>
             </div>
 
