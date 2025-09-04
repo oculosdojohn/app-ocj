@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { TiposProcedimento } from '../medicina/enums/tipoProcedimento';
 import { TiposProcedimentoDescricoes } from '../medicina/enums/tipoProcedimentoDescricao';
+import { CID10 } from '../medicina/enums/CID10';
+import { CID10Descricoes } from '../medicina/enums/CID10Descricao';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Medicina } from '../medicina/medicina';
 import { MedicinaService } from 'src/app/services/rh/medicina.service';
@@ -41,6 +43,13 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
   }));
 
   selectedTipoProcedimento: string = '';
+
+  cid10 = Object.keys(CID10).map((key) => ({
+    value: CID10[key as keyof typeof CID10],
+    description: CID10Descricoes[CID10[key as keyof typeof CID10]],
+  }));
+
+  selectedCID10: string = '';
 
   constructor(
     private location: Location,

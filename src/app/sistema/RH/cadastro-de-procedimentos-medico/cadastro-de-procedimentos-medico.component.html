@@ -62,6 +62,8 @@
                 <label for="CID">CID-10</label>
                 <app-select-padrao
                   label="Selecione CID-10"
+                  [options]="cid10"
+                  [(selectedValue)]="selectedCID10"
                   formControlName="cid10">
                 </app-select-padrao>
             </div>
