@@ -118,4 +118,20 @@ export class MedicinaService {
       })
     );
   }
+
+  excluirProcedimentoMedico(id: string | number): Observable<void> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.delete<void>(url).pipe(
+      catchError((error) => {
+        let errorMessage = 'Erro ao excluir procedimento médico.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
