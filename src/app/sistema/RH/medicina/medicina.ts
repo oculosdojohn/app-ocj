@@ -1,13 +1,17 @@
 export class Medicina {
   id!: string;
   loja!: string;
+  usuarioId!: string;
   colaborador!: string;
-  tipo!: string;
-  CID!: string;
   data!: string;
-  numeroDias!: string;
+  tipo!: string;
+  descricao!: string;
+  crmDoMedico!: string;
+  nomeDoMedico!: string;
+  cid10!: string;
+  avaliacao!: string;
   finalizado!: string;
   apto!: string;
   dataProximoExame!: string;
-  numeroDiasAfastamento!: string;
+  numDiasAfastado!: string;
 }
