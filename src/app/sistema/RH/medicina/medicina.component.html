@@ -51,12 +51,8 @@
                             <span>{{ medicina.colaborador?.username || '-' }}</span>
                         </div>
                     </td>
-                    <td>{{ medicina.tipo }}</td>
-                    <td>
-                        <div class="perfil">
-                            <span>{{ medicina.cid10 || '-'}}</span>
-                        </div>
-                    </td>
+                    <td>{{ getDescricaoTipoProcedimento(medicina.tipo || '-') }}</td>
+                    <td>{{ getDescricaoCID10(medicina.cid10 || '-') }}</td>
                     <td>{{ medicina.data || '-' }}</td>
                     <td>{{ medicina.numDiasAfastado || '-' }}</td>
                     <td>

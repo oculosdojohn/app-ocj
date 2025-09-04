@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
 import { MedicinaService } from 'src/app/services/rh/medicina.service';
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
+import { TiposProcedimentoDescricoes } from './enums/tipoProcedimentoDescricao';
+import { CID10Descricoes } from './enums/CID10Descricao';
 
 @Component({
   selector: 'app-medicina',
@@ -137,10 +139,10 @@ export class MedicinaComponent implements OnInit {
 
     this.modalDeleteService.openModal(
       {
-        title: 'Remoção de Medicina',
-        description: `Tem certeza que deseja excluir a medicina <strong>${
-          medicina.nome
-        } - ${medicina.endereco?.cidade || '-'}</strong>?`,
+        title: 'Remoção de Procedimento Médico',
+        description: `Tem certeza que deseja excluir o procedimento médico <strong>${
+          this.getDescricaoTipoProcedimento(medicina.tipo)
+        }</strong> do colaborador(a) ${medicina.colaborador?.username || '-'}?`,
         item: medicina,
         deletarTextoBotao: 'Remover',
         size: 'md',
@@ -169,6 +171,24 @@ export class MedicinaComponent implements OnInit {
   clearMessage() {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  getDescricaoTipoProcedimento(tipo: string): string {
+    return (
+      TiposProcedimentoDescricoes[
+        tipo as keyof typeof TiposProcedimentoDescricoes
+      ] ||
+      tipo ||
+      '-'
+    );
+  }
+
+  getDescricaoCID10(cid10: string): string {
+    return (
+      CID10Descricoes[cid10 as keyof typeof CID10Descricoes] ||
+      cid10 ||
+      '-'
+    );
   }
 
   get rotaDashboard(): string {
