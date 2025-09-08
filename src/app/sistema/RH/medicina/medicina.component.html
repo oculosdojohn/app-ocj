@@ -16,6 +16,16 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
     <div class="tabela-container">
         <table>
             <thead>
@@ -32,28 +42,31 @@
                 <tr *ngFor="let medicina of medicinasPaginados">
                     <td>
                         <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ medicina.colaborador }}</span>
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(medicina.colaborador?.username)}">
+                                <img [src]="medicina.colaborador?.foto?.documentoUrl" alt="Foto do colaborador" *ngIf="medicina.colaborador?.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(medicina.colaborador?.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ medicina.colaborador?.username || '-' }}</span>
                         </div>
                     </td>
-                    <td>{{ medicina.tipo }}</td>
+                    <td>{{ getDescricaoTipoProcedimento(medicina.tipo || '-') }}</td>
+                    <td>{{ getDescricaoCID10(medicina.cid10 || '-') }}</td>
+                    <td>{{ medicina.data || '-' }}</td>
+                    <td>{{ medicina.numDiasAfastado || '-' }}</td>
                     <td>
-                        <div class="perfil">
-                            <span>{{ medicina.CID }}</span>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarMedicina(medicina.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarMedicina(medicina.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(medicina)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
                         </div>
-                    </td>
-                    <td>{{ medicina.data }}</td>
-                    <td>{{ medicina.numeroDias }}</td>
-                    <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
                     </td>
                 </tr>
             </tbody>
