@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { TiposProcedimento } from '../medicina/enums/tipoProcedimento';
 import { TiposProcedimentoDescricoes } from '../medicina/enums/tipoProcedimentoDescricao';
-import { CID10 } from '../medicina/enums/CID10';
+import { CID10 } from '../medicina/enums/cid10';
 import { CID10Descricoes } from '../medicina/enums/CID10Descricao';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Medicina } from '../medicina/medicina';

@@ -1,9 +1,10 @@
-import { CID10 } from "./CID10";
+import { CID10 } from './cid10';
 
 export const CID10Descricoes: Record<CID10, string> = {
   // Doenças infecciosas
   [CID10.A00]: 'A00 - Cólera',
-  [CID10.A09]: 'A09 - Diarreia e gastroenterite de origem infecciosa presumível',
+  [CID10.A09]:
+    'A09 - Diarreia e gastroenterite de origem infecciosa presumível',
   [CID10.B20]:
     'B20 - Doença pelo HIV resultando em doenças infecciosas e parasitárias',
 
