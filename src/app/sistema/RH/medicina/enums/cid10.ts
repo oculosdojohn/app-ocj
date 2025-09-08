@@ -1,45 +1,45 @@
 export enum CID10 {
   // Doenças infecciosas
-  A00 = 'A00', // Cólera
-  A09 = 'A09', // Diarreia e gastroenterite de origem infecciosa presumível
-  B20 = 'B20', // Doença pelo HIV resultando em doenças infecciosas e parasitárias
+  A00 = 'A00',
+  A09 = 'A09',
+  B20 = 'B20',
 
   // Neoplasias
-  C50 = 'C50', // Neoplasia maligna da mama
+  C50 = 'C50',
 
   // Endócrinas / metabólicas
-  E11 = 'E11', // Diabetes mellitus tipo 2
-  E66 = 'E66', // Obesidade
+  E11 = 'E11',
+  E66 = 'E66',
 
   // Psiquiátricas
-  F32 = 'F32', // Episódio depressivo
-  F41 = 'F41', // Transtornos de ansiedade
+  F32 = 'F32',
+  F41 = 'F41',
 
   // Neurológicas
-  G40 = 'G40', // Epilepsia
-  G43 = 'G43', // Enxaqueca
+  G40 = 'G40',
+  G43 = 'G43',
 
   // Circulatórias
-  I10 = 'I10', // Hipertensão essencial (primária)
-  I20 = 'I20', // Angina pectoris
+  I10 = 'I10',
+  I20 = 'I20',
 
   // Respiratórias
-  J06 = 'J06', // Infecções agudas de vias aéreas superiores
-  J45 = 'J45', // Asma
+  J06 = 'J06',
+  J45 = 'J45',
 
   // Digestivas
-  K35 = 'K35', // Apendicite aguda
-  K29 = 'K29', // Gastrite e duodenite
+  K35 = 'K35',
+  K29 = 'K29',
 
   // Osteomusculares
-  M54 = 'M54', // Dorsalgia (dor nas costas)
-  M75 = 'M75', // Lesões do ombro (ex.: síndrome do manguito rotador)
+  M54 = 'M54',
+  M75 = 'M75',
 
   // Geniturinárias
-  N18 = 'N18', // Doença renal crônica
+  N18 = 'N18',
 
   // Gerais / Z codes
-  Z00 = 'Z00', // Exame geral e investigação de pessoas sem queixas ou diagnóstico relatado
-  Z01 = 'Z01', // Outros exames especiais
-  Z02 = 'Z02', // Exame para fins administrativos
+  Z00 = 'Z00',
+  Z01 = 'Z01',
+  Z02 = 'Z02',
 }
