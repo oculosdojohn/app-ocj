@@ -10,7 +10,7 @@ import {
 import { TiposProcedimento } from '../medicina/enums/tipoProcedimento';
 import { TiposProcedimentoDescricoes } from '../medicina/enums/tipoProcedimentoDescricao';
 import { CID10 } from '../medicina/enums/cid10';
-import { CID10Descricoes } from '../medicina/enums/CID10Descricao';
+import { CID10Descricoes } from '../medicina/enums/cid10-descricao';
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Medicina } from '../medicina/medicina';
 import { MedicinaService } from 'src/app/services/rh/medicina.service';
@@ -164,7 +164,7 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
         console.log(loja.colaboradores);
         this.colaboradoresDaLoja = (loja.colaboradores || []).map((colab) => ({
           value: colab.id,
-          description: colab.username
+          description: colab.username,
         }));
         this.colaboradorSelectDisabled = this.colaboradoresDaLoja.length === 0;
         this.medicinaForm.patchValue({ usuarioId: '' });
