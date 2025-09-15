@@ -1,45 +1,51 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar feedback</span>
+        <span>{{ isEditMode ? 'Editar feedback' : 'Cadastrar feedback' }}</span>
     </div>
   
     <div class="forms-container">
-        <form>
+        <form (ngSubmit)="onSubmit()" [formGroup]="feedbackForm">
             <div class="form-group">
-                <label for="loja">Loja</label>
+                <label for="lojaId">Loja</label>
                 <app-select-padrao
                   label="Selecione uma loja"
-                  [customStyles]="{'background': '#FFFFFF'}">
+                  [options]="lojas"
+                  [(selectedValue)]="selectedLoja"
+                  formControlName="lojaId"
+                  (selectedValueChange)="onLojaSelecionada($event)">
                 </app-select-padrao>
             </div>
 
             <div class="form-group">
-                <label for="colaborador">Colaborador</label>
+                <label for="usuarioId">Colaborador</label>
                 <app-select-padrao
                   label="Selecione um colaborador"
-                  [customStyles]="{'background': '#FFFFFF'}">
+                  [options]="colaboradoresDaLoja"
+                  [(selectedValue)]="feedbackForm.value.usuarioId"
+                  formControlName="usuarioId"
+                  [disabled]="colaboradorSelectDisabled">
                 </app-select-padrao>
             </div>
 
             <div class="form-group">
                 <label for="data">Data</label>
-                <input type="text" id="data" name="data" class="form-control" placeholder="Digite a data" required>
+                <input type="date" id="data" name="data" formControlName="data" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label>Classificação</label>
                 <div class="radio-group">
                     <div class="radio-item">
-                        <input type="radio" id="statusPositivo" name="classificacao" value="positivo" [(ngModel)]="classificacao" checked>
+                        <input type="radio" id="statusPositivo" name="classificacao" value="POSITIVO" formControlName="classificacao" checked>
                         <label for="statusPositivo">Positivo</label>
                     </div>
                     <div class="radio-item">
-                        <input type="radio" id="statusNeutro" name="classificacao" value="neutro" [(ngModel)]="classificacao">
+                        <input type="radio" id="statusNeutro" name="classificacao" value="NEUTRO" formControlName="classificacao">
                         <label for="statusNeutro">Neutro</label>
                     </div>
                     <div class="radio-item">
-                        <input type="radio" id="statusNegativo" name="classificacao" value="negativo" [(ngModel)]="classificacao">
+                        <input type="radio" id="statusNegativo" name="classificacao" value="NEGATIVO" formControlName="classificacao">
                         <label for="statusNegativo">Negativo</label>
                     </div>
                 </div>
@@ -47,14 +53,25 @@
 
             <div class="form-group">
                 <label for="comentario">Comentário</label>
-                <textarea type="text" id="comentario" name="comentario" class="form-control" placeholder="Digite um comentário" rows="3" required></textarea>
+                <textarea type="text" id="comentario" name="comentario" formControlName="comentario" class="form-control" placeholder="Informe seu comentário ou orientação para este colaborador..." rows="3"></textarea>
             </div>
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar feedback
+                    {{ isEditMode ? 'Atualizar feedback' : 'Cadastrar feedback' }}
                 </button>
             </div>
         </form>
+    </div>
+
+     <app-loading *ngIf="isLoading"></app-loading>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
     </div>
 </div>
