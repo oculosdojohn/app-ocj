@@ -50,6 +50,7 @@ import { DetalhesProdutosComponent } from './Servicos/visualizar-servicos/detalh
 import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produtos/meus-produtos.component';
 import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhes-noticia/detalhes-noticia.component';
 import { CentralDeNoticiasComponent } from './Servicos/central-de-noticias/central-de-noticias.component';
+import { DetalhesMedicinaComponent } from './RH/visualizar-rh/detalhes-medicina/detalhes-medicina.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,7 @@ const routes: Routes = [
       
       { path: 'feedbacks', component: FeedbaksComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'saude-ocupacional', component: MedicinaComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
+      { path: 'detalhes-saude-ocupacional/:id', component: DetalhesMedicinaComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'registros', component: RegistrosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'ferias', component: FeriasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-ferias', component: CadastroFeriasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
