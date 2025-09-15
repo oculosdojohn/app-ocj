@@ -359,9 +359,7 @@
         </div>
 
         <div *ngSwitchCase="'medicina'">
-            <div class="image-center">
-                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
-            </div>
+            <app-info-medicina [colaboradorId]="+colaborador.id"></app-info-medicina>
         </div>
 
         <div *ngSwitchCase="'registro'">
