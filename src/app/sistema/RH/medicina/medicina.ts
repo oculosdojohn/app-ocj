@@ -7,6 +7,7 @@ export class Medicina {
     id: string;
     username: string;
     foto: { documentoUrl: string; id: number; name: string };
+    status: string;
   } | null;
   data!: string;
   tipo!: string;

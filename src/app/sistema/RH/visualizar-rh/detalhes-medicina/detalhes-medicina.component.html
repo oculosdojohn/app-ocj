@@ -1,1 +1,97 @@
-<p>detalhes-medicina works!</p>
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="back-title">
+            <img src="assets/icones/arrow-left-green.svg" alt="Back" class="back-icon" (click)="goBack()">
+            <span>Detalhes saúde ocupacional</span>
+        </div>
+    </div>
+    <div class="actions" *ngIf="medicina">
+        <div class="avatar" [ngStyle]="{'background-color': getRandomColor(medicina.colaborador?.username || '')}">
+            <img [src]="medicina.colaborador?.foto?.documentoUrl" alt="Foto do Médico" class="foto-colaborador" *ngIf="medicina.colaborador?.foto?.documentoUrl; else defaultAvatar" />
+            <ng-template #defaultAvatar>
+                <span>{{ getInitial(medicina.colaborador?.username || '') }}</span>
+            </ng-template>
+        </div>
+        <div class="name-user">
+            <h1>{{ medicina.colaborador?.username }}</h1>
+            <div class="loja">
+                <img src="assets/icones/location.svg" alt="marcador" />
+                <div class="infos-conatiner">
+                    <p>
+                        {{ medicina.loja?.nome || '-' }}
+                        <span *ngIf="medicina.loja?.endereco?.cidade"> - {{ medicina.loja?.endereco?.cidade }}</span>
+                    </p>
+                    <div class="status-container">
+                        <span class="status-dot" [ngClass]="{'ativo': medicina.colaborador?.status === 'Ativo','inativo': medicina.colaborador?.status !== 'Ativo'}"></span>
+                        <p [ngClass]="{'ativo': medicina.colaborador?.status === 'Ativo','inativo': medicina.colaborador?.status !== 'Ativo'}">
+                            {{ medicina.colaborador?.status === 'Ativo' ? 'Ativo' : 'Inativo' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="subMain-container" *ngIf="medicina">
+    <div class="data-itens">
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Tipo Exame/Procedimento</label>
+                <p>{{ getDescricaoTipoProcedimento(medicina.tipo || '-') }}</p>
+            </div>
+            <div class="item-data">
+                <label>Data do exame/procedimento</label>
+                <p>{{ medicina.data || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="item-data">
+            <label>Descrição</label>
+            <p>{{ medicina.descricao || '-' }}</p>
+        </div>
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Nome do médico</label>
+                <p>{{ medicina.nomeDoMedico || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>CRM do médico</label>
+                <p>{{ medicina.crmDoMedico || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="item-data">
+            <label>CID-10</label>
+            <p>{{ getDescricaoCID10(medicina.cid10 || '-') }}</p>
+        </div>
+
+        <div class="item-data">
+            <label>Avaliação médica</label>
+            <p>{{ medicina.avaliacao || '-' }}</p>
+        </div>
+
+        <div class="item-data">
+            <label>Finalizado?</label>
+            <p>{{ medicina.finalizado ? 'Sim' : 'Não' }}</p>
+        </div>
+
+        <div class="item-data">
+            <label>Apto?</label>
+            <p>{{ medicina.apto ? 'Sim' : 'Não' }}</p>
+        </div>
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Data do próximo exame</label>
+                <p>{{ medicina.dataProximoExame || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Número de dias de afastamento</label>
+                <p>{{ medicina.numDiasAfastado || '-' }}</p>
+            </div>
+        </div>
+    </div>
+</div>
