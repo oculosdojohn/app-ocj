@@ -101,6 +101,8 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isLoading = true;
+    
     const medicina: Medicina = {
       ...this.medicinaForm.value,
     };
