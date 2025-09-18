@@ -91,7 +91,7 @@ export class MedicinaComponent implements OnInit {
   }
 
   visualizarMedicina(id: string): void {
-    this.router.navigate(['/usuario/detalhes-medico', id]);
+    this.router.navigate(['/usuario/detalhes-saude-ocupacional', id]);
   }
 
   editarMedicina(id: string): void {

@@ -80,6 +80,7 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarLojas();
+    this.verificarModoEdicao();
   }
 
   goBack() {
@@ -101,6 +102,8 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isLoading = true;
+
     const medicina: Medicina = {
       ...this.medicinaForm.value,
     };
@@ -167,7 +170,9 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
           description: colab.username,
         }));
         this.colaboradorSelectDisabled = this.colaboradoresDaLoja.length === 0;
-        this.medicinaForm.patchValue({ usuarioId: '' });
+        if (!this.isEditMode || !this.medicinaForm.value.usuarioId) {
+          this.medicinaForm.patchValue({ usuarioId: '' });
+        }
       },
       error: () => {
         this.colaboradoresDaLoja = [];
@@ -175,5 +180,75 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
         this.medicinaForm.patchValue({ usuarioId: '' });
       },
     });
+  }
+
+  private verificarModoEdicao(): void {
+    this.medicinaId = this.route.snapshot.paramMap.get('id');
+    if (this.medicinaId) {
+      this.isEditMode = true;
+      this.medicinaService
+        .buscarProcedimentoMedicoPorId(this.medicinaId)
+        .subscribe(
+          (medicina: Medicina) => {
+            console.log('Dados do procedimento médico recebido:', medicina);
+            const toInputDate = (dataStr?: string) => {
+              if (!dataStr) return '';
+              const [dia, mes, ano] = dataStr.split('/');
+              if (!dia || !mes || !ano) return '';
+              return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+            };
+
+            this.medicinaForm.patchValue({
+              ...medicina,
+              data: toInputDate(medicina.data),
+              dataProximoExame: toInputDate(medicina.dataProximoExame),
+            });
+
+            if (medicina.loja?.id) {
+              this.onLojaSelecionada(medicina.loja.id);
+              setTimeout(() => {
+                this.medicinaForm.patchValue({
+                  usuarioId: medicina.colaborador?.id || '',
+                });
+              }, 300);
+            }
+
+            this.selectedTipoProcedimento = medicina.tipo || '';
+            this.selectedCID10 = medicina.cid10 || '';
+            this.tratarRetornoDTO(medicina);
+          },
+          (error) => {
+            console.error('Erro ao buscar procedimento médico:', error);
+          }
+        );
+    }
+  }
+
+  private tratarRetornoDTO(medicina: Medicina): void {
+    if (medicina.loja) {
+      this.selectedLoja = medicina.loja.id;
+      this.lojas = [
+        {
+          value: medicina.loja.id,
+          description: `${medicina.loja.nome} - ${medicina.loja.endereco?.cidade}`,
+        },
+      ];
+      this.medicinaForm.patchValue({
+        lojaId: medicina.loja.id,
+      });
+    }
+
+    if (medicina.colaborador) {
+      this.medicinaForm.patchValue({
+        usuarioId: medicina.colaborador.id,
+      });
+      this.colaboradoresDaLoja = [
+        {
+          value: medicina.colaborador.id,
+          description: medicina.colaborador.username,
+        },
+      ];
+      this.colaboradorSelectDisabled = false;
+    }
   }
 }
