@@ -27,6 +27,9 @@ export class ResetPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    localStorage.removeItem('resetToken');
+    sessionStorage.removeItem('resetToken');
+
     const queryParams = new URLSearchParams(window.location.search);
     this.token = queryParams.get('token');
     console.log(this.token);
@@ -34,6 +37,10 @@ export class ResetPasswordComponent implements OnInit {
 
   goToResetPassword() {
     this.errors = [];
+
+    const queryParams = new URLSearchParams(window.location.search);
+    this.token = queryParams.get('token');
+    console.log('[ResetPassword] Token usado para envio:', this.token);
 
     if (!this.token) {
       this.errors.push('Token inválido ou expirado.');
@@ -45,8 +52,11 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
 
+    console.log('[ResetPassword] Enviando nova senha:', this.newPassword);
+
     this.authService.resetPassword(this.token, this.newPassword).subscribe(
       (response: any) => {
+        console.log('[ResetPassword] Resposta do backend:', response);
         this.mensagemSucesso =
           response?.message || 'Senha redefinida com sucesso!';
         this.confirmPassword = '';
