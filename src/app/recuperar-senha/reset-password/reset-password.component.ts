@@ -27,9 +27,6 @@ export class ResetPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    localStorage.removeItem('resetToken');
-    sessionStorage.removeItem('resetToken');
-
     const queryParams = new URLSearchParams(window.location.search);
     this.token = queryParams.get('token');
     console.log(this.token);
@@ -70,7 +67,13 @@ export class ResetPasswordComponent implements OnInit {
           'senha'
         );
         this.errors = [msg];
-        console.error(error);
+        console.error('[ResetPassword] Erro ao redefinir senha:', error);
+        if (error.error) {
+          console.error(
+            '[ResetPassword] Mensagem detalhada do backend:',
+            error.error
+          );
+        }
       }
     );
   }
