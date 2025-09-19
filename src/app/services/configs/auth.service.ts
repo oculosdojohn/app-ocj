@@ -84,6 +84,7 @@ export class AuthService {
       body,
       {
         headers: { 'Content-Type': 'application/json' },
+        withCredentials: false,
       }
     );
   }
