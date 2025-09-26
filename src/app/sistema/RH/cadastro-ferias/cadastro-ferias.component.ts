@@ -10,6 +10,8 @@ import {
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Ferias } from '../ferias/ferias';
 import { FeriasService } from 'src/app/services/rh/ferias.service';
+import { Meses } from '../ferias/Meses';
+import { MesesDescricoes } from '../ferias/MesesDescricoes';
 
 @Component({
   selector: 'app-cadastro-ferias',
@@ -29,6 +31,14 @@ export class CadastroFeriasComponent implements OnInit {
   public colaboradoresDaLoja: { value: string; description: string }[] = [];
   public colaboradorSelectDisabled: boolean = true;
 
+  meses = Object.keys(Meses).map((key) => ({
+    value: Meses[key as keyof typeof Meses],
+    description:
+      MesesDescricoes[Meses[key as keyof typeof Meses]],
+  }));
+
+  selectedMes: string = '';
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -37,7 +47,18 @@ export class CadastroFeriasComponent implements OnInit {
     private lojaService: LojaService,
     private feriasService: FeriasService
   ) {
-    this.feriasForm = this.formBuilder.group({});
+    this.feriasForm = this.formBuilder.group({
+      lojaId: ['', Validators.required],
+      usuarioId: ['', Validators.required],
+      inicioAquisitivo: ['', Validators.required],
+      fimAquisitivo: ['', Validators.required],
+      mes: ['', Validators.required],
+      ano: ['', [Validators.required]],
+      dias: ['', [Validators.required, Validators.min(1)]],
+      abono: ['', [Validators.required, Validators.min(0)]],
+      inicioFerias: ['', Validators.required],
+      fimFerias: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {

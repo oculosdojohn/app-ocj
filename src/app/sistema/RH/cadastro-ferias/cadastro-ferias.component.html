@@ -44,7 +44,9 @@
                     <label for="mes">Mês</label>
                     <app-select-padrao
                       label="Selecione o mês"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="meses"
+                      [(selectedValue)]="selectedMes"
+                      formControlName="mes">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
