@@ -31,27 +31,34 @@
                 <tr *ngFor="let feedback of feedbacksPaginados">
                     <td>
                         <div class="perfil">
-                            <span>{{ feedback.data }}</span>
+                            <span>{{ feedback.data || '-' }}</span>
                         </div>
                     </td>
                     <td>
-                        <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ feedback.colaborador }}</span>
+                         <div class="perfil">
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(feedback.usuario?.username)}">
+                                <img [src]="feedback.usuario?.foto?.documentoUrl" alt="Foto do colaborador" *ngIf="feedback.usuario?.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(feedback.usuario?.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ feedback.usuario?.username || '-' }}</span>
                         </div>
                     </td>
                     <td>{{ feedback.classificacao }}</td>
-                    <td>{{ feedback.autor }}</td>
+                    <td>{{ feedback.autor?.username }}</td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarFeedback(feedback.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarFeedback(feedback.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(feedback)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

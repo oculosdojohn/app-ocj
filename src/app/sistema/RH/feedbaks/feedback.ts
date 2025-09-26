@@ -3,7 +3,7 @@ export class Feedback {
   loja!: { id: string; nome: string; endereco: { cidade: string } } | null;
   lojaId!: string;
   usuarioId!: string;
-  colaborador!: {
+  usuario!: {
     id: string;
     username: string;
     foto: { documentoUrl: string; id: number; name: string };
@@ -12,6 +12,6 @@ export class Feedback {
   data!: string;
   classificacao!: string;
   comentario!: string;
-  autor!: string;
+  autor!: { id: string; username: string };
   dataCadastro!: string;
 }
