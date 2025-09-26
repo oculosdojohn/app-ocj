@@ -42,7 +42,7 @@ export class CadastroDeFeedbackComponent implements OnInit {
     this.feedbackForm = this.formBuilder.group({
       lojaId: ['', Validators.required],
       usuarioId: ['', Validators.required],
-      data: ['', Validators.required],
+      data: [''],
       classificacao: ['POSITIVO'],
       comentario: [''],
     });
@@ -71,7 +71,69 @@ export class CadastroDeFeedbackComponent implements OnInit {
     );
   }
 
-  onSubmit(): void {}
+  onSubmit(): void {
+    console.log(
+      'Tentando enviar formulário:',
+      this.feedbackForm.value,
+      'Valido?',
+      this.feedbackForm.valid
+    );
+    if (this.feedbackForm.invalid) {
+      this.isLoading = false;
+      this.errorMessage = 'Preencha todos os campos obrigatórios.';
+      return;
+    }
+    this.isLoading = true;
+
+    const feedback: Feedback = {
+      ...this.feedbackForm.value,
+    };
+
+    console.log('Formulário enviado:', feedback);
+
+    if (this.isEditMode && this.feedbackId) {
+      this.feedbacksService
+        .atualizarFeedback(this.feedbackId, feedback)
+        .subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.successMessage = 'Feedback atualizado com sucesso!';
+            this.errorMessage = null;
+            this.router.navigate(['/usuario/feedbacks'], {
+              state: {
+                successMessage: 'Feedback atualizado com sucesso!',
+              },
+            });
+          },
+          (error) => {
+            this.isLoading = false;
+            this.errorMessage =
+              error.message || 'Erro ao atualizar o feedback.';
+            this.successMessage = null;
+          }
+        );
+    } else {
+      this.feedbacksService.cadastrarFeedback(feedback).subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Feedback cadastrado com sucesso!';
+          this.errorMessage = null;
+          this.feedbackForm.reset();
+          this.router.navigate(['/usuario/feedbacks'], {
+            state: {
+              successMessage: 'Feedback cadastrado com sucesso!',
+            },
+          });
+        },
+        (error) => {
+          this.isLoading = false;
+          this.errorMessage =
+            error.message || 'Erro ao cadastrar o procedimento médico.';
+          this.successMessage = null;
+        }
+      );
+    }
+  }
 
   onLojaSelecionada(lojaId: string) {
     if (!lojaId) {
@@ -117,14 +179,14 @@ export class CadastroDeFeedbackComponent implements OnInit {
       });
     }
 
-    if (feedback.colaborador) {
+    if (feedback.usuario) {
       this.feedbackForm.patchValue({
-        usuarioId: feedback.colaborador.id,
+        usuarioId: feedback.usuario.id,
       });
       this.colaboradoresDaLoja = [
         {
-          value: feedback.colaborador.id,
-          description: feedback.colaborador.username,
+          value: feedback.usuario.id,
+          description: feedback.usuario.username,
         },
       ];
       this.colaboradorSelectDisabled = false;
