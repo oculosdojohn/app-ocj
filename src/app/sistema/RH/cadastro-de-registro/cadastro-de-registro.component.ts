@@ -10,6 +10,8 @@ import {
 import { LojaService } from '../../../services/administrativo/loja.service';
 import { Registro } from '../registros/registro';
 import { RegistrosService } from 'src/app/services/rh/registros.service';
+import { TipoRegistro } from '../registros/enums/tipoRegistro';
+import { tipoRegistroDescricao } from '../registros/enums/tipoRegistro-descricao';
 
 @Component({
   selector: 'app-cadastro-de-registro',
@@ -31,6 +33,14 @@ export class CadastroDeRegistroComponent implements OnInit {
   public colaboradoresDaLoja: { value: string; description: string }[] = [];
   public colaboradorSelectDisabled: boolean = true;
 
+  tiposRegistro = Object.keys(TipoRegistro).map((key) => ({
+    value: TipoRegistro[key as keyof typeof TipoRegistro],
+    description:
+      tipoRegistroDescricao[TipoRegistro[key as keyof typeof TipoRegistro]],
+  }));
+
+  selectedTipoRegistro: string = '';
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -45,6 +55,8 @@ export class CadastroDeRegistroComponent implements OnInit {
       data: [''],
       classificacao: ['POSITIVO'],
       comentario: [''],
+      tipo: ['', Validators.required],
+      valorQtdHs: [''],
     });
   }
 

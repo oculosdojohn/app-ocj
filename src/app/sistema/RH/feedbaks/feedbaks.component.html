@@ -52,10 +52,10 @@
                             <button class="btn-acao visualizar" (click)="visualizarFeedback(feedback.id)">
                                 <img src="assets/icones/See.png" alt="Visualizar">
                             </button>
-                            <button class="btn-acao edit" (click)="editarFeedback(feedback.id)">
+                            <button class="btn-acao edit" (click)="editarFeedback(feedback.id)" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
                                 <img src="assets/icones/Edit.png" alt="Editar">
                             </button>
-                            <button class="btn-acao delete" (click)="openModalDeletar(feedback)">
+                            <button class="btn-acao delete" (click)="openModalDeletar(feedback)" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
                                 <img src="assets/icones/Delete.png" alt="Excluir">
                             </button>
                         </div>

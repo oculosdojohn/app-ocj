@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar registro</span>
+        <span>{{ isEditMode ? 'Editar registro' : 'Cadastrar registro' }}</span>
     </div>
   
     <div class="forms-container">
@@ -38,7 +38,9 @@
                     <label for="tipo">Tipo</label>
                     <app-select-padrao
                       label="Selecione o tipo"
-                      [customStyles]="{'background': '#FFFFFF'}">
+                      [options]="tiposRegistro"
+                      [(selectedValue)]="selectedTipoRegistro"
+                      formControlName="tipo">
                     </app-select-padrao>
                 </div>
             </div>
@@ -63,7 +65,7 @@
 
             <div class="form-group">
                 <label for="valorQtdHs">Valor/Qtd/Hs</label>
-                <input type="text" id="valorQtdHs" name="valorQtdHs" formControlName="valorQtdHs" class="form-control" placeholder="Digite" required>
+                <input type="text" id="valorQtdHs" name="valorQtdHs" formControlName="valorQtdHs" class="form-control" placeholder="Digite o Valor/Qtd/Hs">
             </div>
 
             <div class="form-group">
@@ -73,9 +75,20 @@
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar registro
+                    {{ isEditMode ? 'Atualizar registro' : 'Cadastrar registro' }}
                 </button>
             </div>
         </form>
+    </div>
+
+    <app-loading *ngIf="isLoading"></app-loading>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
     </div>
 </div>
