@@ -1,16 +1,19 @@
 <div class="main-container">
     <div class="back-title">
         <img src="assets/icones/arrow-left.svg" alt="Back" class="back-icon" (click)="goBack()">
-        <span>Cadastrar férias</span>
+        <span>{{ isEditMode ? 'Editar férias' : 'Cadastrar férias' }}</span>
     </div>
   
     <div class="forms-container">
-        <form>
+        <form (ngSubmit)="onSubmit()" [formGroup]="feriasForm">
             <div class="form-group">
-                <label for="loja">Loja</label>
+                <label for="lojaId">Loja</label>
                 <app-select-padrao
                   label="Selecione uma loja"
-                  [customStyles]="{'background': '#FFFFFF'}">
+                  [options]="lojas"
+                  [(selectedValue)]="selectedLoja"
+                  formControlName="lojaId"
+                  (selectedValueChange)="onLojaSelecionada($event)">
                 </app-select-padrao>
             </div>
 
@@ -18,18 +21,21 @@
                 <label for="colaborador">Colaborador</label>
                 <app-select-padrao
                   label="Selecione um colaborador"
-                  [customStyles]="{'background': '#FFFFFF'}">
+                  [options]="colaboradoresDaLoja"
+                  [(selectedValue)]="feriasForm.value.colaboradorId"
+                  formControlName="colaboradorId"
+                  [disabled]="colaboradorSelectDisabled">
                 </app-select-padrao>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="inicio">Início aquisitivo</label>
-                    <input type="text" id="inicio" name="inicio" class="form-control" placeholder="Digite" required>
+                    <label for="inicioAquisitivo">Início aquisitivo</label>
+                    <input type="date" id="inicioAquisitivo" name="inicioAquisitivo" formControlName="inicioAquisitivo" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="fim">Fim aquisitivo</label>
-                    <input type="text" id="fim" name="fim" class="form-control" placeholder="Digite" required>
+                    <label for="fimAquisitivo">Fim aquisitivo</label>
+                    <input type="date" id="fimAquisitivo" name="fimAquisitivo" formControlName="fimAquisitivo" class="form-control" required>
                 </div>
             </div>
 
@@ -43,37 +49,48 @@
                 </div>
                 <div class="form-group">
                     <label for="ano">Ano</label>
-                    <input type="text" id="ano" name="ano" class="form-control" placeholder="Digite" required>
+                    <input type="number" id="ano" name="ano" class="form-control" formControlName="ano" placeholder="Ex: 2025" required>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="dias">Dias</label>
-                    <input type="text" id="dias" name="dias" class="form-control" placeholder="Digite" required>
+                    <label for="dias">Gozo</label>
+                    <input type="number" id="dias" name="dias" formControlName="dias" class="form-control" placeholder="0" required>
                 </div>
                 <div class="form-group">
                     <label for="abono">Abono</label>
-                    <input type="text" id="abono" name="abono" class="form-control" placeholder="Digite" required>
+                    <input type="number" id="abono" name="abono" formControlName="abono" class="form-control" placeholder="0" required>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
                     <label for="inicioFerias">Início das férias</label>
-                    <input type="text" id="inicioFerias" name="inicioFerias" class="form-control" placeholder="Digite" required>
+                    <input type="date" id="inicioFerias" name="inicioFerias" formControlName="inicioFerias" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="fimFerias">Fim das férias</label>
-                    <input type="text" id="fimFerias" name="fimFerias" class="form-control" placeholder="Digite" required>
+                    <input type="date" id="fimFerias" name="fimFerias" formControlName="fimFerias" class="form-control" required>
                 </div>
             </div>
 
             <div class="container-btn">
                 <button type="submit" class="btn-cadastrar">
-                    Cadastrar férias
+                    {{ isEditMode ? 'Atualizar férias' : 'Cadastrar férias' }}
                 </button>
             </div>
         </form>
+    </div>
+    
+    <app-loading *ngIf="isLoading"></app-loading>
+
+    <div class="alerts">
+        <div class="alerts-container alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class=" alerts-container alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
     </div>
 </div>
