@@ -32,30 +32,35 @@
             <tbody>
                 <tr *ngFor="let registro of registrosPaginados">
                     <td>
-                        <div class="perfil">
-                            <span>{{ registro.data }}</span>
-                        </div>
+                        <span>{{ registro.data }}</span>
                     </td>
-                    <td>{{ registro.loja }}</td>
                     <td>
                         <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ registro.colaborador }}</span>
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(registro.usuario?.username)}">
+                                <img [src]="registro.usuario?.foto?.documentoUrl" alt="Foto do colaborador" *ngIf="registro.usuario?.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(registro.usuario?.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ registro.usuario?.username || '-' }}</span>
                         </div>
                     </td>
-                    <td>{{ registro.tipo }}</td>
-                    <td>{{ registro.classificacao }}</td>
-                    <td>{{ registro.autor }}</td>
+                    <td>{{ registro.loja?.nome || '-' }}</td>
+                    <td>{{ registro.tipo || '-' }}</td>
+                    <td>{{ registro.classificacao || '-' }}</td>
+                    <td>{{ registro.autor?.username || '-' }}</td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                         <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarRegistro(registro.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarRegistro(registro.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(registro)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

@@ -142,8 +142,26 @@ tr:hover {
 .avatar {
   width: 30px;
   height: 30px;
+  min-width: 30px;
   background: #ddd;
   border-radius: 50%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar span {
+  font-size: 14px;
+  color: #202020;
+  font-weight: 500;
 }
 
 .ativo {
@@ -156,16 +174,38 @@ tr:hover {
   font-weight: bold;
 }
 
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
 .btn-acao {
   border: none;
-  background: none;
+  background: #e4e4e4b5;
   cursor: pointer;
-  margin-right: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
 }
 
 .btn-acao img {
   width: 18px;
   height: 18px;
+}
+
+.visualizar:hover {
+  background: #3d4b123b;
+}
+
+.edit:hover {
+  background: #007bff3b;
+}
+
+.delete:hover {
+  background: #dc35453b;
 }
 
 /* Paginação */
@@ -190,11 +230,103 @@ tr:hover {
     margin: 90px 20px 20px;
     padding: 40px 48px;
   }
+
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
 }
 
 @media (max-width: 767px) {
   .main-container {
     margin: 90px 20px 20px;
     padding: 20px;
+  }
+
+  .breadcrumb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .actions {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+  .search-container {
+    width: 100%;
+  }
+  .btn-cadastrar {
+    width: 100%;
+  }
+  .breadcrumb {
+    width: 100%;
+  }
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  margin-top: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background-color: #007bff;
+  animation: progress-animation 2s infinite linear;
+}
+
+@keyframes progress-animation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.progress-bar-sucess {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: #40812d;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes progressBarAnim {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
   }
 }
