@@ -48,7 +48,7 @@
                     <td>{{ registro.loja?.nome || '-' }}</td>
                     <td>{{ registro.tipo || '-' }}</td>
                     <td>{{ registro.classificacao || '-' }}</td>
-                    <td>{{ registro.autor?.username || '-' }}</td>
+                    <td>{{ registro.autor.username || '-' }}</td>
                     <td>
                          <div class="acoes">
                             <button class="btn-acao visualizar" (click)="visualizarRegistro(registro.id)">

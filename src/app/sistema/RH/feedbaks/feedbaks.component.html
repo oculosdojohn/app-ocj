@@ -46,7 +46,7 @@
                         </div>
                     </td>
                     <td>{{ feedback.classificacao || '-'  }}</td>
-                    <td>{{ feedback.autor?.username || '-'  }}</td>
+                    <td>{{ feedback.autor.username || '-'  }}</td>
                     <td>
                         <div class="acoes">
                             <button class="btn-acao visualizar" (click)="visualizarFeedback(feedback.id)">
