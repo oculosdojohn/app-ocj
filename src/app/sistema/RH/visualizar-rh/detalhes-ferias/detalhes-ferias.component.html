@@ -1,1 +1,83 @@
-<p>detalhes-ferias works!</p>
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="back-title">
+            <img src="assets/icones/arrow-left-green.svg" alt="Back" class="back-icon" (click)="goBack()">
+            <span>Detalhes férias</span>
+        </div>
+    </div>
+    <div class="actions" *ngIf="ferias">
+        <div class="avatar" [ngStyle]="{'background-color': getRandomColor(ferias.colaborador?.username || '')}">
+            <img [src]="ferias.colaborador?.foto?.documentoUrl" alt="Foto do Colaborador" class="foto-colaborador" *ngIf="ferias.colaborador?.foto?.documentoUrl; else defaultAvatar" />
+            <ng-template #defaultAvatar>
+                <span>{{ getInitial(ferias.colaborador?.username || '') }}</span>
+            </ng-template>
+        </div>
+        <div class="name-user">
+            <h1>{{ ferias.colaborador?.username }}</h1>
+            <div class="loja">
+                <img src="assets/icones/location.svg" alt="marcador" />
+                <div class="infos-conatiner">
+                    <p>
+                        {{ ferias.loja?.nome || '-' }}
+                        <span *ngIf="ferias.loja?.endereco?.cidade"> - {{ ferias.loja?.endereco?.cidade }}</span>
+                    </p>
+                    <div class="status-container">
+                        <span class="status-dot" [ngClass]="{'ativo': ferias.colaborador?.status === 'Ativo','inativo': ferias.colaborador?.status !== 'Ativo'}"></span>
+                        <p [ngClass]="{'ativo': ferias.colaborador?.status === 'Ativo','inativo': ferias.colaborador?.status !== 'Ativo'}">
+                            {{ ferias.colaborador?.status === 'Ativo' ? 'Ativo' : 'Inativo' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="subMain-container" *ngIf="ferias">
+    <div class="data-itens">
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Início aquisitivo</label>
+                <p>{{ ferias.inicioAquisitivo || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Fim aquisitivo</label>
+                <p>{{ ferias.fimAquisitivo || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Mês</label>
+                <p>{{ ferias.mesReferencia || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Ano</label>
+                <p>{{ ferias.anoReferencia || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Gozo</label>
+                <p>{{ ferias.diasGozo || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Abono</label>
+                <p>{{ ferias.abono || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Data do cadastro</label>
+                <p>{{ ferias.dataCriacao || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Autor (a)</label>
+                <p>{{ ferias.autor.username || '-' }}</p>
+            </div>
+        </div>
+    </div>
+</div>

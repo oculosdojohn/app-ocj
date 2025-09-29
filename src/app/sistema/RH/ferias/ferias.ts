@@ -17,4 +17,6 @@ export class Ferias {
   abono!: string;
   inicioFerias!: string;
   fimFerias!: string;
+  autor!: { id: string; username: string };
+  dataCriacao!: string;
 }
