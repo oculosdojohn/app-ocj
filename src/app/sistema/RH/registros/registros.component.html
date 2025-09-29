@@ -44,6 +44,7 @@
                     <td>
                         <span>{{ registro.data }}</span>
                     </td>
+                    <td>{{ registro.loja?.nome || '-' }}</td>
                     <td>
                         <div class="perfil">
                             <div class="avatar" [ngStyle]="{'background-color': getRandomColor(registro.usuario?.username)}">
@@ -55,7 +56,6 @@
                             <span>{{ registro.usuario?.username || '-' }}</span>
                         </div>
                     </td>
-                    <td>{{ registro.loja?.nome || '-' }}</td>
                     <td>{{ registro.tipo || '-' }}</td>
                     <td>{{ registro.classificacao || '-' }}</td>
                     <td>{{ registro.autor.username || '-' }}</td>
