@@ -51,6 +51,9 @@ import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produ
 import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhes-noticia/detalhes-noticia.component';
 import { CentralDeNoticiasComponent } from './Servicos/central-de-noticias/central-de-noticias.component';
 import { DetalhesMedicinaComponent } from './RH/visualizar-rh/detalhes-medicina/detalhes-medicina.component';
+import { DetalhesFeedbackComponent } from './RH/visualizar-rh/detalhes-feedback/detalhes-feedback.component';
+import { DetalhesRegistroComponent } from './RH/visualizar-rh/detalhes-registro/detalhes-registro.component';
+import { DetalhesFeriasComponent } from './RH/visualizar-rh/detalhes-ferias/detalhes-ferias.component';
 
 const routes: Routes = [
   {
@@ -83,12 +86,15 @@ const routes: Routes = [
       { path: 'saude-ocupacional', component: MedicinaComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'detalhes-saude-ocupacional/:id', component: DetalhesMedicinaComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'registros', component: RegistrosComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
+      { path: 'detalhes-registro/:id', component: DetalhesRegistroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'ferias', component: FeriasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
+      { path: 'detalhes-ferias/:id', component: DetalhesFeriasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-ferias', component: CadastroFeriasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-ferias/:id', component: CadastroFeriasComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'aniversariantes-do-mes', component: AniversariantesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'aniversariantes-do-mes/:id', component: AniversariantesComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-feedback', component: CadastroDeFeedbackComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
+      { path: 'detalhes-feedback/:id', component: DetalhesFeedbackComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-feedback/:id', component: CadastroDeFeedbackComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-registro', component: CadastroDeRegistroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
       { path: 'cadastro-de-registro/:id', component: CadastroDeRegistroComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_RH', 'ROLE_DIRETOR'] } },
