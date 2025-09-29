@@ -49,12 +49,12 @@ export class CadastroFeriasComponent implements OnInit {
   ) {
     this.feriasForm = this.formBuilder.group({
       lojaId: ['', Validators.required],
-      usuarioId: ['', Validators.required],
+      colaboradorId: ['', Validators.required],
       inicioAquisitivo: ['', Validators.required],
       fimAquisitivo: ['', Validators.required],
-      mes: ['', Validators.required],
-      ano: ['', [Validators.required]],
-      dias: ['', [Validators.required, Validators.min(1)]],
+      mesReferencia: ['', Validators.required],
+      anoReferencia: ['', [Validators.required]],
+      diasGozo: ['', [Validators.required, Validators.min(1)]],
       abono: ['', [Validators.required, Validators.min(0)]],
       inicioFerias: ['', Validators.required],
       fimFerias: ['', Validators.required],
@@ -188,14 +188,14 @@ export class CadastroFeriasComponent implements OnInit {
       });
     }
 
-    if (ferias.usuario) {
+    if (ferias.colaborador) {
       this.feriasForm.patchValue({
-        usuarioId: ferias.usuario.id,
+        usuarioId: ferias.colaborador.id,
       });
       this.colaboradoresDaLoja = [
         {
-          value: ferias.usuario.id,
-          description: ferias.usuario.username,
+          value: ferias.colaborador.id,
+          description: ferias.colaborador.username,
         },
       ];
       this.colaboradorSelectDisabled = false;

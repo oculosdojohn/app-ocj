@@ -20,6 +20,16 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
     <div class="tabela-container">
         <table>
             <thead>
@@ -37,33 +47,40 @@
                 <tr *ngFor="let ferias of feriasPaginadas">
                     <td>
                         <div class="perfil">
-                            <div class="avatar"></div>
-                            <span>{{ ferias.usuario }}</span>
+                            <div class="avatar" [ngStyle]="{'background-color': getRandomColor(ferias.colaborador?.username)}">
+                                <img [src]="ferias.colaborador?.foto?.documentoUrl" alt="Foto do colaborador" *ngIf="ferias.colaborador?.foto?.documentoUrl; else defaultAvatar" />
+                                <ng-template #defaultAvatar>
+                                    <span>{{ getInitial(ferias.colaborador?.username) }}</span>
+                                </ng-template>
+                            </div>
+                            <span>{{ ferias.colaborador?.username || '-' }}</span>
                         </div>
                     </td>
                     <td>
                         <div class="perfil">
-                            <span>{{ ferias.mes }}</span>
+                            <span>{{ ferias.mesReferencia || '-' }}</span>
                         </div>
                     </td>
                     <td>
                         <div class="perfil">
-                            <span>{{ ferias.inicioFerias }}</span>
+                            <span>{{ ferias.inicioFerias || '-' }}</span>
                         </div>
                     </td>
-                    <td>{{ ferias.fimFerias }}</td>
-                    <td>{{ ferias.dias }}</td>
-                    <td>{{ ferias.abono }}</td>
+                    <td>{{ ferias.fimFerias || '-' }}</td>
+                    <td>{{ ferias.diasGozo || '-' }}</td>
+                    <td>{{ ferias.abono || '-' }}</td>
                     <td>
-                        <button class="btn-acao">
-                            <img src="assets/icones/See.png" alt="Visualizar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Edit.png" alt="Editar">
-                        </button>
-                        <button class="btn-acao">
-                            <img src="assets/icones/Delete.png" alt="Excluir">
-                        </button>
+                         <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarFerias(ferias.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarFerias(ferias.id)" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(ferias)" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

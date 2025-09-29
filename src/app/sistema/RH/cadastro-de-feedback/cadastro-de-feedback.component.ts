@@ -163,7 +163,41 @@ export class CadastroDeFeedbackComponent implements OnInit {
     });
   }
 
-  private verificarModoEdicao(): void {}
+  private verificarModoEdicao(): void {
+    this.feedbackId = this.route.snapshot.paramMap.get('id');
+    if (this.feedbackId) {
+      this.isEditMode = true;
+      this.feedbacksService.buscarFeedbackPorId(this.feedbackId).subscribe(
+        (feedback: Feedback) => {
+          console.log('Dados do feedback recebido:', feedback);
+          const toInputDate = (dataStr?: string) => {
+            if (!dataStr) return '';
+            const [dia, mes, ano] = dataStr.split('/');
+            if (!dia || !mes || !ano) return '';
+            return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+          };
+
+          this.feedbackForm.patchValue({
+            ...feedback,
+          });
+
+          if (feedback.loja?.id) {
+            this.onLojaSelecionada(feedback.loja.id);
+            setTimeout(() => {
+              this.feedbackForm.patchValue({
+                usuarioId: feedback.usuario?.id || '',
+              });
+            }, 300);
+          }
+
+          this.tratarRetornoDTO(feedback);
+        },
+        (error) => {
+          console.error('Erro ao buscar feedback:', error);
+        }
+      );
+    }
+  }
 
   private tratarRetornoDTO(feedback: Feedback): void {
     if (feedback.loja) {
