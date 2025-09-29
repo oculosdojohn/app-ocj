@@ -56,7 +56,7 @@
                             <span>{{ registro.usuario?.username || '-' }}</span>
                         </div>
                     </td>
-                    <td>{{ registro.tipo || '-' }}</td>
+                    <td>{{ getDescricaoTipoRegistro(registro.tipo || '-') }}</td>
                     <td>{{ registro.classificacao || '-' }}</td>
                     <td>{{ registro.autor.username || '-' }}</td>
                     <td>

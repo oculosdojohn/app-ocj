@@ -14,4 +14,5 @@ export class Feedback {
   comentario!: string;
   autor!: { id: string; username: string };
   dataCadastro!: string;
+  tipo!: string;
 }

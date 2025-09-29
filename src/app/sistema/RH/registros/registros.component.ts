@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
 import { RegistrosService } from 'src/app/services/rh/registros.service';
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
+import { tipoRegistroDescricao } from './enums/tipoRegistro-descricao';
+import { TipoRegistro } from './enums/tipoRegistro';
 
 @Component({
   selector: 'app-registros',
@@ -171,6 +173,12 @@ export class RegistrosComponent implements OnInit {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
   }
+
+  getDescricaoTipoRegistro(tipo: string): string {
+      return (
+        tipoRegistroDescricao[tipo as keyof typeof tipoRegistroDescricao] || tipo || '-'
+      );
+    }
 
   get rotaDashboard(): string {
     if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';

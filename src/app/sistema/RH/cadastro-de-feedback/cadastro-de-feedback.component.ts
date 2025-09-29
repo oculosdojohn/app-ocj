@@ -45,6 +45,7 @@ export class CadastroDeFeedbackComponent implements OnInit {
       data: [''],
       classificacao: ['POSITIVO'],
       comentario: [''],
+      tipo: ['']
     });
   }
 
