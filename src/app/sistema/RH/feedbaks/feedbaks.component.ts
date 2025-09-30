@@ -52,6 +52,42 @@ export class FeedbaksComponent implements OnInit {
 
   onSearch(searchTerm: string) {
     console.log('Search term:', searchTerm);
+    this.termoBusca = searchTerm.trim();
+
+    if (this.termoBusca === '') {
+      // Se a busca estiver vazia, mostrar todos os feedbacks
+      this.mensagemBusca = '';
+      this.fetchFeedback();
+      return;
+    }
+
+    this.isLoading = true;
+    this.feedbackService.buscarFeedbackPorNome(this.termoBusca).subscribe(
+      (feedbacks: Feedback[]) => {
+        console.log('Feedbacks encontrados na busca:', feedbacks);
+        this.feedbacks = feedbacks;
+
+        if (feedbacks.length === 0) {
+          this.mensagemBusca = `Nenhum feedback encontrado para "${this.termoBusca}".`;
+        } else {
+          this.mensagemBusca = '';
+        }
+
+        this.paginaAtual = 1; // Resetar para primeira página
+        this.totalPaginas = Math.ceil(
+          this.feedbacks.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Erro ao buscar feedbacks por nome:', error);
+        this.mensagemBusca = 'Erro ao realizar a busca. Tente novamente.';
+        this.feedbacks = [];
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      }
+    );
   }
 
   atualizarPaginacao(): void {

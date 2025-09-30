@@ -113,4 +113,22 @@ export class FeedbacksService {
       })
     );
   }
+
+  buscarFeedbackPorNome(nome: string): Observable<Feedback[]> {
+    const url = `${this.apiURL}/busca/nome`;
+    const body = { nome: nome };
+    return this.http.post<Feedback[]>(url, body).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar feedback por nome do colaborador.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
