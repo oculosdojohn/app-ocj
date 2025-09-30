@@ -39,7 +39,7 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Data do registro</label>
-                <p>{{ feedback.data || '-' }}</p>
+                <p>{{ feedback.data | date:'dd/MM/yyyy' || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Tipo</label>
@@ -60,7 +60,7 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Data do cadastro</label>
-                <p>{{ feedback.dataCadastro || '-' }}</p>
+                <p>{{ (feedback.dataCadastro | date:'dd/MM/yyyy HH:mm') ?? '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Autor (a)</label>

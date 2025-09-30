@@ -39,11 +39,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let feedback of feedbacksPaginados">
-                    <td>
-                        <div class="perfil">
-                            <span>{{ feedback.data || '-' }}</span>
-                        </div>
-                    </td>
+                    <td>{{ feedback.data | date:'dd/MM/yyyy' || '-' }}</td>
                     <td>
                          <div class="perfil">
                             <div class="avatar" [ngStyle]="{'background-color': getRandomColor(feedback.usuario?.username)}">

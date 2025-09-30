@@ -99,7 +99,7 @@ export class FeedbaksComponent implements OnInit {
 
   deleteFeedback(id: string): void {
     const feedbackRemovido = this.feedbacks.find((e) => e.id === id);
-    this.feedbackService.buscarFeedbackPorId(id).subscribe(
+    this.feedbackService.deletarFeedback(id).subscribe(
       () => {
         console.log('Feedback deletado com sucesso!');
         this.fetchFeedback();
@@ -170,6 +170,16 @@ export class FeedbaksComponent implements OnInit {
   clearMessage() {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  formatarData(data: string): string {
+    if (!data) return '-';
+    try {
+      const date = new Date(data);
+      return date.toLocaleDateString('pt-BR');
+    } catch {
+      return '-';
+    }
   }
 
   get rotaDashboard(): string {
