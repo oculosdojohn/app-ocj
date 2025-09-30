@@ -55,7 +55,6 @@ export class FeedbaksComponent implements OnInit {
     this.termoBusca = searchTerm.trim();
 
     if (this.termoBusca === '') {
-      // Se a busca estiver vazia, mostrar todos os feedbacks
       this.mensagemBusca = '';
       this.fetchFeedback();
       return;
@@ -73,7 +72,7 @@ export class FeedbaksComponent implements OnInit {
           this.mensagemBusca = '';
         }
 
-        this.paginaAtual = 1; // Resetar para primeira página
+        this.paginaAtual = 1;
         this.totalPaginas = Math.ceil(
           this.feedbacks.length / this.itensPorPagina
         );
