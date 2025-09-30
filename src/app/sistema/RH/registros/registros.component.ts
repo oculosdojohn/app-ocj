@@ -101,7 +101,7 @@ export class RegistrosComponent implements OnInit {
 
   deleteRegistro(id: string): void {
     const registroRemovido = this.registros.find((e) => e.id === id);
-    this.registrosService.buscarRegistroPorId(id).subscribe(
+    this.registrosService.deletarRegistro(id).subscribe(
       () => {
         console.log('Registro deletado com sucesso!');
         this.fetchRegistros();

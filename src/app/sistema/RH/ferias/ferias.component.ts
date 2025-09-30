@@ -91,7 +91,7 @@ export class FeriasComponent implements OnInit {
 
   deleteFerias(id: string): void {
     const feriasRemovidas = this.ferias.find((e) => e.id === id);
-    this.feriasService.buscarFeriasPorId(id).subscribe(
+    this.feriasService.deletarFerias(id).subscribe(
       () => {
         console.log('Férias deletadas com sucesso!');
         this.fetchFerias();
@@ -99,7 +99,7 @@ export class FeriasComponent implements OnInit {
           'success',
           `Férias "${feriasRemovidas?.mesReferencia || ''} - ${
             feriasRemovidas?.colaborador?.username || '-'
-          }" deletadas com sucesso!`
+          }" deletada com sucesso!`
         );
       },
       (error) => {
