@@ -117,12 +117,30 @@ export class FeriasService {
     );
   }
 
-  listarFeriasPorColaborador(busca: string): Observable<Ferias[]> {
-    const url = `${this.apiURL}/colaborador?busca=${encodeURIComponent(busca)}`;
+  listarFeriasPorColaborador(id: string | number): Observable<Ferias[]> {
+    const url = `${this.apiURL}/usuario/${id}`;
     return this.http.get<Ferias[]>(url).pipe(
       map((response) => response),
       catchError((error) => {
-        let errorMessage = 'Erro ao listar férias por colaborador.';
+        let errorMessage = 'Erro ao listar férias por ID do colaborador.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  buscarFeriasPorNome(nome: string): Observable<Ferias[]> {
+    const url = `${this.apiURL}/busca/nome`;
+    const body = { nome: nome };
+    return this.http.post<Ferias[]>(url, body).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar férias por nome do colaborador.';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {
