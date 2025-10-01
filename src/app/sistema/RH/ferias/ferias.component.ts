@@ -7,11 +7,18 @@ import { FeriasService } from 'src/app/services/rh/ferias.service';
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 import { Meses } from './Meses';
 import { MesesDescricoes } from './MesesDescricoes';
+import { ModalPadraoService } from 'src/app/services/modal/modal-padrao.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ferias',
   templateUrl: './ferias.component.html',
   styleUrls: ['./ferias.component.css'],
+  providers: [
+    DatePipe,
+  ],
 })
 export class FeriasComponent implements OnInit {
   ferias: Ferias[] = [];
@@ -26,6 +33,8 @@ export class FeriasComponent implements OnInit {
   feriasPaginadas: Ferias[] = [];
   selectedFerias: any = null;
 
+  selectedMes: string = '';
+
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
@@ -33,7 +42,9 @@ export class FeriasComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private feriasService: FeriasService,
-    private modalDeleteService: ModalDeleteService
+    private modalDeleteService: ModalDeleteService,
+    private modalPadraoService: ModalPadraoService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -190,5 +201,113 @@ export class FeriasComponent implements OnInit {
     )
       return '/dashboard-colaborador';
     return '/login';
+  }
+
+  formatarData(data: string): string {
+    if (!data) return '-';
+    return this.datePipe.transform(data, 'dd/MM/yyyy') || '-';
+  }
+
+  // Corrija o método exportarTabelaPDF
+  exportarTabelaPDF(): void {
+    try {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+
+      const titulo = 'Relatório de Férias';
+      const dataAtual = `Exportado em: ${new Date().toLocaleDateString()}`;
+
+      doc.setFontSize(14);
+      doc.text(titulo, 14, 20);
+
+      doc.setFontSize(10);
+      doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
+
+      const colunas = ['Colaborador', 'Mês', 'Inicio', 'Fim', 'Dias', 'Abono'];
+      const dados = this.feriasPaginadas.map((ferias) => [
+        ferias.colaborador?.username || '-',
+        this.getDescricaoMes(ferias.mesReferencia || '-'),
+        this.formatarData(ferias.inicioFerias) || '-',
+        this.formatarData(ferias.fimFerias) || '-',
+        ferias.diasGozo?.toString() || '-',
+        ferias.abono?.toString() || '-',
+      ]);
+
+      autoTable(doc, {
+        head: [colunas],
+        body: dados,
+        startY: 30,
+        styles: {
+          fontSize: 10,
+          cellPadding: 4,
+          halign: 'left',
+          valign: 'middle',
+          lineWidth: 0.5,
+          lineColor: [200, 200, 200],
+        },
+        headStyles: {
+          fillColor: [0, 128, 41],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          lineWidth: 0,
+        },
+        alternateRowStyles: {
+          fillColor: [245, 245, 245],
+        },
+        didDrawCell: function (data) {
+          const radius = 2;
+          const { cell } = data;
+          if (data.section === 'body' || data.section === 'head') {
+            cell.styles.cellPadding = {
+              top: 3,
+              right: 4,
+              bottom: 3,
+              left: 4,
+            };
+          }
+        },
+      });
+
+      // Rodapé
+      const pageHeight = doc.internal.pageSize.height;
+      doc.setFontSize(9);
+      doc.text(
+        '© 2025 Óculos do John. Todos os direitos reservados.',
+        pageWidth / 2,
+        pageHeight - 10,
+        { align: 'center' }
+      );
+
+      const hoje = new Date();
+      const dataFormatada =
+        String(hoje.getDate()).padStart(2, '0') +
+        '-' +
+        String(hoje.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        hoje.getFullYear();
+
+      const nomeArquivo = `ferias_${
+        this.selectedMes || 'todos'
+      }_${dataFormatada}.pdf`;
+      doc.save(nomeArquivo);
+    } catch (error) {
+      console.error('Erro ao exportar PDF:', error);
+      alert('Erro ao exportar o relatório. Tente novamente.');
+    }
+  }
+
+  openModalExportacao(): void {
+    this.modalPadraoService.openModal(
+      {
+        title: 'Relatório de Férias',
+        description: `Tem certeza que deseja exportar o relatório de férias em PDF?`,
+        item: null,
+        confirmTextoBotao: 'Exportar PDF',
+        size: 'md',
+      },
+      () => {
+        this.exportarTabelaPDF();
+      }
+    );
   }
 }
