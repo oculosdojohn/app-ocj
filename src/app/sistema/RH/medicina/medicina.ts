@@ -20,4 +20,24 @@ export class Medicina {
   apto!: string;
   dataProximoExame!: string;
   numDiasAfastado!: string;
+  documentos?: { documentoUrl: string; id: number; name: string }[];
+
+  toJson(): string {
+    return JSON.stringify({
+      id: this.id,
+      lojaId: this.lojaId,
+      usuarioId: this.usuarioId,
+      data: this.data,
+      tipo: this.tipo,
+      descricao: this.descricao,
+      crmDoMedico: this.crmDoMedico,
+      nomeDoMedico: this.nomeDoMedico,
+      cid10: this.cid10,
+      avaliacao: this.avaliacao,
+      finalizado: this.finalizado,
+      apto: this.apto,
+      dataProximoExame: this.dataProximoExame,
+      numDiasAfastado: this.numDiasAfastado,
+    });
+  }
 }

@@ -16,6 +16,16 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
     <div class="tabela-container">
         <table>
             <thead>
@@ -34,6 +44,7 @@
                     <td>
                         <span>{{ registro.data }}</span>
                     </td>
+                    <td>{{ registro.loja?.nome || '-' }}</td>
                     <td>
                         <div class="perfil">
                             <div class="avatar" [ngStyle]="{'background-color': getRandomColor(registro.usuario?.username)}">
@@ -45,8 +56,7 @@
                             <span>{{ registro.usuario?.username || '-' }}</span>
                         </div>
                     </td>
-                    <td>{{ registro.loja?.nome || '-' }}</td>
-                    <td>{{ registro.tipo || '-' }}</td>
+                    <td>{{ getDescricaoTipoRegistro(registro.tipo || '-') }}</td>
                     <td>{{ registro.classificacao || '-' }}</td>
                     <td>{{ registro.autor.username || '-' }}</td>
                     <td>

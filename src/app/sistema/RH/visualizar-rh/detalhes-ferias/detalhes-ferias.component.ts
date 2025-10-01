@@ -4,18 +4,18 @@ import { ActivatedRoute } from '@angular/router';
 import { Colaborador } from 'src/app/sistema/Administrativo/funcionarios/colaborador';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { CargoDescricoes } from 'src/app/sistema/Administrativo/funcionarios/enums/cargo-descricoes';
-import { RegistrosService } from 'src/app/services/rh/registros.service';
-import { Registro } from '../../registros/registro';
-import { TipoRegistro } from '../../registros/enums/tipoRegistro';
-import { tipoRegistroDescricao } from '../../registros/enums/tipoRegistro-descricao';
+import { FeriasService } from 'src/app/services/rh/ferias.service';
+import { Ferias } from '../../ferias/ferias';
+import { Meses } from '../../ferias/Meses';
+import { MesesDescricoes } from '../../ferias/MesesDescricoes';
 
 @Component({
-  selector: 'app-detalhes-registro',
-  templateUrl: './detalhes-registro.component.html',
-  styleUrls: ['./detalhes-registro.component.css'],
+  selector: 'app-detalhes-ferias',
+  templateUrl: './detalhes-ferias.component.html',
+  styleUrls: ['./detalhes-ferias.component.css'],
 })
-export class DetalhesRegistroComponent implements OnInit {
-  registro!: Registro;
+export class DetalhesFeriasComponent implements OnInit {
+  ferias!: Ferias;
 
   selectedDepartamento: any;
   selectedCargo: any;
@@ -24,11 +24,11 @@ export class DetalhesRegistroComponent implements OnInit {
     private location: Location,
     private colaboradorService: ColaboradorService,
     private route: ActivatedRoute,
-    private registrosService: RegistrosService
+    private feriasService: FeriasService
   ) {}
 
   ngOnInit(): void {
-    this.carregarRegistro();
+    this.carregarFerias();
   }
 
   goBack() {
@@ -42,16 +42,16 @@ export class DetalhesRegistroComponent implements OnInit {
     );
   }
 
-  carregarRegistro(): void {
+  carregarFerias(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.registrosService.buscarRegistroPorId(id).subscribe(
+      this.feriasService.buscarFeriasPorId(id).subscribe(
         (response) => {
-          this.registro = response;
-          console.log('Dados de registro carregados:', this.registro);
+          this.ferias = response;
+          console.log('Dados de férias carregados:', this.ferias);
         },
         (error) => {
-          console.error('Erro ao carregar os dados do registro:', error);
+          console.error('Erro ao carregar os dados das férias:', error);
         }
       );
     }
@@ -73,12 +73,13 @@ export class DetalhesRegistroComponent implements OnInit {
     return colors[index];
   }
 
-  getDescricaoTipoRegistro(tipoRegistro: string): string {
+  getDescricaoMes(mes: string | number): string {
+    if (!mes) return '-';
+    const mesFormatado = mes.toString().padStart(2, '0');
+
     return (
-      tipoRegistroDescricao[
-        tipoRegistro as keyof typeof tipoRegistroDescricao
-      ] ||
-      tipoRegistro ||
+      MesesDescricoes[mesFormatado as keyof typeof MesesDescricoes] ||
+      mes.toString() ||
       '-'
     );
   }

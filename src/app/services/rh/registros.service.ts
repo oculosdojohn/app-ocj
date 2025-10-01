@@ -47,10 +47,11 @@ export class RegistrosService {
   }
 
   listarRegistros(): Observable<Registro[]> {
-    return this.http.get<Registro[]>(this.apiURL).pipe(
+    const url = `${this.apiURL}/all`;
+    return this.http.get<Registro[]>(url).pipe(
       map((response) => response),
       catchError((error) => {
-        let errorMessage = 'Erro ao listar registros.';
+        let errorMessage = 'Erro ao listar todos os registros.';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {

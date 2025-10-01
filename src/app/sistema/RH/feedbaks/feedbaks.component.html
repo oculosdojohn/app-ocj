@@ -16,6 +16,16 @@
         </div>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success">
+        <span>{{ successMessage }}</span>
+        <button class="close-btn" (click)="clearMessage()" aria-label="Fechar">&times;</button>
+        <div class="progress-bar-sucess" [style.animation]="successMessage ? 'progressBarAnim 3s linear' : 'none'"></div>
+    </div>
+
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
     <div class="tabela-container">
         <table>
             <thead>
@@ -29,11 +39,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let feedback of feedbacksPaginados">
-                    <td>
-                        <div class="perfil">
-                            <span>{{ feedback.data || '-' }}</span>
-                        </div>
-                    </td>
+                    <td>{{ feedback.data | date:'dd/MM/yyyy' || '-' }}</td>
                     <td>
                          <div class="perfil">
                             <div class="avatar" [ngStyle]="{'background-color': getRandomColor(feedback.usuario?.username)}">

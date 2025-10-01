@@ -2,8 +2,8 @@ export class Ferias {
   id!: string;
   loja!: { id: string; nome: string; endereco: { cidade: string } } | null;
   lojaId!: string;
-  usuarioId!: string;
-  usuario!: {
+  colaboradorId!: string;
+  colaborador!: {
     id: string;
     username: string;
     foto: { documentoUrl: string; id: number; name: string };
@@ -11,10 +11,12 @@ export class Ferias {
   } | null;
   inicioAquisitivo!: string;
   fimAquisitivo!: string;
-  mes!: string;
-  ano!: string;
-  dias!: string;
+  mesReferencia!: string;
+  anoReferencia!: string;
+  diasGozo!: string;
   abono!: string;
   inicioFerias!: string;
   fimFerias!: string;
+  autor!: { id: string; username: string };
+  dataCriacao!: string;
 }

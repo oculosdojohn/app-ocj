@@ -363,15 +363,15 @@
         </div>
 
         <div *ngSwitchCase="'registro'">
-            <div class="image-center">
-                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
-            </div>
+            <app-info-registro [colaboradorId]="+colaborador.id"></app-info-registro>
         </div>
 
         <div *ngSwitchCase="'feedback'">
-            <div class="image-center">
-                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
-            </div>
+            <app-info-feedback [colaboradorId]="+colaborador.id"></app-info-feedback>
+        </div>
+
+        <div *ngSwitchCase="'ferias'">
+            <app-info-ferias [colaboradorId]="+colaborador.id"></app-info-ferias>
         </div>
 
         <div *ngSwitchCase="'observacao'">

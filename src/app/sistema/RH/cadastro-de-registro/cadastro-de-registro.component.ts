@@ -174,7 +174,43 @@ export class CadastroDeRegistroComponent implements OnInit {
     });
   }
 
-  private verificarModoEdicao(): void {}
+  private verificarModoEdicao(): void {
+    this.registroId = this.route.snapshot.paramMap.get('id');
+    if (this.registroId) {
+      this.isEditMode = true;
+      this.registrosService.buscarRegistroPorId(this.registroId).subscribe(
+        (registro: Registro) => {
+          console.log('Dados do registro recebido:', registro);
+          const toInputDate = (dataStr?: string) => {
+            if (!dataStr) return '';
+            const [dia, mes, ano] = dataStr.split('/');
+            if (!dia || !mes || !ano) return '';
+            return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+          };
+
+          this.registroForm.patchValue({
+            ...registro,
+            data: toInputDate(registro.data),
+          });
+
+          if (registro.loja?.id) {
+            this.onLojaSelecionada(registro.loja.id);
+            setTimeout(() => {
+              this.registroForm.patchValue({
+                usuarioId: registro.usuario?.id || '',
+              });
+            }, 300);
+          }
+
+          this.selectedTipoRegistro = registro.tipo || '';
+          this.tratarRetornoDTO(registro);
+        },
+        (error) => {
+          console.error('Erro ao buscar registro:', error);
+        }
+      );
+    }
+  }
 
   private tratarRetornoDTO(registro: Registro): void {
     if (registro.loja) {
@@ -192,7 +228,7 @@ export class CadastroDeRegistroComponent implements OnInit {
 
     if (registro.usuario) {
       this.registroForm.patchValue({
-        usuarioId: registro.usuario.id,
+        colaboradorId: registro.usuario.id,
       });
       this.colaboradoresDaLoja = [
         {

@@ -1,1 +1,76 @@
-<p>detalhes-registro works!</p>
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="back-title">
+            <img src="assets/icones/arrow-left-green.svg" alt="Back" class="back-icon" (click)="goBack()">
+            <span>Detalhes do registro</span>
+        </div>
+    </div>
+    <div class="actions" *ngIf="registro">
+        <div class="avatar" [ngStyle]="{'background-color': getRandomColor(registro.usuario?.username || '')}">
+            <img [src]="registro.usuario?.foto?.documentoUrl" alt="Foto do Médico" class="foto-usuario" *ngIf="registro.usuario?.foto?.documentoUrl; else defaultAvatar" />
+            <ng-template #defaultAvatar>
+                <span>{{ getInitial(registro.usuario?.username || '') }}</span>
+            </ng-template>
+        </div>
+        <div class="name-user">
+            <h1>{{ registro.usuario?.username }}</h1>
+            <div class="loja">
+                <img src="assets/icones/location.svg" alt="marcador" />
+                <div class="infos-conatiner">
+                    <p>
+                        {{ registro.loja?.nome || '-' }}
+                        <span *ngIf="registro.loja?.endereco?.cidade"> - {{ registro.loja?.endereco?.cidade }}</span>
+                    </p>
+                    <div class="status-container">
+                        <span class="status-dot" [ngClass]="{'ativo': registro.usuario?.status === 'Ativo','inativo': registro.usuario?.status !== 'Ativo'}"></span>
+                        <p [ngClass]="{'ativo': registro.usuario?.status === 'Ativo','inativo': registro.usuario?.status !== 'Ativo'}">
+                            {{ registro.usuario?.status === 'Ativo' ? 'Ativo' : 'Inativo' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="subMain-container" *ngIf="registro">
+    <div class="data-itens">
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Tipo</label>
+                <p>{{ getDescricaoTipoRegistro(registro.tipo || '-') }}</p>
+            </div>
+            <div class="item-data">
+                <label>Data do registro</label>
+                <p>{{ registro.data || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="item-data">
+            <label>Classificação</label>
+            <p>{{ registro.classificacao || '-' }}</p>
+        </div>
+
+        <div class="item-data">
+            <label>Valor/Qtd/Hs</label>
+            <p>{{ registro.valorQtdHs || '-' }}</p>
+        </div>
+
+        <div class="item-data">
+            <label>Comentário</label>
+            <p>{{ registro.comentario || '-' }}</p>
+        </div>
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Data da criação</label>
+                <p>{{ (registro.criadoEm | date:'dd/MM/yyyy HH:mm') ?? '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Autor (a)</label>
+                <p>{{ registro.autor.username || '-' }}</p>
+            </div>
+        </div>
+    </div>
+</div>

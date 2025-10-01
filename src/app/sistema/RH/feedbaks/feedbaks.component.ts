@@ -52,6 +52,41 @@ export class FeedbaksComponent implements OnInit {
 
   onSearch(searchTerm: string) {
     console.log('Search term:', searchTerm);
+    this.termoBusca = searchTerm.trim();
+
+    if (this.termoBusca === '') {
+      this.mensagemBusca = '';
+      this.fetchFeedback();
+      return;
+    }
+
+    this.isLoading = true;
+    this.feedbackService.buscarFeedbackPorNome(this.termoBusca).subscribe(
+      (feedbacks: Feedback[]) => {
+        console.log('Feedbacks encontrados na busca:', feedbacks);
+        this.feedbacks = feedbacks;
+
+        if (feedbacks.length === 0) {
+          this.mensagemBusca = `Nenhum feedback encontrado para "${this.termoBusca}".`;
+        } else {
+          this.mensagemBusca = '';
+        }
+
+        this.paginaAtual = 1;
+        this.totalPaginas = Math.ceil(
+          this.feedbacks.length / this.itensPorPagina
+        );
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Erro ao buscar feedbacks por nome:', error);
+        this.mensagemBusca = 'Erro ao realizar a busca. Tente novamente.';
+        this.feedbacks = [];
+        this.atualizarPaginacao();
+        this.isLoading = false;
+      }
+    );
   }
 
   atualizarPaginacao(): void {
@@ -99,7 +134,7 @@ export class FeedbaksComponent implements OnInit {
 
   deleteFeedback(id: string): void {
     const feedbackRemovido = this.feedbacks.find((e) => e.id === id);
-    this.feedbackService.buscarFeedbackPorId(id).subscribe(
+    this.feedbackService.deletarFeedback(id).subscribe(
       () => {
         console.log('Feedback deletado com sucesso!');
         this.fetchFeedback();
@@ -170,6 +205,16 @@ export class FeedbaksComponent implements OnInit {
   clearMessage() {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  formatarData(data: string): string {
+    if (!data) return '-';
+    try {
+      const date = new Date(data);
+      return date.toLocaleDateString('pt-BR');
+    } catch {
+      return '-';
+    }
   }
 
   get rotaDashboard(): string {

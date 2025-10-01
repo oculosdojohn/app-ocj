@@ -18,7 +18,7 @@
             </div>
 
             <div class="form-group">
-                <label for="colaborador">Colaborador</label>
+                <label for="colaboradorId">Colaborador</label>
                 <app-select-padrao
                   label="Selecione um colaborador"
                   [options]="colaboradoresDaLoja"
@@ -41,24 +41,24 @@
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="mes">Mês</label>
+                    <label for="mesReferencia">Mês</label>
                     <app-select-padrao
                       label="Selecione o mês"
                       [options]="meses"
                       [(selectedValue)]="selectedMes"
-                      formControlName="mes">
+                      formControlName="mesReferencia">
                     </app-select-padrao>
                 </div>
                 <div class="form-group">
-                    <label for="ano">Ano</label>
-                    <input type="number" id="ano" name="ano" class="form-control" formControlName="ano" placeholder="Ex: 2025" required>
+                    <label for="anoReferencia">Ano</label>
+                    <input type="number" id="anoReferencia" name="anoReferencia" class="form-control" formControlName="anoReferencia" placeholder="Ex: 2025" required>
                 </div>
             </div>
 
             <div class="input-duo">
                 <div class="form-group">
-                    <label for="dias">Gozo</label>
-                    <input type="number" id="dias" name="dias" formControlName="dias" class="form-control" placeholder="0" required>
+                    <label for="diasGozo">Gozo</label>
+                    <input type="number" id="diasGozo" name="diasGozo" formControlName="diasGozo" class="form-control" placeholder="0" required>
                 </div>
                 <div class="form-group">
                     <label for="abono">Abono</label>

@@ -1,1 +1,71 @@
-<p>detalhes-feedback works!</p>
+<div class="main-container">
+    <div class="breadcrumb-container">
+        <div class="back-title">
+            <img src="assets/icones/arrow-left-green.svg" alt="Back" class="back-icon" (click)="goBack()">
+            <span>Detalhes de feedback</span>
+        </div>
+    </div>
+    <div class="actions" *ngIf="feedback">
+        <div class="avatar" [ngStyle]="{'background-color': getRandomColor(feedback.usuario?.username || '')}">
+            <img [src]="feedback.usuario?.foto?.documentoUrl" alt="Foto do usuario" class="foto-colaborador" *ngIf="feedback.usuario?.foto?.documentoUrl; else defaultAvatar" />
+            <ng-template #defaultAvatar>
+                <span>{{ getInitial(feedback.usuario?.username || '') }}</span>
+            </ng-template>
+        </div>
+        <div class="name-user">
+            <h1>{{ feedback.usuario?.username }}</h1>
+            <div class="loja">
+                <img src="assets/icones/location.svg" alt="marcador" />
+                <div class="infos-conatiner">
+                    <p>
+                        {{ feedback.loja?.nome || '-' }}
+                        <span *ngIf="feedback.loja?.endereco?.cidade"> - {{ feedback.loja?.endereco?.cidade }}</span>
+                    </p>
+                    <div class="status-container">
+                        <span class="status-dot" [ngClass]="{'ativo': feedback.usuario?.status === 'Ativo','inativo': feedback.usuario?.status !== 'Ativo'}"></span>
+                        <p [ngClass]="{'ativo': feedback.usuario?.status === 'Ativo','inativo': feedback.usuario?.status !== 'Ativo'}">
+                            {{ feedback.usuario?.status === 'Ativo' ? 'Ativo' : 'Inativo' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="subMain-container" *ngIf="feedback">
+    <div class="data-itens">
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Data do registro</label>
+                <p>{{ feedback.data | date:'dd/MM/yyyy' || '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Tipo</label>
+                <p>{{ feedback.tipo || '-' }}</p>
+            </div>
+        </div>
+
+        <div class="item-data">
+            <label>Classificação</label>
+            <p>{{ feedback.classificacao || '-' }}</p>
+        </div>
+
+        <div class="item-data">
+            <label>Comentário</label>
+            <p>{{ feedback.comentario || '-' }}</p>
+        </div>
+
+        <div class="data-grid">
+            <div class="item-data">
+                <label>Data do cadastro</label>
+                <p>{{ (feedback.dataCadastro | date:'dd/MM/yyyy HH:mm') ?? '-' }}</p>
+            </div>
+            <div class="item-data">
+                <label>Autor (a)</label>
+                <p>{{ feedback.autor.username || '-' }}</p>
+            </div>
+        </div>
+    </div>
+</div>

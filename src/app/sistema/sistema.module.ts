@@ -54,12 +54,13 @@ import { CadastroQuizzComponent } from './Servicos/cadastro-quizz/cadastro-quizz
 import { BuscarQuizzesComponent } from './Servicos/buscar-quizzes/buscar-quizzes.component';
 import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produtos/meus-produtos.component';
 import { DetalhesProdutosComponent } from './Servicos/visualizar-servicos/detalhes-produtos/detalhes-produtos.component';
-import { CadastroDeRenovacaoContratoComponent } from './RH/cadastro-de-renovacao-contrato/cadastro-de-renovacao-contrato.component';
 import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhes-noticia/detalhes-noticia.component';
 import { CentralDeNoticiasComponent } from './Servicos/central-de-noticias/central-de-noticias.component';
 import { DetalhesMedicinaComponent } from './RH/visualizar-rh/detalhes-medicina/detalhes-medicina.component';
 import { DetalhesFeedbackComponent } from './RH/visualizar-rh/detalhes-feedback/detalhes-feedback.component';
 import { DetalhesRegistroComponent } from './RH/visualizar-rh/detalhes-registro/detalhes-registro.component';
+import { DetalhesFeriasComponent } from './RH/visualizar-rh/detalhes-ferias/detalhes-ferias.component';
+import { InfoFeriasComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-ferias/info-ferias.component';
 
 @NgModule({
   declarations: [
@@ -111,12 +112,13 @@ import { DetalhesRegistroComponent } from './RH/visualizar-rh/detalhes-registro/
     BuscarQuizzesComponent,
     MeusProdutosComponent,
     DetalhesProdutosComponent,
-    CadastroDeRenovacaoContratoComponent,
     DetalhesNoticiaComponent,
     CentralDeNoticiasComponent,
     DetalhesMedicinaComponent,
     DetalhesFeedbackComponent,
     DetalhesRegistroComponent,
+    DetalhesFeriasComponent,
+    InfoFeriasComponent,
   ],
   imports: [
     CommonModule,

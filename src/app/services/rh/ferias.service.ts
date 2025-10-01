@@ -45,4 +45,92 @@ export class FeriasService {
       })
     );
   }
+
+  listarFerias(): Observable<Ferias[]> {
+    return this.http.get<Ferias[]>(this.apiURL).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar as férias.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  buscarFeriasPorId(id: string | number): Observable<Ferias> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.get<Ferias>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao buscar as férias.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  deletarFerias(id: string | number): Observable<void> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.delete<void>(url).pipe(
+      catchError((error) => {
+        let errorMessage = 'Erro ao deletar as férias.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  listarFeriasPorDataCadastro(
+    dataInicio: string,
+    dataFim: string
+  ): Observable<Ferias[]> {
+    const url = `${this.apiURL}/cadastro?dataInicio=${encodeURIComponent(
+      dataInicio
+    )}&dataFim=${encodeURIComponent(dataFim)}`;
+    return this.http.get<Ferias[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar as férias por data de cadastro.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  listarFeriasPorColaborador(busca: string): Observable<Ferias[]> {
+    const url = `${this.apiURL}/colaborador?busca=${encodeURIComponent(busca)}`;
+    return this.http.get<Ferias[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar férias por colaborador.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
