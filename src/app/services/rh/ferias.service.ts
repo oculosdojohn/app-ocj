@@ -116,4 +116,21 @@ export class FeriasService {
       })
     );
   }
+
+  listarFeriasPorColaborador(busca: string): Observable<Ferias[]> {
+    const url = `${this.apiURL}/colaborador?busca=${encodeURIComponent(busca)}`;
+    return this.http.get<Ferias[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar férias por colaborador.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }

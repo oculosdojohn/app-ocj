@@ -1,1 +1,58 @@
-<p>info-ferias works!</p>
+ <div class="main-container">
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mês</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Gozo</th>
+                    <th>Abono</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ferias of feriasPaginadas">
+                    <td>{{ getDescricaoMes(ferias.mesReferencia || '-') }}</td>
+                    <td>{{ ferias.inicioFerias | date:'dd/MM/yyyy' || '-'  }}</td>
+                    <td>{{ ferias.fimFerias | date:'dd/MM/yyyy' || '-'  }}</td>
+                    <td>{{ ferias.diasGozo || '-'  }}</td>
+                    <td>{{ ferias.abono || '-'  }}</td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarFerias(ferias.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarFerias(ferias.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(ferias)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="feriasPaginadas.length === 0">
+        <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há férias disponíveis.</p>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
+ </div>

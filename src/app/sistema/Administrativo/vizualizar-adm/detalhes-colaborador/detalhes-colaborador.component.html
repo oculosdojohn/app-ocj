@@ -370,6 +370,10 @@
             <app-info-feedback [colaboradorId]="+colaborador.id"></app-info-feedback>
         </div>
 
+        <div *ngSwitchCase="'ferias'">
+            <app-info-ferias [colaboradorId]="+colaborador.id"></app-info-ferias>
+        </div>
+
         <div *ngSwitchCase="'observacao'">
             <app-info-observacao [colaboradorId]="+colaborador.id"></app-info-observacao>
         </div>
