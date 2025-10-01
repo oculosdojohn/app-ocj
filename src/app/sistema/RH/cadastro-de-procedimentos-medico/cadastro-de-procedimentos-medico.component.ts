@@ -53,6 +53,11 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
 
   selectedCID10: string = '';
 
+  selectedArquivos: (
+    | File
+    | { documentoUrl: string; id: number; name: string }
+  )[] = [];
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -75,6 +80,7 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
       apto: ['SIM'],
       dataProximoExame: [''],
       numDiasAfastado: [''],
+      documentos: [[]],
     });
   }
 
@@ -101,6 +107,14 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
     );
   }
 
+  onArquivosSelecionados(
+    arquivos: (File | { id: number; name: string; documentoUrl: string })[]
+  ): void {
+    this.selectedArquivos = arquivos;
+    this.medicinaForm.get('documentos')?.setValue(arquivos);
+    console.log('Arquivos selecionados:', arquivos);
+  }
+
   onSubmit(): void {
     this.isLoading = true;
 
@@ -108,11 +122,19 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
       ...this.medicinaForm.value,
     };
 
-    console.log('Formulário enviado:', medicina);
+    const formData = new FormData();
+    formData.append('procedimento', JSON.stringify(medicina));
+
+    const documentos = this.medicinaForm.get('documentos')?.value || [];
+    documentos.forEach((documento: File) => {
+      formData.append('documentos', documento);
+    });
+
+    console.log('Formulário enviado:', formData);
 
     if (this.isEditMode && this.medicinaId) {
       this.medicinaService
-        .atualizarProcedimentoMedico(this.medicinaId, medicina)
+        .atualizarProcedimentoMedico(this.medicinaId, formData)
         .subscribe(
           (response) => {
             this.isLoading = false;
@@ -132,7 +154,7 @@ export class CadastroDeProcedimentosMedicoComponent implements OnInit {
           }
         );
     } else {
-      this.medicinaService.cadastrarProcedimentoMedico(medicina).subscribe(
+      this.medicinaService.cadastrarProcedimentoMedico(formData).subscribe(
         (response) => {
           this.isLoading = false;
           this.successMessage = 'Procedimento médico cadastrado com sucesso!';

@@ -14,8 +14,12 @@ export class MedicinaService {
 
   constructor(private http: HttpClient) {}
 
-  cadastrarProcedimentoMedico(medicina: Medicina): Observable<Medicina> {
-    return this.http.post<Medicina>(this.apiURL, medicina).pipe(
+  cadastrarProcedimentoMedico(formData: FormData): Observable<any> {
+    console.log('Dados enviados para o backend:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+    return this.http.post<any>(this.apiURL, formData).pipe(
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao salvar o procedimento médico.';
@@ -30,12 +34,14 @@ export class MedicinaService {
     );
   }
 
-  atualizarProcedimentoMedico(
-    id: string,
-    medicina: Medicina
-  ): Observable<Medicina> {
+  atualizarProcedimentoMedico(id: string, formData: FormData): Observable<any> {
     const url = `${this.apiURL}/${id}`;
-    return this.http.put<Medicina>(url, medicina).pipe(
+    console.log('Dados enviados para o backend (editar):');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    return this.http.put<any>(url, formData).pipe(
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao atualizar o procedimento médico.';
