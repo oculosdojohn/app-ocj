@@ -228,7 +228,7 @@ export class CadastroDeRegistroComponent implements OnInit {
 
     if (registro.usuario) {
       this.registroForm.patchValue({
-        usuarioId: registro.usuario.id,
+        colaboradorId: registro.usuario.id,
       });
       this.colaboradoresDaLoja = [
         {
