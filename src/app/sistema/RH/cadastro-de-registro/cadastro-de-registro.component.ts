@@ -190,6 +190,7 @@ export class CadastroDeRegistroComponent implements OnInit {
 
           this.registroForm.patchValue({
             ...registro,
+            data: toInputDate(registro.data),
           });
 
           if (registro.loja?.id) {

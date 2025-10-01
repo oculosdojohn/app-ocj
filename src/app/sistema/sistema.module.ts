@@ -54,7 +54,6 @@ import { CadastroQuizzComponent } from './Servicos/cadastro-quizz/cadastro-quizz
 import { BuscarQuizzesComponent } from './Servicos/buscar-quizzes/buscar-quizzes.component';
 import { MeusProdutosComponent } from './Servicos/visualizar-servicos/meus-produtos/meus-produtos.component';
 import { DetalhesProdutosComponent } from './Servicos/visualizar-servicos/detalhes-produtos/detalhes-produtos.component';
-import { CadastroDeRenovacaoContratoComponent } from './RH/cadastro-de-renovacao-contrato/cadastro-de-renovacao-contrato.component';
 import { DetalhesNoticiaComponent } from './Servicos/visualizar-servicos/detalhes-noticia/detalhes-noticia.component';
 import { CentralDeNoticiasComponent } from './Servicos/central-de-noticias/central-de-noticias.component';
 import { DetalhesMedicinaComponent } from './RH/visualizar-rh/detalhes-medicina/detalhes-medicina.component';
@@ -112,7 +111,6 @@ import { DetalhesFeriasComponent } from './RH/visualizar-rh/detalhes-ferias/deta
     BuscarQuizzesComponent,
     MeusProdutosComponent,
     DetalhesProdutosComponent,
-    CadastroDeRenovacaoContratoComponent,
     DetalhesNoticiaComponent,
     CentralDeNoticiasComponent,
     DetalhesMedicinaComponent,

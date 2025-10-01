@@ -72,4 +72,15 @@ export class DetalhesFeriasComponent implements OnInit {
     const index = seed ? seed.charCodeAt(0) % colors.length : 0;
     return colors[index];
   }
+
+  getDescricaoMes(mes: string | number): string {
+    if (!mes) return '-';
+    const mesFormatado = mes.toString().padStart(2, '0');
+
+    return (
+      MesesDescricoes[mesFormatado as keyof typeof MesesDescricoes] ||
+      mes.toString() ||
+      '-'
+    );
+  }
 }

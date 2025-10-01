@@ -65,7 +65,7 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Data da criação</label>
-                <p>{{ registro.criadoEm || '-' }}</p>
+                <p>{{ (registro.criadoEm | date:'dd/MM/yyyy HH:mm') ?? '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Autor (a)</label>

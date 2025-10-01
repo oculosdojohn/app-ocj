@@ -1,1 +1,58 @@
-<p>info-registro works!</p>
+ <div class="main-container">
+    <div class="progress-bar-container" *ngIf="isLoading">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Loja</th>
+                    <th>Tipo</th>
+                    <th>Classificação</th>
+                    <th>Autor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let registro of registrosPaginados">
+                    <td>{{ registro.data | date:'dd/MM/yyyy' || '-' }}</td>
+                    <td>{{ registro.loja || '-'  }}</td>
+                    <td>{{ registro.tipo || '-'  }}</td>
+                    <td>{{ registro.classificacao || '-'  }}</td>
+                    <td>{{ registro.autor.username || '-'  }}</td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn-acao visualizar" (click)="visualizarRegistro(registro.id)">
+                                <img src="assets/icones/See.png" alt="Visualizar">
+                            </button>
+                            <button class="btn-acao edit" (click)="editarRegistro(registro.id)">
+                                <img src="assets/icones/Edit.png" alt="Editar">
+                            </button>
+                            <button class="btn-acao delete" (click)="openModalDeletar(registro)">
+                                <img src="assets/icones/Delete.png" alt="Excluir">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="registrosPaginados.length === 0">
+        <div class="no-data-message">
+            <img src="assets/imgs/empty-images/no-data.svg" alt="Sem dados">
+            <p>Não há registros disponíveis.</p>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div> 
+ </div>

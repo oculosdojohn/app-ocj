@@ -33,8 +33,7 @@ export class CadastroFeriasComponent implements OnInit {
 
   meses = Object.keys(Meses).map((key) => ({
     value: Meses[key as keyof typeof Meses],
-    description:
-      MesesDescricoes[Meses[key as keyof typeof Meses]],
+    description: MesesDescricoes[Meses[key as keyof typeof Meses]],
   }));
 
   selectedMes: string = '';
@@ -172,7 +171,40 @@ export class CadastroFeriasComponent implements OnInit {
     });
   }
 
-  private verificarModoEdicao(): void {}
+  private verificarModoEdicao(): void {
+    this.feriasId = this.route.snapshot.paramMap.get('id');
+    if (this.feriasId) {
+      this.isEditMode = true;
+      this.feriasService.buscarFeriasPorId(this.feriasId).subscribe(
+        (ferias: Ferias) => {
+          console.log('Dados das férias recebidos:', ferias);
+
+          const mesFormatado = ferias.mesReferencia.toString().padStart(2, '0');
+
+          this.selectedMes = mesFormatado;
+
+          this.feriasForm.patchValue({
+            ...ferias,
+            mesReferencia: mesFormatado,
+          });
+
+          if (ferias.loja?.id) {
+            this.onLojaSelecionada(ferias.loja.id);
+            setTimeout(() => {
+              this.feriasForm.patchValue({
+                usuarioId: ferias.colaborador?.id || '',
+              });
+            }, 300);
+          }
+
+          this.tratarRetornoDTO(ferias);
+        },
+        (error) => {
+          console.error('Erro ao buscar ferias:', error);
+        }
+      );
+    }
+  }
 
   private tratarRetornoDTO(ferias: Ferias): void {
     if (ferias.loja) {
@@ -190,7 +222,7 @@ export class CadastroFeriasComponent implements OnInit {
 
     if (ferias.colaborador) {
       this.feriasForm.patchValue({
-        usuarioId: ferias.colaborador.id,
+        colaboradorId: ferias.colaborador.id,
       });
       this.colaboradoresDaLoja = [
         {

@@ -251,12 +251,12 @@ tr:hover {
 
   .breadcrumb-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 16px;
   }
   .actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 24px;
   }
 }
@@ -276,6 +276,7 @@ tr:hover {
     display: flex;
     flex-direction: column-reverse;
     gap: 24px;
+    width: 100%;
   }
   .search-container {
     width: 100%;
@@ -284,6 +285,13 @@ tr:hover {
     width: 100%;
   }
   .breadcrumb {
+    width: 100%;
+  }
+  .btn-export {
+    width: 100%;
+  }
+
+  .select-container {
     width: 100%;
   }
 }

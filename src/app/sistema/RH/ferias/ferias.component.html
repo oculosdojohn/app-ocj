@@ -56,17 +56,13 @@
                             <span>{{ ferias.colaborador?.username || '-' }}</span>
                         </div>
                     </td>
+                    <td>{{ getDescricaoMes(ferias.mesReferencia || '-') }}</td>
                     <td>
                         <div class="perfil">
-                            <span>{{ ferias.mesReferencia || '-' }}</span>
+                            <span>{{ ferias.inicioFerias | date:'dd/MM/yyyy' || '-' }}</span>
                         </div>
                     </td>
-                    <td>
-                        <div class="perfil">
-                            <span>{{ ferias.inicioFerias || '-' }}</span>
-                        </div>
-                    </td>
-                    <td>{{ ferias.fimFerias || '-' }}</td>
+                    <td>{{ ferias.fimFerias | date:'dd/MM/yyyy' || '-' }}</td>
                     <td>{{ ferias.diasGozo || '-' }}</td>
                     <td>{{ ferias.abono || '-' }}</td>
                     <td>

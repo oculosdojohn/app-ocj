@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
 import { FeriasService } from 'src/app/services/rh/ferias.service';
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
+import { Meses } from './Meses';
+import { MesesDescricoes } from './MesesDescricoes';
 
 @Component({
   selector: 'app-ferias',
@@ -162,6 +164,17 @@ export class FeriasComponent implements OnInit {
   clearMessage() {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  getDescricaoMes(mes: string | number): string {
+    if (!mes) return '-';
+    const mesFormatado = mes.toString().padStart(2, '0');
+
+    return (
+      MesesDescricoes[mesFormatado as keyof typeof MesesDescricoes] ||
+      mes.toString() ||
+      '-'
+    );
   }
 
   get rotaDashboard(): string {

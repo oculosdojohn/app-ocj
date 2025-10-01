@@ -39,18 +39,18 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Início aquisitivo</label>
-                <p>{{ ferias.inicioAquisitivo || '-' }}</p>
+                <p>{{ ferias.inicioAquisitivo | date:'dd/MM/yyyy' || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Fim aquisitivo</label>
-                <p>{{ ferias.fimAquisitivo || '-' }}</p>
+                <p>{{ ferias.fimAquisitivo | date:'dd/MM/yyyy' || '-' }}</p>
             </div>
         </div>
 
         <div class="data-grid">
             <div class="item-data">
                 <label>Mês</label>
-                <p>{{ ferias.mesReferencia || '-' }}</p>
+                <p>{{ getDescricaoMes(ferias.mesReferencia || '-') }}</p>
             </div>
             <div class="item-data">
                 <label>Ano</label>
@@ -72,18 +72,18 @@
         <div class="data-grid">
             <div class="item-data">
                 <label>Início das férias</label>
-                <p>{{ ferias.inicioFerias || '-' }}</p>
+                <p>{{ ferias.inicioFerias | date:'dd/MM/yyyy' || '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Fim das férias</label>
-                <p>{{ ferias.fimFerias || '-' }}</p>
+                <p>{{ ferias.fimFerias | date:'dd/MM/yyyy' || '-' }}</p>
             </div>
         </div>
 
         <div class="data-grid">
             <div class="item-data">
                 <label>Data do cadastro</label>
-                <p>{{ ferias.dataCriacao || '-' }}</p>
+                <p>{{ (ferias.dataCriacao | date:'dd/MM/yyyy HH:mm') ?? '-' }}</p>
             </div>
             <div class="item-data">
                 <label>Autor (a)</label>
