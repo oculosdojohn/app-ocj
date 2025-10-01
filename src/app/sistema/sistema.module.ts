@@ -60,6 +60,7 @@ import { DetalhesMedicinaComponent } from './RH/visualizar-rh/detalhes-medicina/
 import { DetalhesFeedbackComponent } from './RH/visualizar-rh/detalhes-feedback/detalhes-feedback.component';
 import { DetalhesRegistroComponent } from './RH/visualizar-rh/detalhes-registro/detalhes-registro.component';
 import { DetalhesFeriasComponent } from './RH/visualizar-rh/detalhes-ferias/detalhes-ferias.component';
+import { InfoFeriasComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-ferias/info-ferias.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { DetalhesFeriasComponent } from './RH/visualizar-rh/detalhes-ferias/deta
     DetalhesFeedbackComponent,
     DetalhesRegistroComponent,
     DetalhesFeriasComponent,
+    InfoFeriasComponent,
   ],
   imports: [
     CommonModule,
