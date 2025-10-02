@@ -55,7 +55,7 @@ export class InfoRegistroComponent implements OnInit {
     this.isLoading = true;
 
     this.registrosService
-      .listarRegistrosPorColaborador(this.colaboradorId.toString())
+      .listarRegistrosPorUsuarioId(this.colaboradorId.toString())
       .subscribe(
         (registros: Registro[]) => {
           console.log('Registros retornados:', registros);

@@ -17,8 +17,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let registro of registrosPaginados">
-                    <td>{{ registro.data | date:'dd/MM/yyyy' || '-' }}</td>
-                    <td>{{ registro.loja || '-'  }}</td>
+                    <td>{{ registro.data || '-' }}</td>
+                    <td>{{ registro.loja?.nome || '-'  }}</td>
                     <td>{{ registro.tipo || '-'  }}</td>
                     <td>{{ registro.classificacao || '-'  }}</td>
                     <td>{{ registro.autor.username || '-'  }}</td>
