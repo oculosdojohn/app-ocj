@@ -44,7 +44,7 @@
                     <td>
                         <span>{{ registro.data }}</span>
                     </td>
-                    <td>{{ registro.loja?.nome || '-' }}</td>
+                    <td>{{ registro.loja?.nome || '-' }} - {{ registro.loja?.endereco?.cidade }}</td>
                     <td>
                         <div class="perfil">
                             <div class="avatar" [ngStyle]="{'background-color': getRandomColor(registro.usuario?.username)}">
