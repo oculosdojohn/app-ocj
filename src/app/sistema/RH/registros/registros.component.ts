@@ -54,6 +54,44 @@ export class RegistrosComponent implements OnInit {
 
   onSearch(searchTerm: string) {
     console.log('Search term:', searchTerm);
+    this.termoBusca = searchTerm.trim();
+
+    if (this.termoBusca === '') {
+      // Se a busca estiver vazia, mostrar todos os registros
+      this.mensagemBusca = '';
+      this.fetchRegistros();
+      return;
+    }
+
+    this.isLoading = true;
+    this.registrosService
+      .listarRegistrosPorColaborador(this.termoBusca)
+      .subscribe(
+        (registros: Registro[]) => {
+          console.log('Registros encontrados na busca:', registros);
+          this.registros = registros;
+
+          if (registros.length === 0) {
+            this.mensagemBusca = `Nenhum registro encontrado para "${this.termoBusca}".`;
+          } else {
+            this.mensagemBusca = '';
+          }
+
+          this.paginaAtual = 1; // Resetar para primeira página
+          this.totalPaginas = Math.ceil(
+            this.registros.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Erro ao buscar registros por nome:', error);
+          this.mensagemBusca = 'Erro ao realizar a busca. Tente novamente.';
+          this.registros = [];
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        }
+      );
   }
 
   atualizarPaginacao(): void {
@@ -175,10 +213,12 @@ export class RegistrosComponent implements OnInit {
   }
 
   getDescricaoTipoRegistro(tipo: string): string {
-      return (
-        tipoRegistroDescricao[tipo as keyof typeof tipoRegistroDescricao] || tipo || '-'
-      );
-    }
+    return (
+      tipoRegistroDescricao[tipo as keyof typeof tipoRegistroDescricao] ||
+      tipo ||
+      '-'
+    );
+  }
 
   get rotaDashboard(): string {
     if (this.cargoUsuario === Permissao.ADMIN) return '/dashboard-admin';
