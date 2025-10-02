@@ -53,6 +53,46 @@ export class MedicinaComponent implements OnInit {
 
   onSearch(searchTerm: string) {
     console.log('Search term:', searchTerm);
+    this.termoBusca = searchTerm.trim();
+
+    if (this.termoBusca === '') {
+      this.mensagemBusca = '';
+      this.fetchMedicina();
+      return;
+    }
+
+    this.isLoading = true;
+    this.medicinaService
+      .listarMedicinaPorColaborador(this.termoBusca)
+      .subscribe(
+        (medicinas: Medicina[]) => {
+          console.log('Procedimentos médico encontrados na busca:', medicinas);
+          this.medicinas = medicinas;
+
+          if (medicinas.length === 0) {
+            this.mensagemBusca = `Nenhum procedimento médico encontrado para "${this.termoBusca}".`;
+          } else {
+            this.mensagemBusca = '';
+          }
+
+          this.paginaAtual = 1;
+          this.totalPaginas = Math.ceil(
+            this.medicinas.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error(
+            'Erro ao buscar procedimentos médicos por nome:',
+            error
+          );
+          this.mensagemBusca = 'Erro ao realizar a busca. Tente novamente.';
+          this.medicinas = [];
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        }
+      );
   }
 
   atualizarPaginacao(): void {

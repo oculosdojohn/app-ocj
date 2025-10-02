@@ -60,7 +60,7 @@ export class DemissoesComponent implements OnInit {
     this.demissaoForm = this.formBuilder.group({
       dataDemissao: [''],
       valorRescisao: [''],
-      valorMulta: [''],
+      valorMulta: ['0'],
       tipoDemissao: [''],
       observacoes: [''],
     });

@@ -140,4 +140,21 @@ export class MedicinaService {
       })
     );
   }
+
+  listarMedicinaPorColaborador(busca: string): Observable<Medicina[]> {
+    const url = `${this.apiURL}/colaborador/nome?busca=${encodeURIComponent(busca)}`;
+    return this.http.get<Medicina[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar procedimentos médicos por colaborador.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }

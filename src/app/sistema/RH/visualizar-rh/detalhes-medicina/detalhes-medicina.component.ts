@@ -88,4 +88,12 @@ export class DetalhesMedicinaComponent implements OnInit {
       CID10Descricoes[cid10 as keyof typeof CID10Descricoes] || cid10 || '-'
     );
   }
+
+  viewPdf(url: string): void {
+    window.open(url, '_blank');
+  }
+
+  formatFileName(fileName: string): string {
+    return fileName.replace(/^\d+_/, '').replace(/_/g, ' ');
+  }
 }

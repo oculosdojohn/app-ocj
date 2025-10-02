@@ -112,4 +112,21 @@ export class RegistrosService {
       })
     );
   }
+
+  listarRegistrosPorUsuarioId(id: string | number): Observable<Registro[]> {
+    const url = `${environment.apiURLBase}/api/usuarios/${id}/registro`;
+    return this.http.get<Registro[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar registros por ID do usuário.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
 }
