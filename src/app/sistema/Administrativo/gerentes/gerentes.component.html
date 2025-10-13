@@ -8,6 +8,12 @@
         <div class="breadcrumb">
             <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Gerentes</span>
         </div>
+        <div class="actions">
+            <!-- <div class="search-container">
+                <app-search (searchChange)="onSearch($event)"></app-search>
+            </div> -->
+            <button class="btn-export" (click)="openModalExportacao()">Exportar</button>
+        </div>
     </div>
 
     <div *ngIf="successMessage" class="alert alert-success">

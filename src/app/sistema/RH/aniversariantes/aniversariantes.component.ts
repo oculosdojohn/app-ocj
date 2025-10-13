@@ -175,7 +175,7 @@ export class AniversariantesComponent implements OnInit {
         'Loja',
         'Departamento',
       ];
-      const dados = this.colaboradoresPaginados.map((colab) => [
+      const dados = this.colaboradores.map((colab) => [
         new Date(colab.dataNascimento).toLocaleDateString(),
         colab.username,
         `${colab.loja?.nome ?? ''} - ${colab.loja?.endereco?.cidade ?? ''}`,
