@@ -44,8 +44,10 @@ export class CadastroDeFeedbackComponent implements OnInit {
       usuarioId: ['', Validators.required],
       data: [''],
       classificacao: ['POSITIVO'],
-      comentario: [''],
-      tipo: ['']
+      comportamento: [''],
+      contexto: [''],
+      consequencia: [''],
+      conselho: [''],
     });
   }
 
