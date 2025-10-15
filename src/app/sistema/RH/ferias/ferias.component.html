@@ -9,6 +9,30 @@
             <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight">Férias</span>
         </div>
         <div class="actions">
+            <!-- Filtro por período (estilo Booking) -->
+            <div class="date-range">
+                <div class="date-range-inputs">
+                <input
+                    type="date"
+                    [(ngModel)]="inicioFiltro"
+                    (ngModelChange)="onRangeChange()"
+                    [max]="fimFiltro || null"
+                    aria-label="Data inicial" />
+                <input
+                    type="date"
+                    [(ngModel)]="fimFiltro"
+                    (ngModelChange)="onRangeChange()"
+                    [min]="inicioFiltro || null"
+                    aria-label="Data final" />
+                </div>
+                <div class="date-range-actions">
+                <button class="btn-limpar"
+                        (click)="limparFiltroDatas()"
+                        [disabled]="isLoading && !inicioFiltro && !fimFiltro">
+                    Limpar
+                </button>
+                </div>
+            </div>
             <div class="select-container">
                 <app-select-padrao
                     label="Selecione uma loja"

@@ -16,9 +16,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-ferias',
   templateUrl: './ferias.component.html',
   styleUrls: ['./ferias.component.css'],
-  providers: [
-    DatePipe,
-  ],
+  providers: [DatePipe],
 })
 export class FeriasComponent implements OnInit {
   ferias: Ferias[] = [];
@@ -34,6 +32,9 @@ export class FeriasComponent implements OnInit {
   selectedFerias: any = null;
 
   selectedMes: string = '';
+  inicioFiltro: string = '';
+  fimFiltro: string = '';
+  private filtroTimeout: any;
 
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
@@ -309,5 +310,68 @@ export class FeriasComponent implements OnInit {
         this.exportarTabelaPDF();
       }
     );
+  }
+
+  onRangeChange(): void {
+    // debounce para evitar múltiplas chamadas
+    if (this.filtroTimeout) clearTimeout(this.filtroTimeout);
+    this.filtroTimeout = setTimeout(() => this.aplicarFiltroDatas(), 250);
+  }
+
+  aplicarFiltroDatas(): void {
+    // Se nada selecionado, volta à lista completa
+    if (!this.inicioFiltro && !this.fimFiltro) {
+      this.fetchFerias();
+      return;
+    }
+
+    // Validação simples: início não pode ser depois do fim
+    if (
+      this.inicioFiltro &&
+      this.fimFiltro &&
+      this.inicioFiltro > this.fimFiltro
+    ) {
+      this.mensagemBusca = 'Data inicial não pode ser maior que a data final.';
+      return;
+    }
+
+    this.isLoading = true;
+    this.mensagemBusca = '';
+
+    this.feriasService
+      .listarFeriasComFiltros(
+        this.inicioFiltro || undefined,
+        this.fimFiltro || undefined
+      )
+      .subscribe(
+        (lista) => {
+          this.ferias = lista || [];
+          this.paginaAtual = 1;
+          this.totalPaginas = Math.ceil(
+            this.ferias.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          if (this.ferias.length === 0) {
+            const ini = this.inicioFiltro || 'início não informado';
+            const fim = this.fimFiltro || 'fim não informado';
+            this.mensagemBusca = `Nenhuma férias encontrada no período (${ini} a ${fim}).`;
+          }
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Erro ao filtrar por período:', error);
+          this.mensagemBusca = 'Erro ao filtrar por período.';
+          this.ferias = [];
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        }
+      );
+  }
+
+  limparFiltroDatas(): void {
+    this.inicioFiltro = '';
+    this.fimFiltro = '';
+    this.mensagemBusca = '';
+    this.fetchFerias();
   }
 }
