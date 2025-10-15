@@ -36,7 +36,9 @@
             <div class="select-container">
                 <app-select-padrao
                     label="Selecione uma loja"
-                    [customStyles]="{'background': '#FFFFFF'}">
+                    [options]="lojas"
+                    [(selectedValue)]="selectedLoja"
+                    formControlName="lojaId">
                 </app-select-padrao>
             </div>
             <button class="btn-cadastrar" (click)="cadastrarFerias()">Cadastrar Férias</button>

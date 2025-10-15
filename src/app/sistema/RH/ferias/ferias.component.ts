@@ -11,6 +11,7 @@ import { ModalPadraoService } from 'src/app/services/modal/modal-padrao.service'
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { DatePipe } from '@angular/common';
+import { LojaService } from '../../../services/administrativo/loja.service';
 
 @Component({
   selector: 'app-ferias',
@@ -36,6 +37,9 @@ export class FeriasComponent implements OnInit {
   fimFiltro: string = '';
   private filtroTimeout: any;
 
+  lojas: { value: string; description: string }[] = [];
+  selectedLoja: string = '';
+
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
@@ -45,10 +49,12 @@ export class FeriasComponent implements OnInit {
     private feriasService: FeriasService,
     private modalDeleteService: ModalDeleteService,
     private modalPadraoService: ModalPadraoService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private lojaService: LojaService
   ) {}
 
   ngOnInit(): void {
+    this.carregarLojas();
     this.exibirMensagemDeSucesso();
     this.fetchFerias();
     this.atualizarPaginacao();
@@ -75,6 +81,20 @@ export class FeriasComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  carregarLojas(): void {
+    this.lojaService.getLojas().subscribe(
+      (lojas) => {
+        this.lojas = lojas.map((loja) => ({
+          value: loja.id,
+          description: `${loja.nome} - ${loja.endereco.cidade}`,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as lojas:', error);
+      }
+    );
   }
 
   fetchFerias(): void {
