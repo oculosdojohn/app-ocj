@@ -51,6 +51,10 @@ export class CentralDeNoticiasComponent implements OnInit {
     this.location.back();
   }
 
+  cadastrarNoticia(): void {
+    this.router.navigate(['/usuario/cadastro-noticia']);
+  }
+
   onSearch(searchTerm: string) {
     console.log('Search term:', searchTerm);
   }

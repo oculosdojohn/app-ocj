@@ -4,6 +4,8 @@ import { Noticia } from './noticia';
 import { Permissao } from 'src/app/login/permissao';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { NoticiasService } from 'src/app/services/funcionalidades/noticias.service';
+import { TipoNoticia, TipoNoticiaCor } from './enums/tipo-noticia';
+import { TipoNoticiaDescricao } from './enums/tipo-noticia-descricao';
 
 @Component({
   selector: 'app-forum-noticias',
@@ -24,6 +26,12 @@ export class ForumNoticiasComponent implements OnInit {
   totalPaginas = Math.ceil(this.noticias.length / this.itensPorPagina);
   noticiasPaginadas: Noticia[] = [];
 
+  lidas = [
+    { value: 'false', description: 'Não lidas' },
+    { value: 'true', description: 'Lidas' },
+  ];
+  selectedLida: string = '';
+
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
 
@@ -40,10 +48,6 @@ export class ForumNoticiasComponent implements OnInit {
     this.authService.obterPerfilUsuario().subscribe((usuario) => {
       this.cargoUsuario = ('ROLE_' + usuario.cargo) as Permissao;
     });
-  }
-
-  cadastrarNoticia(): void {
-    this.router.navigate(['/usuario/cadastro-noticia']);
   }
 
   acessarCentralNoticia(): void {
@@ -128,5 +132,55 @@ export class ForumNoticiasComponent implements OnInit {
   clearMessage() {
     this.successMessage = '';
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+  }
+
+  stripHtmlTags(html: string): string {
+    if (!html) return '';
+    return html
+      .replace(/<[^>]*>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  getTipoDescricao(tipo: string | TipoNoticia): string {
+    const tipoFinal = tipo && tipo !== '' ? tipo : TipoNoticia.COMUNICADO;
+    return (
+      TipoNoticiaDescricao[tipoFinal as TipoNoticia] ||
+      TipoNoticiaDescricao[TipoNoticia.COMUNICADO]
+    );
+  }
+
+  getTipoCor(tipo: string | TipoNoticia): string {
+    const tipoFinal = tipo && tipo !== '' ? tipo : TipoNoticia.COMUNICADO;
+    return (
+      TipoNoticiaCor[tipoFinal as TipoNoticia] ||
+      TipoNoticiaCor[TipoNoticia.COMUNICADO]
+    );
+  }
+
+  onNoticiaChange() {
+    this.isLoading = true;
+    console.log('Filtro selecionado:', this.selectedLida);
+    if (this.selectedLida === '') {
+      this.fetchNoticias();
+    } else {
+      this.noticiasService
+        .getNoticiasLidaOuNaoLida(this.selectedLida)
+        .subscribe(
+          (noticias) => {
+            console.log('Notícias filtradas:', noticias);
+            this.noticias = noticias;
+            this.totalPaginas = Math.ceil(
+              this.noticias.length / this.itensPorPagina
+            );
+            this.atualizarPaginacao();
+            this.isLoading = false;
+          },
+          (error) => {
+            this.isLoading = false;
+            this.mensagemBusca = 'Erro ao buscar notícias.';
+          }
+        );
+    }
   }
 }
