@@ -1,0 +1,54 @@
+.meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+.svg-wrap {
+  position: relative;
+  width: 112px;
+  height: 67px;
+}
+.gauge {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.status-icon {
+  position: absolute;
+  left: 50%;
+  top: 83.33%; 
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 10;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+.chip {
+  font-size: 16px;
+  line-height: 1;
+  padding: 8px 10px;
+  border-radius: 24px;
+  white-space: nowrap;
+  border: 0;
+}
+.chip.excelente {
+  background: #2e7d32;
+  color: #fff;
+}
+.chip.bom {
+  background: #e6f4ea;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+.chip.medio {
+  background: #fff4e5;
+  color: #b7791f;
+  border: 1px solid #f6ad55;
+}
+.chip.pessimo {
+  background: #c62828;
+  color: #fff;
+}

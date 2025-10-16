@@ -80,7 +80,7 @@
 .acoes {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 48px;
   padding: 10px 20px;
 }
 

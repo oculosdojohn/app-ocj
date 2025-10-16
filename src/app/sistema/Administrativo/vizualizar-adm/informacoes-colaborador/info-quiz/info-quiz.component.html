@@ -15,6 +15,16 @@
                 </div>
             </div>
             <div class="acoes">
+                <app-grafico-medidor 
+                [acertos]="quiz.aulasAssistidas"
+                [total]="quiz.totalAulas"
+                [icons]="{
+                    pessimo: 'assets/icones/medidor/pessimo.svg',
+                    medio: 'assets/icones/medidor/medio.svg',
+                    bom: 'assets/icones/medidor/bom.svg',
+                    excelente: 'assets/icones/medidor/excelente.svg'
+                }">
+                </app-grafico-medidor>
                 <button class="btn-acao visualizar">
                     <img src="assets/icones/See.png" alt="Visualizar">
                 </button>

@@ -1,0 +1,56 @@
+<div class="meter" [ngClass]="status" [attr.aria-label]="statusText">
+  <div class="svg-wrap">
+    <svg
+      class="gauge"
+      viewBox="0 0 200 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+    >
+      <path
+        d="M 20,100 A 80,80 0 0,1 180,100"
+        fill="none"
+        stroke="#eeeeee"
+        stroke-width="32"
+        stroke-linecap="butt"
+      />
+
+      <path
+        [attr.d]="segmentPaths.pessimo"
+        [attr.stroke]="colors.pessimo"
+        fill="none"
+        stroke-width="32"
+        stroke-linecap="butt"
+      />
+      <path
+        [attr.d]="segmentPaths.medio"
+        [attr.stroke]="colors.medio"
+        fill="none"
+        stroke-width="32"
+        stroke-linecap="butt"
+      />
+      <path
+        [attr.d]="segmentPaths.bom"
+        [attr.stroke]="colors.bom"
+        fill="none"
+        stroke-width="32"
+        stroke-linecap="butt"
+      />
+      <path
+        [attr.d]="segmentPaths.excelente"
+        [attr.stroke]="colors.excelente"
+        fill="none"
+        stroke-width="32"
+        stroke-linecap="butt"
+      />
+
+      <g [attr.transform]="'rotate(' + angle + ' 100 100)'">
+        <polygon points="100,32 92,100 108,100" fill="#111"></polygon>
+        <circle cx="100" cy="100" r="5" fill="#111"></circle>
+      </g>
+    </svg>
+
+    <img class="status-icon" [src]="icons[status]" alt="" />
+  </div>
+
+  <span class="chip" [ngClass]="status">{{ statusText }}</span>
+</div>
