@@ -8,12 +8,20 @@
         <div class="breadcrumb">
             <a [routerLink]="rotaDashboard">Início &gt; </a> <span class="breadcrumb-highlight"> Fórum de Notícias</span>
         </div>
-        <div class="actions" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
-            <button class="btn-line" (click)="acessarCentralNoticia()">
+        <div class="actions">
+              <div class="select-container">
+                <app-select-padrao
+                      label="Notícias"
+                      [options]="lidas"
+                      [(selectedValue)]="selectedLida"
+                      (selectedValueChange)="onNoticiaChange()"
+                      [showDefaultOption]="true"
+                      [defaultLabel]="'Todas as noticias'"
+                      [defaultValue]="''">
+                </app-select-padrao>
+            </div>
+            <button class="btn-line" (click)="acessarCentralNoticia()" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.DIRETOR">
                 Central de notícias
-            </button>
-            <button class="btn-cadastrar" (click)="cadastrarNoticia()">
-                Cadastrar Notícia
             </button>
         </div>
     </div>
@@ -28,38 +36,33 @@
         <div class="progress-bar"></div>
     </div>
 
-    <div class="tabela-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Titulo</th>
-                    <th>Data/Hora</th>
-                    <th>Autor</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let noticia of noticiasPaginadas">
-                    <td>
-                        <div class="perfil">
-                            <span>{{ noticia.titulo }}</span>
-                        </div>
-                    </td>
-                    <td>{{ noticia.publicadaEm }}</td>
-                    <td>
-                        <span>{{ noticia.autor.username }}</span>
-                    </td>
-                    <td>
-                        <div class="acoes">
-                            <button class="btn-acao visualizar" (click)="visualizarNoticia(noticia.id)">
-                                <img src="assets/icones/See.png" alt="Visualizar">
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <div class="noticia-container" *ngIf="!isLoading">
+        <div class="noticia-item" *ngFor="let noticia of noticiasPaginadas" [class.lida]="noticia.lida">
+            <div class="noticia-tag">
+                <span class="tag-bolinha" [ngStyle]="{'background': getTipoCor(noticia.tipoNoticia)}"></span>
+                {{ getTipoDescricao(noticia.tipoNoticia) }}
+            </div>
+
+            <!-- Foto e título -->
+            <div class="notificacao-mensagem">
+                <img *ngIf="noticia.arquivo?.documentoUrl" [src]="noticia.arquivo?.documentoUrl" alt="Foto" class="avatar" />
+                <div class="noticia-info">
+                    <span class="noticia-titulo">{{ noticia.titulo }}</span>
+                    <div class="noticia-meta">
+                        <span class="noticia-data">{{ noticia.publicadaEm }}</span>
+                        <span class="noticia-autor">por {{ noticia.autor.username }}</span>
+                    </div>
+                    <div class="noticia-visualizacoes">
+                        <span>{{ noticia.qtdVisualizacoes || 0 }} visualizações</span>
+                    </div>
+                    <div class="noticia-resumo">
+                        {{ stripHtmlTags(noticia.conteudo) | slice:0:100 }}<span *ngIf="stripHtmlTags(noticia.conteudo).length > 120">...</span>
+                    </div>
+                </div>
+            </div>
+                <button class="btn-visualizar" (click)="visualizarNoticia(noticia.id); $event.stopPropagation()">Ler notícia</button>
+            </div>
+        </div>
     
     <div *ngIf="noticiasPaginadas.length === 0">
         <ng-container *ngIf="mensagemBusca; else semNoticias">

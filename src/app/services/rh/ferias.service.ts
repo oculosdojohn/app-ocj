@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -141,6 +141,35 @@ export class FeriasService {
       map((response) => response),
       catchError((error) => {
         let errorMessage = 'Erro ao buscar férias por nome do colaborador.';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  listarFeriasComFiltros(
+    inicio?: string, // formato: yyyy-MM-dd
+    fim?: string, // formato: yyyy-MM-dd
+    lojaId?: string | number
+  ): Observable<Ferias[]> {
+    const url = `${this.apiURL}/cadastro`;
+
+    let params = new HttpParams();
+    if (inicio) params = params.set('inicio', inicio);
+    if (fim) params = params.set('fim', fim);
+    if (lojaId !== undefined && lojaId !== null && lojaId !== '') {
+      params = params.set('loja_id', String(lojaId));
+    }
+
+    return this.http.get<Ferias[]>(url, { params }).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao listar as férias (filtros).';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {

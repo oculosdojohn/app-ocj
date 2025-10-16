@@ -93,6 +93,24 @@
   background: #0056b3;
 }
 
+.btn-export {
+  background: transparent;
+  color: #007bff;
+  border: #007bff solid 2px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-export:hover {
+  background: #0056b3;
+  color: #ffffff;
+  border: #0056b3 solid 2px;
+}
+
 /* tabela */
 .tabela-container {
   width: 100%;
@@ -269,6 +287,9 @@ tr:hover {
     width: 100%;
   }
   .breadcrumb {
+    width: 100%;
+  }
+  .btn-export {
     width: 100%;
   }
 }

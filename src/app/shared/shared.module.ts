@@ -26,6 +26,7 @@ import { GraficoBarraHorizontalComponent } from './graficos/grafico-barra-horizo
 import { GraficoPizzaComponent } from './graficos/grafico-pizza/grafico-pizza.component';
 import { ModalCadastroComponent } from './modal/modal-cadastro/modal-cadastro.component';
 import { BotTiComponent } from './suporte/bot-ti/bot-ti.component';
+import { GraficoMedidorComponent } from './graficos/grafico-medidor/grafico-medidor.component';
 
 export function playerFactory() {
   return player;
@@ -56,6 +57,7 @@ export function playerFactory() {
     GraficoPizzaComponent,
     ModalCadastroComponent,
     BotTiComponent,
+    GraficoMedidorComponent,
   ],
   imports: [
     CommonModule,
@@ -85,7 +87,8 @@ export function playerFactory() {
     GraficoBarraHorizontalComponent,
     GraficoPizzaComponent,
     ModalCadastroComponent,
-    BotTiComponent
+    BotTiComponent,
+    GraficoMedidorComponent
   ],
 })
 export class SharedModule {}

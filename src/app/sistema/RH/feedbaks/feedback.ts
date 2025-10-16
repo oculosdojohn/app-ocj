@@ -11,8 +11,10 @@ export class Feedback {
   } | null;
   data!: string;
   classificacao!: string;
-  comentario!: string;
+  comportamento!: string;
   autor!: { id: string; username: string };
   dataCadastro!: string;
-  tipo!: string;
+  contexto!: string;
+  consequencia!: string;
+  conselho!: string
 }

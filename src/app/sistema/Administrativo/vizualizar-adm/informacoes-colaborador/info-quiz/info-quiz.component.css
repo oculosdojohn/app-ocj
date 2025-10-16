@@ -1,0 +1,148 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 100%;
+}
+
+/* Divisão */
+.divisao {
+  width: 100%;
+}
+
+.divisao p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Cards de quiz/modulos */
+.quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.quiz-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  overflow: hidden;
+  text-align: left;
+}
+
+.quiz-infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 8px;
+}
+
+.quiz-card span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #cb4417;
+  padding: 0;
+  margin: 0;
+}
+
+.quiz-card p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4d4a49;
+  margin: 0;
+}
+
+.quiz-image {
+  height: 100px;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.quiz-image img {
+  width: 150px;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(60%);
+}
+
+/* progresso no curso  */
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 10px 20px;
+}
+
+.btn-acao {
+  border: none;
+  background: #e4e4e4b5;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.btn-acao img {
+  width: 18px;
+  height: 18px;
+}
+
+.visualizar:hover {
+  background: #3d4b123b;
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px;
+  gap: 15px;
+}
+
+/* Breakpoints */
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+}
+
+@media (max-width: 767px) {
+  .quiz-card {
+    flex-direction: column;
+  }
+
+  .quiz-infos {
+    justify-content: flex-start;
+    align-items: baseline;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .quiz-image img {
+    width: 200px;
+    height: 100%;
+  }
+
+  .progresso-quiz-container {
+    width: 100%;
+  }
+
+  .progresso-quiz-bar {
+    width: 100%;
+  }
+}

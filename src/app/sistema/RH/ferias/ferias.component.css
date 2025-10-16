@@ -71,7 +71,7 @@
 }
 
 .select-container {
-  width: 300px;
+  width: 220px;
 }
 
 .btn-cadastrar {
@@ -355,4 +355,82 @@ tr:hover {
   to {
     width: 0;
   }
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+
+.date-range-label {
+  font-size: 14px;
+  color: #333;
+  margin-right: 6px;
+  white-space: nowrap;
+}
+
+.date-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-range-inputs input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  background: #fff;
+  color: #333;
+}
+
+.date-sep {
+  color: #666;
+  font-weight: 600;
+}
+
+.date-range-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+}
+
+.btn-filtrar {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn-filtrar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-limpar {
+  background: transparent;
+  color: #5f5f5f;
+  border: 2px solid #5f5f5f;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn-limpar:hover {
+  background: #ebebeb;
+  border: #5f5f5f solid 2px;
 }

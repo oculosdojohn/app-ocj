@@ -10,6 +10,8 @@ import {
 import { Noticia } from '../forum-noticias/noticia';
 import { NoticiasService } from 'src/app/services/funcionalidades/noticias.service';
 import { LojaService } from 'src/app/services/administrativo/loja.service';
+import { TipoNoticia } from '../forum-noticias/enums/tipo-noticia';
+import { TipoNoticiaDescricao } from '../forum-noticias/enums/tipo-noticia-descricao';
 
 @Component({
   selector: 'app-cadastro-noticias',
@@ -27,8 +29,16 @@ export class CadastroNoticiasComponent implements OnInit {
   lojasIds: { value: string; description: string }[] = [];
   selectedDestinatario: string = '';
 
-  arquivo: File | { documentoUrl: string; id: number; name: string } | null = null;
+  arquivo: File | { documentoUrl: string; id: number; name: string } | null =
+    null;
   selectedFile: File | null = null;
+
+  tiposNoticia = Object.keys(TipoNoticia).map((key) => ({
+    value: TipoNoticia[key as keyof typeof TipoNoticia],
+    description:
+      TipoNoticiaDescricao[TipoNoticia[key as keyof typeof TipoNoticia]],
+  }));
+  selectedTipoNoticia: string = '';
 
   constructor(
     private location: Location,
@@ -89,7 +99,7 @@ export class CadastroNoticiasComponent implements OnInit {
             this.successMessage = 'Notícia atualizada com sucesso!';
             this.errorMessage = null;
             this.noticiaForm.reset();
-            this.router.navigate(['/usuario/forum-de-noticias'], {
+            this.router.navigate(['/usuario/central-de-noticias'], {
               state: { successMessage: 'Notícia atualizada com sucesso!' },
             });
           },
@@ -106,7 +116,7 @@ export class CadastroNoticiasComponent implements OnInit {
           this.successMessage = 'Notícia cadastrada com sucesso!';
           this.errorMessage = null;
           this.noticiaForm.reset();
-          this.router.navigate(['/usuario/forum-de-noticias'], {
+          this.router.navigate(['/usuario/central-de-noticias'], {
             state: { successMessage: 'Notícia cadastrada com sucesso!' },
           });
         },

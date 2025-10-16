@@ -11,14 +11,13 @@ import { ModalPadraoService } from 'src/app/services/modal/modal-padrao.service'
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { DatePipe } from '@angular/common';
+import { LojaService } from '../../../services/administrativo/loja.service';
 
 @Component({
   selector: 'app-ferias',
   templateUrl: './ferias.component.html',
   styleUrls: ['./ferias.component.css'],
-  providers: [
-    DatePipe,
-  ],
+  providers: [DatePipe],
 })
 export class FeriasComponent implements OnInit {
   ferias: Ferias[] = [];
@@ -34,6 +33,12 @@ export class FeriasComponent implements OnInit {
   selectedFerias: any = null;
 
   selectedMes: string = '';
+  inicioFiltro: string = '';
+  fimFiltro: string = '';
+  private filtroTimeout: any;
+
+  lojas: { value: string; description: string }[] = [];
+  selectedLoja: string = '';
 
   public Permissao = Permissao;
   public cargoUsuario!: Permissao;
@@ -44,10 +49,12 @@ export class FeriasComponent implements OnInit {
     private feriasService: FeriasService,
     private modalDeleteService: ModalDeleteService,
     private modalPadraoService: ModalPadraoService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private lojaService: LojaService
   ) {}
 
   ngOnInit(): void {
+    this.carregarLojas();
     this.exibirMensagemDeSucesso();
     this.fetchFerias();
     this.atualizarPaginacao();
@@ -74,6 +81,20 @@ export class FeriasComponent implements OnInit {
   onPaginaMudou(novaPagina: number) {
     this.paginaAtual = novaPagina;
     this.atualizarPaginacao();
+  }
+
+  carregarLojas(): void {
+    this.lojaService.getLojas().subscribe(
+      (lojas) => {
+        this.lojas = lojas.map((loja) => ({
+          value: loja.id,
+          description: `${loja.nome} - ${loja.endereco.cidade}`,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar as lojas:', error);
+      }
+    );
   }
 
   fetchFerias(): void {
@@ -223,8 +244,30 @@ export class FeriasComponent implements OnInit {
       doc.setFontSize(10);
       doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
 
+      let filtrosTexto = 'Filtros: ';
+      const filtrosAplicados: string[] = [];
+      if (this.selectedLoja) {
+        const lojaNome =
+          this.lojas.find((l) => l.value === this.selectedLoja)?.description ||
+          this.selectedLoja;
+        filtrosAplicados.push(`Loja: ${lojaNome}`);
+      }
+      if (this.inicioFiltro) {
+        filtrosAplicados.push(
+          `Início: ${this.formatarDataBR(this.inicioFiltro)}`
+        );
+      }
+      if (this.fimFiltro) {
+        filtrosAplicados.push(`Fim: ${this.formatarDataBR(this.fimFiltro)}`);
+      }
+      filtrosTexto +=
+        filtrosAplicados.length > 0 ? filtrosAplicados.join(' | ') : 'Nenhum';
+
+      doc.setFontSize(9);
+      doc.text(filtrosTexto, 14, 27);
+
       const colunas = ['Colaborador', 'Mês', 'Inicio', 'Fim', 'Dias', 'Abono'];
-      const dados = this.feriasPaginadas.map((ferias) => [
+      const dados = this.ferias.map((ferias) => [
         ferias.colaborador?.username || '-',
         this.getDescricaoMes(ferias.mesReferencia || '-'),
         this.formatarData(ferias.inicioFerias) || '-',
@@ -286,9 +329,20 @@ export class FeriasComponent implements OnInit {
         '-' +
         hoje.getFullYear();
 
-      const nomeArquivo = `ferias_${
-        this.selectedMes || 'todos'
-      }_${dataFormatada}.pdf`;
+      let sufixo = 'todas';
+      if (this.selectedLoja) {
+        const lojaNome =
+          this.lojas.find((l) => l.value === this.selectedLoja)?.description ||
+          'loja';
+        sufixo = lojaNome.replace(/\s+/g, '_');
+      }
+      if (this.inicioFiltro || this.fimFiltro) {
+        sufixo += `_${this.inicioFiltro || 'inicio'}_${
+          this.fimFiltro || 'fim'
+        }`;
+      }
+
+      const nomeArquivo = `ferias_${sufixo}_${dataFormatada}.pdf`;
       doc.save(nomeArquivo);
     } catch (error) {
       console.error('Erro ao exportar PDF:', error);
@@ -309,5 +363,82 @@ export class FeriasComponent implements OnInit {
         this.exportarTabelaPDF();
       }
     );
+  }
+
+  private formatarDataBR(data: string): string {
+    // yyyy-MM-dd -> dd/MM/yyyy
+    if (!data) return '';
+    const [y, m, d] = data.split('-');
+    return `${d}/${m}/${y}`;
+  }
+
+  onLojaSelecionada(lojaId: string): void {
+    this.selectedLoja = lojaId;
+    this.onFiltroChange();
+  }
+
+  onRangeChange(): void {
+    this.onFiltroChange();
+  }
+
+  private onFiltroChange(): void {
+    if (this.filtroTimeout) clearTimeout(this.filtroTimeout);
+    this.filtroTimeout = setTimeout(() => this.aplicarFiltros(), 250);
+  }
+
+  aplicarFiltros(): void {
+    if (!this.inicioFiltro && !this.fimFiltro && !this.selectedLoja) {
+      this.fetchFerias();
+      return;
+    }
+
+    if (
+      this.inicioFiltro &&
+      this.fimFiltro &&
+      this.inicioFiltro > this.fimFiltro
+    ) {
+      this.mensagemBusca = 'Data inicial não pode ser maior que a data final.';
+      return;
+    }
+
+    this.isLoading = true;
+    this.mensagemBusca = '';
+
+    this.feriasService
+      .listarFeriasComFiltros(
+        this.inicioFiltro || undefined,
+        this.fimFiltro || undefined,
+        this.selectedLoja || undefined
+      )
+      .subscribe(
+        (lista) => {
+          this.ferias = lista || [];
+          this.paginaAtual = 1;
+          this.totalPaginas = Math.ceil(
+            this.ferias.length / this.itensPorPagina
+          );
+          this.atualizarPaginacao();
+          if (this.ferias.length === 0) {
+            this.mensagemBusca =
+              'Nenhuma férias encontrada com os filtros aplicados.';
+          }
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Erro ao filtrar férias:', error);
+          this.mensagemBusca = 'Erro ao filtrar férias.';
+          this.ferias = [];
+          this.atualizarPaginacao();
+          this.isLoading = false;
+        }
+      );
+  }
+
+  limparFiltroDatas(): void {
+    this.inicioFiltro = '';
+    this.fimFiltro = '';
+    this.selectedLoja = '';
+    this.mensagemBusca = '';
+    this.fetchFerias();
   }
 }

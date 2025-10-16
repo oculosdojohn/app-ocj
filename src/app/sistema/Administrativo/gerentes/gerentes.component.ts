@@ -7,6 +7,9 @@ import { ColaboradorService } from '../../../services/administrativo/colaborador
 import { ModalDeleteService } from 'src/app/services/modal/modal-delete.service';
 import { AuthService } from 'src/app/services/configs/auth.service';
 import { Permissao } from 'src/app/login/permissao';
+import { ModalPadraoService } from 'src/app/services/modal/modal-padrao.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-gerentes',
@@ -34,7 +37,8 @@ export class GerentesComponent implements OnInit {
     private router: Router,
     private colaboradorService: ColaboradorService,
     private modalDeleteService: ModalDeleteService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalPadraoService: ModalPadraoService,
   ) {}
 
   ngOnInit(): void {
@@ -187,5 +191,109 @@ export class GerentesComponent implements OnInit {
     )
       return '/dashboard-colaborador';
     return '/login';
+  }
+
+  exportarTabelaPDF(): void {
+    try {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+
+      const titulo = 'Relatório de Gerentes';
+      const dataAtual = `Exportado em: ${new Date().toLocaleDateString()}`;
+
+      doc.setFontSize(14);
+      doc.text(titulo, 14, 20);
+
+      doc.setFontSize(10);
+      doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
+
+      const colunas = [
+        'Nome',
+        'Loja',
+        'Cargo',
+        'Departamento',
+        'Status',
+      ];
+      const dados = this.gerentes.map((gerente) => [
+        gerente.username || '-',
+        gerente.loja?.nome || '-',
+        gerente.cargo || '-',
+        gerente.departamento?.nome?.toString() || '-',
+        gerente.status || '-',
+      ]);
+      autoTable(doc, {
+        head: [colunas],
+        body: dados,
+        startY: 30,
+        styles: {
+          fontSize: 10,
+          cellPadding: 4,
+          halign: 'left',
+          valign: 'middle',
+          lineWidth: 0.5,
+          lineColor: [200, 200, 200],
+        },
+        headStyles: {
+          fillColor: [0, 128, 41],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          lineWidth: 0,
+        },
+        alternateRowStyles: {
+          fillColor: [245, 245, 245],
+        },
+        didDrawCell: function (data) {
+          const radius = 2;
+          const { cell } = data;
+          if (data.section === 'body' || data.section === 'head') {
+            cell.styles.cellPadding = {
+              top: 3,
+              right: 4,
+              bottom: 3,
+              left: 4,
+            };
+          }
+        },
+      });
+
+      // Rodapé
+      const pageHeight = doc.internal.pageSize.height;
+      doc.setFontSize(9);
+      doc.text(
+        '© 2025 Óculos do John. Todos os direitos reservados.',
+        pageWidth / 2,
+        pageHeight - 10,
+        { align: 'center' }
+      );
+
+      const hoje = new Date();
+      const dataFormatada =
+        String(hoje.getDate()).padStart(2, '0') +
+        '-' +
+        String(hoje.getMonth() + 1).padStart(2, '0') +
+        '-' +
+        hoje.getFullYear();
+
+      const nomeArquivo = `gerentes_${dataFormatada}.pdf`;
+      doc.save(nomeArquivo);
+    } catch (error) {
+      console.error('Erro ao exportar PDF:', error);
+      alert('Erro ao exportar o relatório. Tente novamente.');
+    }
+  }
+
+  openModalExportacao(): void {
+    this.modalPadraoService.openModal(
+      {
+        title: 'Relatório de Gerentes',
+        description: `Tem certeza que deseja exportar o relatório de gerentes em PDF?`,
+        item: null,
+        confirmTextoBotao: 'Exportar PDF',
+        size: 'md',
+      },
+      () => {
+        this.exportarTabelaPDF();
+      }
+    );
   }
 }
