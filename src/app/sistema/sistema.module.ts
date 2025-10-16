@@ -61,6 +61,7 @@ import { DetalhesFeedbackComponent } from './RH/visualizar-rh/detalhes-feedback/
 import { DetalhesRegistroComponent } from './RH/visualizar-rh/detalhes-registro/detalhes-registro.component';
 import { DetalhesFeriasComponent } from './RH/visualizar-rh/detalhes-ferias/detalhes-ferias.component';
 import { InfoFeriasComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-ferias/info-ferias.component';
+import { InfoQuizComponent } from './Administrativo/vizualizar-adm/informacoes-colaborador/info-quiz/info-quiz.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { InfoFeriasComponent } from './Administrativo/vizualizar-adm/informacoes
     DetalhesRegistroComponent,
     DetalhesFeriasComponent,
     InfoFeriasComponent,
+    InfoQuizComponent,
   ],
   imports: [
     CommonModule,
@@ -135,6 +137,7 @@ import { InfoFeriasComponent } from './Administrativo/vizualizar-adm/informacoes
     InfoFeedbackComponent,
     InfoCursoComponent,
     InfoObservacaoComponent,
+    InfoQuizComponent
   ],
 })
 export class SistemaModule {}
