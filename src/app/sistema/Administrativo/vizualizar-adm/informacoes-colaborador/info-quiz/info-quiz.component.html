@@ -1,1 +1,33 @@
-<p>info-quiz works!</p>
+<div class="main-container">
+    <div class="divisao">
+        <p>Quizzes</p>
+        <hr class="line">
+    </div>
+    <div class="quiz">
+        <div class="quiz-card" *ngFor="let quiz of quizPaginados" >
+            <div class="quiz-infos">
+                <div class="quiz-image">
+                    <img [src]="quiz.image" alt="Imagem do quiz">
+                </div>
+                <div class="quiz-detalhes">
+                    <span>{{ quiz.description }}</span>
+                    <p>Acertos: {{ quiz.aulasAssistidas }}/{{ quiz.totalAulas }}</p>
+                </div>
+            </div>
+            <div class="acoes">
+                <button class="btn-acao visualizar">
+                    <img src="assets/icones/See.png" alt="Visualizar">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <app-pagination
+        [paginaAtual]="paginaAtual"
+        [totalItens]="totalItens"
+        [itensPorPagina]="itensPorPagina"
+        (paginaMudou)="onPaginaMudou($event)">
+        </app-pagination>
+    </div>
+</div>

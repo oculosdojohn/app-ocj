@@ -41,9 +41,7 @@
         </div>
 
         <div *ngSwitchCase="'quiz'">
-            <div class="image-center">
-                <img src="assets/imgs/embreve.png" alt="Funcionalidade disponível em breve" class="centered-image">
-            </div>
+            <app-info-quiz [colaboradorId]="+colaborador.id"></app-info-quiz>
         </div>
       </ng-container>
 </div>
