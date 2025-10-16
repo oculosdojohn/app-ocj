@@ -244,8 +244,30 @@ export class FeriasComponent implements OnInit {
       doc.setFontSize(10);
       doc.text(dataAtual, pageWidth - 14, 20, { align: 'right' });
 
+      let filtrosTexto = 'Filtros: ';
+      const filtrosAplicados: string[] = [];
+      if (this.selectedLoja) {
+        const lojaNome =
+          this.lojas.find((l) => l.value === this.selectedLoja)?.description ||
+          this.selectedLoja;
+        filtrosAplicados.push(`Loja: ${lojaNome}`);
+      }
+      if (this.inicioFiltro) {
+        filtrosAplicados.push(
+          `Início: ${this.formatarDataBR(this.inicioFiltro)}`
+        );
+      }
+      if (this.fimFiltro) {
+        filtrosAplicados.push(`Fim: ${this.formatarDataBR(this.fimFiltro)}`);
+      }
+      filtrosTexto +=
+        filtrosAplicados.length > 0 ? filtrosAplicados.join(' | ') : 'Nenhum';
+
+      doc.setFontSize(9);
+      doc.text(filtrosTexto, 14, 27);
+
       const colunas = ['Colaborador', 'Mês', 'Inicio', 'Fim', 'Dias', 'Abono'];
-      const dados = this.feriasPaginadas.map((ferias) => [
+      const dados = this.ferias.map((ferias) => [
         ferias.colaborador?.username || '-',
         this.getDescricaoMes(ferias.mesReferencia || '-'),
         this.formatarData(ferias.inicioFerias) || '-',
@@ -307,9 +329,20 @@ export class FeriasComponent implements OnInit {
         '-' +
         hoje.getFullYear();
 
-      const nomeArquivo = `ferias_${
-        this.selectedMes || 'todos'
-      }_${dataFormatada}.pdf`;
+      let sufixo = 'todas';
+      if (this.selectedLoja) {
+        const lojaNome =
+          this.lojas.find((l) => l.value === this.selectedLoja)?.description ||
+          'loja';
+        sufixo = lojaNome.replace(/\s+/g, '_');
+      }
+      if (this.inicioFiltro || this.fimFiltro) {
+        sufixo += `_${this.inicioFiltro || 'inicio'}_${
+          this.fimFiltro || 'fim'
+        }`;
+      }
+
+      const nomeArquivo = `ferias_${sufixo}_${dataFormatada}.pdf`;
       doc.save(nomeArquivo);
     } catch (error) {
       console.error('Erro ao exportar PDF:', error);
@@ -332,20 +365,33 @@ export class FeriasComponent implements OnInit {
     );
   }
 
-  onRangeChange(): void {
-    // debounce para evitar múltiplas chamadas
-    if (this.filtroTimeout) clearTimeout(this.filtroTimeout);
-    this.filtroTimeout = setTimeout(() => this.aplicarFiltroDatas(), 250);
+  private formatarDataBR(data: string): string {
+    // yyyy-MM-dd -> dd/MM/yyyy
+    if (!data) return '';
+    const [y, m, d] = data.split('-');
+    return `${d}/${m}/${y}`;
   }
 
-  aplicarFiltroDatas(): void {
-    // Se nada selecionado, volta à lista completa
-    if (!this.inicioFiltro && !this.fimFiltro) {
+  onLojaSelecionada(lojaId: string): void {
+    this.selectedLoja = lojaId;
+    this.onFiltroChange();
+  }
+
+  onRangeChange(): void {
+    this.onFiltroChange();
+  }
+
+  private onFiltroChange(): void {
+    if (this.filtroTimeout) clearTimeout(this.filtroTimeout);
+    this.filtroTimeout = setTimeout(() => this.aplicarFiltros(), 250);
+  }
+
+  aplicarFiltros(): void {
+    if (!this.inicioFiltro && !this.fimFiltro && !this.selectedLoja) {
       this.fetchFerias();
       return;
     }
 
-    // Validação simples: início não pode ser depois do fim
     if (
       this.inicioFiltro &&
       this.fimFiltro &&
@@ -361,7 +407,8 @@ export class FeriasComponent implements OnInit {
     this.feriasService
       .listarFeriasComFiltros(
         this.inicioFiltro || undefined,
-        this.fimFiltro || undefined
+        this.fimFiltro || undefined,
+        this.selectedLoja || undefined
       )
       .subscribe(
         (lista) => {
@@ -372,15 +419,14 @@ export class FeriasComponent implements OnInit {
           );
           this.atualizarPaginacao();
           if (this.ferias.length === 0) {
-            const ini = this.inicioFiltro || 'início não informado';
-            const fim = this.fimFiltro || 'fim não informado';
-            this.mensagemBusca = `Nenhuma férias encontrada no período (${ini} a ${fim}).`;
+            this.mensagemBusca =
+              'Nenhuma férias encontrada com os filtros aplicados.';
           }
           this.isLoading = false;
         },
         (error) => {
-          console.error('Erro ao filtrar por período:', error);
-          this.mensagemBusca = 'Erro ao filtrar por período.';
+          console.error('Erro ao filtrar férias:', error);
+          this.mensagemBusca = 'Erro ao filtrar férias.';
           this.ferias = [];
           this.atualizarPaginacao();
           this.isLoading = false;
@@ -391,6 +437,7 @@ export class FeriasComponent implements OnInit {
   limparFiltroDatas(): void {
     this.inicioFiltro = '';
     this.fimFiltro = '';
+    this.selectedLoja = '';
     this.mensagemBusca = '';
     this.fetchFerias();
   }

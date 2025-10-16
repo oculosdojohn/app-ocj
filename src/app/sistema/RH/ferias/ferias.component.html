@@ -38,6 +38,7 @@
                     label="Selecione uma loja"
                     [options]="lojas"
                     [(selectedValue)]="selectedLoja"
+                    (selectedValueChange)="onLojaSelecionada($event)"
                     formControlName="lojaId">
                 </app-select-padrao>
             </div>
