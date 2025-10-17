@@ -6,6 +6,14 @@ import { catchError, map } from 'rxjs/operators';
 import { Quiz, RespostasQuizDTO } from 'src/app/sistema/Servicos/cursos/quiz';
 import { Modulos } from 'src/app/sistema/Servicos/cursos/enums/modulos';
 
+export interface QuizMetricasModulo {
+  modulo: Modulos | string;
+  total: number;
+  corretas: number;
+  incorretas: number;
+  acuracia: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -138,6 +146,27 @@ export class QuizService {
       catchError((error) => {
         let errorMessage = 'Erro ao listar respostas do usuário por módulo.';
 
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
+        }
+        console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  listarMetricasPorUsuario(
+    usuarioId: number
+  ): Observable<QuizMetricasModulo[]> {
+    const url = `${this.apiURL}/${usuarioId}`;
+    return this.http.get<QuizMetricasModulo[]>(url).pipe(
+      map((response) => response),
+      catchError((error) => {
+        let errorMessage = 'Erro ao obter métricas de quizzes do usuário.';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro: ${error.error.message}`;
         } else if (error.status) {
