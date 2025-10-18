@@ -4,35 +4,47 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor() {}
+  private readonly rotasPublicas = ['/reset-password', '/login', '/auth', '/public'];
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('access_token');
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private snack: MatSnackBar
+  ) {}
 
-    const rotasPublicas = ['/reset-password', '/login'];
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.auth.obterToken();
+    const isPublicRoute = this.rotasPublicas.some((rota) => request.url.includes(rota));
 
-    // verifica se a requisição é para uma rota pública
-    const isPublicRoute = rotasPublicas.some((rota) =>
-      request.url.includes(rota)
+    const req = token && !isPublicRoute
+      ? request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
+      : request;
+
+    return next.handle(req).pipe(
+      catchError((err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401 || err.status === 419) {
+            this.auth.encerrarSessao();
+            this.snack.open('Sessão expirada. Faça login novamente.', 'OK', {
+              duration: 10000,
+            });
+            this.router.navigate(['/login'], {
+              queryParams: { reason: 'session_expired' },
+            });
+          }
+        }
+        return throwError(() => err);
+      })
     );
-
-    if (token && !isPublicRoute) {
-      const requestComToken = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return next.handle(requestComToken);
-    }
-
-    return next.handle(request);
   }
 }
