@@ -11,13 +11,13 @@
                 </div>
                 <div class="quiz-detalhes">
                     <span>{{ quiz.description }}</span>
-                    <p>Acertos: {{ quiz.aulasAssistidas }}/{{ quiz.totalAulas }}</p>
+                    <p>Acertos: {{ quiz.acertos }}/{{ quiz.total }}</p>
                 </div>
             </div>
             <div class="acoes">
                 <app-grafico-medidor 
-                [acertos]="quiz.aulasAssistidas"
-                [total]="quiz.totalAulas"
+                [acertos]="quiz.acertos"
+                [total]="quiz.total"
                 [icons]="{
                     pessimo: 'assets/icones/medidor/pessimo.svg',
                     medio: 'assets/icones/medidor/medio.svg',
