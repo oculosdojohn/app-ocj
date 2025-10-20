@@ -25,6 +25,7 @@ import { EsqueciSenhaComponent } from './recuperar-senha/esqueci-senha/esqueci-s
 import { ResetPasswordComponent } from './recuperar-senha/reset-password/reset-password.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export function playerFactory() {
   return player;
@@ -56,6 +57,7 @@ export function playerFactory() {
     MatButtonModule,
     SharedModule,
     LottieModule.forRoot({ player: playerFactory }),
+    MatSnackBarModule
   ],
   providers: [
     AuthService,
