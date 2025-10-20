@@ -3,6 +3,10 @@ import { Modulos } from 'src/app/sistema/Servicos/cursos/enums/modulos';
 import { ModulosDescricao } from 'src/app/sistema/Servicos/cursos/enums/modulos-descricao';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
 import { ProgressoCurso } from '../../../funcionarios/progresso-curso';
+import {
+  QuizService,
+  QuizMetricasModulo,
+} from 'src/app/services/funcionalidades/quiz.service';
 
 @Component({
   selector: 'app-info-quiz',
@@ -37,6 +41,8 @@ export class InfoQuizComponent implements OnInit {
       'assets/imgs/cursos-img/inteligencia-emocional.png',
   };
 
+  private ordemModulos: Modulos[] = Object.values(Modulos) as Modulos[];
+
   quiz: any[] = [];
   desempenhoData: ProgressoCurso | null = null;
   totalMoedas: number = 0;
@@ -47,16 +53,15 @@ export class InfoQuizComponent implements OnInit {
   itensPorPagina: number = 6;
   isLoading: boolean = false;
 
-  constructor(private colaboradorService: ColaboradorService) {}
+  constructor(
+    private colaboradorService: ColaboradorService,
+    private quizService: QuizService
+  ) {}
 
   ngOnInit(): void {
     if (this.colaboradorId) {
       this.carregarDesempenho();
-      console.log('ID do colaborador:', this.colaboradorId);
-      console.log(
-        'Carregando desempenho para o colaborador:',
-        this.colaboradorId
-      );
+      this.carregarMetricasQuiz();
     } else {
       console.error('ID do colaborador não fornecido');
       this.carregarDadosPadrao();
@@ -84,65 +89,67 @@ export class InfoQuizComponent implements OnInit {
     this.isLoading = true;
     this.colaboradorService.getDesempenhoCursos(this.colaboradorId).subscribe({
       next: (response: ProgressoCurso) => {
-        console.log('Desempenho recebido:', response);
         this.desempenhoData = response;
-        this.processarDados();
+        this.totalMoedas = response?.totalMoedas || 0;
+        this.aulasAssistidas = response?.quantidadeAulasAssistidas || 0;
+        this.modulosFinalizados = response?.totalModuloFinalizados || 0;
         this.isLoading = false;
       },
       error: (err) => {
         console.error('Erro ao carregar desempenho:', err);
+        this.isLoading = false;
+      },
+    });
+  }
+
+  private carregarMetricasQuiz(): void {
+    this.isLoading = true;
+    this.quizService.listarMetricasPorUsuario(this.colaboradorId).subscribe({
+      next: (metricas: QuizMetricasModulo[]) => {
+        const map = new Map<Modulos, QuizMetricasModulo>();
+        const validos = new Set(this.ordemModulos);
+        metricas.forEach((m) => {
+          const mod = m.modulo as Modulos;
+          if (validos.has(mod)) map.set(mod, m);
+        });
+
+        this.quiz = this.ordemModulos.map((mod) => {
+          const m = map.get(mod);
+          const total = m?.total ?? 0;
+          const corretas = m?.corretas ?? 0;
+          const acuracia = Math.round(
+            m?.acuracia ?? (total ? (corretas / total) * 100 : 0)
+          );
+          return {
+            value: mod,
+            description: ModulosDescricao[mod],
+            image: this.moduloImagens[mod],
+            acertos: corretas,
+            incorretas: m?.incorretas ?? 0,
+            total,
+            acuracia,
+          };
+        });
+
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar métricas do quiz:', err);
         this.carregarDadosPadrao();
         this.isLoading = false;
       },
     });
   }
 
-  processarDados(): void {
-    if (!this.desempenhoData) {
-      this.carregarDadosPadrao();
-      return;
-    }
-
-    this.totalMoedas = this.desempenhoData.totalMoedas || 0;
-    this.aulasAssistidas = this.desempenhoData.quantidadeAulasAssistidas || 0;
-    this.modulosFinalizados = this.desempenhoData.totalModuloFinalizados || 0;
-
-    const modulosBackend = this.desempenhoData.desempenhoPorModulo || [];
-
-    this.quiz = Object.keys(Modulos).map((key) => {
-      const moduloEnum = Modulos[key as keyof typeof Modulos];
-      const moduloBackend = modulosBackend.find(
-        (m: any) => m.modulo === moduloEnum
-      );
-
-      const aulasAssistidas = moduloBackend?.quantidadeAulasAssistidas || 0;
-      const totalAulas = moduloBackend?.totalAulasNoModulo || 0;
-      const porcentagem =
-        totalAulas > 0 ? Math.round((aulasAssistidas / totalAulas) * 100) : 0;
-
-      return {
-        value: moduloEnum,
-        description: ModulosDescricao[moduloEnum],
-        image: this.moduloImagens[moduloEnum],
-        porcentagem: porcentagem,
-        aulasAssistidas: aulasAssistidas,
-        totalAulas: totalAulas,
-        concluido: porcentagem === 100,
-      };
-    });
-
-    console.log('Cursos processados:', this.quiz);
-  }
-
   carregarDadosPadrao(): void {
-    this.quiz = Object.keys(Modulos).map((key) => ({
-      value: Modulos[key as keyof typeof Modulos],
-      description: ModulosDescricao[Modulos[key as keyof typeof Modulos]],
-      image: this.moduloImagens[Modulos[key as keyof typeof Modulos]],
-      porcentagem: 0,
-      aulasAssistidas: 0,
-      totalAulas: 0,
-      concluido: false,
+    this.quiz = (Object.values(Modulos) as Modulos[]).map((mod) => ({
+      value: mod,
+      description: ModulosDescricao[mod],
+      image: this.moduloImagens[mod],
+      acertos: 0,
+      incorretas: 0,
+      total: 0,
+      acuracia: 0,
     }));
   }
 }

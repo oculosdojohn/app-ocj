@@ -6,6 +6,22 @@ import { catchError, map } from 'rxjs/operators';
 import { Quiz, RespostasQuizDTO } from 'src/app/sistema/Servicos/cursos/quiz';
 import { Modulos } from 'src/app/sistema/Servicos/cursos/enums/modulos';
 
+export interface QuizMetricasModuloAPI {
+  modulo: string;
+  total: number;
+  correct: number;
+  incorrect: number;
+  accuracy: number;
+}
+
+export interface QuizMetricasModulo {
+  modulo: Modulos | string;
+  total: number;
+  corretas: number;
+  incorretas: number;
+  acuracia: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -146,6 +162,44 @@ export class QuizService {
           errorMessage = error.error.message;
         }
         console.error(errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+
+  listarMetricasPorUsuario(
+    usuarioId: number
+  ): Observable<QuizMetricasModulo[]> {
+    const url = `${this.apiURL}/usuario/${usuarioId}/metricas`; // atualizado
+    console.log('Chamando endpoint de métricas:', url);
+
+    return this.http.get<QuizMetricasModuloAPI[]>(url).pipe(
+      map((response) => {
+        console.log('Resposta do backend (métricas):', response);
+        return response.map((item) => ({
+          modulo: item.modulo,
+          total: item.total ?? 0,
+          corretas: item.correct ?? 0,
+          incorretas: item.incorrect ?? 0,
+          acuracia: item.accuracy ?? 0,
+        }));
+      }),
+      catchError((error) => {
+        let errorMessage = 'Erro ao obter métricas de quizzes do usuário.';
+        console.error('Erro HTTP completo:', error);
+        console.error('Status code:', error.status);
+        console.error('Body do erro:', error.error);
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Erro: ${error.error.message}`;
+        } else if (error.status) {
+          errorMessage = `Erro no servidor: ${error.status} - ${error.message}`;
+          if (error.error?.message) {
+            errorMessage += ` | Detalhe: ${error.error.message}`;
+          }
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
+        }
         return throwError(() => new Error(errorMessage));
       })
     );

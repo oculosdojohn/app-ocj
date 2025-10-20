@@ -10,6 +10,9 @@ export class Aula {
   video!: { documentoUrl: string; id: number };
   arquivos!: { documentoUrl: string; id: number; name: string }[];
   visualizado!: boolean;
+  totalAvaliacoes!: number;
+  mediaAvaliacoes?: number;
+  minhaAvaliacao?: number;
 
   toJson(): string {
     return JSON.stringify({

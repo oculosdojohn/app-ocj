@@ -4,7 +4,10 @@ import { Location } from '@angular/common';
 import { Modulos } from '../cursos/enums/modulos';
 import { ModulosDescricao } from '../cursos/enums/modulos-descricao';
 import { Aula } from '../cursos/aulas';
-import { CursosService } from 'src/app/services/funcionalidades/cursos.service';
+import {
+  CursosService,
+  AvaliacaoAulaRequest,
+} from 'src/app/services/funcionalidades/cursos.service';
 import { ModalQuizzService } from 'src/app/services/modal/modal-quizz.service';
 import { QuizService } from 'src/app/services/funcionalidades/quiz.service';
 import { ColaboradorService } from 'src/app/services/administrativo/colaborador.service';
@@ -24,10 +27,19 @@ export class ModuloCursoComponent implements OnInit {
   videoAtual: Aula | null = null;
   videoAtualIndex: number = 0;
   videosAssistidos: boolean[] = [];
-  userRating: number = 0;
 
   quizJaRespondido: boolean = false;
   verificandoQuiz: boolean = false;
+
+  private _userRating: number = 0;
+  get userRating(): number {
+    return this._userRating;
+  }
+  set userRating(value: number) {
+    if (value === this._userRating) return;
+    this._userRating = value;
+    this.onRatingChange(value);
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -117,6 +129,8 @@ export class ModuloCursoComponent implements OnInit {
     this.videoAtual = aula;
     this.videoAtualIndex = index;
     console.log('Reproduzindo vídeo:', this.videoAtual.video.documentoUrl);
+
+    this._userRating = aula.minhaAvaliacao || 0;
   }
 
   marcarComoAssistido(index: number): void {
@@ -168,9 +182,7 @@ export class ModuloCursoComponent implements OnInit {
         this.aulas = aulas;
         this.videosAssistidos = aulas.map((aula) => !!aula.visualizado);
         if (this.aulas.length > 0) {
-          this.videoAtual = this.aulas[0];
-          this.videoAtualIndex = 0;
-          console.log('Video atual:', this.videoAtual);
+          this.reproduzirVideo(this.aulas[0], 0);
         }
       },
       (error) => {
@@ -276,6 +288,46 @@ export class ModuloCursoComponent implements OnInit {
         console.error('Erro ao obter perfil do usuário:', err);
         this.verificandoQuiz = false;
         this.quizJaRespondido = false;
+      },
+    });
+  }
+
+  onRatingChange(estrelas: number): void {
+    if (!this.videoAtual || !estrelas) return;
+
+    const aulaId = Number(this.videoAtual.id);
+    if (isNaN(aulaId)) {
+      console.error('ID da aula inválido:', this.videoAtual.id);
+      return;
+    }
+
+    const avaliacao: AvaliacaoAulaRequest = {
+      estrelas,
+      comentario: '',
+    };
+
+    console.log(
+      `⭐ Enviando avaliação: ${estrelas} estrela${
+        estrelas > 1 ? 's' : ''
+      } para aula ${aulaId}`
+    );
+
+    this.cursosService.avaliarAula(aulaId, avaliacao).subscribe({
+      next: (response) => {
+        if (this.videoAtual) {
+          this.videoAtual.minhaAvaliacao = estrelas;
+          const aulaIndex = this.aulas.findIndex(
+            (a) => a.id === this.videoAtual!.id
+          );
+          if (aulaIndex !== -1) {
+            this.aulas[aulaIndex].minhaAvaliacao = estrelas;
+          }
+        }
+      },
+      error: (error) => {
+        if (this.videoAtual) {
+          this._userRating = this.videoAtual.minhaAvaliacao || 0;
+        }
       },
     });
   }
