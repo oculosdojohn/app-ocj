@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit {
 
   isAdmin(): boolean {
     return (
-      this.cargoUsuario === 'ROLE_ADMIN' || this.cargoUsuario === 'ROLE_DIRETOR'
+      this.cargoUsuario === 'ROLE_ADMIN' || this.cargoUsuario === 'ROLE_DIRETOR' || this.cargoUsuario === 'ROLE_SUPORTE_TI'
     );
   }
 
@@ -75,7 +75,12 @@ export class NavbarComponent implements OnInit {
       this.cargoUsuario === Permissao.VENDEDOR ||
       this.cargoUsuario === Permissao.FINANCEIRO ||
       this.cargoUsuario === Permissao.COBRADOR ||
-      this.cargoUsuario === Permissao.ESTAGIARIO
+      this.cargoUsuario === Permissao.ESTAGIARIO ||
+      this.cargoUsuario === Permissao.ASSISTENTE_ADMINISTRATIVO ||
+      this.cargoUsuario === Permissao.AUXILIAR_ESCRITORIO ||
+      this.cargoUsuario === Permissao.MARKETING ||
+      this.cargoUsuario === Permissao.MONTADOR ||
+      this.cargoUsuario === Permissao.MOTORISTA
     );
   }
 

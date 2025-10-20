@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
         switch (usuario.permissao) {
           case Permissao.ADMIN:
           case Permissao.DIRETOR:
+          case Permissao.SUPORTE_TI:
             this.router.navigate(['/usuario/dashboard-administracao']);
             break;
           case Permissao.RH:
@@ -80,6 +81,11 @@ export class LoginComponent implements OnInit {
           case Permissao.FINANCEIRO:
           case Permissao.COBRADOR:
           case Permissao.ESTAGIARIO:
+          case Permissao.ASSISTENTE_ADMINISTRATIVO:
+          case Permissao.AUXILIAR_ESCRITORIO:
+          case Permissao.MARKETING:
+          case Permissao.MONTADOR:
+          case Permissao.MOTORISTA:
             this.router.navigate(['/usuario/dashboard-colaborador']);
             break;
           default:

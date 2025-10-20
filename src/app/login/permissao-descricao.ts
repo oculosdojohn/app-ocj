@@ -16,4 +16,6 @@ export const PermissaoDescricoes: Record<Permissao, string> = {
     [Permissao.MARKETING]: 'Marketing',
     [Permissao.SUPORTE_TI]: 'Suporte de TI',
     [Permissao.ESTAGIARIO]: 'Estagiário',
+    [Permissao.MONTADOR]: 'Montador (a)',
+    [Permissao.MOTORISTA]: 'Motorista'
 };

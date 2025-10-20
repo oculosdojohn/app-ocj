@@ -186,7 +186,8 @@
                 <img src="assets/icones/sstore.svg" alt="Ícone de Meus Filtros" class="icon">
                 <span class="ml-2">Lojinha</span>
             </a>
-            <a mat-list-item routerLink="/usuario/progressos" [ngClass]="{'active-link': isActive('/usuario/progressos')}" *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.RH">
+            <a mat-list-item routerLink="/usuario/progressos" [ngClass]="{'active-link': isActive('/usuario/progressos')}" 
+               *ngIf="cargoUsuario === Permissao.ADMIN || cargoUsuario === Permissao.DIRETOR || cargoUsuario === Permissao.SUPORTE_TI || cargoUsuario === Permissao.RH || cargoUsuario === Permissao.GERENTE || cargoUsuario === Permissao.GERENTE_GERAL || cargoUsuario === Permissao.SUPERVISOR">
                 <img src="assets/icones/progresso.svg" alt="Ícone de Meus Filtros" class="icon">
                 <span class="ml-2">Progressos</span>
             </a>
