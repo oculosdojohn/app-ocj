@@ -26,13 +26,13 @@ const routes: Routes = [
         path: 'dashboard-admin',
         component: PainelAdminComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['ROLE_ADMIN'] }
+        data: { roles: ['ROLE_ADMIN', 'ROLE_DIRETOR', 'ROLE_SUPORTE_TI'] }
       },
       {
         path: 'dashboard-colaborador',
         component: PainelColaboradorComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['ROLE_CONSULTOR_VENDAS', 'ROLE_VENDEDOR', 'ROLE_COBRADOR', 'ROLE_FINANCEIRO', 'ROLE_ESTAGIARIO'] }
+      data: { roles: ['ROLE_CONSULTOR_VENDAS', 'ROLE_VENDEDOR', 'ROLE_COBRADOR', 'ROLE_FINANCEIRO', 'ROLE_ESTAGIARIO', 'ROLE_ASSISTENTE_ADMINISTRATIVO', 'ROLE_AUXILIAR_ESCRITORIO', 'ROLE_MARKETING', 'ROLE_MONTADOR', 'ROLE_MOTORISTA'] }
       },
       {
         path: 'dashboard-gerente',
