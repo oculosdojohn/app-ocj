@@ -4,6 +4,7 @@ interface Environment {
   clientId: string;
   clientSecret: string;
   obterTokenUrl: string;
+  useCookieAuth: boolean;
 }
 
 export const environment: Environment = {
@@ -13,4 +14,5 @@ export const environment: Environment = {
   clientId: 'john-app',
   clientSecret: '@2025',
   obterTokenUrl: '/oauth/token',
+  useCookieAuth: false,
 };

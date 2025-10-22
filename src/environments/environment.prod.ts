@@ -5,4 +5,5 @@ export const environment = {
   clientId: 'john-app',
   clientSecret: '@2025',
   obterTokenUrl: '/oauth/token',
+  useCookieAuth: false,
 };
